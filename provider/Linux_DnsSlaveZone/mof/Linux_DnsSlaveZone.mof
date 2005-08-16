@@ -1,0 +1,46 @@
+// ===================================================================
+// This file was created using ECUTE.
+//   Version 2.0 Beta-1
+//   by exporting package Linux_DnsSlaveZone
+//   from model 
+//   on 8/15/2005
+// Origin of package: Manually created
+// ===================================================================
+
+
+
+
+// ===================================================================
+// Linux_DnsSlaveZone
+// ===================================================================
+[Description (
+    "Class representing DNS zones of type Slave and Stub.")
+    , IBM_HasInstances, IBM_HasProvider]
+class Linux_DnsSlaveZone : Linux_DnsZone {
+
+    [Description ("The default behavior for forwarding requests.")
+        , Values {"Unknown","Only","First"}, ValueMap {"0","1","2"}
+        , IBM_ImplementationType ("Manual")]
+    uint16 Forward;
+
+    [Description ("The forwarders list."), IBM_ImplementationType (
+        "Manual")]
+    string Forwarders[];
+
+    [Key, Override ("Name"), IBM_ImplementationType ("Manual")]
+    string Name;
+
+    [Override ("ResourceRecordFile"), IBM_ImplementationType (
+        "Manual")]
+    string ResourceRecordFile;
+
+    [Override ("Type"), Description (
+        "Value = 2 for Type Slave or Value = 3 for Type Stub.")
+        , IBM_ImplementationType ("Manual")]
+    uint16 Type;
+};
+
+// ===================================================================
+// end of file
+// ===================================================================
+

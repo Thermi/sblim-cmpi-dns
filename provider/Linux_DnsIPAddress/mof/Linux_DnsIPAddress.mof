@@ -1,0 +1,43 @@
+// ===================================================================
+// This file was created using ECUTE.
+//   Version 2.0 Beta-1
+//   by exporting package Linux_DnsIPAddress
+//   from model 
+//   on 5/18/2005
+// Origin of package: Manually created
+// ===================================================================
+
+
+
+
+// ===================================================================
+// Linux_DnsIPAddress
+// ===================================================================
+[Description (
+    "Class representing IP Address Lists as used in the DnsZone "
+    "syntax."), IBM_HasInstances, IBM_HasProvider]
+class Linux_DnsIPAddress : CIM_Setting {
+
+    [Key, Description (
+        "IP Address. This MUST be unique within the scope of the DNS "
+        "Zone."), IBM_ImplementationType ("Manual")]
+    string IPAddress;
+
+    [Description ("The local communication Port to the IPAddress.")
+        , IBM_ImplementationType ("Manual")]
+    uint32 Port;
+
+    [Description (
+        "Security Key used for the communication to IPAddress.")
+        , IBM_ImplementationType ("Manual")]
+    string SecurityKey;
+
+    [Key, Propagated ("Linux_DnsZone.Name"), Description (
+        "Zone identifier."), IBM_ImplementationType ("Manual")]
+    string ZoneName;
+};
+
+// ===================================================================
+// end of file
+// ===================================================================
+

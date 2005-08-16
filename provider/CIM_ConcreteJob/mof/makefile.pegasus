@@ -1,0 +1,16 @@
+# Makefile for CIM_ConcreteJob
+# (Pegasus flavor)
+
+include ../../setting.cmpi
+
+install:
+	cimmofl -I. -aE -nroot/cimv2 CIM_ConcreteJob.mof
+	if [ -f CIM_ConcreteJobRepository.mof ]; then \
+		cimmofl -I. -nIBMShadow/cimv2 CIM_ConcreteJobRepository.mof; \
+	fi
+	if [ -f CIM_ConcreteJobRegister.mof ]; then \
+		cimmofl -I. -nroot/PG_InterOp CIM_ConcreteJobRegister.mof; \
+	fi
+
+uninstall:
+	

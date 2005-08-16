@@ -1,0 +1,16 @@
+# Makefile for Linux_DnsManagedSystemElementForSetting
+# (Pegasus flavor)
+
+include ../../setting.cmpi
+
+install:
+	cimmofl -I. -aE -nroot/cimv2 Linux_DnsManagedSystemElementForSetting.mof
+	if [ -f Linux_DnsManagedSystemElementForSettingRepository.mof ]; then \
+		cimmofl -I. -nIBMShadow/cimv2 Linux_DnsManagedSystemElementForSettingRepository.mof; \
+	fi
+	if [ -f Linux_DnsManagedSystemElementForSettingRegister.mof ]; then \
+		cimmofl -I. -nroot/PG_InterOp Linux_DnsManagedSystemElementForSettingRegister.mof; \
+	fi
+
+uninstall:
+	

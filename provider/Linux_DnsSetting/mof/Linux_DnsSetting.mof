@@ -1,0 +1,70 @@
+// ===================================================================
+// This file was created using ECUTE.
+//   Version 2.0 Beta-1
+//   by exporting package Linux_DnsSetting
+//   from model 
+//   on 8/15/2005
+// Origin of package: Manually created
+// ===================================================================
+
+
+
+
+// ===================================================================
+// Linux_DnsSetting
+// ===================================================================
+[Description (
+    "Class representing the DNS service base configuration.")
+    , IBM_HasInstances, IBM_HasProvider]
+class Linux_DnsSetting : CIM_Setting {
+
+    [Description (
+        "The full qualified path to the directory containing the "
+        "configuration files, e.g. /etc/domain.")
+        , IBM_ImplementationType ("Manual")]
+    string ConfigurationDirectory;
+
+    [Description ("The default behavior for forwarding requests.")
+        , Values {"Unknown","Only","First"}, ValueMap {"0","1","2"}
+        , IBM_ImplementationType ("Manual")]
+    uint16 Forward;
+
+    [Description ("The forwarders list."), IBM_ImplementationType (
+        "Manual")]
+    string Forwarders[];
+
+    [Key, Description (
+        "Id of the DNS Service this setting applies to.")]
+    string Name;
+
+    [Description (
+        "The Port Number the DNS Service is listening on.")
+        , IBM_ImplementationType ("Manual")]
+    uint32 PortNumber;
+
+    [Description (
+        "Indicates the value configured for TSIG support.")
+        , Values {"Unknown","Server","Key","Algorithm","Secret"}
+        , ValueMap {"0","1","2","3","4"}, IBM_ImplementationType (
+        "Manual")]
+    uint16 TSIG;
+
+    [Description (
+        "The default time to live value for Resource Records (RR). "
+        "TTL describes how long a RR can be cached, before it should "
+        "be discarded."), Units ("Seconds")
+        , IBM_ImplementationType ("Manual")]
+    uint32 TTL;
+
+    [Description (
+        "The transfer format that indicates, how updates are "
+        "processed: incremental, complete."), Values {
+        "Unknown","Incremental","Complete"}, ValueMap {"0","1","2"}
+        , IBM_ImplementationType ("Manual")]
+    uint16 XferFormat;
+};
+
+// ===================================================================
+// end of file
+// ===================================================================
+

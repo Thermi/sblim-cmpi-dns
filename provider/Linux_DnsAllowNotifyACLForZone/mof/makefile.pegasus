@@ -1,0 +1,16 @@
+# Makefile for Linux_DnsAllowNotifyACLForZone
+# (Pegasus flavor)
+
+include ../../setting.cmpi
+
+install:
+	cimmofl -I. -aE -nroot/cimv2 Linux_DnsAllowNotifyACLForZone.mof
+	if [ -f Linux_DnsAllowNotifyACLForZoneRepository.mof ]; then \
+		cimmofl -I. -nIBMShadow/cimv2 Linux_DnsAllowNotifyACLForZoneRepository.mof; \
+	fi
+	if [ -f Linux_DnsAllowNotifyACLForZoneRegister.mof ]; then \
+		cimmofl -I. -nroot/PG_InterOp Linux_DnsAllowNotifyACLForZoneRegister.mof; \
+	fi
+
+uninstall:
+	

@@ -1,0 +1,16 @@
+# Makefile for Linux_DnsAllowUpdateACLForZone
+# (Pegasus flavor)
+
+include ../../setting.cmpi
+
+install:
+	cimmofl -I. -aE -nroot/cimv2 Linux_DnsAllowUpdateACLForZone.mof
+	if [ -f Linux_DnsAllowUpdateACLForZoneRepository.mof ]; then \
+		cimmofl -I. -nIBMShadow/cimv2 Linux_DnsAllowUpdateACLForZoneRepository.mof; \
+	fi
+	if [ -f Linux_DnsAllowUpdateACLForZoneRegister.mof ]; then \
+		cimmofl -I. -nroot/PG_InterOp Linux_DnsAllowUpdateACLForZoneRegister.mof; \
+	fi
+
+uninstall:
+	

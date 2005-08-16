@@ -1,0 +1,16 @@
+# Makefile for Linux_DnsAllowQueryACLForZone
+# (Pegasus flavor)
+
+include ../../setting.cmpi
+
+install:
+	cimmofl -I. -aE -nroot/cimv2 Linux_DnsAllowQueryACLForZone.mof
+	if [ -f Linux_DnsAllowQueryACLForZoneRepository.mof ]; then \
+		cimmofl -I. -nIBMShadow/cimv2 Linux_DnsAllowQueryACLForZoneRepository.mof; \
+	fi
+	if [ -f Linux_DnsAllowQueryACLForZoneRegister.mof ]; then \
+		cimmofl -I. -nroot/PG_InterOp Linux_DnsAllowQueryACLForZoneRegister.mof; \
+	fi
+
+uninstall:
+	

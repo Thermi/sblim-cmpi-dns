@@ -1,0 +1,76 @@
+// ===================================================================
+// This file was created using ECUTE.
+//   Version 2.0 Beta-1
+//   by exporting package Linux_DnsMasterZone
+//   from model 
+//   on 8/15/2005
+// Origin of package: Manually created
+// ===================================================================
+
+
+
+
+// ===================================================================
+// Linux_DnsMasterZone
+// ===================================================================
+[Description ("Class representing DNS zones of type Master.")
+    , IBM_HasInstances, IBM_HasProvider]
+class Linux_DnsMasterZone : Linux_DnsZone {
+
+    [IBM_ImplementationType ("Manual")]
+    string Contact;
+
+    [Description ("The time in seconds after a RR expires.")
+        , Units ("Seconds"), IBM_ImplementationType ("Manual")]
+    uint32 Expire;
+
+    [Description ("The default behavior for forwarding requests.")
+        , Values {"Unknown","Only","First"}, ValueMap {"0","1","2"}
+        , IBM_ImplementationType ("Manual")]
+    uint16 Forward;
+
+    [Description ("The forwarders list."), IBM_ImplementationType (
+        "Manual")]
+    string Forwarders[];
+
+    [Key, Override ("Name"), IBM_ImplementationType ("Manual")]
+    string Name;
+
+    [Description (
+        "The negative caching time to live. This controls how long "
+        "other servers will cache no-such-domain (NXDOMAIN) responses"
+        " from you. Max value is 3 hours (10800 sec)."), Units (
+        "Seconds"), IBM_ImplementationType ("Manual")]
+    uint32 NegativeCachingTTL;
+
+    [Description ("The time in seconds after a RR is refershed.")
+        , Units ("Seconds"), IBM_ImplementationType ("Manual")]
+    uint32 Refresh;
+
+    [Override ("ResourceRecordFile"), IBM_ImplementationType (
+        "Manual")]
+    string ResourceRecordFile;
+
+    [Description ("The time in seconds after a RR is retried.")
+        , Units ("Seconds"), IBM_ImplementationType ("Manual")]
+    uint32 Retry;
+
+    [Description (
+        "Serial Number of syntax year month day version: "
+        "yyyymmddvv."), IBM_ImplementationType ("Manual")]
+    string SerialNumber;
+
+    [Description (
+        "IP Address of the authoritative server for this zone")
+        , IBM_ImplementationType ("Manual")]
+    string Server;
+
+    [Override ("Type"), Description ("Value = 1 for Type Master.")
+        , IBM_ImplementationType ("Manual")]
+    uint16 Type;
+};
+
+// ===================================================================
+// end of file
+// ===================================================================
+

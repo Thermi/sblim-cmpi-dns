@@ -1,0 +1,915 @@
+// ===================================================================
+// Title:	DNS Model
+// Filename:	Dns.mof
+// Date:	04/22/2004
+// Author:	Viktor Mihajlovski <mihajlov@de.ibm.com>
+// Contributor: Heidi Neumann <heidineu@de.ibm.com>
+// Contributor: Wolfgang taphorn <taphorn@de.ibm.com>
+// Contributor: Tony Gargya <gargya@de.ibm.com>
+// ===================================================================
+//
+// Changes:
+//
+// 12/15/2004: added class Linux_DnsService
+// 01/27/2005: added class Linux_DnsView, Linux_DnsAddressMatchList,
+//             Linux_AddressMatchListElement
+//             added association Linux_DnsProvidesEndpoint,
+//             Linux_DnsViewOfService, Linux_DnsZoneInView,
+//             Linux_DnsAddressMatchListOfService,
+//             Linux_DnsElementInAddressMatchList,
+//             Linux_DnsAcceptedClients, Linux_DnsAcceptedDestinations
+//             Linux_DnsACLForService, Linux_DnsBlackHole
+//             Linux_DnsACLForZone
+// 02/08/2005: upgraded, some naming rework, some smart upgrades
+//             Added 'Unknown' types for some ValueMaps
+// 02/09/2005: added support for eCute processing to View, Zone and Records 
+// 02/23/2005: added support for eCute processing to Service and Associations between Service, View, Zone and Records               
+// 02/28/2005: removed references to View in Zone and Records; limited eCute procesing only to Zone & records and their Association
+// 03/01/2005: removed references to IBM_ImplementationType ("Manual") in Associations
+// 04/11/2005: - removed class Linux_DnsView
+//             - removed association Linux_DnsViewOfService,
+//               Linux_DnsZoneInView, Linux_DnsAcceptedClients, Linux_DnsAcceptedDestinations
+//             - fixed data type of Linux_DnsZone properties Refresh, Retry, Expire,
+//               NegativeCachingTTL from uint64 to uint32
+//             - splitted class Linux_DnsZone into sub-classes: Linux_DnsMasterZone,
+//               Linux_DnsSlaveOrStubZone, Linux_DnsForwardZone, Linux_DnsHintZone
+//             - splitted association Linux_DnsACLForService into sub-classes:
+//               Linux_DnsQueryACLForService, Linux_DnsTransferACLForService,
+//               Linux_DnsRecursionACLForService, Linux_DnsNotifyACLForService,
+//               Linux_DnsBlackholeACLForService
+//             - splitted association Linux_DnsACLForZone into sub-classes:
+//               Linux_DnsAllowQueryACLForZone, Linux_DnsAllowTransferACLForZone,
+//               Linux_DnsAllowNotifyACLForZone, Linux_DnsAllowUpdateACLForZone,
+//               Linux_DnsBlackholeACLForZone
+// 04/12/2005  - moved service configuration data to new classes DNS_Setting and
+//		 DNS_Configuration (plus associations)
+//	       - removed obsolete properties from service.
+//	       - changed one occurence of Hint Zone to Forward Zone
+//	       - renamed RR.Class to RR.Family (class is a MOF lexical element)
+// 04/13/2005  - Linux_DnsZone derives from CIM_Setting now (instead of CIM_ManagedElement)
+//             - Linux_DnsResourceRecord derives from CIM_Setting now (instead of CIM_ManagedElement)
+//             - Linux_DnsAddressMatchList derives from CIM_Setting now (instead of CIM_ManagedElement);
+//               added KEY property ServiceName, string[] AddressList and uint16 AdressListType
+//             - associations Linux_DnsAllowQueryACLForZone, Linux_DnsAllowTransferACLForZone, Linux_DnsAllowNotifyACLForZone, Linux_DnsAllowUpdateACLForZone, Linux_DnsBlackholeACLForZone,
+//               Linux_DnsQueryACLForService, Linux_DnsTransferACLForService, Linux_DnsRecursionACLForService, Linux_DnsNotifyACLForService, Linux_DnsBlackholeACLForService
+//               derive from CIM_ElementSetting now (instead of CIM_Dependency)
+//             - removed class Linux_DnsAddressMatchListElement and association Linux_DnsElementInAddressMatchList
+//             - removed association Linux_DnsProvidesEndpoint; property uint32 PortNumber now part of class Linux_DnsSetting
+//             - renamed Linux_DnsSlaveOrStubZone to Linux_DnsSlaveZone;
+//             - added new association Linux_DnsMastersOfSlaveZone (this assoc is replacing the property DnsServer in Linux_DnsSlaveZone)
+//             - added new class Linux_DnsIPAddress
+// 04/18/2005  - corrected array specification for AddressList
+//             - extended Keys of ResourceRecord from Zone+Name to Zone+Name+Type+Value  
+//             - removed attribute JournalingFile                
+// ========================================================================================
+// Currently no support for Views, Logging, Security(DNSSSEC/TSIG), Most Options 
+// ========================================================================================
+
+
+
+#pragma include("IBMQualifiers.mof")
+
+
+// ===================================================================
+// DNS Service
+// ===================================================================
+[ Description("Class representing the DNS service/server."),
+  IBM_HasInstances, IBM_HasProvider
+]
+class Linux_DnsService : CIM_Service
+{
+  [Override("Name"),
+   Key, 
+   Description("Service process identifier."),
+   IBM_ImplementationType ("Manual")]
+  string Name;
+
+  [Description (
+          "Started is a boolean indicating whether the Service has "
+          "been started (TRUE), or stopped (FALSE)."),IBM_ImplementationType ("Manual")]
+   boolean Started;
+
+  [Description("Run privilege."),IBM_ImplementationType ("Manual")]
+  boolean RunAsRoot;
+};
+
+
+// ===================================================================
+// DNS Zone - Base class
+// ===================================================================
+[ Description("Class representing DNS zones.")]
+class Linux_DnsZone : CIM_Setting
+{
+  [Key,
+   Description("Zone identifier.")]
+  string Name;
+
+  [Description("The file containing the resource records.")]
+  string ResourceRecordFile;
+
+  [Description("Zone type. Valid types are: Master, Slave, Stub, "
+   "Forward, Hint."),
+   Values{"Unknown","Master","Slave","Stub","Forward","Hint"},
+   ValueMap{"0","1","2","3","4","5"}
+   ]
+  uint16 Type;
+
+};
+
+
+// ===================================================================
+// DNS Master Zone
+// ===================================================================
+
+// Source: O'REILLY - TCP/IP Network Administration (2003)
+//
+// BIND 9 SYNTAX
+// -------------
+// 
+// zone domain-name [ in|hs|hesiod|chaos ] {
+//   type master;					Type
+//   file pathname;					ResourceRecordFile
+//   [ forward only|first; ]
+//   [ forwarders {addresslist}; ]
+//   [ allow-update {addressmatchlist}; ]		assoc Linux_DnsAllowUpdateACLForZone
+//   [ allow-update-forwarding {addressmatchlist}; ]
+//   [ allow-query {addressmatchlist}; ]		assoc Linux_DnsAllowQueryACLForZone
+//   [ allow-transfer {addressmatchlist}; ]		assoc Linux_DnsAllowTransferACLForZone
+//   [ allow-notify {addressmatchlist}; ]		assoc Linux_DnsAllowNotifyACLForZone
+//   [ dialup yes|no; ]
+//   [ notify yes|no|notify|notofy-passive|refresh|passive; ]
+//   [ also-notify {addresslist}; ]
+//   [ database string; [...] ]
+//   [ update-policy {policy}; ]
+//   [ sig-validity-interval number; ]
+//   [ max-refresh-time number; ]
+//   [ max-retry-time number; ]
+//   [ max-transfer-idle-out number; ]
+//   [ max-transfer-time-out number; ]
+//   [ min-refresh-time number; ]
+//   [ min-retry-time number; ]
+// };
+
+[ Description("Class representing DNS zones of type Master."),
+  IBM_HasInstances, IBM_HasProvider
+]
+class Linux_DnsMasterZone : Linux_DnsZone
+{
+  [Key,
+   Override("Name"),
+   IBM_ImplementationType ("Manual")]
+  string Name;
+
+  [Override("ResourceRecordFile"),
+   IBM_ImplementationType ("Manual")]
+  string ResourceRecordFile;
+
+  [Override("Type"),
+   Description("Value = 1 for Type Master."),
+   IBM_ImplementationType ("Manual")
+   ]
+  uint16 Type;	
+
+  [IBM_ImplementationType ("Manual")]
+  string Contact;
+
+  [Description("The default behavior for forwarding requests."),
+   Values{"Unknown","Only","First"},
+   ValueMap{"0","1","2"},
+   IBM_ImplementationType ("Manual")]
+  uint16 Forward;
+  
+  [Description("The forwarders list."),
+   IBM_ImplementationType ("Manual")]
+  string Forwarders[];
+
+  // --- SOA Record --------------------------------------------------
+  [Description("IP Address of the authoritative server for this zone"),
+   IBM_ImplementationType ("Manual")]
+   string Server;
+
+  [Description("Serial Number of syntax year month day version: "
+   "yyyymmddvv."),
+   IBM_ImplementationType ("Manual")]
+  string SerialNumber;
+
+  [Description("The time in seconds after a RR is refershed."),
+   Units("Seconds"),
+   IBM_ImplementationType ("Manual")]
+  uint32 Refresh;
+
+  [Description("The time in seconds after a RR is retried."),
+   Units("Seconds"),
+   IBM_ImplementationType ("Manual")]
+  uint32 Retry;
+
+  [Description("The time in seconds after a RR expires."),
+   Units("Seconds"),
+   IBM_ImplementationType ("Manual")]
+  uint32 Expire;
+
+  [Description("The negative caching time to live. This controls "
+   "how long other servers will cache no-such-domain (NXDOMAIN) "
+   "responses from you. Max value is 3 hours (10800 sec)."),
+   Units("Seconds"),
+   IBM_ImplementationType ("Manual")]
+  uint32 NegativeCachingTTL;
+};
+
+
+// ===================================================================
+// DNS Slave|Stub Zone
+// ===================================================================
+
+// Source: O'REILLY - TCP/IP Network Administration (2003)
+//
+// BIND 9 SYNTAX
+// -------------
+// 
+// zone domain-name [ in|hs|hesiod|chaos ] {
+//   type slave|stub;					Type
+//   [ file pathname; ]					ResourceRecordFile
+//   [ ixfr-base pathname; ]
+//   masters [port ip_port] {addresslist};
+//   [ forward only|first; ]
+//   [ forwarders {addresslist}; ]
+//   [ check-names warn|fail|ignore; ]
+//   [ allow-update {addressmatchlist}; ]		assoc Linux_DnsAllowUpdateACLForZone
+//   [ allow-update-forwarding {addressmatchlist}; ]
+//   [ allow-query {addressmatchlist}; ]		assoc Linux_DnsAllowQueryACLForZone
+//   [ allow-transfer {addressmatchlist}; ]		assoc Linux_DnsAllowTransferACLForZone
+//   [ transfer-source ip_addr; ]
+//   [ dialup yes|no|notify|notofy-passive|refresh|passive; ]
+//   [ max-transfer-time-in number; ]
+//   [ notify yes|no; ]
+//   [ also-notify {addresslist}; ]
+//   [ max-refresh-time number; ]
+//   [ max-retry-time number; ]
+//   [ max-transfer-idle-in number; ]
+//   [ max-transfer-idle-out number; ]
+//   [ max-transfer-time-in number; ]
+//   [ max-transfer-time-out number; ]
+//   [ min-refresh-time number; ]
+//   [ min-retry-time number; ]
+//   [ transfer-source ip_addr|* ] [ port ip_port|*; ]
+//   [ transfer-source-v6 ip6_addr|* ] [ port ip_port|*; ]
+// };
+
+[ Description("Class representing DNS zones of type Slave and Stub."),
+  IBM_HasInstances, IBM_HasProvider
+]
+class Linux_DnsSlaveZone : Linux_DnsZone
+{
+  [Key,
+   Override("Name"),
+   IBM_ImplementationType ("Manual")]
+  string Name;
+
+  [Override("ResourceRecordFile"),
+   IBM_ImplementationType ("Manual")]
+  string ResourceRecordFile;
+
+  [Override("Type"),
+   Description("Value = 2 for Type Slave or Value = 3 for Type Stub."),
+   IBM_ImplementationType ("Manual")
+   ]
+  uint16 Type;
+
+  [Description("The default behavior for forwarding requests."),
+   Values{"Unknown","Only","First"},
+   ValueMap{"0","1","2"},
+   IBM_ImplementationType ("Manual")]
+  uint16 Forward;
+  
+  [Description("The forwarders list."),
+   IBM_ImplementationType ("Manual")]
+  string Forwarders[];
+ 
+};
+
+
+// ===================================================================
+// DNS Forward Zone
+// ===================================================================
+
+// Source: O'REILLY - TCP/IP Network Administration (2003)
+//
+// BIND 9 SYNTAX
+// -------------
+// 
+// zone domain-name [ in|hs|hesiod|chaos ] {
+//   type forward;					Type
+//   [ forward only|first; ]
+//   [ forwarders {addresslist}; ]
+// };
+
+[ Description("Class representing DNS zones of type Forward."),
+  IBM_HasInstances, IBM_HasProvider
+]
+class Linux_DnsForwardZone : Linux_DnsZone
+{
+  [Key,
+   Override("Name"),
+   IBM_ImplementationType ("Manual")]
+  string Name;
+
+  [Override("ResourceRecordFile"),
+   IBM_ImplementationType ("Manual")]
+  string ResourceRecordFile;
+
+  [Override("Type"),
+   Description("Value = 4 for Type Forward."),
+   IBM_ImplementationType ("Manual")
+   ]
+  uint16 Type;
+
+  [Description("The default behavior for forwarding requests."),
+   Values{"Unknown","Only","First"},
+   ValueMap{"0","1","2"},
+   IBM_ImplementationType ("Manual")]
+  uint16 Forward;
+  
+  [Description("The forwarders list."),
+   IBM_ImplementationType ("Manual")]
+  string Forwarders[];
+};
+
+
+// ===================================================================
+// DNS Hint Zone
+// ===================================================================
+
+// Source: O'REILLY - TCP/IP Network Administration (2003)
+//
+// BIND 9 SYNTAX
+// -------------
+// 
+// zone domain-name [ in|hs|hesiod|chaos ] {
+//   type hint;						Type
+//   file pathname;					ResourceRecordFile
+// };
+
+[ Description("Class representing DNS zones of type Hint."),
+  IBM_HasInstances, IBM_HasProvider
+]
+class Linux_DnsHintZone : Linux_DnsZone
+{
+  [Key,
+   Override("Name"),
+   IBM_ImplementationType ("Manual")]
+  string Name;
+
+  [Override("ResourceRecordFile"),
+   IBM_ImplementationType ("Manual")]
+  string ResourceRecordFile;
+
+  [Override("Type"),
+   Description("Value = 5 for Type Hint."),
+   IBM_ImplementationType ("Manual")
+   ]
+  uint16 Type;
+};
+
+
+// ===================================================================
+// DNS Resource Record
+// ===================================================================
+[ Description("Class representing DNS resource records."),
+  IBM_HasInstances, IBM_HasProvider
+]
+class Linux_DnsResourceRecord : CIM_Setting
+{
+  [Key, 
+   Propagated("Linux_DnsZone.Name"), 
+   Description("Zone identifier."),
+   IBM_ImplementationType ("Manual")]
+  string ZoneName;
+
+  [Key, 
+   Description("Record identifier."),
+   IBM_ImplementationType ("Manual")]
+  string Name;
+  
+  [Description("Specifies the time to live for the RR. TTL describes "
+   "how long a RR can be cached, before it should be discarded. If "
+   "specified, the value overrides the value set in DnsServie.TTL."),
+   IBM_ImplementationType ("Manual")]
+  uint32 TTL;	
+
+  [Description("An encoded value that identifies a protocol family "
+   "or instance of a protocol."),
+   Values{"Unknown","Internet","Hesiod","Chaos"},
+   ValueMap{"0","1","2","3"},
+   IBM_ImplementationType ("Manual")]
+  uint16 Family;
+
+  [Key,
+   Description("An encoded value that specifies the type of the "
+   "resource in this RR."),
+   Values{"Unknown","CNAME","PTR","NS","MX","HINFO","A","AAAA","WKS","RP",
+          "AFSDB","SRV","TXT","LOC","NXT","SIG","A6","DNAME"},
+   ValueMap{"0","1","2","3","4","5","6","7","8",
+            "9","10","11","12","13","14","15","16","17"},
+            IBM_ImplementationType ("Manual")]
+  uint16 Type;	
+
+  [Key,
+   Description("Value depending on the type of the RR."),
+   IBM_ImplementationType ("Manual")]
+   string Value;	
+  
+};
+
+
+// ===================================================================
+// DNS Address Match List
+// ===================================================================
+[ Description("Class representing DNS Address Match Lists (ACL) as "
+  "defined by the DNS acl statement."),
+  IBM_HasInstances, IBM_HasProvider
+]
+class Linux_DnsAddressMatchList : CIM_Setting
+{
+  [Key, 
+   Propagated("Linux_DnsService.Name"), 
+   Description("Service identifier."),
+   IBM_ImplementationType ("Manual")]
+  string ServiceName;
+
+  [Key, 
+   Description("Address Match List identifier. This MUST be unique "
+   "within the scope of the DNS Service."),
+   IBM_ImplementationType ("Manual")]
+  string Name;
+
+  [Description(""),
+   IBM_ImplementationType ("Manual")]
+  string AddressList[];
+
+  [Description("An encoded value that specifies the type of the "
+   "AddressList Elements."),
+   Values{"Unknown","PreDefined","IPv4","IPv6","IPPrefix","Key",
+          "AddressMatchList","NestedAddressMatchList"},
+   ValueMap{"0","1","2","3","4","5","6","7"},
+   IBM_ImplementationType ("Manual")]
+  uint16 AddressListType;
+};
+
+
+// ===================================================================
+// DNS IP Address
+// ===================================================================
+[ Description("Class representing IP Address Lists as used in the "
+  "DnsZone syntax."),
+  IBM_HasInstances, IBM_HasProvider
+]
+class Linux_DnsIPAddress : CIM_Setting
+{
+  [Key, 
+   Propagated("Linux_DnsZone.Name"), 
+   Description("Zone identifier."),
+   IBM_ImplementationType ("Manual")]
+  string ZoneName;
+
+  [Key, 
+   Description("IP Address. This MUST be unique within the scope of "
+   "the DNS Zone."),
+   IBM_ImplementationType ("Manual")]
+  string IPAddress;
+
+  [Description("The local communication Port to the IPAddress."),
+   IBM_ImplementationType ("Manual")]
+  uint32 Port;
+
+  [Description("Security Key used for the communication to "
+   "IPAddress."),
+   IBM_ImplementationType ("Manual")]
+  string SecurityKey;
+};
+
+
+
+// ===================================================================
+//
+// Associations
+//
+// ===================================================================
+
+
+
+// ===================================================================
+// DNS Resource Record in DNS Zone Association
+// ===================================================================
+[ Association, Aggregation, 
+  Description("Association representing the DNS resource records, that have "
+  "been specified in the scope of their DNS zone."),
+  IBM_HasInstances, IBM_HasProvider
+]
+class Linux_DnsResourceRecordInZone : CIM_Component
+{
+  [Key, Override("GroupComponent")]
+  Linux_DnsZone REF GroupComponent;
+
+  [Key, Override("PathComponent")]
+  Linux_DnsResourceRecord REF PartComponent;
+};
+
+
+// ===================================================================
+// DNS Address Match List in DNS Service Association
+// ===================================================================
+[ Association,
+  Description("Association representing the DNS Address Match Lists, "
+  "that have been specified in the scope of the DNS Service."),
+  IBM_HasInstances, IBM_HasProvider
+]
+class Linux_DnsAddressMatchListOfService : CIM_Dependency
+{
+  [Key, Override("Antecedent"),
+   Description("The scoping DNS Service.")]
+  Linux_DnsService REF Antecedent;
+
+  [Key, Override("Dependent")]
+  Linux_DnsAddressMatchList REF Dependent;
+};
+
+
+// ===================================================================
+// Access Control List (ACL) for DNS Service Requests
+// ===================================================================
+
+[ Association,
+  Description("Association pointing to Address Match Lists, hosting "
+  "the list of elements that are allowed to support the request "
+  "type: query."),
+  IBM_HasInstances, IBM_HasProvider
+]
+class Linux_DnsQueryACLForService : CIM_ElementSetting
+{
+  [Key, Override("Element"),
+   Description("The scoping DNS Service.")]
+  Linux_DnsService REF Element;
+
+  [Key, Override("Setting")]
+  Linux_DnsAddressMatchList REF Setting;
+};
+
+[ Association,
+  Description("Association pointing to Address Match Lists, hosting "
+  "the list of elements that are allowed to support the request "
+  "type: transfer."),
+  IBM_HasInstances, IBM_HasProvider
+]
+class Linux_DnsTransferACLForService : CIM_ElementSetting
+{
+  [Key, Override("Element"),
+   Description("The scoping DNS Service.")]
+  Linux_DnsService REF Element;
+
+  [Key, Override("Setting")]
+  Linux_DnsAddressMatchList REF Setting;
+};
+
+[ Association,
+  Description("Association pointing to Address Match Lists, hosting "
+  "the list of elements that are allowed to support the request "
+  "type: recursion."),
+  IBM_HasInstances, IBM_HasProvider
+]
+class Linux_DnsRecursionACLForService : CIM_ElementSetting
+{
+  [Key, Override("Element"),
+   Description("The scoping DNS Service.")]
+  Linux_DnsService REF Element;
+
+  [Key, Override("Setting")]
+  Linux_DnsAddressMatchList REF Setting;
+};
+
+[ Association,
+  Description("Association pointing to Address Match Lists, hosting "
+  "the list of elements that are allowed to support the request "
+  "type: notify."),
+  IBM_HasInstances, IBM_HasProvider
+]
+class Linux_DnsNotifyACLForService : CIM_ElementSetting
+{
+  [Key, Override("Element"),
+   Description("The scoping DNS Service.")]
+  Linux_DnsService REF Element;
+
+  [Key, Override("Setting")]
+  Linux_DnsAddressMatchList REF Setting;
+};
+
+[ Association,
+  Description("Association pointing to Address Match Lists, hosting "
+  "the list of elements that are allowed to support the request "
+  "type: blackhole."),
+  IBM_HasInstances, IBM_HasProvider
+]
+class Linux_DnsBlackholeACLForService : CIM_ElementSetting
+{
+  [Key, Override("Element"),
+   Description("The scoping DNS Service.")]
+  Linux_DnsService REF Element;
+
+  [Key, Override("Setting")]
+  Linux_DnsAddressMatchList REF Setting;
+};
+
+
+// ===================================================================
+// Access Control List (ACL) for Zone Requests
+// ===================================================================
+
+[ Association,
+  Description("Association pointing to CIM_ManagedSystemElements from "
+   "CIM_Settings."),
+  IBM_HasInstances, IBM_HasProvider
+]
+class Linux_DnsManagedSystemElementForSetting
+{
+  [Key, Description("The scoping CIM_Setting")]
+  Linux_DnsZone REF Element;
+
+  [Key, Description("The referenced CIM_ManagedSystemElement")]
+  Linux_DnsAddressMatchList REF Setting;
+};
+
+[ Association,
+  Description("Association pointing to Address Match Lists, hosting "
+  "the list of elements that are allowed to support the request "
+  "type: allow-query."),
+  IBM_HasInstances, IBM_HasProvider
+]
+class Linux_DnsAllowQueryACLForZone : Linux_DnsManagedSystemElementForSetting
+{
+  [Key, Override("Element"),
+   Description("The scoping DNS Zone.")]
+  Linux_DnsZone REF Element;
+
+  [Key, Override("Setting")]
+  Linux_DnsAddressMatchList REF Setting;
+};
+
+[ Association,
+  Description("Association pointing to Address Match Lists, hosting "
+  "the list of elements that are allowed to support the request "
+  "type: allow-transfer."),
+  IBM_HasInstances, IBM_HasProvider
+]
+class Linux_DnsAllowTransferACLForZone : Linux_DnsManagedSystemElementForSetting
+{
+  [Key, Override("Element"),
+   Description("The scoping DNS Zone.")]
+  Linux_DnsZone REF Element;
+
+  [Key, Override("Setting")]
+  Linux_DnsAddressMatchList REF Setting;
+};
+
+[ Association,
+  Description("Association pointing to Address Match Lists, hosting "
+  "the list of elements that are allowed to support the request "
+  "type: allow-notify."),
+  IBM_HasInstances, IBM_HasProvider
+]
+class Linux_DnsAllowNotifyACLForZone : Linux_DnsManagedSystemElementForSetting
+{
+  [Key, Override("Element"),
+   Description("The scoping DNS Zone.")]
+  Linux_DnsZone REF Element;
+
+  [Key, Override("Setting")]
+  Linux_DnsAddressMatchList REF Setting;
+};
+
+[ Association,
+  Description("Association pointing to Address Match Lists, hosting "
+  "the list of elements that are allowed to support the request "
+  "type: allow-update."),
+  IBM_HasInstances, IBM_HasProvider
+]
+class Linux_DnsAllowUpdateACLForZone : Linux_DnsManagedSystemElementForSetting
+{
+  [Key, Override("Element"),
+   Description("The scoping DNS Zone.")]
+  Linux_DnsZone REF Element;
+
+  [Key, Override("Setting")]
+  Linux_DnsAddressMatchList REF Setting;
+};
+
+[ Association,
+  Description("Association pointing to Address Match Lists, hosting "
+  "the list of elements that are allowed to support the request "
+  "type: blackhole."),
+  IBM_HasInstances, IBM_HasProvider
+]
+class Linux_DnsBlackholeACLForZone : Linux_DnsManagedSystemElementForSetting
+{
+  [Key, Override("Element"),
+   Description("The scoping DNS Zone.")]
+  Linux_DnsZone REF Element;
+
+  [Key, Override("Setting")]
+  Linux_DnsAddressMatchList REF Setting;
+};
+
+
+// ===================================================================
+// DNS Masters of Slave Zone
+// ===================================================================
+
+[ Association,
+  Description("Association pointing to the IP Addresses of the "
+  "Masters, managing this Slave Zone."),
+  IBM_HasInstances, IBM_HasProvider
+]
+class Linux_DnsMastersOfSlaveZone
+{
+  [Key, Description("The scoping DNS Slave Zone.")]
+  Linux_DnsSlaveZone REF Element;
+
+  [Key, Description("The referenced IP Address")]
+  Linux_DnsIPAddress REF Setting;
+};
+
+
+// ===================================================================
+// DNS Configuration
+// ===================================================================
+[ Description("Class representing the DNS service base configuration. "
+	      "The configuration class is the anchor for DNS settings. " ),
+  IBM_HasInstances, IBM_HasProvider
+]
+class Linux_DnsConfiguration : CIM_Configuration
+{
+  [Override("Name"),
+   Key, 
+   Description("Id of the DNS Service this configuration is for."),
+   IBM_ImplementationType ("Manual")]
+  string Name;
+
+  [Description("The full qualified name of the DNS Service "
+   "configuration file, e.g. /etc/named.conf."),
+   IBM_ImplementationType ("Manual")]
+  string ConfigurationFile;
+
+};
+
+// ===================================================================
+// DNS Setting
+// ===================================================================
+[ Description("Class representing the DNS service base configuration."),
+  IBM_HasInstances, IBM_HasProvider
+]
+class Linux_DnsSetting : CIM_Setting
+{
+  [Key, 
+   Description("Id of the DNS Service this setting applies to.")]
+  string Name;
+
+// The BIND 8 manpage offers the following per service options
+// obviously only fractions of it will be implemented
+
+// options {
+//   [ version version_string; ]
+//   [ directory path_name; ]
+//   [ named-xfer path_name; ]
+//   [ dump-file path_name; ]
+//   [ memstatistics-file path_name; ]
+//   [ pid-file path_name; ]
+//   [ statistics-file path_name; ]
+//   [ auth-nxdomain yes_or_no; ]
+//   [ deallocate-on-exit yes_or_no; ]
+//   [ dialup yes_or_no; ]
+//   [ fake-iquery yes_or_no; ]
+//   [ fetch-glue yes_or_no; ]
+//   [ has-old-clients yes_or_no; ]
+//   [ host-statistics yes_or_no; ]
+//   [ multiple-cnames yes_or_no; ]
+//   [ notify yes_or_no; ]
+//   [ recursion yes_or_no; ]
+//   [ rfc2308-type1 yes_or_no; ]
+//   [ use-id-pool yes_or_no; ]
+//   [ treat-cr-as-space yes_or_no; ]
+//   [ also-notify yes_or_no; ]
+//   [ forward ( only | first ); ]
+//   [ forwarders { [ in_addr ; [ in_addr ; ... ] ] }; ]
+//   [ check-names ( master | slave | response ) ( warn | fail | ignore); ]
+//   [ allow-query { address_match_list }; ]
+//   [ allow-recursion { address_match_list }; ]
+//   [ allow-transfer { address_match_list }; ]
+//   [ blackhole { address_match_list }; ]
+//   [ listen-on [ port ip_port ] { address_match_list }; ]
+//   [ query-source [ address ( ip_addr | * ) ]
+//                  [ port ( ip_port | * ) ] ; ]
+//   [ lame-ttl number; ]
+//   [ max-transfer-time-in number; ]
+//   [ max-ncache-ttl number; ]
+//   [ min-roots number; ]
+//   [ serial-queries number; ]
+//   [ transfer-format ( one-answer | many-answers ); ]
+//   [ transfers-in  number; ]
+//   [ transfers-out number; ]
+//   [ transfers-per-ns number; ]
+//   [ transfer-source ip_addr; ]
+//   [ maintain-ixfr-base yes_or_no; ]
+//   [ max-ixfr-log-size number; ]
+//   [ coresize size_spec ; ]
+//   [ datasize size_spec ; ]
+//   [ files size_spec ; ]
+//   [ stacksize size_spec ; ]
+//   [ cleaning-interval number; ]
+//   [ heartbeat-interval number; ]
+//   [ interface-interval number; ]
+//   [ statistics-interval number; ]
+//   [ topology { address_match_list }; ]
+//   [ sortlist { address_match_list|fR }; ]
+//   [ rrset-order { order_spec ; [ order_spec ; ... [ [ };
+// };
+  [Description("Indicates the value configured for TSIG support."),
+   Values{"Unknown","Server","Key","Algorithm","Secret"},
+   ValueMap{"0","1","2","3","4"},
+   IBM_ImplementationType ("Manual")]
+  uint16 TSIG;
+
+// VM: I think we mean the working directory
+  [Description("The full qualified path to the directory containing "
+   "the configuration files, e.g. /etc/domain."),
+   IBM_ImplementationType ("Manual")]
+  string ConfigurationDirectory;
+
+  [Description("The default time to live value for Resource "
+   "Records (RR). TTL describes how long a RR can be cached, "
+   "before it should be discarded."),
+   Units("Seconds"),
+   IBM_ImplementationType ("Manual")]
+  uint32 TTL;
+
+  [Description("The Port Number the DNS Service is listening on."),
+   IBM_ImplementationType ("Manual")]
+  uint32 PortNumber;
+  
+  [Description("The default behavior for forwarding requests."),
+   Values{"Unknown","Only","First"},
+   ValueMap{"0","1","2"},
+   IBM_ImplementationType ("Manual")]
+  uint16 Forward;
+  
+  [Description("The forwarders list."),
+   IBM_ImplementationType ("Manual")]
+  string Forwarders[];
+  
+  [Description("The transfer format that indicates, how updates are processed: incremental, complete."),
+   Values{"Unknown", "Incremental", "Complete"},
+   ValueMap{"0","1","2"},
+   IBM_ImplementationType ("Manual")]
+  uint16 XferFormat;
+  
+};
+
+// ===================================================================
+// DNS Service Configuration
+// ===================================================================
+[Description("Association between a DNS service and its configuration"),
+ Association,
+  IBM_HasInstances, IBM_HasProvider
+ ]
+class Linux_DnsServiceConfiguration : CIM_ElementConfiguration
+{
+  [Description("The DNS Service"), Override("Element")]
+  Linux_DnsService REF Element;
+  [Description("The DNS Configuration"), Override("Configuration")]
+  Linux_DnsConfiguration REF Configuration;
+};
+
+// ===================================================================
+// DNS Setting Context
+// ===================================================================
+[Description("Association between DNS Configuration and Setting"), 
+ Association, Aggregation,
+  IBM_HasInstances, IBM_HasProvider]
+class Linux_DnsSettingContext : CIM_SettingContext
+{
+  [Description("The DNS Configuration"), Override("Context")]
+  Linux_DnsConfiguration REF Context;
+  [Description("The DNS Setting"), Override("Setting")]
+  Linux_DnsSetting REF Setting;  
+};
+
+// ===================================================================
+// DNS Element Setting 
+// ===================================================================
+[Description("Association between DNS Service and Setting"), 
+ Association,
+  IBM_HasInstances, IBM_HasProvider]
+class Linux_DnsElementSetting : CIM_ElementSetting
+{
+  [Description("The DNS Configuration"), Override("Element")]
+  Linux_DnsService REF Element;
+  [Description("The DNS Setting"), Override("Setting")]
+  Linux_DnsSetting REF Setting;  
+};

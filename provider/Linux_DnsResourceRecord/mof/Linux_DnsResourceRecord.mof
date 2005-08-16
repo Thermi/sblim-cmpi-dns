@@ -1,0 +1,69 @@
+// ===================================================================
+// This file was created using ECUTE.
+//   Version 2.0 Beta-1
+//   by exporting package Linux_DnsResourceRecord
+//   from model 
+//   on 5/18/2005
+// Origin of package: Manually created
+// ===================================================================
+
+
+
+
+// ===================================================================
+// Linux_DnsResourceRecord
+// ===================================================================
+[Description ("Class representing DNS resource records.")
+    , IBM_HasInstances, IBM_HasProvider]
+class Linux_DnsResourceRecord : CIM_Setting {
+
+    [Description ("Indicates if the RR is enabled or disabled.")]
+    boolean Enabled;
+
+    [Description (
+        "An encoded value that identifies a protocol family or "
+        "instance of a protocol."), Values {
+        "Unknown","Internet","Hesiod","Chaos"}, ValueMap {
+        "0","1","2","3"}, IBM_ImplementationType ("Manual")]
+    uint16 Family;
+
+    [Key, Description ("Record identifier.")
+        , IBM_ImplementationType ("Manual")]
+    string Name;
+
+    [Description (
+        "Specifies the time to live for the RR. TTL describes how "
+        "long a RR can be cached, before it should be discarded. If "
+        "specified, the value overrides the value set in "
+        "DnsServie.TTL."), IBM_ImplementationType ("Manual")]
+    uint32 TTL;
+
+    [Key, Description (
+        "An encoded value that specifies the type of the resource in "
+        "this RR."), Values {
+        "Unknown","CNAME","PTR","NS","MX","HINFO","A","AAAA","WKS",
+        "RP","AFSDB","SRV","TXT","LOC","NXT","SIG","A6","DNAME"}
+        , ValueMap {
+        "0","1","2","3","4","5","6","7","8","9","10","11","12","13",
+        "14","15","16","17"}, IBM_ImplementationType ("Manual")]
+    uint16 Type;
+
+    [Key, Description ("Value depending on the type of the RR.")
+        , IBM_ImplementationType ("Manual")]
+    string Value;
+
+    [Key, Propagated ("Linux_DnsZone.Name"), Description (
+        "Zone identifier."), IBM_ImplementationType ("Manual")]
+    string ZoneName;
+
+    [Description ("Disable the RR.")]
+    uint32 disable();
+
+    [Description ("Enable the RR.")]
+    uint32 enable();
+};
+
+// ===================================================================
+// end of file
+// ===================================================================
+

@@ -1,0 +1,16 @@
+# Makefile for CIM_ManagedSystemElement
+# (Pegasus flavor)
+
+include ../../setting.cmpi
+
+install:
+	cimmofl -I. -aE -nroot/cimv2 CIM_ManagedSystemElement.mof
+	if [ -f CIM_ManagedSystemElementRepository.mof ]; then \
+		cimmofl -I. -nIBMShadow/cimv2 CIM_ManagedSystemElementRepository.mof; \
+	fi
+	if [ -f CIM_ManagedSystemElementRegister.mof ]; then \
+		cimmofl -I. -nroot/PG_InterOp CIM_ManagedSystemElementRegister.mof; \
+	fi
+
+uninstall:
+	

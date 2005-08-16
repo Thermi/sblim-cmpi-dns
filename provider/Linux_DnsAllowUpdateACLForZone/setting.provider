@@ -1,0 +1,5 @@
+#Provider configuration
+
+#CPPFLAGS.provider=
+LDFLAGS.provider=-ldnssupport
+

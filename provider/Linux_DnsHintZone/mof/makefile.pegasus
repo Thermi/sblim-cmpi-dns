@@ -1,0 +1,16 @@
+# Makefile for Linux_DnsHintZone
+# (Pegasus flavor)
+
+include ../../setting.cmpi
+
+install:
+	cimmofl -I. -aE -nroot/cimv2 Linux_DnsHintZone.mof
+	if [ -f Linux_DnsHintZoneRepository.mof ]; then \
+		cimmofl -I. -nIBMShadow/cimv2 Linux_DnsHintZoneRepository.mof; \
+	fi
+	if [ -f Linux_DnsHintZoneRegister.mof ]; then \
+		cimmofl -I. -nroot/PG_InterOp Linux_DnsHintZoneRegister.mof; \
+	fi
+
+uninstall:
+	

@@ -1,0 +1,16 @@
+# Makefile for Linux_DnsServiceConfiguration
+# (Pegasus flavor)
+
+include ../../setting.cmpi
+
+install:
+	cimmofl -I. -aE -nroot/cimv2 Linux_DnsServiceConfiguration.mof
+	if [ -f Linux_DnsServiceConfigurationRepository.mof ]; then \
+		cimmofl -I. -nIBMShadow/cimv2 Linux_DnsServiceConfigurationRepository.mof; \
+	fi
+	if [ -f Linux_DnsServiceConfigurationRegister.mof ]; then \
+		cimmofl -I. -nroot/PG_InterOp Linux_DnsServiceConfigurationRegister.mof; \
+	fi
+
+uninstall:
+	

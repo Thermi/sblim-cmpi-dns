@@ -1,0 +1,16 @@
+# Makefile for Linux_DnsQueryACLForService
+# (Pegasus flavor)
+
+include ../../setting.cmpi
+
+install:
+	cimmofl -I. -aE -nroot/cimv2 Linux_DnsQueryACLForService.mof
+	if [ -f Linux_DnsQueryACLForServiceRepository.mof ]; then \
+		cimmofl -I. -nIBMShadow/cimv2 Linux_DnsQueryACLForServiceRepository.mof; \
+	fi
+	if [ -f Linux_DnsQueryACLForServiceRegister.mof ]; then \
+		cimmofl -I. -nroot/PG_InterOp Linux_DnsQueryACLForServiceRegister.mof; \
+	fi
+
+uninstall:
+	

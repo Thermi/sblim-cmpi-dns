@@ -1,0 +1,34 @@
+// ===================================================================
+// This file was created using ECUTE.
+//   Version 2.0 Beta-1
+//   by exporting package Linux_DnsServiceRepository
+//   from model 
+//   on 7/27/2005
+// Origin of package: Manually created
+// ===================================================================
+
+
+
+
+// ===================================================================
+// Linux_DnsService
+// ===================================================================
+class Linux_DnsService {
+
+    [Key]
+    string CreationClassName;
+
+    [Key]
+    string Name;
+
+    [Key]
+    string SystemCreationClassName;
+
+    [Key]
+    string SystemName;
+};
+
+// ===================================================================
+// end of file
+// ===================================================================
+

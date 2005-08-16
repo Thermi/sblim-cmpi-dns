@@ -1,0 +1,10 @@
+# Makefile for Linux_DnsSettingContext
+# (Standalone flavor)
+
+include ../../setting.cmpi
+
+install: 
+	install -m 644 Linux_DnsSettingContext*.mof $(CIMOMMOF)
+
+uninstall:
+	$(RM) $(CIMOMMOF)/Linux_DnsSettingContext*.mof

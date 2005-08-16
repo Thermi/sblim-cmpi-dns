@@ -1,0 +1,31 @@
+// ===================================================================
+// This file was created using ECUTE.
+//   Version 2.0 Beta-1
+//   by exporting package Linux_DnsMastersOfSlaveZone
+//   from model 
+//   on 5/18/2005
+// Origin of package: Manually created
+// ===================================================================
+
+
+
+
+// ===================================================================
+// Linux_DnsMastersOfSlaveZone
+// ===================================================================
+[Association, Description (
+    "Association pointing to the IP Addresses of the Masters,"
+    " managing this Slave Zone."), IBM_HasInstances, IBM_HasProvider]
+class Linux_DnsMastersOfSlaveZone {
+
+    [Key, Description ("The scoping DNS Slave Zone.")]
+    Linux_DnsSlaveZone REF Element;
+
+    [Key, Description ("The referenced IP Address")]
+    Linux_DnsIPAddress REF Setting;
+};
+
+// ===================================================================
+// end of file
+// ===================================================================
+

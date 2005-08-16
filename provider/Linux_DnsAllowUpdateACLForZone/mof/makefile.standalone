@@ -1,0 +1,10 @@
+# Makefile for Linux_DnsAllowUpdateACLForZone
+# (Standalone flavor)
+
+include ../../setting.cmpi
+
+install: 
+	install -m 644 Linux_DnsAllowUpdateACLForZone*.mof $(CIMOMMOF)
+
+uninstall:
+	$(RM) $(CIMOMMOF)/Linux_DnsAllowUpdateACLForZone*.mof

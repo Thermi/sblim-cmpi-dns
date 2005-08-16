@@ -1,0 +1,16 @@
+# Makefile for Linux_DnsMasterZone
+# (Pegasus flavor)
+
+include ../../setting.cmpi
+
+install:
+	cimmofl -I. -aE -nroot/cimv2 Linux_DnsMasterZone.mof
+	if [ -f Linux_DnsMasterZoneRepository.mof ]; then \
+		cimmofl -I. -nIBMShadow/cimv2 Linux_DnsMasterZoneRepository.mof; \
+	fi
+	if [ -f Linux_DnsMasterZoneRegister.mof ]; then \
+		cimmofl -I. -nroot/PG_InterOp Linux_DnsMasterZoneRegister.mof; \
+	fi
+
+uninstall:
+	

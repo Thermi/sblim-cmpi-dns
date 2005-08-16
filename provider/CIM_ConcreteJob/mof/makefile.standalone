@@ -1,0 +1,10 @@
+# Makefile for CIM_ConcreteJob
+# (Standalone flavor)
+
+include ../../setting.cmpi
+
+install: 
+	install -m 644 CIM_ConcreteJob*.mof $(CIMOMMOF)
+
+uninstall:
+	$(RM) $(CIMOMMOF)/CIM_ConcreteJob*.mof

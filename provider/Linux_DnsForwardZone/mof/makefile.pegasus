@@ -1,0 +1,16 @@
+# Makefile for Linux_DnsForwardZone
+# (Pegasus flavor)
+
+include ../../setting.cmpi
+
+install:
+	cimmofl -I. -aE -nroot/cimv2 Linux_DnsForwardZone.mof
+	if [ -f Linux_DnsForwardZoneRepository.mof ]; then \
+		cimmofl -I. -nIBMShadow/cimv2 Linux_DnsForwardZoneRepository.mof; \
+	fi
+	if [ -f Linux_DnsForwardZoneRegister.mof ]; then \
+		cimmofl -I. -nroot/PG_InterOp Linux_DnsForwardZoneRegister.mof; \
+	fi
+
+uninstall:
+	

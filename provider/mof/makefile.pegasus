@@ -1,0 +1,11 @@
+# MOF files loader
+# (Pegasus flavor)
+
+include ../setting.cmpi
+
+install:
+	cimmofl -I. -aE -nroot/cimv2 common/*.mof
+	cimmofl -I. -nIBMShadow/cimv2 shadow/*.mof
+
+uninstall:
+	

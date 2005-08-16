@@ -1,0 +1,16 @@
+# Makefile for Linux_DnsAddressMatchList
+# (Pegasus flavor)
+
+include ../../setting.cmpi
+
+install:
+	cimmofl -I. -aE -nroot/cimv2 Linux_DnsAddressMatchList.mof
+	if [ -f Linux_DnsAddressMatchListRepository.mof ]; then \
+		cimmofl -I. -nIBMShadow/cimv2 Linux_DnsAddressMatchListRepository.mof; \
+	fi
+	if [ -f Linux_DnsAddressMatchListRegister.mof ]; then \
+		cimmofl -I. -nroot/PG_InterOp Linux_DnsAddressMatchListRegister.mof; \
+	fi
+
+uninstall:
+	
