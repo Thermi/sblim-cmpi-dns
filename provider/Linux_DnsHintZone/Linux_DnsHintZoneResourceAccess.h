@@ -28,8 +28,8 @@
 #include "CIM_ManagedSystemElementInstanceName.h"
 #include "Linux_DnsHintZoneDefaultImplementation.h"
 
-#include "dnssupport.h"
-#include "DnsValueMap.h"
+#include "smt_dns_ra_support.h"
+#include "smt_dns_valuemap.h"
 
 namespace genProvider {
 

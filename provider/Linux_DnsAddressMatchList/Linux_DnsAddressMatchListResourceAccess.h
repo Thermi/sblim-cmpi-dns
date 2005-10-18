@@ -28,13 +28,13 @@
 #include "CIM_ManagedSystemElementInstanceName.h"
 #include "Linux_DnsAddressMatchListDefaultImplementation.h"
 
-#include "dnssupport.h"
-#include "defaultvalues.h"
+#include "smt_dns_ra_support.h"
+#include "smt_dns_defaultvalues.h"
 #include <string>
 #include <list>
 
-#include "DnsArray.h"
-#include "DnsValueMap.h"
+#include "smt_dns_array.h"
+#include "smt_dns_valuemap.h"
 
 namespace genProvider {
 

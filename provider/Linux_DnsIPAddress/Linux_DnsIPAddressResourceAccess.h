@@ -31,9 +31,9 @@
 #include "CIM_ManagedSystemElementInstanceName.h"
 #include "Linux_DnsIPAddressDefaultImplementation.h"
 
-#include "dnssupport.h"
-#include "DnsValueMap.h"
-#include "DnsArray.h"
+#include "smt_dns_ra_support.h"
+#include "smt_dns_valuemap.h"
+#include "smt_dns_array.h"
 
 using namespace std;
 

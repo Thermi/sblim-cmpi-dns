@@ -390,7 +390,7 @@ namespace genProvider {
 	    else
 		newZone->soaContact = "root";
 
-            // if not at dialog then use following default required values (dnssupport.h) for a Zone 
+            // if not at dialog then use following default required values (smt_dns_ra_support.h) for a Zone 
             // may need to get them from default section in Service 
 	    
 	    // SerialNumber

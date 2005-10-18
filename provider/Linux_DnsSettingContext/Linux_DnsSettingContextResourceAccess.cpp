@@ -20,9 +20,6 @@
 using namespace std;
 
 #include "Linux_DnsSettingContextResourceAccess.h"
-#include "defaultvalues.h"
-
-#include "dnssupport.h"
 
 namespace genProvider {
   
@@ -146,7 +143,7 @@ namespace genProvider {
 	configInstName.setNamespace( nsp );
 	configInstName.setName( DEFAULT_SERVICE_NAME );
 	configInst.setInstanceName( configInstName );
-        configInst.setConfigurationFile( DEFAULT_CONFIGURATION_FILE );
+        configInst.setConfigurationFile( get_bindconf() );
 	
 	instEnum.addElement( configInst );
     };
@@ -170,11 +167,18 @@ namespace genProvider {
 
         BINDOPTS *bopts = ReadOptions();
 
-        char *directory = getOption(bopts,"directory");
-        if ( directory != NULL )
+	string directory = string( getOption(bopts,"directory") );
+        if ( directory.length() )
         {
-                settingInst.setConfigurationDirectory( directory );
-                free( directory );
+                string::size_type pos = 0;
+                while (pos != string::npos)
+                {
+                        pos = directory.find("\"",pos);
+                        if (pos != string::npos)
+                                directory.erase(pos,1);
+                }
+
+                settingInst.setConfigurationDirectory( directory.c_str() );
         }
 
         char *port = getOption(bopts,"port");

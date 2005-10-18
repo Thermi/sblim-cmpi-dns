@@ -167,11 +167,18 @@ namespace genProvider {
 
 	BINDOPTS *bopts = ReadOptions();
 
-        char *directory = getOption(bopts,"directory");
-        if ( directory != NULL )
+        string directory = string( getOption(bopts,"directory") );
+        if ( directory.length() )
         {
-                aManualInstance.setConfigurationDirectory( directory );
-                free( directory );
+                string::size_type pos = 0;
+                while (pos != string::npos)
+                {
+                        pos = directory.find("\"",pos);
+                        if (pos != string::npos)
+                                directory.erase(pos,1);
+                }
+
+                aManualInstance.setConfigurationDirectory( directory.c_str() );
         }
 
         char *forward = getOption(bopts,"forward");

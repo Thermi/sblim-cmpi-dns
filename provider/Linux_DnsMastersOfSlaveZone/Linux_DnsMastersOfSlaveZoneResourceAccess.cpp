@@ -219,7 +219,7 @@ namespace genProvider {
      	DNSZONE *zones = getZones();
 	DNSZONE *all_zones = zones;
 
-        while (zones && zones->zoneName)
+        for (;zones && zones->zoneName;zones++)
         {
 		if ( strcmp( zones->zoneName, sourceInst.getName() ) != 0)
 			continue;
@@ -243,7 +243,6 @@ namespace genProvider {
 				instEnum.addElement( ipInstance );
                         }
                 }
-                zones++;
         }
         freeZones( all_zones );
      };

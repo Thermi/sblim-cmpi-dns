@@ -21,8 +21,6 @@ using namespace std;
 
 #include "Linux_DnsSettingResourceAccess.h"
 
-#include "defaultvalues.h"
-
 namespace genProvider {
   
     //Linux_DnsSettingResourceAccess::Linux_DnsSettingResourceAccess();
@@ -80,11 +78,18 @@ namespace genProvider {
 		free( forwarders );
         }
 
-        char *directory = getOption(bopts,"directory");
-        if ( directory )
+        string directory = string( getOption(bopts,"directory") );
+        if ( directory.length() )
         {
-                aManualInstance.setConfigurationDirectory( directory );
-                free( directory );
+		string::size_type pos = 0;
+                while (pos != string::npos)
+                {
+                        pos = directory.find("\"",pos);
+                        if (pos != string::npos)
+                                directory.erase(pos,1);
+                }
+
+                aManualInstance.setConfigurationDirectory( directory.c_str() );
         }
 
         char *port = getOption(bopts,"port");
@@ -124,12 +129,19 @@ namespace genProvider {
 	
 	BINDOPTS *bopts = ReadOptions();
 
-	char *directory = getOption(bopts,"directory");
-	if ( directory != NULL ) 
-	{	
-		aManualInstance.setConfigurationDirectory( directory );
-		free( directory );
-	}
+        string directory = string( getOption(bopts,"directory") );
+        if ( directory.length() )
+        {
+		string::size_type pos = 0;
+                while (pos != string::npos)
+                {
+                        pos = directory.find("\"",pos);
+                        if (pos != string::npos)
+                                directory.erase(pos,1);
+                }
+
+                aManualInstance.setConfigurationDirectory( directory.c_str() );
+        }
 
         char *forward = getOption(bopts,"forward");
         if ( forward )

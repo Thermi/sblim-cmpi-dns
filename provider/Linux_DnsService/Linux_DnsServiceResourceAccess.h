@@ -27,8 +27,8 @@
 #include "CIM_ConcreteJobInstanceName.h"
 #include "Linux_DnsServiceDefaultImplementation.h"
 
-#include "dnssupport.h" 
-#include "defaultvalues.h"
+#include "smt_dns_ra_support.h" 
+#include "smt_dns_defaultvalues.h"
 
 namespace genProvider {
 
@@ -59,11 +59,11 @@ namespace genProvider {
      const char* *properties,
      const Linux_DnsServiceInstanceName&);
   	
-    /*virtual void setInstance(
+    virtual void setInstance(
      const CmpiContext& ctx,
      const CmpiBroker &mbp,
      const char* *properties,
-     const Linux_DnsServiceManualInstance&);*/
+     const Linux_DnsServiceManualInstance&);
   	
     /*virtual void createInstance(
      const CmpiContext& ctx,

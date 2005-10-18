@@ -17,8 +17,6 @@
  */
 #include "Linux_DnsConfigurationResourceAccess.h"
 
-#include "defaultvalues.h"
-
 namespace genProvider {
   
     //Linux_DnsConfigurationResourceAccess::Linux_DnsConfigurationResourceAccess();
@@ -54,7 +52,7 @@ namespace genProvider {
         instanceName.setName(DEFAULT_SERVICE_NAME);
 	
 	aManualInstance.setInstanceName(instanceName);
-	aManualInstance.setConfigurationFile(DEFAULT_CONFIGURATION_FILE);
+	aManualInstance.setConfigurationFile(get_bindconf());
 
         instances.addElement(aManualInstance);
     };
@@ -70,7 +68,7 @@ namespace genProvider {
         Linux_DnsConfigurationManualInstance aManualInstance;
 
         aManualInstance.setInstanceName(instance);
-        aManualInstance.setConfigurationFile(DEFAULT_CONFIGURATION_FILE);
+        aManualInstance.setConfigurationFile(get_bindconf());
 	
 	return aManualInstance; 
     }

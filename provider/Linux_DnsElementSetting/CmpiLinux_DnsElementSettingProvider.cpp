@@ -280,7 +280,7 @@ namespace genProvider {
      inst,cop.getNameSpace().charPtr());
     
     //REPOSITORY DATA    
-    CmpiInstance* backupShadowInstance=0;
+    /*CmpiInstance* backupShadowInstance=0;
     CmpiInstance shadowInstance=
      Linux_DnsElementSettingRepositoryInstance(inst,shadowNameSpaceP)
      .getCmpiInstance(0);     
@@ -300,21 +300,22 @@ namespace genProvider {
     else
       cppBroker.createInstance(ctx, shadowOp,shadowInstance);      
     
-    
+    */
     //RESOURCE ACCESS DATA   
     try{
       interfaceP->setInstance(ctx, cppBroker, properties, instance);
     }catch(CmpiStatus& rc){
       //If something went wrong we recover the previous state
-      cppBroker.deleteInstance(ctx, shadowOp);
+      /*cppBroker.deleteInstance(ctx, shadowOp);
       if(backupShadowInstance){
         cppBroker.createInstance(ctx, shadowOp,*backupShadowInstance);
-      }
+      }*/
+      throw rc;
     };
       
-    if(backupShadowInstance)
+    /*if(backupShadowInstance)
       delete(backupShadowInstance);
-        
+        */
     rslt.returnDone();
     return CmpiStatus(CMPI_RC_OK);
   };

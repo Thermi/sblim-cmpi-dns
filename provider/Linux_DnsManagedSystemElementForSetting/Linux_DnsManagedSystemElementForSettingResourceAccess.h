@@ -35,10 +35,10 @@
 
 using namespace std;
 
-#include "dnssupport.h"
-#include "defaultvalues.h"
-#include "DnsArray.h"
-#include "DnsValueMap.h"
+#include "smt_dns_ra_support.h"
+#include "smt_dns_defaultvalues.h"
+#include "smt_dns_array.h"
+#include "smt_dns_valuemap.h"
 
 #define DNS_ALLOW_NOTIFY_STR	"allow-notify"
 #define DNS_ALLOW_QUERY_STR	"allow-query"

@@ -227,7 +227,7 @@ namespace genProvider {
    	
    	Linux_DnsServiceManualInstance instance (
      inst,cop.getNameSpace().charPtr());
-    
+    /*
     //REPOSITORY DATA    
     CmpiInstance* backupShadowInstance=0;
    	CmpiInstance shadowInstance=
@@ -245,22 +245,23 @@ namespace genProvider {
    	}catch(CmpiStatus& rc){};   	
     
     cppBroker.createInstance(ctx, shadowOp,shadowInstance);     
-         	
+      */   	
     
     //RESOURCE ACCESS DATA   
     try{
       interfaceP->createInstance(ctx, cppBroker, instance);
     }catch(CmpiStatus& rc){
       //If something went wrong we recover the previous state
-      cppBroker.deleteInstance(ctx, shadowOp);
+      /*cppBroker.deleteInstance(ctx, shadowOp);
       if(backupShadowInstance){
         cppBroker.createInstance(ctx, shadowOp,*backupShadowInstance);
-      }
+      }*/
+      throw rc;
     }
     
-    if(backupShadowInstance)
+    /*if(backupShadowInstance)
       delete(backupShadowInstance);
-    
+    */
     rslt.returnDone();
     return CmpiStatus(CMPI_RC_OK);
   };
@@ -274,6 +275,7 @@ namespace genProvider {
    	Linux_DnsServiceManualInstance instance (
      inst,cop.getNameSpace().charPtr());
     
+    /*
     //REPOSITORY DATA    
     CmpiInstance* backupShadowInstance=0;
     CmpiInstance shadowInstance=
@@ -295,20 +297,21 @@ namespace genProvider {
     else
       cppBroker.createInstance(ctx, shadowOp,shadowInstance);      
     
-    
+    */
     //RESOURCE ACCESS DATA   
     try{
       interfaceP->setInstance(ctx, cppBroker, properties, instance);
     }catch(CmpiStatus& rc){
       //If something went wrong we recover the previous state
-      cppBroker.deleteInstance(ctx, shadowOp);
+      /*cppBroker.deleteInstance(ctx, shadowOp);
       if(backupShadowInstance){
         cppBroker.createInstance(ctx, shadowOp,*backupShadowInstance);
-      }
+      }*/
+      throw rc;
     };
       
-    if(backupShadowInstance)
-      delete(backupShadowInstance);
+    /*if(backupShadowInstance)
+      delete(backupShadowInstance);*/
         
     rslt.returnDone();
     return CmpiStatus(CMPI_RC_OK);
@@ -324,12 +327,12 @@ namespace genProvider {
     interfaceP->deleteInstance(ctx, cppBroker, instanceName);
 
     instanceName.setNamespace(shadowNameSpaceP);
-    CmpiObjectPath op=instanceName.getObjectPath();
+    /*CmpiObjectPath op=instanceName.getObjectPath();
       
     try{  //The instance could not have static data
       cppBroker.deleteInstance(ctx, op);
     }catch(CmpiStatus& rc){};
-      
+      */
     rslt.returnDone();
     return CmpiStatus(CMPI_RC_OK);
   };

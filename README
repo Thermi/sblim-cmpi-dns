@@ -1,0 +1,109 @@
+/* --------------------------------------------------------------------------*/
+README
+
+(C) Copyright IBM Corp. 2005
+
+THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
+("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE
+CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
+
+You can obtain a current copy of the Common Public License from
+http://www.opensource.org/licenses/cpl1.0.php
+
+Author:       Wolfgang Taphorn <taphorn@de.ibm.com>
+Date  :	      10/13/2005
+
+Contributors: Tony Gargya <gargya@de.ibm.com>
+
+/* --------------------------------------------------------------------------*/
+
+SBLIM CMPI Dns Instrumentation README
+--------------------------------------
+
+Introduction
+------------
+
+The cmpi-dns package provides access to the dns configuration data 
+via CIMOM technology/infrastructure.
+
+
+Package Contents
+----------------
+
+./README		    This file
+./model/*           Contains Linux_Dns-Model.mof and corresponding Rational model .emx file
+./provider/*		The instrumented classes/associations    
+./resource-access/*	cmpi-dns specific resource access layer code 
+
+If checked out from CVS:
+./autoconfiscate.sh Contains support to setup the autoconf/automake build environment 
+
+
+Build-time Prerequisites
+------------------------
+- CMPI enabled CIMOM installed (e.g. Pegasus 2.5)
+- automake 1.9.2 or higher
+- libtool 1.5.8 or higher 
+- tools-libra built and installed
+
+Run-time Prerequisites
+----------------------
+- CMPI enabled CIMOM installed 
+  Pegasus 2.5 requires Patch for Pegasus Bug 4220 
+- CIM Schema Version 2.9 loaded into the CIMOM's repository
+- CIMOM running as root
+- yast2-dns-server-2.9.29 or higher 
+- Perl interpreter
+- bind 9.2.3 or higher 
+- correctly configured properties in smt_dns_ra_support.conf
+ 
+Build/Install Instructions
+--------------------------
+
+The simplest way to compile and install this package is:
+
+  1. If checked out from CVS 'cd' to the directory containing the package's source code and type
+     './autoconfiscate.sh' to setup the autoconf/automake build environment.
+       
+  2. Type './configure' to configure the package for your system.
+
+  3. Type 'make' to build the libraries
+
+  4. su to root and type 'make install' to install the libraries and the header files.
+
+  5. su to root and type 'make postinstall' to load and register the classes/association classes and their providers
+
+This package is GNU autotool enabled, refer to the file named INSTALL for generic instructions.
+
+The generated configure script tries to determine where the CMPI header files
+are located. For this purpose it searches a set of well-known locations.
+The "canonical" location is /usr/include/cmpi or /usr/local/include/cmpi,
+depending on how configure is invoked.
+
+Further, configure "determines" where providers are to be installed. Actually,
+there's no detection logic. The provider directory will always be
+/usr/lib/cmpi or /usr/local/lib/cmpi. If a CIM server requires a particular
+directory this can be selected by specifying the PROVIDERDIR variable.
+
+And finally, configure tries to find out which CIM server type is being used.
+This is necessary in order to select the appropriate schema and provider
+registration technique. If the CIM server is not or incorrectly identified,
+it is possible to specify it via the CIMSERVER variable.
+Supported values are pegasus, sfcb, openwbem and sniacimom.
+
+For instance, in order to configure for a locally installed Pegasus you can
+issue the following command:
+./configure CIMSERVER=pegasus PROVIDERDIR=$PEGASUS_HOME/lib
+
+Load Schema into CIMOM's repository
+-----------------------------------
+
+- with Pegasus / OpenWBEM /sfcb :
+-------------------------------
+is done during the "make postinstall".
+
+- with OpenCimom/SNIA CIMOM :
+---------------------------
+Start the cimbrowser (/usr/sniacimom/bin). Load the schema file Linux_Dns.mof with 
+"File" -> "Reload Mof" into the namespace root/cimv2. Before at least IBMQualifiers, 
+CIM Core and CIM System schemata have to be loaded into the repository.

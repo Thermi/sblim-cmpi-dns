@@ -1,0 +1,4 @@
+scriptdir=@SCRIPTDIR@
+bindconf=@SYSCONFDIR@/named.conf
+initscript=@SYSCONFDIR@/init.d/named
+named_path=/usr/sbin/named

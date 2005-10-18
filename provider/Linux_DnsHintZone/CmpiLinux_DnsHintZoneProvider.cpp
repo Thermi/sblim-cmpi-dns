@@ -227,7 +227,7 @@ namespace genProvider {
    	
    	Linux_DnsHintZoneManualInstance instance (
      inst,cop.getNameSpace().charPtr());
-    
+    /*
     //REPOSITORY DATA    
     CmpiInstance* backupShadowInstance=0;
    	CmpiInstance shadowInstance=
@@ -245,17 +245,18 @@ namespace genProvider {
    	}catch(CmpiStatus& rc){};
     
     cppBroker.createInstance(ctx, shadowOp,shadowInstance);     
-         	
+      */   	
     
     //RESOURCE ACCESS DATA   
     try{
       interfaceP->createInstance(ctx, cppBroker, instance);
     }catch(CmpiStatus& rc){
       //If something went wrong we recover the previous state
-      cppBroker.deleteInstance(ctx, shadowOp);
+      /*cppBroker.deleteInstance(ctx, shadowOp);
       if(backupShadowInstance){
         cppBroker.createInstance(ctx, shadowOp,*backupShadowInstance);
-      }
+      }*/
+      throw rc;
     }
 
     // ---- temp fix ?? for problem: ecute creteInstance does not return op
@@ -269,8 +270,8 @@ namespace genProvider {
     rslt.returnData( instance.getInstanceName().getObjectPath() );
     //
  
-    if(backupShadowInstance)
-      delete(backupShadowInstance);
+    /* if(backupShadowInstance)
+      delete(backupShadowInstance);*/
     
     rslt.returnDone();
     return CmpiStatus(CMPI_RC_OK);
@@ -284,7 +285,7 @@ namespace genProvider {
    	
    	Linux_DnsHintZoneManualInstance instance (
      inst,cop.getNameSpace().charPtr());
-    
+    /*
     //REPOSITORY DATA    
     CmpiInstance* backupShadowInstance=0;
     CmpiInstance shadowInstance=
@@ -307,21 +308,22 @@ namespace genProvider {
       cppBroker.setInstance(ctx, shadowOp,shadowInstance,properties);
     else
       cppBroker.createInstance(ctx, shadowOp,shadowInstance);      
-    
+    */
     
     //RESOURCE ACCESS DATA   
     try{
       interfaceP->setInstance(ctx, cppBroker, properties, instance);
     }catch(CmpiStatus& rc){
       //If something went wrong we recover the previous state
-      cppBroker.deleteInstance(ctx, shadowOp);
+      /*cppBroker.deleteInstance(ctx, shadowOp);
       if(backupShadowInstance){
         cppBroker.createInstance(ctx, shadowOp,*backupShadowInstance);
-      }
+      }*/
+      throw rc;
     };
       
-    if(backupShadowInstance)
-      delete(backupShadowInstance);
+    /*if(backupShadowInstance)
+      delete(backupShadowInstance);*/
         
     rslt.returnDone();
     return CmpiStatus(CMPI_RC_OK);
@@ -335,7 +337,7 @@ namespace genProvider {
     Linux_DnsHintZoneInstanceName instanceName=
      Linux_DnsHintZoneInstanceName(cop);
     interfaceP->deleteInstance(ctx, cppBroker, instanceName);
-
+/*
     instanceName.setNamespace(shadowNameSpaceP);
     CmpiObjectPath op=instanceName.getObjectPath();
       
@@ -343,7 +345,7 @@ namespace genProvider {
       cppBroker.deleteInstance(ctx, op);
     }catch(CmpiStatus& rc){
       throw rc;
-    };
+    };*/
       
     rslt.returnDone();
     return CmpiStatus(CMPI_RC_OK);

@@ -1,0 +1,15 @@
+The cmpi-dns provider package was originally written by:
+
+	- Tony Gargya                <gargya@de.ibm.com>
+	- Viktor Mihajlovski         <mihajlov@de.ibm.com>
+	- Heidi Neumann              <heidineu@de.ibm.com>
+
+Further development was done by:
+
+	- Glauber de Oliveira Costa  <gocosta@br.ibm.com>
+	- Rodrigo Ceron              <rceron@br.ibm.com>
+
+
+The build environment was done originally written by:
+	
+	- Wolfgang Taphorn           <taphorn@de.ibm.com>

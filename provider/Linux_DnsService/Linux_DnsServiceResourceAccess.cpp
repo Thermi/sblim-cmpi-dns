@@ -84,13 +84,16 @@ namespace genProvider {
 	return inst;
     }
   	
-  	/*
+  	
     void Linux_DnsServiceResourceAccess::setInstance(
      const CmpiContext& ctx,
      const CmpiBroker &mbp,
      const char* *properties,
-     const Linux_DnsServiceManualInstance&){};
-  	*/
+     const Linux_DnsServiceManualInstance& )
+    {
+
+    };
+
   	/*
     void Linux_DnsServiceResourceAccess::createInstance(
      const CmpiContext& ctx, const CmpiBroker &mbp,

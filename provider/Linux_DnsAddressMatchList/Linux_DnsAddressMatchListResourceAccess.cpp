@@ -193,22 +193,6 @@ namespace genProvider {
 	if ( aManualInstance.isAddressListSet() )
 	{
 		const char **addressList = aManualInstance.getAddressList( size );
-		/*
-		for (unsigned int i = 0; i < size; i++)
-			len += strlen(addressList[i]);
-
-		char *acl_value = (char *)malloc( (len + 3 + 2*size + 1)*sizeof(char) ); // len + { + } +  + size*( ;) + NULL
-		strcpy( acl_value, "{ ");
-
-		for (unsigned int i = 0; i < size; i++)
-		{
-			strcat( acl_value, addressList[i] );
-			strcat( acl_value, "; " );
-		}
-		strcat( acl_value, "}" );
-	
-		new_acl->value = acl_value;
-		*/
 	       	DnsArray value_list;
 	        for (unsigned int i = 0; i < size; i++)
                 if (! value_list.isPresent( string( addressList[i]) ) )

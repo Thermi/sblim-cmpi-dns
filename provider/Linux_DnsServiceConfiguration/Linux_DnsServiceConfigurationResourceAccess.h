@@ -30,8 +30,8 @@
 #include "Linux_DnsConfigurationExternal.h"
 #include "Linux_DnsServiceConfigurationDefaultImplementation.h"
 
-#include "dnssupport.h"
-#include "defaultvalues.h"
+#include "smt_dns_ra_support.h"
+#include "smt_dns_defaultvalues.h"
 
 namespace genProvider {
 

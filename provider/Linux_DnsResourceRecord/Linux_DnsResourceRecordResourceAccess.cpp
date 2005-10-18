@@ -294,11 +294,11 @@ namespace genProvider {
             newRecord->recordValue = (char*)anInstanceName.getValue();
             printf("---- newRecord->recordValue is %s\n", newRecord->recordValue);
             
-	    // if not at dialog then use following default required values (dnssupport.h) for a Zone 
+	    // if not at dialog then use following default required values (smt_dns_ra_support.h) for a Zone 
             // may need to get them from default section in Service 
 
 
-            // list of mof attributes not in dnssupport.h
+            // list of mof attributes not in smt_dns_ra_support.h
             //class
             //enabled
             //TTL

@@ -163,7 +163,7 @@ namespace genProvider {
         instanceName.setName(DEFAULT_SERVICE_NAME);
 	
 	aManualInstance.setInstanceName(instanceName);
-	aManualInstance.setConfigurationFile(DEFAULT_CONFIGURATION_FILE);
+	aManualInstance.setConfigurationFile(get_bindconf());
 
         instEnum.addElement(aManualInstance);
      };

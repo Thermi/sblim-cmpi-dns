@@ -1,0 +1,29 @@
+# Classname Namespace ProviderName ProviderModule ProviderTypes ...
+#-----------------------------------------------------------------------------------------------------------------------------------------
+Linux_DnsAddressMatchList root/cimv2 CmpiLinux_DnsAddressMatchListProvider cmpiLinux_DnsAddressMatchList instance method
+Linux_DnsAddressMatchListOfService root/cimv2 CmpiLinux_DnsAddressMatchListOfServiceProvider cmpiLinux_DnsAddressMatchListOfService instance association
+Linux_DnsAllowNotifyACLForZone root/cimv2 CmpiLinux_DnsAllowNotifyACLForZoneProvider cmpiLinux_DnsAllowNotifyACLForZone instance association
+Linux_DnsAllowQueryACLForZone root/cimv2 CmpiLinux_DnsAllowQueryACLForZoneProvider cmpiLinux_DnsAllowQueryACLForZone instance association
+Linux_DnsAllowTransferACLForZone root/cimv2 CmpiLinux_DnsAllowTransferACLForZoneProvider cmpiLinux_DnsAllowTransferACLForZone instance association
+Linux_DnsAllowUpdateACLForZone root/cimv2 CmpiLinux_DnsAllowUpdateACLForZoneProvider cmpiLinux_DnsAllowUpdateACLForZone instance association
+Linux_DnsBlackholeACLForService root/cimv2 CmpiLinux_DnsBlackholeACLForServiceProvider cmpiLinux_DnsBlackholeACLForService instance association
+Linux_DnsConfiguration root/cimv2 CmpiLinux_DnsConfigurationProvider cmpiLinux_DnsConfiguration instance
+Linux_DnsElementSetting root/cimv2 CmpiLinux_DnsElementSettingProvider cmpiLinux_DnsElementSetting instance association
+Linux_DnsForwardZone root/cimv2 CmpiLinux_DnsForwardZoneProvider cmpiLinux_DnsForwardZone instance method
+Linux_DnsHintZone root/cimv2 CmpiLinux_DnsHintZoneProvider cmpiLinux_DnsHintZone instance method
+Linux_DnsIPAddress root/cimv2 CmpiLinux_DnsIPAddressProvider cmpiLinux_DnsIPAddress instance method
+Linux_DnsManagedSystemElementForSetting root/cimv2 CmpiLinux_DnsManagedSystemElementForSettingProvider cmpiLinux_DnsManagedSystemElementForSetting instance association
+Linux_DnsMastersOfSlaveZone root/cimv2 CmpiLinux_DnsMastersOfSlaveZoneProvider cmpiLinux_DnsMastersOfSlaveZone instance association
+Linux_DnsMasterZone root/cimv2 CmpiLinux_DnsMasterZoneProvider cmpiLinux_DnsMasterZone instance method
+Linux_DnsNotifyACLForService root/cimv2 CmpiLinux_DnsNotifyACLForServiceProvider cmpiLinux_DnsNotifyACLForService instance association
+Linux_DnsQueryACLForService root/cimv2 CmpiLinux_DnsQueryACLForServiceProvider cmpiLinux_DnsQueryACLForService instance association
+Linux_DnsRecursionACLForService root/cimv2 CmpiLinux_DnsRecursionACLForServiceProvider cmpiLinux_DnsRecursionACLForService instance association
+Linux_DnsResourceRecord root/cimv2 CmpiLinux_DnsResourceRecordProvider cmpiLinux_DnsResourceRecord instance method
+Linux_DnsResourceRecordInZone root/cimv2 CmpiLinux_DnsResourceRecordInZoneProvider cmpiLinux_DnsResourceRecordInZone instance association
+Linux_DnsService root/cimv2 CmpiLinux_DnsServiceProvider cmpiLinux_DnsService instance method
+Linux_DnsServiceConfiguration root/cimv2 CmpiLinux_DnsServiceConfigurationProvider cmpiLinux_DnsServiceConfiguration instance association
+Linux_DnsSetting root/cimv2 CmpiLinux_DnsSettingProvider cmpiLinux_DnsSetting instance method
+Linux_DnsSettingContext root/cimv2 CmpiLinux_DnsSettingContextProvider cmpiLinux_DnsSettingContext instance association
+Linux_DnsSlaveZone root/cimv2 CmpiLinux_DnsSlaveZoneProvider cmpiLinux_DnsSlaveZone instance method
+Linux_DnsTransferACLForService root/cimv2 CmpiLinux_DnsTransferACLForServiceProvider cmpiLinux_DnsTransferACLForService instance association
+#Linux_DnsZone root/cimv2 CmpiLinux_DnsZoneProvider cmpiLinux_DnsZone instance method

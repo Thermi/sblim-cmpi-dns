@@ -30,6 +30,9 @@
 #include "Linux_DnsSettingExternal.h"
 #include "Linux_DnsSettingContextDefaultImplementation.h"
 
+#include "smt_dns_ra_support.h"
+#include "smt_dns_defaultvalues.h"
+
 namespace genProvider {
 
   class Linux_DnsSettingContextResourceAccess:

@@ -26,6 +26,9 @@
 #include "CmpiBroker.h"
 #include "Linux_DnsConfigurationDefaultImplementation.h"
 
+#include "smt_dns_defaultvalues.h"
+#include "smt_dns_ra_support.h"
+
 namespace genProvider {
 
   class Linux_DnsConfigurationResourceAccess:

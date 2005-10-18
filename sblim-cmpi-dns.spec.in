@@ -1,0 +1,151 @@
+#
+# $Id: sblim-cmpi-dns.spec.in,v 1.1 2005/10/18 12:13:43 taphorn Exp $
+#
+# Package spec for @PACKAGE@
+#
+
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}
+
+Summary: SBLIM WBEM-SMT Dns Model, Provider with task specific Ressource Access
+Name: @PACKAGE_TARNAME@
+Version: @PACKAGE_VERSION@
+Release: 1
+Group: Systems Management/Base
+URL: http://www.sblim.org
+License: CPL
+Requires: sblim-tools-libra
+
+Source0: http://prdownloads.sourceforge.net/sblim/%{name}-%{version}.tar.bz2
+
+%Description
+The cmpi-dns package provides access to the dns configuration data 
+via CIMOM technology/infrastructure.
+
+
+###############################################################################
+%Package devel
+Summary: SBLIM WBEM-SMT Dns Model, Provider with task specific Ressource Access Development Files
+Group: Systems Management/Base
+Requires: %{name} = %{version}
+Requires: sblim-tools-libra-devel
+
+%Description devel
+The cmpi-dns package provides access to the dns configuration data 
+via CIMOM technology/infrastructure.
+This includes header files and link libraries for further development.
+
+
+###############################################################################
+%prep
+
+%setup -n %{name}-%{version}
+
+export PATCH_GET=0
+
+#%patch0 -p0
+
+
+###############################################################################
+%build
+
+%configure \
+   %{?tog_pegasus:CIMSERVER=pegasus PROVIDERDIR=/opt/tog-pegasus/providers/lib}
+make
+
+
+###############################################################################
+%clean
+if [ "x${RPM_BUILD_ROOT}" != "x" ] ; then
+   rm -rf ${RPM_BUILD_ROOT}
+fi
+
+
+###############################################################################
+%install
+[ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
+
+make DESTDIR=$RPM_BUILD_ROOT install
+
+# remove unused libtool files
+rm -f $RPM_BUILD_ROOT/%{_libdir}/*a
+strip $RPM_BUILD_ROOT/%{_libdir}/*.so*
+
+%if %{?tog_pegasus:0}%{!?tog_pegasus:1}
+   rm -f $RPM_BUILD_ROOT/%{_libdir}/cmpi/*a
+   strip $RPM_BUILD_ROOT/%{_libdir}/cmpi/*.so* 
+%else
+   rm -f $RPM_BUILD_ROOT/opt/tog-pegasus/providers/lib/*a
+   strip $RPM_BUILD_ROOT/opt/tog-pegasus/providers/lib/*.so*
+%endif
+
+
+###############################################################################
+%pre
+# Conditional definition of schema and registration files
+%define SCHEMA %{_datadir}/%{name}/Linux_Dns.mof
+%define REGISTRATION %{_datadir}/%{name}/Linux_Dns.registration
+
+# If upgrading, deregister old version
+if [ $1 -gt 1 ]
+then
+  %{_datadir}/%{name}/provider-register.sh -d %{?tog_pegasus:-t pegasus} \
+	-r %{REGISTRATION} -m %{SCHEMA} > /dev/null
+fi
+
+
+###############################################################################
+%post
+# Register Schema and Provider - this is higly provider specific
+
+%{_datadir}/%{name}/provider-register.sh %{?tog_pegasus:-t pegasus} \
+	-r %{REGISTRATION} -m %{SCHEMA} > /dev/null
+
+/sbin/ldconfig
+
+
+###############################################################################
+%preun
+# Deregister only if not upgrading 
+if [ $1 -eq 0 ]
+then
+  %{_datadir}/%{name}/provider-register.sh -d %{?tog_pegasus:-t pegasus} \
+	-r %{REGISTRATION} -m %{SCHEMA} > /dev/null
+fi
+
+
+###############################################################################
+%postun 
+# Run ldconfig only if not upgrading
+if [ $1 -eq 0 ]
+then
+  /sbin/ldconfig
+fi
+
+
+###############################################################################
+%files
+
+%defattr(-,root,root) 
+%docdir %{_datadir}/doc/%{name}-%{version}
+%{_datadir}/%{name}
+%{_datadir}/doc/%{name}-%{version}
+%{_libdir}/*.so*
+%{_sysconfdir}/*.conf
+%if %{?tog_pegasus:0}%{!?tog_pegasus:1}
+%{_libdir}/cmpi/*.so*
+%else
+/opt/tog-pegasus/providers/lib/*.so*
+%endif
+
+###############################################################################
+%files devel
+
+%defattr(-,root,root)
+%{_includedir}/*
+%{_libdir}/*.so*
+
+
+###############################################################################
+%changelog
+* Tue Sep 08 2005 Wolfgang Taphorn <taphorn@de.ibm.com>
+  - initial support

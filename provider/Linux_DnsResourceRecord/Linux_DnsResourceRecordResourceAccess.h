@@ -28,9 +28,9 @@
 #include "CIM_ManagedSystemElementInstanceName.h"
 #include "Linux_DnsResourceRecordDefaultImplementation.h"
 
-#include "dnssupport.h"
-#include "rrhandle.h"
-#include "DnsValueMap.h"
+#include "smt_dns_ra_support.h"
+#include "smt_dns_ra_rrhandle.h"
+#include "smt_dns_valuemap.h"
 
 namespace genProvider {
 
