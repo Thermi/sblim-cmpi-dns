@@ -1,47 +1,45 @@
 #
-# $Id: sblim-cmpi-dns.spec.in,v 1.1 2005/10/18 12:13:43 taphorn Exp $
+# sblim-cmpi-dns.spec.in
 #
-# Package spec for @PACKAGE@
+# Package spec for cmpi-dns
 #
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}
 
-Summary: SBLIM WBEM-SMT Dns Model, Provider with task specific Ressource Access
+Summary: SBLIM WBEM-SMT Dns 
 Name: @PACKAGE_TARNAME@
 Version: @PACKAGE_VERSION@
-Release: 1
+Release: 2
 Group: Systems Management/Base
 URL: http://www.sblim.org
 License: CPL
 Requires: sblim-tools-libra
 
+Provides: cmpi-dns
+
 Source0: http://prdownloads.sourceforge.net/sblim/%{name}-%{version}.tar.bz2
 
 %Description
 The cmpi-dns package provides access to the dns configuration data 
-via CIMOM technology/infrastructure.
-
+via CIMOM technology/infrastructure. 
+It contains the Dns CIM Model, CMPI Provider with the Samba task specific 
+Resource Access.
 
 ###############################################################################
 %Package devel
-Summary: SBLIM WBEM-SMT Dns Model, Provider with task specific Ressource Access Development Files
+Summary: SBLIM WBEM-SMT Dns - Header Development Files
 Group: Systems Management/Base
-Requires: %{name} = %{version}
-Requires: sblim-tools-libra-devel
+Requires: %{name} = %{version}-%{release}
 
 %Description devel
-The cmpi-dns package provides access to the dns configuration data 
-via CIMOM technology/infrastructure.
-This includes header files and link libraries for further development.
-
+SBLIM WBEM-SMT Dns Development Package contains header files and
+link libraries for dependent provider packages
 
 ###############################################################################
 %prep
 
 %setup -n %{name}-%{version}
-
 export PATCH_GET=0
-
 #%patch0 -p0
 
 
@@ -49,7 +47,8 @@ export PATCH_GET=0
 %build
 
 %configure \
-   %{?tog_pegasus:CIMSERVER=pegasus PROVIDERDIR=/opt/tog-pegasus/providers/lib}
+   %{?tog_pegasus:CIMSERVER=pegasus PROVIDERDIR=/opt/tog-pegasus/providers/lib}\
+   --disable-debug
 make
 
 
@@ -68,14 +67,11 @@ make DESTDIR=$RPM_BUILD_ROOT install
 
 # remove unused libtool files
 rm -f $RPM_BUILD_ROOT/%{_libdir}/*a
-strip $RPM_BUILD_ROOT/%{_libdir}/*.so*
 
 %if %{?tog_pegasus:0}%{!?tog_pegasus:1}
    rm -f $RPM_BUILD_ROOT/%{_libdir}/cmpi/*a
-   strip $RPM_BUILD_ROOT/%{_libdir}/cmpi/*.so* 
 %else
    rm -f $RPM_BUILD_ROOT/opt/tog-pegasus/providers/lib/*a
-   strip $RPM_BUILD_ROOT/opt/tog-pegasus/providers/lib/*.so*
 %endif
 
 
@@ -124,26 +120,21 @@ fi
 
 ###############################################################################
 %files
-
 %defattr(-,root,root) 
-%docdir %{_datadir}/doc/%{name}-%{version}
+%doc %{_datadir}/doc/%{name}-%{version}
 %{_datadir}/%{name}
-%{_datadir}/doc/%{name}-%{version}
-%{_libdir}/*.so*
+%{_libdir}/*.so.*
 %{_sysconfdir}/*.conf
 %if %{?tog_pegasus:0}%{!?tog_pegasus:1}
-%{_libdir}/cmpi/*.so*
+%{_libdir}/cmpi/*.so
 %else
-/opt/tog-pegasus/providers/lib/*.so*
+/opt/tog-pegasus/providers/lib/*.so
 %endif
 
-###############################################################################
 %files devel
-
-%defattr(-,root,root)
-%{_includedir}/*
-%{_libdir}/*.so*
-
+%defattr(-,root,root) 
+%{_includedir}/sblim
+%{_libdir}/*.so
 
 ###############################################################################
 %changelog

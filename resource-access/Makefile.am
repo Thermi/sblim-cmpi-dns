@@ -1,4 +1,4 @@
-# $Id: Makefile.am,v 1.1 2005/10/18 12:13:44 taphorn Exp $
+# $Id: Makefile.am,v 1.2 2006/01/16 17:23:07 taphorn Exp $
 # ==================================================================
 # (C) Copyright IBM Corp. 2005
 #
@@ -60,19 +60,15 @@ do_substDir    = sed -e 's,[@]SYSCONFDIR[@],$(sysconfdir),g' \
 # Automake instructions for 'resource-access' dir
 
 BUILT_SOURCES += \
-		$(srcdir)/smt_dns_ra_support.conf \
-		$(srcdir)/smt_dns_ra_support.h
+		$(srcdir)/smt_dns_ra_support.conf 
 
 $(srcdir)/smt_dns_ra_support.conf: $(srcdir)/smt_dns_ra_support.conf.in
 	$(do_substDir) < $(srcdir)/smt_dns_ra_support.conf.in > $(srcdir)/smt_dns_ra_support.conf
 
-$(srcdir)/smt_dns_ra_support.h: $(srcdir)/smt_dns_ra_support.h.in
-	$(do_substDir) < $(srcdir)/smt_dns_ra_support.h.in > $(srcdir)/smt_dns_ra_support.h
 
 # Adding new generated files to file list for clean up
 CLEANFILES += \
-		$(srcdir)/smt_dns_ra_support.conf\
-		$(srcdir)/smt_dns_ra_support.h
+		$(srcdir)/smt_dns_ra_support.conf
 
 # Files for /etc directory
 sysconf_DATA += $(srcdir)/smt_dns_ra_support.conf
@@ -83,7 +79,7 @@ lib_LTLIBRARIES += libRaToolsDns.la
 # LibRaTools sources
 libRaToolsDns_la_SOURCES = \
 		$(srcdir)/smt_dns_ra_support.conf.in \
-		$(srcdir)/smt_dns_ra_support.h.in \
+		$(srcdir)/smt_dns_ra_support.h \
 		$(srcdir)/smt_dns_ra_support.c \
 		$(srcdir)/smt_dns_ra_perlxsi.c \
 		$(srcdir)/smt_dns_ra_rrhandle.c \

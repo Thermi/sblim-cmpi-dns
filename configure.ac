@@ -20,30 +20,6 @@ esac
 AC_ARG_VAR([PROVIDERDIR],[the directory where the CMPI providers will be installed.])
 AC_ARG_VAR([CIMSERVER],[the target CIM server (pegasus|sfcb|openwbem|sniacimom).])
 
-AC_ARG_ENABLE(
-  debug,
-  [AS_HELP_STRING([--enable-debug],[enable debugging messages [default=yes]])],
-  [
-    if test $enableval = "yes"; then
-      AC_MSG_RESULT(debugging ENABLED)
-      CFLAGS="$CFLAGS -O0 -g"
-      CXXFLAGS="$CXXFLAGS -O0 -g"
-      FFLAGS="$FFLAGS -O0 -g"
-    else
-      AC_MSG_RESULT(debugging DISABLED)
-      CFLAGS="$CFLAGS -O2"
-      CXXFLAGS="$CXXFLAGS -O2"
-      FFLAGS="$FFLAGS -O2"
-    fi
-  ],
-  [
-    AC_MSG_RESULT(debugging ENABLED)
-    CFLAGS="$CFLAGS -O0 -g"
-    CXXFLAGS="$CXXFLAGS -O0 -g"
-    FFLAGS="$FFLAGS -O0 -g"
-  ]
-)
-
 # Checks for programs.
 AC_PROG_AWK
 AC_PROG_CC

@@ -25,6 +25,6 @@
 #define DEFAULT_SYSTEM_NAME	               "localhost"
 #define DEFAULT_CREATION_CLASS_NAME        "Linux_DnsService"
 
-#define DEFAULT_CONFIGURATION_FILE         "@SYSCONFDIR@/named.conf"
+#define DEFAULT_CONFIGURATION_FILE         "/etc/named.conf"
 
 #endif

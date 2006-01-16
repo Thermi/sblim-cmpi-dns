@@ -1,4 +1,3 @@
-# $Id: Makefile.am,v 1.1 2005/10/18 12:13:44 taphorn Exp $
 # ==================================================================
 # (C) Copyright IBM Corp. 2005
 #
@@ -18,7 +17,6 @@ sblimincdir = $(includedir)/sblim
 
 # SBLIM Headers to be installed
 sbliminc_HEADERS =
-
 
 # docdir defines where the documentation goes
 docdir = $(datadir)/doc/$(PACKAGE)-$(VERSION)
@@ -48,20 +46,6 @@ EXTRA_DIST =
 BUILT_SOURCES =
 
 
-######################################################################################
-# sed scriptlets for replacing values in .in files
-do_substDir    = sed -e 's,[@]SYSCONFDIR[@],$(sysconfdir),g' \
-                     -e 's,[@]SCRIPTDIR[@],$(pkgdatadir),g'
-
-################################################################################
-# Setting correct directory for configuration file
-$(srcdir)/include/smt_dns_defaultvalues.h: $(srcdir)/include/smt_dns_defaultvalues.h.in
-	$(do_substDir) < $(srcdir)/include/smt_dns_defaultvalues.h.in > $(srcdir)/include/smt_dns_defaultvalues.h
-
-BUILT_SOURCES += $(srcdir)/include/smt_dns_defaultvalues.h
-CLEANFILES += $(srcdir)/include/smt_dns_defaultvalues.h
-
-
 ################################################################################
 #
 lib_LTLIBRARIES += \
@@ -75,6 +59,10 @@ libIBM_DnsProviderTooling_la_SOURCES = \
 		$(srcdir)/support/ArrayConverter.cpp \
 		$(srcdir)/support/CmpiErrorFormater.cpp
 
+noinst_HEADERS+= \
+		$(srcdir)/include/ArrayConverter.h \
+		$(srcdir)/include/CmpiErrorFormater.h 
+
 libIBM_DnsProviderTooling_la_LIBADD = \
         -L../resource-access\
         -lRaToolsDns
@@ -83,16 +71,18 @@ libIBM_DnsProviderTooling_la_CPPFLAGS = \
         -D_COMPILE_UNIX -DCMPI_STANDALONE \
 		-I$(srcdir)/include 
 
-noinst_HEADERS+= \
-		$(srcdir)/include/ArrayConverter.h \
-		$(srcdir)/include/CmpiErrorFormater.h 
-		
-		
+
+
 ################################################################################
 # General Dns required parts
 libLinux_DnsGeneralProviderBasic_la_SOURCES = \
-		$(srcdir)/include/smt_dns_defaultvalues.h.in \
+		$(srcdir)/include/smt_dns_defaultvalues.h \
 		$(srcdir)/support/smt_dns_array.cpp 
+
+sbliminc_HEADERS+= \
+		$(srcdir)/include/smt_dns_array.h \
+		$(srcdir)/include/smt_dns_defaultvalues.h \
+		$(srcdir)/include/smt_dns_valuemap.h
 
 libLinux_DnsGeneralProviderBasic_la_LIBADD = \
         -L../resource-access\
@@ -101,11 +91,6 @@ libLinux_DnsGeneralProviderBasic_la_LIBADD = \
 libLinux_DnsGeneralProviderBasic_la_CPPFLAGS = \
         -D_COMPILE_UNIX -DCMPI_STANDALONE \
 		-I$(srcdir)/include 
-
-sbliminc_HEADERS+= \
-		$(srcdir)/include/smt_dns_array.h \
-		$(srcdir)/include/smt_dns_defaultvalues.h \
-		$(srcdir)/include/smt_dns_valuemap.h
 
 
 

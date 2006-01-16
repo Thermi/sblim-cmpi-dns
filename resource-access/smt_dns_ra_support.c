@@ -42,6 +42,10 @@ static PerlInterpreter *my_perl = NULL;
 
 #include "smt_dns_ra_support.h"
 
+#ifndef CONFFILE
+  #define CONFFILE "@SYSCONFDIR@/smt_dns_ra_support.conf"
+#endif
+
 
 EXTERN_C void xs_init( pTHX );
 

@@ -25,9 +25,6 @@ extern "C" {
 #include "smt_dns_ra_scripts.h"
 
 #define BUFSIZE 1024
-#ifndef CONFFILE
-	#define CONFFILE "@SYSCONFDIR@/smt_dns_ra_support.conf"
-#endif 
 
 #ifndef BINDDIR
 	#define BINDDIR "/var/lib/named"
