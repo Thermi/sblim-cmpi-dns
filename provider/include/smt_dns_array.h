@@ -48,7 +48,7 @@ class DnsArray: list<string>  {
 
 	bool isPresent(string);
 	string toString();
-	const char **DnsArray::toArray();
+	const char **toArray();
 
 	DnsArrayConstIterator begin();
 	DnsArrayConstIterator end();	
