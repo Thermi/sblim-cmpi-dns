@@ -1,4 +1,4 @@
-# $Id: Makefile.am,v 1.2 2006/01/16 17:23:07 taphorn Exp $
+# $Id: Makefile.am,v 1.3 2006/01/27 13:08:54 taphorn Exp $
 # ==================================================================
 # (C) Copyright IBM Corp. 2005
 #
@@ -58,57 +58,58 @@ do_substDir    = sed -e 's,[@]SYSCONFDIR[@],$(sysconfdir),g' \
 
 ######################################################################################
 # Automake instructions for 'resource-access' dir
+AM_CPPFLAGS=-DCONFFILE=\"$(sysconfdir)/smt_dns_ra_support.conf\"
 
 BUILT_SOURCES += \
-		$(srcdir)/smt_dns_ra_support.conf 
+		smt_dns_ra_support.conf 
 
-$(srcdir)/smt_dns_ra_support.conf: $(srcdir)/smt_dns_ra_support.conf.in
-	$(do_substDir) < $(srcdir)/smt_dns_ra_support.conf.in > $(srcdir)/smt_dns_ra_support.conf
+smt_dns_ra_support.conf: smt_dns_ra_support.conf.in
+	$(do_substDir) $< > $@
 
 
 # Adding new generated files to file list for clean up
 CLEANFILES += \
-		$(srcdir)/smt_dns_ra_support.conf
+		smt_dns_ra_support.conf
 
 # Files for /etc directory
-sysconf_DATA += $(srcdir)/smt_dns_ra_support.conf
+sysconf_DATA += smt_dns_ra_support.conf
 
 #  LibRaTools libraries
 lib_LTLIBRARIES += libRaToolsDns.la 
 
 # LibRaTools sources
 libRaToolsDns_la_SOURCES = \
-		$(srcdir)/smt_dns_ra_support.conf.in \
-		$(srcdir)/smt_dns_ra_support.h \
-		$(srcdir)/smt_dns_ra_support.c \
-		$(srcdir)/smt_dns_ra_perlxsi.c \
-		$(srcdir)/smt_dns_ra_rrhandle.c \
-		$(srcdir)/smt_dns_ra_service.c
+		smt_dns_ra_support.conf.in \
+		smt_dns_ra_support.h \
+		smt_dns_ra_support.c \
+		smt_dns_ra_perlxsi.c \
+		smt_dns_ra_rrhandle.c \
+		smt_dns_ra_service.c
 libRaToolsDns_la_CPPFLAGS = -fPIC `perl -MExtUtils::Embed -e ccopts` -DUSE_CACHE
 libRaToolsDns_la_LDFLAGS = -fPIC `perl -MExtUtils::Embed -e ldopts`
 
 # Scripts that are copied to an executable (at least for the libs) directory.
 pkgdata_SCRIPTS += \
-		$(srcdir)/scripts/smt_dns_ra_delete.sh \
-		$(srcdir)/scripts/smt_dns_ra_deleterr.sh \
-		$(srcdir)/scripts/smt_dns_ra_disable.sh \
-		$(srcdir)/scripts/smt_dns_ra_disablerr.sh \
-		$(srcdir)/scripts/smt_dns_ra_enable.sh \
-		$(srcdir)/scripts/smt_dns_ra_enablerr.sh \
-		$(srcdir)/scripts/smt_dns_ra_status.sh \
-		$(srcdir)/scripts/smt_dns_ra_acl.pm \
-		$(srcdir)/scripts/smt_dns_ra_getopts.pl \
-		$(srcdir)/scripts/smt_dns_ra_getzones.pl \
-		$(srcdir)/scripts/smt_dns_ra_readacl.pl \
- 		$(srcdir)/scripts/smt_dns_ra_lines.awk
+		scripts/smt_dns_ra_delete.sh \
+		scripts/smt_dns_ra_deleterr.sh \
+		scripts/smt_dns_ra_disable.sh \
+		scripts/smt_dns_ra_disablerr.sh \
+		scripts/smt_dns_ra_enable.sh \
+		scripts/smt_dns_ra_enablerr.sh \
+		scripts/smt_dns_ra_status.sh \
+		scripts/smt_dns_ra_acl.pm \
+		scripts/smt_dns_ra_getopts.pl \
+		scripts/smt_dns_ra_getzones.pl \
+		scripts/smt_dns_ra_readacl.pl \
+ 		scripts/smt_dns_ra_lines.awk
  
 # Installable Header Files
 sbliminc_HEADERS += \
-		$(srcdir)/smt_dns_ra_scripts.h \
-		$(srcdir)/smt_dns_ra_service.h \
-		$(srcdir)/smt_dns_ra_rrhandle.h \
-		$(srcdir)/smt_dns_ra_perlstr.h \
-		$(srcdir)/smt_dns_ra_support.h
+		smt_dns_ra_scripts.h \
+		smt_dns_ra_service.h \
+		smt_dns_ra_rrhandle.h \
+		smt_dns_ra_perlstr.h \
+		smt_dns_ra_support.h
 
 # We must explicity add the list of scripts to the 
 EXTRA_DIST += $(pkgdata_SCRIPTS)
