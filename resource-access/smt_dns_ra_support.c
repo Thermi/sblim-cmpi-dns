@@ -139,7 +139,7 @@ static void init_interpreter()
   }
   PERL_SET_CONTEXT(my_perl);
 }
-
+/*
 static void term_interpreter()
 {
     perl_destruct(my_perl);
@@ -147,6 +147,7 @@ static void term_interpreter()
     my_perl=NULL;
 		PERL_SYS_TERM();
 }
+*/
 char *my_script_path(char *filename){
 
 	#ifdef USE_CACHE

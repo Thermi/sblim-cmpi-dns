@@ -1,4 +1,4 @@
-# $Id: Makefile.am,v 1.3 2006/01/27 13:08:54 taphorn Exp $
+# $Id: Makefile.am,v 1.4 2006/02/02 15:50:27 taphorn Exp $
 # ==================================================================
 # (C) Copyright IBM Corp. 2005
 #
@@ -58,7 +58,7 @@ do_substDir    = sed -e 's,[@]SYSCONFDIR[@],$(sysconfdir),g' \
 
 ######################################################################################
 # Automake instructions for 'resource-access' dir
-AM_CPPFLAGS=-DCONFFILE=\"$(sysconfdir)/smt_dns_ra_support.conf\"
+AM_CFLAGS = -Wall
 
 BUILT_SOURCES += \
 		smt_dns_ra_support.conf 
@@ -85,7 +85,11 @@ libRaToolsDns_la_SOURCES = \
 		smt_dns_ra_perlxsi.c \
 		smt_dns_ra_rrhandle.c \
 		smt_dns_ra_service.c
-libRaToolsDns_la_CPPFLAGS = -fPIC `perl -MExtUtils::Embed -e ccopts` -DUSE_CACHE
+libRaToolsDns_la_CPPFLAGS = -fPIC `perl -MExtUtils::Embed -e ccopts` \
+                            -DUSE_CACHE \
+                            -DCONFFILE=\"$(sysconfdir)/smt_dns_ra_support.conf\" \
+                            -D_GNU_SOURCE
+
 libRaToolsDns_la_LDFLAGS = -fPIC `perl -MExtUtils::Embed -e ldopts`
 
 # Scripts that are copied to an executable (at least for the libs) directory.

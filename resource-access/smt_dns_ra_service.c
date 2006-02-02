@@ -27,6 +27,7 @@
 #include <smt_libra_conf.h>
 
 #include "smt_dns_ra_service.h"
+#include "smt_dns_ra_support.h"
 
 #define INITSCRIPT "/etc/init.d/named"
 #define INITSCRIPT2 "/etc/init.d/bind"
