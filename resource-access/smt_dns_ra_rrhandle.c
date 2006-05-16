@@ -75,7 +75,7 @@ int modifyRecord(const char *zname,const char *recname, const char field, const 
 }
 
 int disableRR(const char *name,const char *file){
-	char *script= my_script_path("disablerr.sh");
+	char *script= my_script_path(DISABLERR);
 	int ret = 0;
 	if (!file)
 		return -EINVAL;
@@ -88,7 +88,7 @@ int disableRR(const char *name,const char *file){
 }
 
 int enableRR(const char *name,const char *file){
-	char *script= my_script_path("enablerr.sh");
+	char *script= my_script_path(ENABLERR);
 	int ret = 0;
 
 	if (!file)
@@ -101,7 +101,7 @@ int enableRR(const char *name,const char *file){
 }
 
 int deleteRR(const char *name, const char *file){
-	char *script= my_script_path("deleterr.sh");
+	char *script= my_script_path(DELETERR);
 	char *absolute_path;
 	int ret = 0;
 

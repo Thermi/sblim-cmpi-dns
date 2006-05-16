@@ -1,104 +1,133 @@
- /**
- * Linux_DnsNotifyACLForServiceRepositoryExternal.cpp
- *
- * (C) Copyright IBM Corp. 2005
- *
- * THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
- * ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE
- * CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
- *
- * You can obtain a current copy of the Common Public License from
- * http://www.opensource.org/licenses/cpl1.0.php
- *
- * author:     Murillo Bernardes <bernarde@br.ibm.com>
- *
- * Contributors:
- *
- */
+// =======================================================================
+// Linux_DnsNotifyACLForServiceRepositoryExternal.cpp
+//     created on Fri, 3 Mar 2006 using ECUTE
+// 
+// Copyright (c) 2006, International Business Machines
+//
+// THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
+// ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE 
+// CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
+//
+// You can obtain a current copy of the Common Public License from
+// http://oss.software.ibm.com/developerworks/opensource/license-cpl.html
+//
+// Author:        generated
+//
+// Contributors:
+//                Murillo Bernardes <bernarde@br.ibm.com>
+//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//
+// =======================================================================
+//
+// 
 #include "Linux_DnsNotifyACLForServiceRepositoryExternal.h"
 
-namespace genProvider{
+namespace genProvider {
 	
+	//----------------------------------------------------------------------------
   Linux_DnsNotifyACLForServiceRepositoryExternal::Linux_DnsNotifyACLForServiceRepositoryExternal(
-   const CmpiBroker& brkr, const CmpiContext& ctx ) 
-   : broker(brkr), context(ctx) {};
+    const CmpiBroker& aBroker,
+    const CmpiContext& aContext) 
+    : m_broker(aBroker),
+    m_context(aContext) { }
   
-  const char * Linux_DnsNotifyACLForServiceRepositoryExternal::
-   nsp="IBMShadow/cimv2";
+	//----------------------------------------------------------------------------
+  const char* Linux_DnsNotifyACLForServiceRepositoryExternal::s_shadowNameSpaceP = "IBMShadow/cimv2";
    
-  Linux_DnsNotifyACLForServiceRepositoryExternal::
-   ~Linux_DnsNotifyACLForServiceRepositoryExternal(){};
+	//----------------------------------------------------------------------------
+  Linux_DnsNotifyACLForServiceRepositoryExternal::~Linux_DnsNotifyACLForServiceRepositoryExternal() { }
     
-  void Linux_DnsNotifyACLForServiceRepositoryExternal::enumInstanceNames(
-   Linux_DnsNotifyACLForServiceInstanceNameEnumeration& instnames) {
+	//----------------------------------------------------------------------------
+  void
+  Linux_DnsNotifyACLForServiceRepositoryExternal::enumInstanceNames(
+    Linux_DnsNotifyACLForServiceInstanceNameEnumeration& anInstanceNameEnumeration) {
 
-    CmpiObjectPath op(nsp,"Linux_DnsNotifyACLForService");
-    CmpiEnumeration en=broker.enumInstanceNames(context,op);
-    while(en.hasNext()) {
-      CmpiObjectPath opi = en.getNext();
-      Linux_DnsNotifyACLForServiceInstanceName iname(opi);
-      instnames.addElement(iname);
+    CmpiObjectPath cmpiClassObjectPath(s_shadowNameSpaceP,"Linux_DnsNotifyACLForService");
+    CmpiEnumeration cmpiEnumeration = 
+      m_broker.enumInstanceNames(m_context,cmpiClassObjectPath);
+    while(cmpiEnumeration.hasNext()) {
+      CmpiObjectPath cmpiObjectPath = cmpiEnumeration.getNext();
+      Linux_DnsNotifyACLForServiceInstanceName instanceName(cmpiObjectPath);
+      anInstanceNameEnumeration.addElement(instanceName);
     }
-  };
+  }
   	  
-  void Linux_DnsNotifyACLForServiceRepositoryExternal::enumInstances(
-   const char* *properties,
-   Linux_DnsNotifyACLForServiceRepositoryInstanceEnumeration& instances) {
+	//----------------------------------------------------------------------------
+  void
+  Linux_DnsNotifyACLForServiceRepositoryExternal::enumInstances(
+    const char** aPropertiesPP,
+    Linux_DnsNotifyACLForServiceRepositoryInstanceEnumeration& aRepositoryInstanceEnumeration) {
    		
-    CmpiObjectPath op(nsp,"Linux_DnsNotifyACLForService");
-    CmpiEnumeration en=broker.enumInstances(context,op,properties);
-    while(en.hasNext()) {
-      CmpiInstance inst = en.getNext();
-      Linux_DnsNotifyACLForServiceRepositoryInstance instance(inst,nsp);
-      instances.addElement(instance);
+    CmpiObjectPath cmpiClassObjectPath(s_shadowNameSpaceP,"Linux_DnsNotifyACLForService");
+    CmpiEnumeration cmpiEnumeration = 
+      m_broker.enumInstances(m_context,cmpiClassObjectPath,aPropertiesPP);
+    while(cmpiEnumeration.hasNext()) {
+      CmpiInstance cmpiInstance = cmpiEnumeration.getNext();
+      Linux_DnsNotifyACLForServiceRepositoryInstance repositoryInstance(cmpiInstance,s_shadowNameSpaceP);
+      aRepositoryInstanceEnumeration.addElement(repositoryInstance);
     }
-  };
+  
+  }
   	  
+  //----------------------------------------------------------------------------
   Linux_DnsNotifyACLForServiceRepositoryInstance
-   Linux_DnsNotifyACLForServiceRepositoryExternal::getInstance(
-   const char* *properties,
-   const Linux_DnsNotifyACLForServiceInstanceName& instanceName) {
+  Linux_DnsNotifyACLForServiceRepositoryExternal::getInstance(
+    const char** aPropertiesPP,
+    const Linux_DnsNotifyACLForServiceInstanceName& anInstanceName) {
     
-    CmpiObjectPath op=instanceName.getObjectPath();
-    op.setNameSpace(nsp);
-    CmpiInstance inst=broker.getInstance(context,op,properties);
-    return Linux_DnsNotifyACLForServiceRepositoryInstance(inst,nsp);
+    CmpiObjectPath cmpiObjectPath = anInstanceName.getObjectPath();
+    cmpiObjectPath.setNameSpace(s_shadowNameSpaceP);
+    CmpiInstance cmpiInstance = 
+      m_broker.getInstance(m_context,cmpiObjectPath,aPropertiesPP);
+    return Linux_DnsNotifyACLForServiceRepositoryInstance(cmpiInstance,s_shadowNameSpaceP);
+
   }
       
-  void Linux_DnsNotifyACLForServiceRepositoryExternal::setInstance(
-   const char* *properties,
-   const Linux_DnsNotifyACLForServiceRepositoryInstance& instance){
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsNotifyACLForServiceRepositoryExternal::setInstance(
+    const char** aPropertiesPP,
+    const Linux_DnsNotifyACLForServiceRepositoryInstance& aRepositoryInstance) {
   
     //make a copy of the given instance and set it to the right nameSpace
-    Linux_DnsNotifyACLForServiceInstanceName instanceName(instance.getInstanceName());
-    instanceName.setNamespace(nsp,1);
-    Linux_DnsNotifyACLForServiceRepositoryInstance copiedInstance(instance);
-    copiedInstance.setInstanceName(instanceName);
+    Linux_DnsNotifyACLForServiceInstanceName instanceName(aRepositoryInstance.getInstanceName());
+    instanceName.setNamespace(s_shadowNameSpaceP,1);
+    Linux_DnsNotifyACLForServiceRepositoryInstance copiedRepositoryInstance(aRepositoryInstance);
+    copiedRepositoryInstance.setInstanceName(instanceName);
     
-    CmpiObjectPath op=instanceName.getObjectPath();
-    CmpiInstance inst=copiedInstance.getCmpiInstance();
-    broker.setInstance(context,op,inst,properties);
+    CmpiObjectPath cmpiObjectPath = instanceName.getObjectPath();
+    CmpiInstance cmpiInstance = copiedRepositoryInstance.getCmpiInstance();
+    m_broker.setInstance(m_context,cmpiObjectPath,cmpiInstance,aPropertiesPP);
+  
   }
       
-  void Linux_DnsNotifyACLForServiceRepositoryExternal::createInstance(
-   const Linux_DnsNotifyACLForServiceRepositoryInstance& instance){
+  //----------------------------------------------------------------------------
+  Linux_DnsNotifyACLForServiceInstanceName
+  Linux_DnsNotifyACLForServiceRepositoryExternal::createInstance(
+    const Linux_DnsNotifyACLForServiceRepositoryInstance& aRepositoryInstance) {
   
     //make a copy of the given instance and set it to the right nameSpace
-    Linux_DnsNotifyACLForServiceInstanceName instanceName(instance.getInstanceName());
-    instanceName.setNamespace(nsp,1);
-    Linux_DnsNotifyACLForServiceRepositoryInstance copiedInstance(instance);
-    copiedInstance.setInstanceName(instanceName);
+    Linux_DnsNotifyACLForServiceInstanceName instanceName(aRepositoryInstance.getInstanceName());
+    instanceName.setNamespace(s_shadowNameSpaceP,1);
+    Linux_DnsNotifyACLForServiceRepositoryInstance copiedRepositoryInstance(aRepositoryInstance);
+    copiedRepositoryInstance.setInstanceName(instanceName);
     
-    CmpiObjectPath op=instanceName.getObjectPath();
-    CmpiInstance inst=copiedInstance.getCmpiInstance();
-    broker.createInstance(context,op,inst);
+    CmpiObjectPath cmpiObjectPath = instanceName.getObjectPath();
+    CmpiInstance cmpiInstance = copiedRepositoryInstance.getCmpiInstance();
+    return Linux_DnsNotifyACLForServiceInstanceName(
+		m_broker.createInstance(m_context,cmpiObjectPath,cmpiInstance));
+  
   }
   
-  void Linux_DnsNotifyACLForServiceRepositoryExternal::deleteInstance(
-   const Linux_DnsNotifyACLForServiceInstanceName& instanceName){
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsNotifyACLForServiceRepositoryExternal::deleteInstance(
+    const Linux_DnsNotifyACLForServiceInstanceName& anInstanceName) {
     
-    CmpiObjectPath op=instanceName.getObjectPath();
-    op.setNameSpace(nsp);
-    broker.deleteInstance(context,op);
-  }  
+    CmpiObjectPath cmpiObjectPath = anInstanceName.getObjectPath();
+    cmpiObjectPath.setNameSpace(s_shadowNameSpaceP);
+    m_broker.deleteInstance(m_context,cmpiObjectPath);
+  
+  }
+    
 }

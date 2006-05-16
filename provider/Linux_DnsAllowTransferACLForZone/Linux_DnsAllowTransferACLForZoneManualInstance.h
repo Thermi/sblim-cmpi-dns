@@ -1,22 +1,28 @@
- /**
- * Linux_DnsAllowTransferACLForZoneManualInstance.h
- *
- * (C) Copyright IBM Corp. 2005
- *
- * THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
- * ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE
- * CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
- *
- * You can obtain a current copy of the Common Public License from
- * http://www.opensource.org/licenses/cpl1.0.php
- *
- * author:     Murillo Bernardes <bernarde@br.ibm.com>
- *
- * Contributors:
- *
- */
+// =======================================================================
+// Linux_DnsAllowTransferACLForZoneManualInstance.h
+//     created on Fri, 3 Mar 2006 using ECUTE
+// 
+// Copyright (c) 2006, International Business Machines
+//
+// THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
+// ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE 
+// CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
+//
+// You can obtain a current copy of the Common Public License from
+// http://oss.software.ibm.com/developerworks/opensource/license-cpl.html
+//
+// Author:        generated
+//
+// Contributors:
+//                Murillo Bernardes <bernarde@br.ibm.com>
+//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//
+// =======================================================================
+//
+// 
 #ifndef Linux_DnsAllowTransferACLForZoneManualInstance_h
 #define Linux_DnsAllowTransferACLForZoneManualInstance_h
+
 
 #include "cmpidt.h"
 #include "CmpiObjectPath.h"
@@ -27,79 +33,76 @@
 
 #include "Linux_DnsAllowTransferACLForZoneInstanceName.h"
 
+
 namespace genProvider {
 
   class Linux_DnsAllowTransferACLForZoneManualInstance {
-  public:
-       Linux_DnsAllowTransferACLForZoneManualInstance();
-  	
-       Linux_DnsAllowTransferACLForZoneManualInstance
-  	    (const Linux_DnsAllowTransferACLForZoneManualInstance& original);
-  	   
-       Linux_DnsAllowTransferACLForZoneManualInstance
-        (const CmpiInstance& inst, const char* instanceNamespace);
-  	 
-       ~Linux_DnsAllowTransferACLForZoneManualInstance();
        
-       Linux_DnsAllowTransferACLForZoneManualInstance& operator=
-  	    (const Linux_DnsAllowTransferACLForZoneManualInstance& original);
+    private:
+    void init();
+    void init(const Linux_DnsAllowTransferACLForZoneManualInstance& anInstance);
+    void reset();
        
-       CmpiInstance getCmpiInstance(const char** properties=0) const;
+    Linux_DnsAllowTransferACLForZoneInstanceName m_instanceName;
        
-       unsigned int isInstanceNameSet() const;
-       void setInstanceName(
-        const Linux_DnsAllowTransferACLForZoneInstanceName& val);        
-       const Linux_DnsAllowTransferACLForZoneInstanceName&
-        getInstanceName() const;
+    struct isSetType{
+      unsigned int instanceName:1;
+
+    } isSet;
+    
+    public:
+    Linux_DnsAllowTransferACLForZoneManualInstance();
+    Linux_DnsAllowTransferACLForZoneManualInstance(
+      const Linux_DnsAllowTransferACLForZoneManualInstance& anInstance);
+    Linux_DnsAllowTransferACLForZoneManualInstance(
+      const CmpiInstance& aCmpiInstance, 
+      const char* anInstanceNamespaceP);
+    ~Linux_DnsAllowTransferACLForZoneManualInstance();
        
-  private:
-       void init();
-       void init(const Linux_DnsAllowTransferACLForZoneManualInstance& original);
-       void reset();
+    Linux_DnsAllowTransferACLForZoneManualInstance& operator=(
+      const Linux_DnsAllowTransferACLForZoneManualInstance& anInstance);
        
-       Linux_DnsAllowTransferACLForZoneInstanceName m_instanceName;
-       
-       struct isSetType{
-       	 unsigned int instanceName:1;
-       } isSet;
+    CmpiInstance getCmpiInstance(const char** aPropertiesPP = 0) const;
+    unsigned int isInstanceNameSet() const;
+    void setInstanceName(const Linux_DnsAllowTransferACLForZoneInstanceName& anInstanceName);        
+    const Linux_DnsAllowTransferACLForZoneInstanceName& getInstanceName() const;
+
+
   };
   
-  
-  struct Linux_DnsAllowTransferACLForZoneManualInstanceEnumerationElement{
-  	Linux_DnsAllowTransferACLForZoneManualInstance* m_elementP;
-  	Linux_DnsAllowTransferACLForZoneManualInstanceEnumerationElement* m_nextP;
-  	
-  	Linux_DnsAllowTransferACLForZoneManualInstanceEnumerationElement();
-  	~Linux_DnsAllowTransferACLForZoneManualInstanceEnumerationElement();  	
+  struct Linux_DnsAllowTransferACLForZoneManualInstanceEnumerationElement {
+
+    Linux_DnsAllowTransferACLForZoneManualInstance* m_elementP;
+    Linux_DnsAllowTransferACLForZoneManualInstanceEnumerationElement* m_nextP;
+
+    Linux_DnsAllowTransferACLForZoneManualInstanceEnumerationElement();
+    ~Linux_DnsAllowTransferACLForZoneManualInstanceEnumerationElement();  
+
   };
   
 
   class Linux_DnsAllowTransferACLForZoneManualInstanceEnumeration {
-  	private:
-  	  Linux_DnsAllowTransferACLForZoneManualInstanceEnumerationElement* firstElementP;
-  	  Linux_DnsAllowTransferACLForZoneManualInstanceEnumerationElement* currentElementP;
-  	  Linux_DnsAllowTransferACLForZoneManualInstanceEnumerationElement* endElementP;
-  	
-  	public:
-  	  Linux_DnsAllowTransferACLForZoneManualInstanceEnumeration();
-  	  
-  	  Linux_DnsAllowTransferACLForZoneManualInstanceEnumeration(
-  	   const Linux_DnsAllowTransferACLForZoneManualInstanceEnumeration& original);
-  	  
-  	  ~Linux_DnsAllowTransferACLForZoneManualInstanceEnumeration();
-  	  
-  	  void reset();
-  	  
-  	  bool hasNext() const;
-  	  
-  	  const Linux_DnsAllowTransferACLForZoneManualInstance& getNext();
-  	  
-  	  int getSize() const;
-  	  
-  	  const Linux_DnsAllowTransferACLForZoneManualInstance& getElement(int pos) const;  	  
-  	  
-  	 void addElement(const Linux_DnsAllowTransferACLForZoneManualInstance& elementP);
-  };
-}
-#endif
 
+    private:
+    Linux_DnsAllowTransferACLForZoneManualInstanceEnumerationElement* m_firstElementP;
+    Linux_DnsAllowTransferACLForZoneManualInstanceEnumerationElement* m_currentElementP;
+    Linux_DnsAllowTransferACLForZoneManualInstanceEnumerationElement* m_endElementP;
+
+    public:
+    Linux_DnsAllowTransferACLForZoneManualInstanceEnumeration();
+    Linux_DnsAllowTransferACLForZoneManualInstanceEnumeration(
+      const Linux_DnsAllowTransferACLForZoneManualInstanceEnumeration& anInstanceEnumeration);
+    ~Linux_DnsAllowTransferACLForZoneManualInstanceEnumeration();
+
+    void reset();
+    bool hasNext() const;
+    const Linux_DnsAllowTransferACLForZoneManualInstance& getNext();
+    int getSize() const;
+    const Linux_DnsAllowTransferACLForZoneManualInstance& getElement(int anIndex) const;  	  
+    void addElement(const Linux_DnsAllowTransferACLForZoneManualInstance& anInstance);
+
+  };
+
+}
+
+#endif

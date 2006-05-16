@@ -1,110 +1,121 @@
- /**
- * Linux_DnsManagedSystemElementForSettingExternal.h
- *
- * (C) Copyright IBM Corp. 2005
- *
- * THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
- * ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE
- * CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
- *
- * You can obtain a current copy of the Common Public License from
- * http://www.opensource.org/licenses/cpl1.0.php
- *
- * author:     Murillo Bernardes <bernarde@br.ibm.com>
- *
- * Contributors:
- *
- */
+// =======================================================================
+// Linux_DnsManagedSystemElementForSettingExternal.h
+//     created on Fri, 3 Mar 2006 using ECUTE
+// 
+// Copyright (c) 2006, International Business Machines
+//
+// THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
+// ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE 
+// CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
+//
+// You can obtain a current copy of the Common Public License from
+// http://oss.software.ibm.com/developerworks/opensource/license-cpl.html
+//
+// Author:        generated
+//
+// Contributors:
+//                Murillo Bernardes <bernarde@br.ibm.com>
+//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//
+// =======================================================================
+//
+// 
 #ifndef Linux_DnsManagedSystemElementForSettingExternal_h
 #define Linux_DnsManagedSystemElementForSettingExternal_h
 
+
 #include "Linux_DnsManagedSystemElementForSettingInstance.h"
-#include "Linux_DnsZoneInstance.h"
 #include "Linux_DnsAddressMatchListInstance.h"
+#include "Linux_DnsZoneInstance.h"
+
 #include "CmpiBroker.h"
 
 namespace genProvider {
 
   class Linux_DnsManagedSystemElementForSettingExternal {
+    
+    private:
+    CmpiBroker m_broker;
+    CmpiContext m_context;
   	
     public:
     Linux_DnsManagedSystemElementForSettingExternal(
-     const CmpiBroker& brkr, const CmpiContext& ctx);
+      const CmpiBroker& aBroker,
+      const CmpiContext& aContext);
     virtual ~Linux_DnsManagedSystemElementForSettingExternal();
     
     virtual void enumInstanceNames(
-     const char *nsp,
-     Linux_DnsManagedSystemElementForSettingInstanceNameEnumeration&);
+      const char *aNameSpaceP,
+      Linux_DnsManagedSystemElementForSettingInstanceNameEnumeration& anInstanceNameEnumeration);
      
     virtual void enumInstances(
-     const char *nsp,
-     const char* *properties,
-     Linux_DnsManagedSystemElementForSettingInstanceEnumeration&);
+      const char *anNameSpaceP,
+      const char** aPropertiesPP,
+      Linux_DnsManagedSystemElementForSettingInstanceEnumeration& anInstanceEnumeration);
      
     virtual Linux_DnsManagedSystemElementForSettingInstance getInstance(
-     const char* *properties,
-     const Linux_DnsManagedSystemElementForSettingInstanceName&);
+      const char** aPropertiesPP,
+      const Linux_DnsManagedSystemElementForSettingInstanceName& anInstanceName);
      
     virtual void setInstance(
-     const char* *properties,
-     const Linux_DnsManagedSystemElementForSettingInstance&);
+      const char** aPropertiesPP,
+      const Linux_DnsManagedSystemElementForSettingInstance& anInstance);
      
-    virtual void createInstance(
-     const Linux_DnsManagedSystemElementForSettingInstance&);
+    virtual Linux_DnsManagedSystemElementForSettingInstanceName createInstance(
+      const Linux_DnsManagedSystemElementForSettingInstance& anInstance);
      
     virtual void deleteInstance(
-     const Linux_DnsManagedSystemElementForSettingInstanceName&);
-    
-    //association calls
-    
-    void referencesElement( 
-     const char *nsp,
-     const char** properties,
-     const Linux_DnsAddressMatchListInstanceName& sourceInst,
-     Linux_DnsManagedSystemElementForSettingInstanceEnumeration& instances);
+      const Linux_DnsManagedSystemElementForSettingInstanceName& anInstanceName);
 
-    void referenceNamesElement( 
-     const char *nsp,
-     const Linux_DnsAddressMatchListInstanceName& sourceInst,
-     Linux_DnsManagedSystemElementForSettingInstanceNameEnumeration& instanceNames);
+
+    //association calls
 
     void referencesSetting( 
-     const char *nsp,
-     const char** properties,
-     const Linux_DnsZoneInstanceName& sourceInst,
-     Linux_DnsManagedSystemElementForSettingInstanceEnumeration& instances);
+      const char *aNameSpaceP,
+      const char** aPropertiesPP,
+      const Linux_DnsZoneInstanceName& aSourceInstanceName,
+      Linux_DnsManagedSystemElementForSettingInstanceEnumeration& anInstanceEnumeration);
 
     void referenceNamesSetting( 
-     const char *nsp,
-     const Linux_DnsZoneInstanceName& sourceInst,
-     Linux_DnsManagedSystemElementForSettingInstanceNameEnumeration& instanceNames);
+      const char *aNameSpaceP,
+      const Linux_DnsZoneInstanceName& aSourceInstanceName,
+      Linux_DnsManagedSystemElementForSettingInstanceNameEnumeration& anInstanceNameEnumeration);
 
-    void associatorsElement( 
-     const char *nsp,
-     const char** properties,
-     const Linux_DnsAddressMatchListInstanceName& sourceInst,
-     Linux_DnsZoneInstanceEnumeration& instances);
+    void referencesElement( 
+      const char *aNameSpaceP,
+      const char** aPropertiesPP,
+      const Linux_DnsAddressMatchListInstanceName& aSourceInstanceName,
+      Linux_DnsManagedSystemElementForSettingInstanceEnumeration& anInstanceEnumeration);
 
-    void associatorNamesElement( 
-     const char *nsp,
-     const Linux_DnsAddressMatchListInstanceName& sourceInst,
-     Linux_DnsZoneInstanceNameEnumeration& instanceNames);
+    void referenceNamesElement( 
+      const char *aNameSpaceP,
+      const Linux_DnsAddressMatchListInstanceName& aSourceInstanceName,
+      Linux_DnsManagedSystemElementForSettingInstanceNameEnumeration& anInstanceNameEnumeration);
 
     void associatorsSetting( 
-     const char *nsp,
-     const char** properties,
-     const Linux_DnsZoneInstanceName& sourceInst,
-     Linux_DnsAddressMatchListInstanceEnumeration& instances);
+      const char *aNameSpaceP,
+      const char** aPropertiesPP,
+      const Linux_DnsZoneInstanceName& aSourceInstanceName,
+      Linux_DnsAddressMatchListInstanceEnumeration& anInstanceEnumeration);
 
     void associatorNamesSetting( 
-     const char *nsp,
-     const Linux_DnsZoneInstanceName& sourceInst,
-     Linux_DnsAddressMatchListInstanceNameEnumeration& instanceNames);
+      const char *aNameSpaceP,
+      const Linux_DnsZoneInstanceName& aSourceInstanceName,
+      Linux_DnsAddressMatchListInstanceNameEnumeration& anInstanceNameEnumeration);
 
-     
-    private:
-    CmpiBroker  broker;
-    CmpiContext context;
+    void associatorsElement( 
+      const char *aNameSpaceP,
+      const char** aPropertiesPP,
+      const Linux_DnsAddressMatchListInstanceName& aSourceInstanceName,
+      Linux_DnsZoneInstanceEnumeration& anInstanceEnumeration);
+
+    void associatorNamesElement( 
+      const char *aNameSpaceP,
+      const Linux_DnsAddressMatchListInstanceName& aSourceInstanceName,
+      Linux_DnsZoneInstanceNameEnumeration& anInstanceNameEnumeration); 
+  
   };
+
 }
+
 #endif

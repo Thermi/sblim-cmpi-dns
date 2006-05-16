@@ -1,20 +1,25 @@
- /**
- * Linux_DnsSlaveZoneInstance.cpp
- *
- * (C) Copyright IBM Corp. 2005
- *
- * THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
- * ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE
- * CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
- *
- * You can obtain a current copy of the Common Public License from
- * http://www.opensource.org/licenses/cpl1.0.php
- *
- * author:     Murillo Bernardes <bernarde@br.ibm.com>
- *
- * Contributors:
- *
- */
+// =======================================================================
+// Linux_DnsSlaveZoneInstance.cpp
+//     created on Fri, 3 Mar 2006 using ECUTE
+// 
+// Copyright (c) 2006, International Business Machines
+//
+// THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
+// ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE 
+// CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
+//
+// You can obtain a current copy of the Common Public License from
+// http://oss.software.ibm.com/developerworks/opensource/license-cpl.html
+//
+// Author:        generated
+//
+// Contributors:
+//                Murillo Bernardes <bernarde@br.ibm.com>
+//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//
+// =======================================================================
+//
+// 
 #include "Linux_DnsSlaveZoneInstance.h"
 #include "CmpiData.h"
 #include "CmpiString.h"
@@ -23,612 +28,823 @@
 
 namespace genProvider {
 
-  //*********************************************************
+  //****************************************************************************
   //Linux_DnsSlaveZoneInstance
-  //*********************************************************
-
+  //----------------------------------------------------------------------------
   //empty constructor
-  Linux_DnsSlaveZoneInstance::
-   Linux_DnsSlaveZoneInstance(){   	
+  Linux_DnsSlaveZoneInstance::Linux_DnsSlaveZoneInstance() {   	
    	init();  	   	
-  };
+  }
   
-  
+  //----------------------------------------------------------------------------
   //copy constructor	
-  Linux_DnsSlaveZoneInstance::
-   Linux_DnsSlaveZoneInstance
-   (const Linux_DnsSlaveZoneInstance& original){   	
-   	init(original);  	   	
-  };
+  //----------------------------------------------------------------------------
+  Linux_DnsSlaveZoneInstance::Linux_DnsSlaveZoneInstance(
+    const Linux_DnsSlaveZoneInstance& anInstance) {   	
+   	init(anInstance);  	   	
+  }
   
-  
+  //----------------------------------------------------------------------------
   //constructor using CmpiInstance
-  Linux_DnsSlaveZoneInstance::
-   Linux_DnsSlaveZoneInstance (const CmpiInstance& inst, const char* instanceNamespace){
+  //----------------------------------------------------------------------------
+  Linux_DnsSlaveZoneInstance::Linux_DnsSlaveZoneInstance(
+    const CmpiInstance& aCmpiInstance,
+    const char* anInstanceNamespaceP) {
+
     CmpiData cmpiData;
+
     init(); 
     
-    CmpiObjectPath cop=inst.getObjectPath();
-    cop.setNameSpace(instanceNamespace);
+    CmpiObjectPath cop = aCmpiInstance.getObjectPath();
+    cop.setNameSpace(anInstanceNamespaceP);
     setInstanceName(Linux_DnsSlaveZoneInstanceName(cop));
-    
-    cmpiData = inst.getProperty("Caption");
-    if(!cmpiData.isNullValue()){
+
+    cmpiData = aCmpiInstance.getProperty("Caption");
+    if ( ! cmpiData.isNullValue()){
       CmpiString Caption = cmpiData;
       setCaption(Caption.charPtr());
     }
-    
-    cmpiData = inst.getProperty("Description");
-    if(!cmpiData.isNullValue()){
+
+    cmpiData = aCmpiInstance.getProperty("Description");
+    if ( ! cmpiData.isNullValue()){
       CmpiString Description = cmpiData;
       setDescription(Description.charPtr());
     }
-    
-    cmpiData = inst.getProperty("ElementName");
-    if(!cmpiData.isNullValue()){
+
+    cmpiData = aCmpiInstance.getProperty("ElementName");
+    if ( ! cmpiData.isNullValue()){
       CmpiString ElementName = cmpiData;
       setElementName(ElementName.charPtr());
     }
-    
-    cmpiData = inst.getProperty("Forward");
-    if(!cmpiData.isNullValue()){
+
+    cmpiData = aCmpiInstance.getProperty("Forward");
+    if ( ! cmpiData.isNullValue()){
       CMPIUint16 Forward = cmpiData;
       setForward(Forward);
     }
-    
-    cmpiData = inst.getProperty("Forwarders");
-    if(!cmpiData.isNullValue()){
+
+    cmpiData = aCmpiInstance.getProperty("Forwarders");
+    if ( ! cmpiData.isNullValue()){
       CmpiArray Forwarders = cmpiData;
-      unsigned int ForwardersSize;
-      const char** ForwardersArray;
-      ArrayConverter::makeArray(Forwarders, (char***)&ForwardersArray, ForwardersSize);
+    unsigned int ForwardersSize;
+    const char** ForwardersArray;
+    ArrayConverter::makeArray(
+      Forwarders, 
+      (char***)&ForwardersArray, 
+      ForwardersSize);
       setForwarders(ForwardersArray, ForwardersSize, 0);
     }
-    
-    cmpiData = inst.getProperty("ResourceRecordFile");
-    if(!cmpiData.isNullValue()){
+
+    cmpiData = aCmpiInstance.getProperty("ResourceRecordFile");
+    if ( ! cmpiData.isNullValue()){
       CmpiString ResourceRecordFile = cmpiData;
       setResourceRecordFile(ResourceRecordFile.charPtr());
     }
-    
-    cmpiData = inst.getProperty("SettingID");
-    if(!cmpiData.isNullValue()){
+
+    cmpiData = aCmpiInstance.getProperty("SettingID");
+    if ( ! cmpiData.isNullValue()){
       CmpiString SettingID = cmpiData;
       setSettingID(SettingID.charPtr());
     }
-    
-    cmpiData = inst.getProperty("Type");
-    if(!cmpiData.isNullValue()){
+
+    cmpiData = aCmpiInstance.getProperty("Type");
+    if ( ! cmpiData.isNullValue()){
       CMPIUint16 Type = cmpiData;
       setType(Type);
     }
+
     
   }
   
-  
+  //----------------------------------------------------------------------------
   //Destructor
+  //----------------------------------------------------------------------------
   Linux_DnsSlaveZoneInstance::
    ~Linux_DnsSlaveZoneInstance(){
    	reset();  	  
-  };
+  }
   
   
+  //----------------------------------------------------------------------------
   //copy operator
+  //----------------------------------------------------------------------------
   Linux_DnsSlaveZoneInstance&
-   Linux_DnsSlaveZoneInstance::operator=
-   (const Linux_DnsSlaveZoneInstance& original){   	
-   	init(original);
+  Linux_DnsSlaveZoneInstance::operator=(
+    const Linux_DnsSlaveZoneInstance& anInstance) {   	
+   	
+   	init(anInstance);
    	return *this;
-  };
+  
+  }
   
   
+  //----------------------------------------------------------------------------
   //converts to CmpiInstance
-  CmpiInstance Linux_DnsSlaveZoneInstance::
-   getCmpiInstance(const char** properties) const{
+  //----------------------------------------------------------------------------
+  CmpiInstance
+  Linux_DnsSlaveZoneInstance::getCmpiInstance(
+    const char** aPropertiesPP) const {
    	
    	CmpiObjectPath objectPath=getInstanceName().getObjectPath();      
     CmpiInstance cmpiInstance(objectPath);    
     getInstanceName().fillKeys(cmpiInstance);
     
-    if (properties) {
-	  cmpiInstance.setPropertyFilter(properties,0);
+    if (aPropertiesPP) {
+	    cmpiInstance.setPropertyFilter(aPropertiesPP,0);
     }
 
-  	if(isSet.Caption){
-  	  cmpiInstance.setProperty("Caption",CmpiData(m_Caption));
+  	if (isSet.Caption) {
+  	  
+  	  cmpiInstance.setProperty(
+  	    "Caption",
+  	    CmpiData(m_Caption));
   	}
 
-  	if(isSet.Description){
-  	  cmpiInstance.setProperty("Description",CmpiData(m_Description));
+  	if (isSet.Description) {
+  	  
+  	  cmpiInstance.setProperty(
+  	    "Description",
+  	    CmpiData(m_Description));
   	}
 
-  	if(isSet.ElementName){
-  	  cmpiInstance.setProperty("ElementName",CmpiData(m_ElementName));
+  	if (isSet.ElementName) {
+  	  
+  	  cmpiInstance.setProperty(
+  	    "ElementName",
+  	    CmpiData(m_ElementName));
   	}
 
-  	if(isSet.Forward){
-  	  cmpiInstance.setProperty("Forward",CmpiData(m_Forward));
+  	if (isSet.Forward) {
+  	  
+  	  cmpiInstance.setProperty(
+  	    "Forward",
+  	    CmpiData(m_Forward));
   	}
 
-  	if(isSet.Forwarders){
-  	  unsigned int ForwardersSize;
-      const char** arrayForwarders=getForwarders(ForwardersSize);
-      CmpiArray arrayCmpiForwarders=CmpiArray(ForwardersSize,CMPI_chars);
-      for(unsigned int i=0;i<ForwardersSize;i++)
-        arrayCmpiForwarders[i]=CmpiData(arrayForwarders[i]);
-  	cmpiInstance.setProperty("Forwarders",CmpiData(arrayCmpiForwarders));
+  	if (isSet.Forwarders) {
+  	  
+      unsigned int ForwardersSize;
+      const char** arrayForwarders = getForwarders(ForwardersSize);
+      CmpiArray cmpiArrayForwarders = CmpiArray(
+        ForwardersSize,
+        CMPI_chars);
+      for (unsigned int x=0; x < ForwardersSize; ++x) {
+        cmpiArrayForwarders[x] = CmpiData(arrayForwarders[x]);
+      }
+  	  cmpiInstance.setProperty(
+  	    "Forwarders",
+  	    CmpiData(cmpiArrayForwarders));
   	}
 
-  	if(isSet.ResourceRecordFile){
-  	  cmpiInstance.setProperty("ResourceRecordFile",CmpiData(m_ResourceRecordFile));
+  	if (isSet.ResourceRecordFile) {
+  	  
+  	  cmpiInstance.setProperty(
+  	    "ResourceRecordFile",
+  	    CmpiData(m_ResourceRecordFile));
   	}
 
-  	if(isSet.SettingID){
-  	  cmpiInstance.setProperty("SettingID",CmpiData(m_SettingID));
+  	if (isSet.SettingID) {
+  	  
+  	  cmpiInstance.setProperty(
+  	    "SettingID",
+  	    CmpiData(m_SettingID));
   	}
 
-  	if(isSet.Type){
-  	  cmpiInstance.setProperty("Type",CmpiData(m_Type));
+  	if (isSet.Type) {
+  	  
+  	  cmpiInstance.setProperty(
+  	    "Type",
+  	    CmpiData(m_Type));
   	}
+
   	
   	return cmpiInstance;
   	
   }
   
-  
-  //InstanceName related methods
-  unsigned int Linux_DnsSlaveZoneInstance::
-   isInstanceNameSet() const{
+  //----------------------------------------------------------------------------
+  // InstanceName related methods
+  //----------------------------------------------------------------------------
+  unsigned int 
+  Linux_DnsSlaveZoneInstance::isInstanceNameSet() const {
   	return isSet.instanceName;
   }
   
+  //----------------------------------------------------------------------------
   const Linux_DnsSlaveZoneInstanceName&
-    Linux_DnsSlaveZoneInstance::getInstanceName() const{
+  Linux_DnsSlaveZoneInstance::getInstanceName() const {
 
-    if(!isSet.instanceName)
+    if( ! isSet.instanceName) {
    	  throw CmpiErrorFormater::getErrorException(
-   	   CmpiErrorFormater::NOT_SET,
-   	   "InstanceName not set in Linux_DnsSlaveZone instance");
+        CmpiErrorFormater::NOT_SET,
+        "InstanceName (CIM Key Attributes)",
+        "Linux_DnsSlaveZone");
+   	}
   		
    	return m_instanceName;
+  
   }
 
-  void Linux_DnsSlaveZoneInstance::setInstanceName(
-   const Linux_DnsSlaveZoneInstanceName& val){
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsSlaveZoneInstance::setInstanceName(
+    const Linux_DnsSlaveZoneInstanceName& val) {
+
     m_instanceName = val;
-    isSet.instanceName=1;
+    isSet.instanceName = 1;
+
   }
        
-  //Caption related methods
-  unsigned int Linux_DnsSlaveZoneInstance::isCaptionSet() const{
+  //----------------------------------------------------------------------------
+  // Caption related methods
+  //----------------------------------------------------------------------------
+  unsigned int
+  Linux_DnsSlaveZoneInstance::isCaptionSet() const {
     return isSet.Caption;
   }
-  void  Linux_DnsSlaveZoneInstance::
-   setCaption(const char* val, int makeCopy){
-    if (isSet.Caption) {
-      delete []m_Caption;
-    }
-    if (makeCopy&&val) {
-      char* tmpval = new char[strlen(val)+1];
-      strcpy(tmpval,val);
-      m_Caption = tmpval;
-    } else {
-      m_Caption = val;
-    }
-    isSet.Caption=1;
-  }       
-  const char* Linux_DnsSlaveZoneInstance::
-   getCaption() const{
+
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsSlaveZoneInstance::setCaption(
+    const char* aValueP,
+    int aCopyFlag) {
     
-    if(!isSet.Caption)
+    if (isSet.Caption) {
+      delete [] m_Caption;
+    }
+    
+    if (aCopyFlag && aValueP) {
+      char* valueP = new char[strlen(aValueP) + 1];
+      strcpy(valueP,aValueP);
+      m_Caption = valueP;
+    } else {
+      m_Caption = aValueP;
+    }
+    
+    isSet.Caption = 1;
+
+  }       
+
+  //----------------------------------------------------------------------------
+  const char*
+  Linux_DnsSlaveZoneInstance::getCaption() const {
+    
+    if ( ! isSet.Caption) {
    	  throw CmpiErrorFormater::getErrorException(
-   	   CmpiErrorFormater::NOT_SET,
-   	   "Caption not set");
-   	   	
+   	    CmpiErrorFormater::NOT_SET,
+        "Caption",
+        "Linux_DnsSlaveZone");
+   	}
+
+
     return m_Caption;
+
   }
        
-  //Description related methods
-  unsigned int Linux_DnsSlaveZoneInstance::isDescriptionSet() const{
+  //----------------------------------------------------------------------------
+  // Description related methods
+  //----------------------------------------------------------------------------
+  unsigned int
+  Linux_DnsSlaveZoneInstance::isDescriptionSet() const {
     return isSet.Description;
   }
-  void  Linux_DnsSlaveZoneInstance::
-   setDescription(const char* val, int makeCopy){
-    if (isSet.Description) {
-      delete []m_Description;
-    }
-    if (makeCopy&&val) {
-      char* tmpval = new char[strlen(val)+1];
-      strcpy(tmpval,val);
-      m_Description = tmpval;
-    } else {
-      m_Description = val;
-    }
-    isSet.Description=1;
-  }       
-  const char* Linux_DnsSlaveZoneInstance::
-   getDescription() const{
+
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsSlaveZoneInstance::setDescription(
+    const char* aValueP,
+    int aCopyFlag) {
     
-    if(!isSet.Description)
+    if (isSet.Description) {
+      delete [] m_Description;
+    }
+    
+    if (aCopyFlag && aValueP) {
+      char* valueP = new char[strlen(aValueP) + 1];
+      strcpy(valueP,aValueP);
+      m_Description = valueP;
+    } else {
+      m_Description = aValueP;
+    }
+    
+    isSet.Description = 1;
+
+  }       
+
+  //----------------------------------------------------------------------------
+  const char*
+  Linux_DnsSlaveZoneInstance::getDescription() const {
+    
+    if ( ! isSet.Description) {
    	  throw CmpiErrorFormater::getErrorException(
-   	   CmpiErrorFormater::NOT_SET,
-   	   "Description not set");
-   	   	
+   	    CmpiErrorFormater::NOT_SET,
+        "Description",
+        "Linux_DnsSlaveZone");
+   	}
+
+
     return m_Description;
+
   }
        
-  //ElementName related methods
-  unsigned int Linux_DnsSlaveZoneInstance::isElementNameSet() const{
+  //----------------------------------------------------------------------------
+  // ElementName related methods
+  //----------------------------------------------------------------------------
+  unsigned int
+  Linux_DnsSlaveZoneInstance::isElementNameSet() const {
     return isSet.ElementName;
   }
-  void  Linux_DnsSlaveZoneInstance::
-   setElementName(const char* val, int makeCopy){
-    if (isSet.ElementName) {
-      delete []m_ElementName;
-    }
-    if (makeCopy&&val) {
-      char* tmpval = new char[strlen(val)+1];
-      strcpy(tmpval,val);
-      m_ElementName = tmpval;
-    } else {
-      m_ElementName = val;
-    }
-    isSet.ElementName=1;
-  }       
-  const char* Linux_DnsSlaveZoneInstance::
-   getElementName() const{
+
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsSlaveZoneInstance::setElementName(
+    const char* aValueP,
+    int aCopyFlag) {
     
-    if(!isSet.ElementName)
+    if (isSet.ElementName) {
+      delete [] m_ElementName;
+    }
+    
+    if (aCopyFlag && aValueP) {
+      char* valueP = new char[strlen(aValueP) + 1];
+      strcpy(valueP,aValueP);
+      m_ElementName = valueP;
+    } else {
+      m_ElementName = aValueP;
+    }
+    
+    isSet.ElementName = 1;
+
+  }       
+
+  //----------------------------------------------------------------------------
+  const char*
+  Linux_DnsSlaveZoneInstance::getElementName() const {
+    
+    if ( ! isSet.ElementName) {
    	  throw CmpiErrorFormater::getErrorException(
-   	   CmpiErrorFormater::NOT_SET,
-   	   "ElementName not set");
-   	   	
+   	    CmpiErrorFormater::NOT_SET,
+        "ElementName",
+        "Linux_DnsSlaveZone");
+   	}
+
+
     return m_ElementName;
+
   }
        
-  //Forward related methods
-  unsigned int Linux_DnsSlaveZoneInstance::isForwardSet() const{
+  //----------------------------------------------------------------------------
+  // Forward related methods
+  //----------------------------------------------------------------------------
+  unsigned int
+  Linux_DnsSlaveZoneInstance::isForwardSet() const {
     return isSet.Forward;
   }
-  void Linux_DnsSlaveZoneInstance::
-   setForward(const CMPIUint16 val){
-    m_Forward = val;
-    isSet.Forward=1;
+
+  //----------------------------------------------------------------------------
+  void Linux_DnsSlaveZoneInstance::setForward(
+    const CMPIUint16 aValue) {
+  
+    m_Forward = aValue;
+    isSet.Forward = 1;
+  
   }       
-  const CMPIUint16 Linux_DnsSlaveZoneInstance::
-   getForward() const{
+
+  //----------------------------------------------------------------------------
+  const CMPIUint16
+  Linux_DnsSlaveZoneInstance::getForward() const {
     
-    if(!isSet.Forward)
+    if ( ! isSet.Forward) {
    	  throw CmpiErrorFormater::getErrorException(
-   	   CmpiErrorFormater::NOT_SET,
-   	   "Forward not set");
-   	   	
+   	    CmpiErrorFormater::NOT_SET,
+        "Forward",
+        "Linux_DnsSlaveZone");
+   	}
+
+
     return m_Forward;
+
   }
        
-  //Forwarders related methods
-  unsigned int Linux_DnsSlaveZoneInstance::isForwardersSet() const{
+  //----------------------------------------------------------------------------
+  // Forwarders related methods
+  //----------------------------------------------------------------------------
+  unsigned int
+  Linux_DnsSlaveZoneInstance::isForwardersSet() const {
     return isSet.Forwarders;
   }
-  void  Linux_DnsSlaveZoneInstance::
-   setForwarders(const char** val, const unsigned int size, int makeCopy){
-    ForwardersArraySize=size;
+
+  //----------------------------------------------------------------------------
+  void  
+  Linux_DnsSlaveZoneInstance::setForwarders(
+    const char** aValuePP, 
+    const unsigned int aSize,
+    int aCopyFlag) {
+    
     if (isSet.Forwarders) {
       delete m_Forwarders;
     }
-    if (makeCopy&&val) {
-      m_Forwarders = new const char*[size];
-      for(unsigned int i=0;i<size;i++){
-        char* aString = new char[strlen(val[i])+1];
-        strcpy(aString,val[i]);
-        m_Forwarders[i]=aString;
+    
+    if (aCopyFlag && aValuePP) {
+      m_Forwarders = new const char*[aSize];
+      for (unsigned int x=0; x < aSize; ++x) {
+        char* stringP = new char[strlen(aValuePP[x])+1];
+        strcpy(stringP,aValuePP[x]);
+        m_Forwarders[x] = stringP;
       }      
     } else {
-      m_Forwarders = val;
+      m_Forwarders = aValuePP;
     }
-    isSet.Forwarders=1;
-  }       
-  const char** Linux_DnsSlaveZoneInstance::
-   getForwarders(unsigned int& size) const{
     
-    if(!isSet.Forwarders)
+    m_ForwardersSize = aSize;
+    
+    isSet.Forwarders = 1;
+    
+  }       
+
+  //----------------------------------------------------------------------------
+  const char**
+  Linux_DnsSlaveZoneInstance::getForwarders(unsigned int& aSize) const {
+    
+    if ( ! isSet.Forwarders) {
    	  throw CmpiErrorFormater::getErrorException(
-   	   CmpiErrorFormater::NOT_SET,
-   	   "Forwarders not set");
-   	   	
-    size=ForwardersArraySize;
+   	    CmpiErrorFormater::NOT_SET,
+        "Forwarders",
+        "Linux_DnsSlaveZone");
+   	}
+
+    aSize = m_ForwardersSize;
     return m_Forwarders;
+
   }
        
-  //ResourceRecordFile related methods
-  unsigned int Linux_DnsSlaveZoneInstance::isResourceRecordFileSet() const{
+  //----------------------------------------------------------------------------
+  // ResourceRecordFile related methods
+  //----------------------------------------------------------------------------
+  unsigned int
+  Linux_DnsSlaveZoneInstance::isResourceRecordFileSet() const {
     return isSet.ResourceRecordFile;
   }
-  void  Linux_DnsSlaveZoneInstance::
-   setResourceRecordFile(const char* val, int makeCopy){
-    if (isSet.ResourceRecordFile) {
-      delete []m_ResourceRecordFile;
-    }
-    if (makeCopy&&val) {
-      char* tmpval = new char[strlen(val)+1];
-      strcpy(tmpval,val);
-      m_ResourceRecordFile = tmpval;
-    } else {
-      m_ResourceRecordFile = val;
-    }
-    isSet.ResourceRecordFile=1;
-  }       
-  const char* Linux_DnsSlaveZoneInstance::
-   getResourceRecordFile() const{
+
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsSlaveZoneInstance::setResourceRecordFile(
+    const char* aValueP,
+    int aCopyFlag) {
     
-    if(!isSet.ResourceRecordFile)
+    if (isSet.ResourceRecordFile) {
+      delete [] m_ResourceRecordFile;
+    }
+    
+    if (aCopyFlag && aValueP) {
+      char* valueP = new char[strlen(aValueP) + 1];
+      strcpy(valueP,aValueP);
+      m_ResourceRecordFile = valueP;
+    } else {
+      m_ResourceRecordFile = aValueP;
+    }
+    
+    isSet.ResourceRecordFile = 1;
+
+  }       
+
+  //----------------------------------------------------------------------------
+  const char*
+  Linux_DnsSlaveZoneInstance::getResourceRecordFile() const {
+    
+    if ( ! isSet.ResourceRecordFile) {
    	  throw CmpiErrorFormater::getErrorException(
-   	   CmpiErrorFormater::NOT_SET,
-   	   "ResourceRecordFile not set");
-   	   	
+   	    CmpiErrorFormater::NOT_SET,
+        "ResourceRecordFile",
+        "Linux_DnsSlaveZone");
+   	}
+
+
     return m_ResourceRecordFile;
+
   }
        
-  //SettingID related methods
-  unsigned int Linux_DnsSlaveZoneInstance::isSettingIDSet() const{
+  //----------------------------------------------------------------------------
+  // SettingID related methods
+  //----------------------------------------------------------------------------
+  unsigned int
+  Linux_DnsSlaveZoneInstance::isSettingIDSet() const {
     return isSet.SettingID;
   }
-  void  Linux_DnsSlaveZoneInstance::
-   setSettingID(const char* val, int makeCopy){
-    if (isSet.SettingID) {
-      delete []m_SettingID;
-    }
-    if (makeCopy&&val) {
-      char* tmpval = new char[strlen(val)+1];
-      strcpy(tmpval,val);
-      m_SettingID = tmpval;
-    } else {
-      m_SettingID = val;
-    }
-    isSet.SettingID=1;
-  }       
-  const char* Linux_DnsSlaveZoneInstance::
-   getSettingID() const{
+
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsSlaveZoneInstance::setSettingID(
+    const char* aValueP,
+    int aCopyFlag) {
     
-    if(!isSet.SettingID)
+    if (isSet.SettingID) {
+      delete [] m_SettingID;
+    }
+    
+    if (aCopyFlag && aValueP) {
+      char* valueP = new char[strlen(aValueP) + 1];
+      strcpy(valueP,aValueP);
+      m_SettingID = valueP;
+    } else {
+      m_SettingID = aValueP;
+    }
+    
+    isSet.SettingID = 1;
+
+  }       
+
+  //----------------------------------------------------------------------------
+  const char*
+  Linux_DnsSlaveZoneInstance::getSettingID() const {
+    
+    if ( ! isSet.SettingID) {
    	  throw CmpiErrorFormater::getErrorException(
-   	   CmpiErrorFormater::NOT_SET,
-   	   "SettingID not set");
-   	   	
+   	    CmpiErrorFormater::NOT_SET,
+        "SettingID",
+        "Linux_DnsSlaveZone");
+   	}
+
+
     return m_SettingID;
+
   }
        
-  //Type related methods
-  unsigned int Linux_DnsSlaveZoneInstance::isTypeSet() const{
+  //----------------------------------------------------------------------------
+  // Type related methods
+  //----------------------------------------------------------------------------
+  unsigned int
+  Linux_DnsSlaveZoneInstance::isTypeSet() const {
     return isSet.Type;
   }
-  void Linux_DnsSlaveZoneInstance::
-   setType(const CMPIUint16 val){
-    m_Type = val;
-    isSet.Type=1;
+
+  //----------------------------------------------------------------------------
+  void Linux_DnsSlaveZoneInstance::setType(
+    const CMPIUint16 aValue) {
+  
+    m_Type = aValue;
+    isSet.Type = 1;
+  
   }       
-  const CMPIUint16 Linux_DnsSlaveZoneInstance::
-   getType() const{
+
+  //----------------------------------------------------------------------------
+  const CMPIUint16
+  Linux_DnsSlaveZoneInstance::getType() const {
     
-    if(!isSet.Type)
+    if ( ! isSet.Type) {
    	  throw CmpiErrorFormater::getErrorException(
-   	   CmpiErrorFormater::NOT_SET,
-   	   "Type not set");
-   	   	
+   	    CmpiErrorFormater::NOT_SET,
+        "Type",
+        "Linux_DnsSlaveZone");
+   	}
+
+
     return m_Type;
+
   }
 
-
   
+  //----------------------------------------------------------------------------
   //set isSet attributes to FALSE
-  void Linux_DnsSlaveZoneInstance::init(){
-   	isSet.instanceName=0;
-   	   	
-    isSet.Caption=0;   	
-    isSet.Description=0;   	
-    isSet.ElementName=0;   	
-    isSet.Forward=0;   	
-    isSet.Forwarders=0;   	
-    ForwardersArraySize=0;   	
-    isSet.ResourceRecordFile=0;   	
-    isSet.SettingID=0;   	
-    isSet.Type=0;  	
-  };
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsSlaveZoneInstance::init() {
+   	isSet.instanceName = 0;
+    isSet.Caption = 0;
+    isSet.Description = 0;
+    isSet.ElementName = 0;
+    isSet.Forward = 0;
+    isSet.Forwarders = 0;
+    m_ForwardersSize = 0;
+    isSet.ResourceRecordFile = 0;
+    isSet.SettingID = 0;
+    isSet.Type = 0;
+  	
+  }
   
-  
+  //----------------------------------------------------------------------------
   //copies another instance properties in this
-  void Linux_DnsSlaveZoneInstance::init
-   (const Linux_DnsSlaveZoneInstance& original){   	
+  //----------------------------------------------------------------------------
+  void 
+  Linux_DnsSlaveZoneInstance::init(
+    const Linux_DnsSlaveZoneInstance& anOriginal) {   	
+
    	init();
    	   	
-    if(original.isInstanceNameSet()){
-      setInstanceName(original.getInstanceName());
-    }   	
-    if(original.isCaptionSet()){
-      const char* CaptionOriginal=original.getCaption();
-      setCaption(CaptionOriginal, 1);
-    }   	
-    if(original.isDescriptionSet()){
-      const char* DescriptionOriginal=original.getDescription();
-      setDescription(DescriptionOriginal, 1);
-    }   	
-    if(original.isElementNameSet()){
-      const char* ElementNameOriginal=original.getElementName();
-      setElementName(ElementNameOriginal, 1);
-    }   	
-    if(original.isForwardSet()){
-      const CMPIUint16 ForwardOriginal=original.getForward();
-      setForward(ForwardOriginal);
-    }   	
-    if(original.isForwardersSet()){
-      unsigned int sizeForwarders;
-    const char** ForwardersOriginal=original.getForwarders(sizeForwarders);
-      setForwarders(ForwardersOriginal, sizeForwarders, 1);
-    }   	
-    if(original.isResourceRecordFileSet()){
-      const char* ResourceRecordFileOriginal=original.getResourceRecordFile();
-      setResourceRecordFile(ResourceRecordFileOriginal, 1);
-    }   	
-    if(original.isSettingIDSet()){
-      const char* SettingIDOriginal=original.getSettingID();
-      setSettingID(SettingIDOriginal, 1);
-    }   	
-    if(original.isTypeSet()){
-      const CMPIUint16 TypeOriginal=original.getType();
-      setType(TypeOriginal);
-    }    
-   }
-  
-  
-  //reset the instance data
-  void Linux_DnsSlaveZoneInstance::reset(){
+    if(anOriginal.isInstanceNameSet()) {
+      setInstanceName(anOriginal.getInstanceName());
+    }
+       	
+    if (anOriginal.isCaptionSet()) {
+      const char* CaptionOriginal = anOriginal.getCaption();
+      setCaption(CaptionOriginal,1);
+    }
    	
-
-  	if (isSet.Caption)
+    if (anOriginal.isDescriptionSet()) {
+      const char* DescriptionOriginal = anOriginal.getDescription();
+      setDescription(DescriptionOriginal,1);
+    }
+   	
+    if (anOriginal.isElementNameSet()) {
+      const char* ElementNameOriginal = anOriginal.getElementName();
+      setElementName(ElementNameOriginal,1);
+    }
+   	
+    if (anOriginal.isForwardSet()) {
+      const CMPIUint16 ForwardOriginal = anOriginal.getForward();
+      setForward(ForwardOriginal);
+    }
+   	
+    if (anOriginal.isForwardersSet()) {
+      unsigned int sizeForwarders;
+      const char** ForwardersOriginal = anOriginal.getForwarders(sizeForwarders);
+      setForwarders(ForwardersOriginal, sizeForwarders,1);
+    }
+   	
+    if (anOriginal.isResourceRecordFileSet()) {
+      const char* ResourceRecordFileOriginal = anOriginal.getResourceRecordFile();
+      setResourceRecordFile(ResourceRecordFileOriginal,1);
+    }
+   	
+    if (anOriginal.isSettingIDSet()) {
+      const char* SettingIDOriginal = anOriginal.getSettingID();
+      setSettingID(SettingIDOriginal,1);
+    }
+   	
+    if (anOriginal.isTypeSet()) {
+      const CMPIUint16 TypeOriginal = anOriginal.getType();
+      setType(TypeOriginal);
+    }
+    
+  }
+  
+  //----------------------------------------------------------------------------
+  //reset the instance data
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsSlaveZoneInstance::reset() {
+   	
+  	if (isSet.Caption) {
   	  delete(m_Caption);
-
-  	if (isSet.Description)
-  	  delete(m_Description);
-
-  	if (isSet.ElementName)
-  	  delete(m_ElementName);
-
-  	if (isSet.Forwarders){
-  	  ArrayConverter::destructArray((char**)(char**)m_Forwarders,ForwardersArraySize);
   	}
 
-  	if (isSet.ResourceRecordFile)
+  	if (isSet.Description) {
+  	  delete(m_Description);
+  	}
+
+  	if (isSet.ElementName) {
+  	  delete(m_ElementName);
+  	}
+
+  	if (isSet.Forwarders) {
+  	  ArrayConverter::destructArray((char**)m_Forwarders,m_ForwardersSize);
+  	}
+
+  	if (isSet.ResourceRecordFile) {
   	  delete(m_ResourceRecordFile);
+  	}
 
-  	if (isSet.SettingID)
+  	if (isSet.SettingID) {
   	  delete(m_SettingID);
-  	  
-  };
+  	}
+
+  }
   
-  
-  //*********************************************************
+  //----------------------------------------------------------------------------
   //Linux_DnsSlaveZoneInstanceEnumerationElement	
-  //*********************************************************
-  
-  Linux_DnsSlaveZoneInstanceEnumerationElement::
-   Linux_DnsSlaveZoneInstanceEnumerationElement(){
+  //----------------------------------------------------------------------------
+  Linux_DnsSlaveZoneInstanceEnumerationElement::Linux_DnsSlaveZoneInstanceEnumerationElement() {
    	
-  	m_elementP=0;
-  	m_nextP=0;
+  	m_elementP = 0;
+  	m_nextP = 0;
   	  
-  };
+  }
   
-  
-  Linux_DnsSlaveZoneInstanceEnumerationElement::
-   ~Linux_DnsSlaveZoneInstanceEnumerationElement(){
+  //----------------------------------------------------------------------------
+  Linux_DnsSlaveZoneInstanceEnumerationElement::~Linux_DnsSlaveZoneInstanceEnumerationElement() {
    	
-  	if (m_elementP!=0)
+  	if (m_elementP) {
   	  delete(m_elementP);
-  	if (m_nextP!=0)
+  	}
+  	
+  	if (m_nextP) {
   	  delete(m_nextP);
+  	}
   	  
-  };
+  }
 
-  
-  //*********************************************************
+  //----------------------------------------------------------------------------
   //Linux_DnsSlaveZoneInstanceNameEnumeration
-  //*********************************************************
-
-  Linux_DnsSlaveZoneInstanceEnumeration::
-   Linux_DnsSlaveZoneInstanceEnumeration(){
+  //----------------------------------------------------------------------------
+  Linux_DnsSlaveZoneInstanceEnumeration::Linux_DnsSlaveZoneInstanceEnumeration() {
    	
-  	 firstElementP=0;
-     currentElementP=0;
-     endElementP=0;
-  };
+    m_firstElementP = 0;
+    m_currentElementP = 0;
+    m_endElementP = 0;
   
-  Linux_DnsSlaveZoneInstanceEnumeration::
-   Linux_DnsSlaveZoneInstanceEnumeration(
-   const Linux_DnsSlaveZoneInstanceEnumeration& original){
+  }
+  
+  //----------------------------------------------------------------------------
+  Linux_DnsSlaveZoneInstanceEnumeration::Linux_DnsSlaveZoneInstanceEnumeration(
+    const Linux_DnsSlaveZoneInstanceEnumeration& anInstanceEnumeration) {
    	
-     firstElementP=0;
-     currentElementP=0;
-     endElementP=0;
+    m_firstElementP = 0;
+    m_currentElementP = 0;
+    m_endElementP = 0;
   	 
-     int size=original.getSize();
-     for(int i=0;i<size;i++)
-       addElement(original.getElement(i));           
-  };
+    int size = anInstanceEnumeration.getSize();
+    for (int x=0; x < size;++x) {
+      addElement(anInstanceEnumeration.getElement(x));
+    }           
+
+  }
   
-  	  
-  Linux_DnsSlaveZoneInstanceEnumeration::
-   ~Linux_DnsSlaveZoneInstanceEnumeration(){
+  //----------------------------------------------------------------------------
+  Linux_DnsSlaveZoneInstanceEnumeration::~Linux_DnsSlaveZoneInstanceEnumeration() {
    	
-  	if (firstElementP!=0)
-  	  delete(firstElementP);
+  	if (m_firstElementP) {
+  	  delete(m_firstElementP);
+  	}
   	  	
-  };
+  }
   
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsSlaveZoneInstanceEnumeration::reset() {
+  	
+  	m_currentElementP = m_firstElementP;
+  	
+  }
   	  
-  void Linux_DnsSlaveZoneInstanceEnumeration::reset(){
+  //----------------------------------------------------------------------------
+  bool
+  Linux_DnsSlaveZoneInstanceEnumeration::hasNext() const {
   	
-  	currentElementP=firstElementP;
-  };
+  	return (m_currentElementP != 0);
   
-  	  
-  bool Linux_DnsSlaveZoneInstanceEnumeration::hasNext() const{
-  	
-  	return (currentElementP!=0);
+  }
   
-  };
-  
-  int Linux_DnsSlaveZoneInstanceEnumeration::getSize() const{
+  //----------------------------------------------------------------------------
+  int
+  Linux_DnsSlaveZoneInstanceEnumeration::getSize() const {
   	
-    int size=0;
-    Linux_DnsSlaveZoneInstanceEnumerationElement* followingP=firstElementP;
+    int size = 0;
+    Linux_DnsSlaveZoneInstanceEnumerationElement* followingP = m_firstElementP;
   	
-  	while(followingP!=0){
-        followingP=followingP->m_nextP;
-        size++;
+  	while (followingP) {
+      followingP = followingP->m_nextP;
+      ++size;
     }
   	
     return size;
     
-  };
+  }
   
+  //----------------------------------------------------------------------------
   const Linux_DnsSlaveZoneInstance&  
-   Linux_DnsSlaveZoneInstanceEnumeration::getElement(int pos) const{
+  Linux_DnsSlaveZoneInstanceEnumeration::getElement(int anIndex) const {
    
-    Linux_DnsSlaveZoneInstanceEnumerationElement* followingP=firstElementP;
+    Linux_DnsSlaveZoneInstanceEnumerationElement* followingP = m_firstElementP;
    
-    int i=0;
-    while((followingP!=0)&&(i<pos)){
-        followingP=followingP->m_nextP;
-        i++;
+    int x = 0;
+    while (followingP && (x < anIndex)) {
+      followingP = followingP->m_nextP;
+      ++x;
     }
     
     return *(followingP->m_elementP);
-  };
+
+  }
   
-  	  
+  //----------------------------------------------------------------------------
   const Linux_DnsSlaveZoneInstance&
-   Linux_DnsSlaveZoneInstanceEnumeration::getNext() {
+  Linux_DnsSlaveZoneInstanceEnumeration::getNext() {
    	
-  	 Linux_DnsSlaveZoneInstanceEnumerationElement* currentP=
-  	  currentElementP;
-  	 currentElementP=currentElementP->m_nextP;
+    Linux_DnsSlaveZoneInstanceEnumerationElement* currentElementP =
+  	  m_currentElementP;
+
+    m_currentElementP = m_currentElementP->m_nextP;
   	 
-  	 return *(currentP->m_elementP);
-  };
+    return *(currentElementP->m_elementP);
+
+  }
   	  
-  void Linux_DnsSlaveZoneInstanceEnumeration::addElement
-   (const Linux_DnsSlaveZoneInstance& elementP){
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsSlaveZoneInstanceEnumeration::addElement(
+    const Linux_DnsSlaveZoneInstance& anInstance) {
    	
-  	if(firstElementP==0){
-  	  firstElementP=new Linux_DnsSlaveZoneInstanceEnumerationElement();
-  	  firstElementP->m_elementP=new Linux_DnsSlaveZoneInstance(elementP);
-  	  endElementP=firstElementP;
-  	  currentElementP=firstElementP;
-  	}else{
-  	  endElementP->m_nextP=new Linux_DnsSlaveZoneInstanceEnumerationElement();
-  	  endElementP=endElementP->m_nextP;
-  	  endElementP->m_elementP=new Linux_DnsSlaveZoneInstance(elementP);
+  	if (m_firstElementP == 0) {
+  	  m_firstElementP = new Linux_DnsSlaveZoneInstanceEnumerationElement();
+  	  m_firstElementP->m_elementP = new Linux_DnsSlaveZoneInstance(anInstance);
+  	  m_endElementP = m_firstElementP;
+  	  m_currentElementP = m_firstElementP;
+  	} else {
+  	  m_endElementP->m_nextP = new Linux_DnsSlaveZoneInstanceEnumerationElement();
+  	  m_endElementP = m_endElementP->m_nextP;
+  	  m_endElementP->m_elementP = new Linux_DnsSlaveZoneInstance(anInstance);
   	}
-  };  
+
+  }
+  
 }
- 

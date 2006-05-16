@@ -1,20 +1,25 @@
- /**
- * Linux_DnsMasterZoneInstanceName.cpp
- *
- * (C) Copyright IBM Corp. 2005
- *
- * THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
- * ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE
- * CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
- *
- * You can obtain a current copy of the Common Public License from
- * http://www.opensource.org/licenses/cpl1.0.php
- *
- * author:     Murillo Bernardes <bernarde@br.ibm.com>
- *
- * Contributors:
- *
- */
+// =======================================================================
+// Linux_DnsMasterZoneInstanceName.cpp
+//     created on Fri, 3 Mar 2006 using ECUTE
+// 
+// Copyright (c) 2006, International Business Machines
+//
+// THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
+// ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE 
+// CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
+//
+// You can obtain a current copy of the Common Public License from
+// http://oss.software.ibm.com/developerworks/opensource/license-cpl.html
+//
+// Author:        generated
+//
+// Contributors:
+//                Murillo Bernardes <bernarde@br.ibm.com>
+//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//
+// =======================================================================
+//
+// 
 #include "Linux_DnsMasterZoneInstanceName.h"
 #include "CmpiData.h"
 #include "CmpiString.h"
@@ -23,322 +28,376 @@
 
 namespace genProvider {
 	
-  //*********************************************************
+  //****************************************************************************
   //Linux_DnsMasterZoneInstanceName
-  //*********************************************************
-  
-  //empty constructor
-  Linux_DnsMasterZoneInstanceName::
-   Linux_DnsMasterZoneInstanceName(){
+  //---------------------------------------------------------------------------- 
+  // empty constructor
+  //---------------------------------------------------------------------------- 
+  Linux_DnsMasterZoneInstanceName::Linux_DnsMasterZoneInstanceName() {
    	init();  	
-  };
+  }
   
+  //---------------------------------------------------------------------------- 
+  // copy constructor	
+  //---------------------------------------------------------------------------- 
+  Linux_DnsMasterZoneInstanceName::Linux_DnsMasterZoneInstanceName(
+    const Linux_DnsMasterZoneInstanceName& anInstanceName) {
+   	init(anInstanceName);  	
+  }
   
-  //copy constructor	
-  Linux_DnsMasterZoneInstanceName::
-   Linux_DnsMasterZoneInstanceName
-   (const Linux_DnsMasterZoneInstanceName& original){
-   	init(original);  	
-  };
-  
-  
-  //contructor using CmpiObjectPath
-  Linux_DnsMasterZoneInstanceName::
-   Linux_DnsMasterZoneInstanceName (const CmpiObjectPath& path){
+  //---------------------------------------------------------------------------- 
+  // constructor using CmpiObjectPath
+  //---------------------------------------------------------------------------- 
+  Linux_DnsMasterZoneInstanceName::Linux_DnsMasterZoneInstanceName(
+    const CmpiObjectPath& path) {
     
     init();
     
-    m_CIMClassNameP=path.getClassName().charPtr();
+    m_CIMClassNameP = path.getClassName().charPtr();
     
-    CmpiString namespaceOP;
-    namespaceOP=path.getNameSpace();
-    setNamespace(namespaceOP.charPtr(),1);
-    
+    CmpiString namespaceP;
+    namespaceP = path.getNameSpace();
+    setNamespace(namespaceP.charPtr(),1);
+        
     CmpiString Name = path.getKey("Name");
     setName(Name.charPtr());
+
     
   }
   
-  
-  //destructor
-  Linux_DnsMasterZoneInstanceName::
-   ~Linux_DnsMasterZoneInstanceName(){
+  //---------------------------------------------------------------------------- 
+  // destructor
+  //---------------------------------------------------------------------------- 
+  Linux_DnsMasterZoneInstanceName::~Linux_DnsMasterZoneInstanceName() {
    	reset();  	  
-  };
-  
-  
-  //copy operator
-  Linux_DnsMasterZoneInstanceName&
-   Linux_DnsMasterZoneInstanceName::operator=
-   (const Linux_DnsMasterZoneInstanceName& original){    
-    init(original);
-   	return *this;    
   }
   
+  //---------------------------------------------------------------------------- 
+  //copy operator
+  //---------------------------------------------------------------------------- 
+  Linux_DnsMasterZoneInstanceName&
+  Linux_DnsMasterZoneInstanceName::operator=(
+    const Linux_DnsMasterZoneInstanceName& anInstanceName) {    
+    
+    init(anInstanceName);
+   	return *this;    
   
+  }
+  
+  //---------------------------------------------------------------------------- 
   //returns the related CmpiObjectPath
-  CmpiObjectPath Linux_DnsMasterZoneInstanceName::
-   getObjectPath() const{
+  //---------------------------------------------------------------------------- 
+  CmpiObjectPath 
+  Linux_DnsMasterZoneInstanceName::getObjectPath() const {
    	
-   	CmpiObjectPath objectPath(m_namespace, m_CIMClassNameP);
+   	CmpiObjectPath objectPath(m_nameSpaceP, m_CIMClassNameP);
+   	  	objectPath.setKey(
+  	  "Name",
+  	  CmpiData(m_Name));
 
-  	objectPath.setKey("Name",CmpiData(m_Name));
   	
   	return objectPath;
   	
   }
   
-  
-  //adds the related CmpiObjectPath to an existing cmpiInstance
-  void Linux_DnsMasterZoneInstanceName::fillKeys(CmpiInstance& cmpiInstance) const{
+  //---------------------------------------------------------------------------- 
+  // adds the related CmpiObjectPath to an existing cmpiInstance
+  //---------------------------------------------------------------------------- 
+  void 
+  Linux_DnsMasterZoneInstanceName::fillKeys(CmpiInstance& cmpiInstance) const {
   	
-
-  	if(isSet.Name){
-  	  cmpiInstance.setProperty("Name",CmpiData(m_Name));
+  	if (isSet.Name) {
+  	  
+  	  cmpiInstance.setProperty(
+  	    "Name",
+  	    CmpiData(m_Name));
   	}
+
   }
   
   
-  //NameSpace related methods
-  unsigned int Linux_DnsMasterZoneInstanceName::
-   isNameSpaceSet() const{
-  	return isSet.m_namespace;
+  //---------------------------------------------------------------------------- 
+  // NameSpace related methods
+  //---------------------------------------------------------------------------- 
+  unsigned int 
+  Linux_DnsMasterZoneInstanceName::isNameSpaceSet() const {
+  	return isSet.m_nameSpaceP;
   }
   
-  const char * Linux_DnsMasterZoneInstanceName::
-   getNamespace() const {
-    if(!isSet.m_namespace)
+  //---------------------------------------------------------------------------- 
+  const char* 
+  Linux_DnsMasterZoneInstanceName::getNamespace() const {
+    if ( ! isSet.m_nameSpaceP) {
    	  throw CmpiErrorFormater::getErrorException(
    	   CmpiErrorFormater::NOT_SET,
-   	   "NameSpace not set in Linux_DnsMasterZone instanceName");
-  	return m_namespace;
+   	   "NameSpace",
+   	   "Linux_DnsMasterZone");
+   	}
+  	return m_nameSpaceP;
   }
 
-  void Linux_DnsMasterZoneInstanceName::
-   setNamespace(const char* val, int makeCopy){
-    if (isSet.m_namespace) {
-      delete m_namespace;
+  //---------------------------------------------------------------------------- 
+  void
+  Linux_DnsMasterZoneInstanceName::setNamespace(
+    const char* aNameSpaceP,
+    int aCopyFlag) {
+  
+    if (isSet.m_nameSpaceP) {
+      delete m_nameSpaceP;
     }
-    if (makeCopy&&val) {
-      char* tmpval = new char[strlen(val)+1];
-      strcpy(tmpval,val);
-      m_namespace = tmpval;
+    
+    if (aCopyFlag && aNameSpaceP) {
+      char* nameSpaceP = new char[strlen(aNameSpaceP) + 1];
+      strcpy(nameSpaceP,aNameSpaceP);
+      m_nameSpaceP = nameSpaceP;
     } else {
-      m_namespace = val;
+      m_nameSpaceP = aNameSpaceP;
     }
-    isSet.m_namespace=1;
+    
+    isSet.m_nameSpaceP = 1;
   }
-       
-  //Name related methods
-  unsigned int Linux_DnsMasterZoneInstanceName::isNameSet() const{
+         
+  //----------------------------------------------------------------------------
+  // Name related methods
+  //----------------------------------------------------------------------------
+  unsigned int
+  Linux_DnsMasterZoneInstanceName::isNameSet() const {
     return isSet.Name;
   }
-  void  Linux_DnsMasterZoneInstanceName::
-   setName(const char* val, int makeCopy){
-    if (isSet.Name) {
-      delete []m_Name;
-    }
-    if (makeCopy&&val) {
-      char* tmpval = new char[strlen(val)+1];
-      strcpy(tmpval,val);
-      m_Name = tmpval;
-    } else {
-      m_Name = val;
-    }
-    isSet.Name=1;
-  }       
-  const char* Linux_DnsMasterZoneInstanceName::
-   getName() const{
+
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsMasterZoneInstanceName::setName(
+    const char* aValueP,
+    int aCopyFlag) {
     
-    if(!isSet.Name)
+    if (isSet.Name) {
+      delete [] m_Name;
+    }
+    
+    if (aCopyFlag && aValueP) {
+      char* valueP = new char[strlen(aValueP) + 1];
+      strcpy(valueP,aValueP);
+      m_Name = valueP;
+    } else {
+      m_Name = aValueP;
+    }
+    
+    isSet.Name = 1;
+
+  }       
+
+  //----------------------------------------------------------------------------
+  const char*
+  Linux_DnsMasterZoneInstanceName::getName() const {
+    
+    if ( ! isSet.Name) {
    	  throw CmpiErrorFormater::getErrorException(
-   	   CmpiErrorFormater::NOT_SET,
-   	   "Name not set");
-   	   	
+   	    CmpiErrorFormater::NOT_SET,
+        "Name",
+        "Linux_DnsMasterZone");
+   	}
+
+
     return m_Name;
+
   }
 
-  
-  //set isSet variables to FALSE
-  void Linux_DnsMasterZoneInstanceName::init(){
+
+  //---------------------------------------------------------------------------- 
+  void 
+  Linux_DnsMasterZoneInstanceName::init() {
   	
-  	m_CIMClassNameP="Linux_DnsMasterZone";
-  	isSet.m_namespace=0;    	
-    isSet.Name=0;
+  	m_CIMClassNameP = "Linux_DnsMasterZone";
+  	isSet.m_nameSpaceP = 0; 
+  	    isSet.Name = 0;
+
+  	
   }
   
-  
+  //---------------------------------------------------------------------------- 
   //copies another instance properties in this
-  void Linux_DnsMasterZoneInstanceName::init
-   (const Linux_DnsMasterZoneInstanceName& original){
+  //---------------------------------------------------------------------------- 
+  void 
+  Linux_DnsMasterZoneInstanceName::init(
+    const Linux_DnsMasterZoneInstanceName& anOriginal) {
+   	
    	init();
    	   	
-    m_CIMClassNameP=original.m_CIMClassNameP;
-    if(original.isNameSpaceSet()){
-      setNamespace(original.getNamespace(),1);
-    }   	
-    if(original.isNameSet()){
-      const char* NameOriginal=original.getName();
-      setName(NameOriginal, 1);
-    }    
-  }
-  
-  //reset the instanceName data
-  void Linux_DnsMasterZoneInstanceName::reset(){   	
-  	if (isSet.m_namespace)
-  	  delete(m_namespace);
-
-  	if (isSet.Name)
-  	  delete(m_Name);  	  
-  };
-  
-  
-  
-  
-  //*********************************************************
-  //Linux_DnsMasterZoneInstanceNameEnumerationElement	
-  //*********************************************************
-  
-  Linux_DnsMasterZoneInstanceNameEnumerationElement::
-   Linux_DnsMasterZoneInstanceNameEnumerationElement(){
-   	
-  	m_elementP=0;
-  	m_nextP=0;
-  	  
-  };
-  
-  
-  Linux_DnsMasterZoneInstanceNameEnumerationElement::
-   ~Linux_DnsMasterZoneInstanceNameEnumerationElement(){
-   	
-  	if (m_elementP!=0)
-  	  delete(m_elementP);
-  	if (m_nextP!=0)
-  	  delete(m_nextP);
-  	  
-  };
-
-  
-  //*********************************************************
-  //Linux_DnsMasterZoneInstanceNameEnumeration
-  //*********************************************************
-  
-  Linux_DnsMasterZoneInstanceNameEnumeration::
-   Linux_DnsMasterZoneInstanceNameEnumeration(){
-   	
-  	 firstElementP=0;
-     currentElementP=0;
-     endElementP=0;
-  };
-  
-  Linux_DnsMasterZoneInstanceNameEnumeration::
-   Linux_DnsMasterZoneInstanceNameEnumeration(const CmpiArray& arr){
-  	
-  	firstElementP=0;
-    currentElementP=0;
-    endElementP=0;
-    
-    int size = arr.size();
-    for (int i=0; i < size; i++) {
-     addElement(Linux_DnsMasterZoneInstanceName(arr[i]));
+    m_CIMClassNameP = anOriginal.m_CIMClassNameP;
+    if (anOriginal.isNameSpaceSet()){
+      setNamespace(anOriginal.getNamespace(),1);
     }
+       	
+    if (anOriginal.isNameSet()) {
+      const char* NameOriginal = anOriginal.getName();
+      setName(NameOriginal,1);
+    }
+    
+  
   }
   
-  Linux_DnsMasterZoneInstanceNameEnumeration::
-   Linux_DnsMasterZoneInstanceNameEnumeration(
-   const Linux_DnsMasterZoneInstanceNameEnumeration& original){
+  //---------------------------------------------------------------------------- 
+  void
+  Linux_DnsMasterZoneInstanceName::reset() {
+  	if (isSet.m_nameSpaceP) {
+  	  delete(m_nameSpaceP);
+  	}
+  	
+  	if (isSet.Name) {
+  	  delete(m_Name);
+  	}
+  	  
+  }
+  
+  //---------------------------------------------------------------------------- 
+  Linux_DnsMasterZoneInstanceNameEnumerationElement::Linux_DnsMasterZoneInstanceNameEnumerationElement() {
+  	m_elementP = 0;
+  	m_nextP = 0; 
+  }
+  
+  //---------------------------------------------------------------------------- 
+  Linux_DnsMasterZoneInstanceNameEnumerationElement::~Linux_DnsMasterZoneInstanceNameEnumerationElement() {
    	
-     firstElementP=0;
-     currentElementP=0;
-     endElementP=0;
+  	if (m_elementP) {
+  	  delete(m_elementP);
+  	}
+  	if (m_nextP) {
+  	  delete(m_nextP);
+  	}
+  	  
+  }
+  
+  //---------------------------------------------------------------------------- 
+  Linux_DnsMasterZoneInstanceNameEnumeration::Linux_DnsMasterZoneInstanceNameEnumeration() {
+  	 m_firstElementP = 0;
+     m_currentElementP = 0;
+     m_endElementP = 0;
+  }
+  
+  //---------------------------------------------------------------------------- 
+  Linux_DnsMasterZoneInstanceNameEnumeration::Linux_DnsMasterZoneInstanceNameEnumeration(
+    const CmpiArray& aCmpiArray) {
+  	
+  	m_firstElementP = 0;
+    m_currentElementP = 0;
+    m_endElementP = 0;
+    
+    int size = aCmpiArray.size();
+    for (int x=0; x < size; ++x) {
+      addElement(Linux_DnsMasterZoneInstanceName(aCmpiArray[x]));
+    }
+    
+  }
+  
+  //---------------------------------------------------------------------------- 
+  Linux_DnsMasterZoneInstanceNameEnumeration::Linux_DnsMasterZoneInstanceNameEnumeration(
+    const Linux_DnsMasterZoneInstanceNameEnumeration& anInstanceNameEnumeration) {
+   	
+    m_firstElementP = 0;
+    m_currentElementP = 0;
+    m_endElementP = 0;
   	 
-     int size=original.getSize();
-     for(int i=0;i<size;i++)
-       addElement(original.getElement(i));           
-  };
-  
+    int size = anInstanceNameEnumeration.getSize();
+    for (int x=0; x < size; ++x) {
+      addElement(anInstanceNameEnumeration.getElement(x));
+    }
+
+  }
   	  
-  Linux_DnsMasterZoneInstanceNameEnumeration::
-   ~Linux_DnsMasterZoneInstanceNameEnumeration(){
+  //---------------------------------------------------------------------------- 
+  Linux_DnsMasterZoneInstanceNameEnumeration::~Linux_DnsMasterZoneInstanceNameEnumeration() {
    	
-  	if (firstElementP!=0)
-  	  delete(firstElementP);
+  	if (m_firstElementP) {
+  	  delete(m_firstElementP);
+  	}
   	  	
-  };
-  
-  	  
-  void Linux_DnsMasterZoneInstanceNameEnumeration::reset(){
+  }
+
+  //---------------------------------------------------------------------------- 
+  void 
+  Linux_DnsMasterZoneInstanceNameEnumeration::reset() {
   	
-  	currentElementP=firstElementP;
-  };
+  	m_currentElementP = m_firstElementP;
   
-  	  
-  bool Linux_DnsMasterZoneInstanceNameEnumeration::hasNext() const{
+  }
+
+  //---------------------------------------------------------------------------- 
+  bool 
+  Linux_DnsMasterZoneInstanceNameEnumeration::hasNext() const {
   	
-  	return (currentElementP!=0);
+  	return (m_currentElementP != 0);
   
-  };
+  }
   
-  int Linux_DnsMasterZoneInstanceNameEnumeration::getSize() const{
+  //---------------------------------------------------------------------------- 
+  int
+  Linux_DnsMasterZoneInstanceNameEnumeration::getSize() const {
   	
-    int size=0;
-    Linux_DnsMasterZoneInstanceNameEnumerationElement* followingP=firstElementP;
+    int size = 0;
+    Linux_DnsMasterZoneInstanceNameEnumerationElement* followingP = m_firstElementP;
   	
-  	while(followingP!=0){
-        followingP=followingP->m_nextP;
-        size++;
+  	while (followingP) {
+      followingP = followingP->m_nextP;
+      ++size;
     }
   	
     return size;
-  };
   
+  }
+  
+  //---------------------------------------------------------------------------- 
   const Linux_DnsMasterZoneInstanceName&  
-   Linux_DnsMasterZoneInstanceNameEnumeration::getElement(int pos) const{
+   Linux_DnsMasterZoneInstanceNameEnumeration::getElement(int anIndex) const {
    
-    Linux_DnsMasterZoneInstanceNameEnumerationElement* followingP=firstElementP;
+    Linux_DnsMasterZoneInstanceNameEnumerationElement* followingP = m_firstElementP;
    
-    int i=0;
-    while((followingP!=0)&&(i<pos)){
-        followingP=followingP->m_nextP;
-        i++;
+    int x=0;
+    while (followingP && (x < anIndex) ) {
+      followingP = followingP->m_nextP;
+      ++x;
     }
     
     return *(followingP->m_elementP);
-  };
   
-  	  
+  }
+  
+  //---------------------------------------------------------------------------- 
   const Linux_DnsMasterZoneInstanceName&
-   Linux_DnsMasterZoneInstanceNameEnumeration::getNext() {
+  Linux_DnsMasterZoneInstanceNameEnumeration::getNext() {
    	
-  	 Linux_DnsMasterZoneInstanceNameEnumerationElement* currentP=
-  	  currentElementP;
-  	 currentElementP=currentElementP->m_nextP;
+  	 Linux_DnsMasterZoneInstanceNameEnumerationElement* currentP = m_currentElementP;
+  	 m_currentElementP = m_currentElementP->m_nextP;
   	 
   	 return *(currentP->m_elementP);
-  };
-  	  
-  void Linux_DnsMasterZoneInstanceNameEnumeration::addElement
-   (const Linux_DnsMasterZoneInstanceName& elementP){
-   	
-  	if(firstElementP==0){
-  	  firstElementP=new Linux_DnsMasterZoneInstanceNameEnumerationElement();
-  	  firstElementP->m_elementP=new Linux_DnsMasterZoneInstanceName(elementP);
-  	  endElementP=firstElementP;
-  	  currentElementP=firstElementP;
-  	}else{
-  	  endElementP->m_nextP=new Linux_DnsMasterZoneInstanceNameEnumerationElement();
-  	  endElementP=endElementP->m_nextP;
-  	  endElementP->m_elementP=new Linux_DnsMasterZoneInstanceName(elementP);
-  	}
-  };
   
-  Linux_DnsMasterZoneInstanceNameEnumeration::operator CmpiArray() const{
-  	int size=getSize();
-   	CmpiArray arr=CmpiArray(size,CMPI_instance);
-   	for(int i=0;i<size;i++){
-   	  arr[i]=getElement(i).getObjectPath();
+  }
+  	  
+  //---------------------------------------------------------------------------- 
+  void Linux_DnsMasterZoneInstanceNameEnumeration::addElement
+   (const Linux_DnsMasterZoneInstanceName& anElementP){
+   	
+  	if (m_firstElementP==0) {
+  	  m_firstElementP = new Linux_DnsMasterZoneInstanceNameEnumerationElement();
+  	  m_firstElementP->m_elementP = new Linux_DnsMasterZoneInstanceName(anElementP);
+  	  m_endElementP = m_firstElementP;
+  	  m_currentElementP = m_firstElementP;
+  	} else {
+  	  m_endElementP->m_nextP = new Linux_DnsMasterZoneInstanceNameEnumerationElement();
+  	  m_endElementP = m_endElementP->m_nextP;
+  	  m_endElementP->m_elementP=new Linux_DnsMasterZoneInstanceName(anElementP);
+  	}
+
+  }
+  
+  //---------------------------------------------------------------------------- 
+  Linux_DnsMasterZoneInstanceNameEnumeration::operator CmpiArray() const {
+  	int size = getSize();
+   	CmpiArray cmpiArray = CmpiArray(size,CMPI_instance);
+   	for (int x=0; x < size; ++x) {
+   	  cmpiArray[x]=getElement(x).getObjectPath();
    	}
-   	return arr;
-  };  
+   	return cmpiArray;
+  }
+  
 }
- 

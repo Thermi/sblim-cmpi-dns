@@ -1,20 +1,25 @@
- /**
- * Linux_DnsAllowQueryACLForZoneInstanceName.h
- *
- * (C) Copyright IBM Corp. 2005
- *
- * THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
- * ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE
- * CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
- *
- * You can obtain a current copy of the Common Public License from
- * http://www.opensource.org/licenses/cpl1.0.php
- *
- * author:     Murillo Bernardes <bernarde@br.ibm.com>
- *
- * Contributors:
- *
- */
+// =======================================================================
+// Linux_DnsAllowQueryACLForZoneInstanceName.h
+//     created on Fri, 3 Mar 2006 using ECUTE
+// 
+// Copyright (c) 2006, International Business Machines
+//
+// THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
+// ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE 
+// CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
+//
+// You can obtain a current copy of the Common Public License from
+// http://oss.software.ibm.com/developerworks/opensource/license-cpl.html
+//
+// Author:        generated
+//
+// Contributors:
+//                Murillo Bernardes <bernarde@br.ibm.com>
+//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//
+// =======================================================================
+//
+// 
 #ifndef Linux_DnsAllowQueryACLForZoneInstanceName_h
 #define Linux_DnsAllowQueryACLForZoneInstanceName_h
 
@@ -26,61 +31,64 @@
 #include "CmpiDateTime.h"
 #include "ArrayConverter.h"
 #include "CmpiErrorFormater.h"
-#include "Linux_DnsZoneInstanceName.h"
 #include "Linux_DnsAddressMatchListInstanceName.h"
+#include "Linux_DnsZoneInstanceName.h"
+
 
 namespace genProvider {
 
   class Linux_DnsAllowQueryACLForZoneInstanceName {
-  public:
-       Linux_DnsAllowQueryACLForZoneInstanceName();
+       
+    private:
+    void init();
+    void init(const Linux_DnsAllowQueryACLForZoneInstanceName& anInstanceName);
+    void reset();
+       
+    const char* m_CIMClassNameP;
+    const char* m_nameSpaceP;
+    
+    Linux_DnsAddressMatchListInstanceName m_Setting;
+    Linux_DnsZoneInstanceName m_Element;
+       
+    struct isSetType{
+      unsigned int m_nameSpaceP:1;
+      unsigned int Setting:1;
+      unsigned int Element:1;
+
+    } isSet;
+  
+    public:
+    Linux_DnsAllowQueryACLForZoneInstanceName();
   	
-       Linux_DnsAllowQueryACLForZoneInstanceName
-  	    (const Linux_DnsAllowQueryACLForZoneInstanceName& original);
+    Linux_DnsAllowQueryACLForZoneInstanceName(const Linux_DnsAllowQueryACLForZoneInstanceName& anInstanceName);
   	   
-       Linux_DnsAllowQueryACLForZoneInstanceName
-        (const CmpiObjectPath& path);
+    Linux_DnsAllowQueryACLForZoneInstanceName(const CmpiObjectPath& path);
   	 
-       ~Linux_DnsAllowQueryACLForZoneInstanceName();
+    ~Linux_DnsAllowQueryACLForZoneInstanceName();
        
-       Linux_DnsAllowQueryACLForZoneInstanceName& operator=
-  	    (const Linux_DnsAllowQueryACLForZoneInstanceName& original);
+    Linux_DnsAllowQueryACLForZoneInstanceName& operator=(const Linux_DnsAllowQueryACLForZoneInstanceName& anInstanceName);
        
-       CmpiObjectPath getObjectPath() const;
+    CmpiObjectPath getObjectPath() const;
        
-       void fillKeys(CmpiInstance& cmpiInstance) const;
+    void fillKeys(CmpiInstance& cmpiInstance) const;
        
-       unsigned int isNameSpaceSet() const;
-       void setNamespace(const char * val, int makeCopy = 1);
-       const char * getNamespace() const;
+    unsigned int isNameSpaceSet() const;
+    void setNamespace(const char* aNameSpaceP, int aCopyFlag = 1);
+    const char* getNamespace() const;
+    
+    unsigned int isSettingSet() const;
+    void setSetting(const Linux_DnsAddressMatchListInstanceName& aValue);
+    const Linux_DnsAddressMatchListInstanceName& getSetting() const;
 
-       unsigned int isElementSet() const;
-       void setElement(const Linux_DnsZoneInstanceName& val);
-       const Linux_DnsZoneInstanceName& getElement() const;
+    unsigned int isElementSet() const;
+    void setElement(const Linux_DnsZoneInstanceName& aValue);
+    const Linux_DnsZoneInstanceName& getElement() const;
 
-       unsigned int isSettingSet() const;
-       void setSetting(const Linux_DnsAddressMatchListInstanceName& val);
-       const Linux_DnsAddressMatchListInstanceName& getSetting() const;
-       
-  private:
-       void init();
-       void init(const Linux_DnsAllowQueryACLForZoneInstanceName& original);
-       void reset();
-       
-       const char* m_CIMClassNameP;
-       const char* m_namespace;
-       Linux_DnsZoneInstanceName m_Element;
-       Linux_DnsAddressMatchListInstanceName m_Setting;
-       
-       struct isSetType{
-       	 unsigned int m_namespace:1;
-         unsigned int Element:1;
-         unsigned int Setting:1;
-       } isSet;
+
   };
   
-  
-  struct Linux_DnsAllowQueryACLForZoneInstanceNameEnumerationElement{
+  //****************************************************************************
+  struct Linux_DnsAllowQueryACLForZoneInstanceNameEnumerationElement {
   	Linux_DnsAllowQueryACLForZoneInstanceName* m_elementP;
   	Linux_DnsAllowQueryACLForZoneInstanceNameEnumerationElement* m_nextP;
   	
@@ -88,38 +96,40 @@ namespace genProvider {
   	~Linux_DnsAllowQueryACLForZoneInstanceNameEnumerationElement();  	
   };
   
-
+  //****************************************************************************
   class Linux_DnsAllowQueryACLForZoneInstanceNameEnumeration {
+  
   	private:
-  	  Linux_DnsAllowQueryACLForZoneInstanceNameEnumerationElement* firstElementP;
-  	  Linux_DnsAllowQueryACLForZoneInstanceNameEnumerationElement* currentElementP;
-  	  Linux_DnsAllowQueryACLForZoneInstanceNameEnumerationElement* endElementP;
+    Linux_DnsAllowQueryACLForZoneInstanceNameEnumerationElement* m_firstElementP;
+  	Linux_DnsAllowQueryACLForZoneInstanceNameEnumerationElement* m_currentElementP;
+  	Linux_DnsAllowQueryACLForZoneInstanceNameEnumerationElement* m_endElementP;
   	
   	public:
-  	  Linux_DnsAllowQueryACLForZoneInstanceNameEnumeration();
+    Linux_DnsAllowQueryACLForZoneInstanceNameEnumeration();
   	  
-  	  Linux_DnsAllowQueryACLForZoneInstanceNameEnumeration(const CmpiArray& arr);
+    Linux_DnsAllowQueryACLForZoneInstanceNameEnumeration(const CmpiArray& arr);
   	  
-  	  Linux_DnsAllowQueryACLForZoneInstanceNameEnumeration(
-  	   const Linux_DnsAllowQueryACLForZoneInstanceNameEnumeration& original);
+    Linux_DnsAllowQueryACLForZoneInstanceNameEnumeration(const Linux_DnsAllowQueryACLForZoneInstanceNameEnumeration& anInstanceNameEnumeration);
+  	   
+    ~Linux_DnsAllowQueryACLForZoneInstanceNameEnumeration();
   	  
-  	  ~Linux_DnsAllowQueryACLForZoneInstanceNameEnumeration();
+    void reset();
   	  
-  	  void reset();
+    bool hasNext() const;
   	  
-  	  bool hasNext() const;
+    const Linux_DnsAllowQueryACLForZoneInstanceName& getNext();
   	  
-  	  const Linux_DnsAllowQueryACLForZoneInstanceName& getNext();
+    int getSize() const;
   	  
-  	  int getSize() const;
+    const Linux_DnsAllowQueryACLForZoneInstanceName& getElement(int anIndex) const;  	  
   	  
-  	  const Linux_DnsAllowQueryACLForZoneInstanceName& getElement(int pos) const;  	  
+    //no copy of the element is done
+    void addElement(const Linux_DnsAllowQueryACLForZoneInstanceName& anInstanceName);
   	  
-  	  //no copy of the element is done
-  	  void addElement(const Linux_DnsAllowQueryACLForZoneInstanceName& elementP);
-  	  
-  	  operator CmpiArray() const;
+    operator CmpiArray() const;
+
   };
+
 }
 #endif
 

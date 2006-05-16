@@ -1,90 +1,121 @@
- /**
- * Linux_DnsMasterZoneExternal.cpp
- *
- * (C) Copyright IBM Corp. 2005
- *
- * THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
- * ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE
- * CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
- *
- * You can obtain a current copy of the Common Public License from
- * http://www.opensource.org/licenses/cpl1.0.php
- *
- * author:     Murillo Bernardes <bernarde@br.ibm.com>
- *
- * Contributors:
- *
- */
+// =======================================================================
+// Linux_DnsMasterZoneExternal.cpp
+//     created on Fri, 3 Mar 2006 using ECUTE
+// 
+// Copyright (c) 2006, International Business Machines
+//
+// THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
+// ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE 
+// CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
+//
+// You can obtain a current copy of the Common Public License from
+// http://oss.software.ibm.com/developerworks/opensource/license-cpl.html
+//
+// Author:        generated
+//
+// Contributors:
+//                Murillo Bernardes <bernarde@br.ibm.com>
+//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//
+// =======================================================================
+//
+// 
+
 #include "Linux_DnsMasterZoneExternal.h"
 
-namespace genProvider{
+namespace genProvider {
 	
+	//----------------------------------------------------------------------------
   Linux_DnsMasterZoneExternal::Linux_DnsMasterZoneExternal(
-   const CmpiBroker& brkr, const CmpiContext& ctx ) 
-   : broker(brkr), context(ctx) {};
+    const CmpiBroker& aBroker,
+    const CmpiContext& aContext ) 
+    : m_broker(aBroker),
+    m_context(aContext) { }
    
-  Linux_DnsMasterZoneExternal::
-   ~Linux_DnsMasterZoneExternal(){};
+	//----------------------------------------------------------------------------
+  Linux_DnsMasterZoneExternal::~Linux_DnsMasterZoneExternal() { }
     
-  void Linux_DnsMasterZoneExternal::enumInstanceNames(
-   const char *nsp,
-   Linux_DnsMasterZoneInstanceNameEnumeration& instnames) {
+	//----------------------------------------------------------------------------
+  void 
+  Linux_DnsMasterZoneExternal::enumInstanceNames(
+    const char *aNameSpaceP,
+    Linux_DnsMasterZoneInstanceNameEnumeration& anInstanceNameEnumeration) {
 
-    CmpiObjectPath op(nsp,"Linux_DnsMasterZone");
-    CmpiEnumeration en=broker.enumInstanceNames(context,op);
-    while(en.hasNext()) {
-      CmpiObjectPath opi = en.getNext();
-      Linux_DnsMasterZoneInstanceName iname(opi);
-      instnames.addElement(iname);
+    CmpiObjectPath classObjectPath(aNameSpaceP,"Linux_DnsMasterZone");
+    CmpiEnumeration cmpiEnumeration = 
+      m_broker.enumInstanceNames(m_context,classObjectPath);
+    while (cmpiEnumeration.hasNext()) {
+      CmpiObjectPath objectPath = cmpiEnumeration.getNext();
+      Linux_DnsMasterZoneInstanceName instanceName(objectPath);
+      anInstanceNameEnumeration.addElement(instanceName);
     }
-  };
+  
+  }
   	  
-  void Linux_DnsMasterZoneExternal::enumInstances(
-   const char *nsp,
-   const char* *properties,
-   Linux_DnsMasterZoneInstanceEnumeration& instances) {
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsMasterZoneExternal::enumInstances(
+    const char *aNameSpaceP,
+    const char** aPropertiesPP,
+    Linux_DnsMasterZoneInstanceEnumeration& anInstanceEnumeration) {
    		
-    CmpiObjectPath op(nsp,"Linux_DnsMasterZone");
-    CmpiEnumeration en=broker.enumInstances(context,op,properties);
-    while(en.hasNext()) {
-      CmpiInstance inst = en.getNext();
-      Linux_DnsMasterZoneInstance instance(inst,nsp);
-      instances.addElement(instance);
+    CmpiObjectPath classObjectPath(aNameSpaceP,"Linux_DnsMasterZone");
+    CmpiEnumeration cmpiEnumeration = 
+      m_broker.enumInstances(m_context,classObjectPath,aPropertiesPP);
+    while (cmpiEnumeration.hasNext()) {
+      CmpiInstance cmpiInstance = cmpiEnumeration.getNext();
+      Linux_DnsMasterZoneInstance instance(cmpiInstance,aNameSpaceP);
+      anInstanceEnumeration.addElement(instance);
     }
-  };
+  
+  }
   	  
+	//----------------------------------------------------------------------------
   Linux_DnsMasterZoneInstance
-   Linux_DnsMasterZoneExternal::getInstance(
-   const char* *properties,
-   const Linux_DnsMasterZoneInstanceName& instanceName) {
+  Linux_DnsMasterZoneExternal::getInstance(
+    const char** aPropertiesPP,
+    const Linux_DnsMasterZoneInstanceName& anInstanceName) {
     
-    CmpiObjectPath op=instanceName.getObjectPath();
-    CmpiInstance inst=broker.getInstance(context,op,properties);
-    return Linux_DnsMasterZoneInstance(inst,instanceName.getNamespace());
+    CmpiObjectPath cmpiObjectPath = anInstanceName.getObjectPath();
+    CmpiInstance cmpiInstance = 
+      m_broker.getInstance(m_context,cmpiObjectPath,aPropertiesPP);
+  
+    return Linux_DnsMasterZoneInstance(cmpiInstance,anInstanceName.getNamespace());
+  
   }
       
-  void Linux_DnsMasterZoneExternal::setInstance(
-   const char* *properties,
-   const Linux_DnsMasterZoneInstance& instance){
+	//----------------------------------------------------------------------------
+  void
+  Linux_DnsMasterZoneExternal::setInstance(
+    const char** aPropertiesPP,
+    const Linux_DnsMasterZoneInstance& anInstance) {
   
-    CmpiObjectPath op=instance.getInstanceName().getObjectPath();
-    CmpiInstance inst=instance.getCmpiInstance();
-    broker.setInstance(context,op,inst,properties);
+    CmpiObjectPath cmpiObjectPath = anInstance.getInstanceName().getObjectPath();
+    CmpiInstance cmpiInstance = anInstance.getCmpiInstance();
+    m_broker.setInstance(m_context,cmpiObjectPath,cmpiInstance,aPropertiesPP);
+  
   }
       
-  void Linux_DnsMasterZoneExternal::createInstance(
-   const Linux_DnsMasterZoneInstance& instance){
+	//----------------------------------------------------------------------------
+  Linux_DnsMasterZoneInstanceName
+  Linux_DnsMasterZoneExternal::createInstance(
+    const Linux_DnsMasterZoneInstance& anInstance) {
   
-    CmpiObjectPath op=instance.getInstanceName().getObjectPath();
-    CmpiInstance inst=instance.getCmpiInstance();
-    broker.createInstance(context,op,inst);
+    CmpiObjectPath cmpiObjectPath = anInstance.getInstanceName().getObjectPath();
+    CmpiInstance cmpiInstance = anInstance.getCmpiInstance();
+    return Linux_DnsMasterZoneInstanceName(
+		m_broker.createInstance(m_context,cmpiObjectPath,cmpiInstance));
+
   }
   
-  void Linux_DnsMasterZoneExternal::deleteInstance(
-   const Linux_DnsMasterZoneInstanceName& instanceName){
+	//----------------------------------------------------------------------------
+  void
+  Linux_DnsMasterZoneExternal::deleteInstance(
+    const Linux_DnsMasterZoneInstanceName& anInstanceName) {
     
-    CmpiObjectPath op=instanceName.getObjectPath();
-    broker.deleteInstance(context,op);
+    CmpiObjectPath cmpiObjectPath = anInstanceName.getObjectPath();
+    m_broker.deleteInstance(m_context,cmpiObjectPath);
+  
   }
-    
+  
 }

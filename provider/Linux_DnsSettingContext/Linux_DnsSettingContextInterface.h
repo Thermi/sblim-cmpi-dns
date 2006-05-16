@@ -1,20 +1,25 @@
- /**
- * Linux_DnsSettingContextInterface.h
- *
- * (C) Copyright IBM Corp. 2005
- *
- * THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
- * ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE
- * CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
- *
- * You can obtain a current copy of the Common Public License from
- * http://www.opensource.org/licenses/cpl1.0.php
- *
- * author:     Murillo Bernardes <bernarde@br.ibm.com>
- *
- * Contributors:
- *
- */
+// =======================================================================
+// Linux_DnsSettingContextInterface.h
+//     created on Fri, 3 Mar 2006 using ECUTE
+// 
+// Copyright (c) 2006, International Business Machines
+//
+// THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
+// ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE 
+// CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
+//
+// You can obtain a current copy of the Common Public License from
+// http://oss.software.ibm.com/developerworks/opensource/license-cpl.html
+//
+// Author:        generated
+//
+// Contributors:
+//                Murillo Bernardes <bernarde@br.ibm.com>
+//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//
+// =======================================================================
+//
+// 
 #ifndef Linux_DnsSettingContextInterface_h
 #define Linux_DnsSettingContextInterface_h
 
@@ -24,10 +29,11 @@
 #include "CmpiInstance.h"
 #include "CmpiDateTime.h"
 #include "CmpiBroker.h"
-#include "Linux_DnsConfigurationInstance.h"
 #include "Linux_DnsSettingInstance.h"
-#include "Linux_DnsConfigurationExternal.h"
+#include "Linux_DnsConfigurationInstance.h"
 #include "Linux_DnsSettingExternal.h"
+#include "Linux_DnsConfigurationExternal.h"
+
 
 namespace genProvider {
 
@@ -37,80 +43,102 @@ namespace genProvider {
     virtual ~Linux_DnsSettingContextInterface() { };
     
     /* intrinsic methods */
+    
     virtual void enumInstanceNames(
-     const CmpiContext& ctx,
-     const CmpiBroker &mbp,
-     const char *nsp,
-     Linux_DnsSettingContextInstanceNameEnumeration& instnames) = 0;
+      const CmpiContext& aContext,
+      const CmpiBroker& aBroker,
+      const char* aNameSpaceP,
+      Linux_DnsSettingContextInstanceNameEnumeration& anInstanceNameEnumeration) = 0;
+    
   	
+    
     virtual void enumInstances(
-     const CmpiContext& ctx,
-     const CmpiBroker &mbp,
-     const char *nsp,
-     const char* *properties,
-  	 Linux_DnsSettingContextManualInstanceEnumeration& instances) = 0;
+      const CmpiContext& aContext,
+      const CmpiBroker& aBroker,
+      const char* aNameSpaceP,
+      const char** aPropertiesPP,
+  	  Linux_DnsSettingContextManualInstanceEnumeration& aManualInstanceEnumeration) = 0;
   	
+  	
+    
     virtual Linux_DnsSettingContextManualInstance getInstance(
-     const CmpiContext& ctx,
-     const CmpiBroker &mbp,
-     const char* *properties,
-     const Linux_DnsSettingContextInstanceName&) = 0;
+      const CmpiContext& aContext,
+      const CmpiBroker& aBroker,
+      const char** aPropertiesPP,
+      const Linux_DnsSettingContextInstanceName& anInstanceName) = 0;
+    
   	
+    
     virtual void setInstance(
-     const CmpiContext& ctx,
-     const CmpiBroker &mbp,
-     const char* *properties,
-     const Linux_DnsSettingContextManualInstance&) = 0;
+      const CmpiContext& aContext,
+      const CmpiBroker& aBroker,
+      const char** aPropertiesPP,
+      const Linux_DnsSettingContextManualInstance& aManualInstance) = 0;
+    
   	
-    virtual void createInstance(
-     const CmpiContext& ctx,
-     const CmpiBroker &mbp,
-     const Linux_DnsSettingContextManualInstance&) = 0;
+    
+    virtual Linux_DnsSettingContextInstanceName createInstance(
+      const CmpiContext& aContext,
+      const CmpiBroker& aBroker,
+      const Linux_DnsSettingContextManualInstance& aManualInstance) = 0;
+    
   	
+    
     virtual void deleteInstance(
-     const CmpiContext& ctx,
-     const CmpiBroker &mbp,
-     const Linux_DnsSettingContextInstanceName&) = 0;
+      const CmpiContext& aContext,
+      const CmpiBroker& aBroker,
+      const Linux_DnsSettingContextInstanceName& anInstanceName) = 0;
+    
 	
     
     /* Association Interface */
 
-    virtual void referencesContext( 
-     const CmpiContext& ctx,  
-     const CmpiBroker &mbp,
-     const char *nsp,
-     const char** properties,
-     const Linux_DnsSettingInstanceName& sourceInst,
-     Linux_DnsSettingContextManualInstanceEnumeration& instances) = 0;
-
+    
     virtual void referencesSetting( 
-     const CmpiContext& ctx,  
-     const CmpiBroker &mbp,
-     const char *nsp,
-     const char** properties,
-     const Linux_DnsConfigurationInstanceName& sourceInst,
-     Linux_DnsSettingContextManualInstanceEnumeration& instances) = 0;
+      const CmpiContext& aContext,  
+      const CmpiBroker& aBroker,
+      const char* aNameSpaceP,
+      const char** aPropertiesPP,
+      const Linux_DnsConfigurationInstanceName& aSourceInstanceName,
+      Linux_DnsSettingContextManualInstanceEnumeration& aManualInstanceEnumeration) = 0;
+    
 
-    virtual void associatorsContext( 
-     const CmpiContext& ctx,  
-     const CmpiBroker &mbp,
-     const char *nsp,
-     const char** properties,
-     const Linux_DnsSettingInstanceName& sourceInst,
-     Linux_DnsConfigurationInstanceEnumeration& instances) = 0;
+    
+    virtual void referencesContext( 
+      const CmpiContext& aContext,  
+      const CmpiBroker& aBroker,
+      const char* aNameSpaceP,
+      const char** aPropertiesPP,
+      const Linux_DnsSettingInstanceName& aSourceInstanceName,
+      Linux_DnsSettingContextManualInstanceEnumeration& aManualInstanceEnumeration) = 0;
+    
 
+    
     virtual void associatorsSetting( 
-     const CmpiContext& ctx,  
-     const CmpiBroker &mbp,
-     const char *nsp,
-     const char** properties,
-     const Linux_DnsConfigurationInstanceName& sourceInst,
-     Linux_DnsSettingInstanceEnumeration& instances) = 0;
+      const CmpiContext& aContext,  
+      const CmpiBroker& aBroker,
+      const char* aNameSpaceP,
+      const char** aPropertiesPP,
+      const Linux_DnsConfigurationInstanceName& aSourceInstanceName,
+      Linux_DnsSettingInstanceEnumeration& anInstanceEnumeration) = 0;
+    
+
+    
+    virtual void associatorsContext( 
+      const CmpiContext& aContext,  
+      const CmpiBroker& aBroker,
+      const char* aNameSpaceP,
+      const char** aPropertiesPP,
+      const Linux_DnsSettingInstanceName& aSourceInstanceName,
+      Linux_DnsConfigurationInstanceEnumeration& anInstanceEnumeration) = 0;
+    
 
    
+    
     /* extrinsic methods */
+    
 	
   };
+  
 }
 #endif
-

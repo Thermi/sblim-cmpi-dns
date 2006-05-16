@@ -1,444 +1,446 @@
- /**
- * Linux_DnsHintZoneResourceAccess.cpp
- *
- * (C) Copyright IBM Corp. 2005
- *
- * THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
- * ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE
- * CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
- *
- * You can obtain a current copy of the Common Public License from
- * http://www.opensource.org/licenses/cpl1.0.php
- *
- * author:     Murillo Bernardes <bernarde@br.ibm.com>
- *
- * Contributors:
- *
- */
+// =======================================================================
+// Linux_DnsHintZoneResourceAccess.cpp
+//     created on Fri, 3 Mar 2006 using ECUTE
+// 
+// Copyright (c) 2006, International Business Machines
+//
+// THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
+// ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE 
+// CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
+//
+// You can obtain a current copy of the Common Public License from
+// http://oss.software.ibm.com/developerworks/opensource/license-cpl.html
+//
+// Author:        generated
+//
+// Contributors:
+//                Murillo Bernardes <bernarde@br.ibm.com>
+//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//
+// =======================================================================
+//
+// 
+#include "Linux_DnsHintZoneResourceAccess.h"
+
 #include <string>
 #include <iostream>
 
 using namespace std;
 
-#include "Linux_DnsHintZoneResourceAccess.h"
+#include "smt_dns_ra_support.h"
+#include "smt_dns_valuemap.h"
 
 namespace genProvider {
-    //------------------------------------------------------------------------------------
-    // Linux_DnsMasterZoneResourceAccess::setInstanceNameProperties()
-    //------------------------------------------------------------------------------------
-    void
-    Linux_DnsHintZoneResourceAccess::setInstanceNameProperties(const CmpiContext& ctx,
-                                                           const CmpiBroker& mbp,
-                                                           const char* nsp,
-                                                           DNSZONE * zone,
-                                                           Linux_DnsHintZoneInstanceName& anInstanceName)
-    {
-        cout << "--- setInstanceNameProperties() called" << endl;
-        anInstanceName.setNamespace(nsp);
-        anInstanceName.setName(zone->zoneName);
+  
+  
+  //----------------------------------------------------------------------------
+  // manual written methods
 
-        cout << "--- setInstanceNameProperties() exited" << endl;
-    }
+ 
+  static void setInstanceNameProperties(
+      const CmpiContext& aContext,
+      const CmpiBroker& mbp,
+      const char* aNameSpaceP,
+      DNSZONE * zone,
+      Linux_DnsHintZoneInstanceName& anInstanceName) {
 
-    //------------------------------------------------------------------------------------
-    // Linux_DnsMasterZoneResourceAccess::setInstanceProperties()
-    //------------------------------------------------------------------------------------
+    anInstanceName.setNamespace(aNameSpaceP);
+    anInstanceName.setName(zone->zoneName);
+  }
 
 
+  //----------------------------------------------------------------------------
 
-    void
-    Linux_DnsHintZoneResourceAccess::setInstanceProperties(const CmpiContext& ctx,
-                                                       const CmpiBroker& mbp,
-                                                       DNSZONE * zone,
-                                                       const Linux_DnsHintZoneInstanceName& anInstanceName,
-                                                       Linux_DnsHintZoneManualInstance& aManualInstance)
-    {
-        cout<<"--- setInstanceProperties() called"<<endl;
 
-        aManualInstance.setInstanceName(anInstanceName);
-        aManualInstance.setType(DNS_ZONETYPE_HINT);
-	aManualInstance.setResourceRecordFile(zone->zoneFileName);
-       
-        cout << "--- setInstanceProperties() exited" << endl;
-    }  
-    //Linux_DnsHintZoneResourceAccess::Linux_DnsHintZoneResourceAccess();
-    Linux_DnsHintZoneResourceAccess::~Linux_DnsHintZoneResourceAccess() { };
+  static void setInstanceProperties(
+      const CmpiContext& aContext,
+      const CmpiBroker& aBroker,
+      DNSZONE * zone,
+      const Linux_DnsHintZoneInstanceName& anInstanceName,
+      Linux_DnsHintZoneManualInstance& aManualInstance) {
     
-    /* intrinsic methods */
+    aManualInstance.setInstanceName(anInstanceName);
+    aManualInstance.setType(DNS_ZONETYPE_HINT);
+    aManualInstance.setResourceRecordFile(zone->zoneFileName);
+  }  
+
+  //----------------------------------------------------------------------------
+
+
+  //----------------------------------------------------------------------------
+  //Linux_DnsHintZoneResourceAccess::Linux_DnsHintZoneResourceAccess();
+
+  //----------------------------------------------------------------------------
+  Linux_DnsHintZoneResourceAccess::~Linux_DnsHintZoneResourceAccess() { }
     
-    void Linux_DnsHintZoneResourceAccess::enumInstanceNames(
-     const CmpiContext& ctx, const CmpiBroker &mbp, const char *nsp,
-     Linux_DnsHintZoneInstanceNameEnumeration& instnames){
-	cout << "Linux_DnsHintZoneResourceAccess::enumInstanceNames()" << endl;	
-	DNSZONE * zones, *all_zones;
+  // intrinsic methods
 
-        cout << "--- enumInstanceNames() called" << endl; 
-        cout << "---- calling getZones() " << endl;
-        zones = getZones();	//getZonesByType("hint");
-	all_zones = zones;
-        if (zones)
-        {
-            for (; zones->zoneName != NULL ; zones++)
-            {	
-                if ( strcmp(zones->zoneType, "hint") )
-                        continue;
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsHintZoneResourceAccess::enumInstanceNames(
+     const CmpiContext& aContext,
+     const CmpiBroker& aBroker,
+     const char* aNameSpaceP,
+     Linux_DnsHintZoneInstanceNameEnumeration& anInstanceNameEnumeration) {
+      
+#ifdef DEBUG
+    cout << "entering Linux_DnsHintZone::enumInstanceNames" << endl;
+#endif
 
-                Linux_DnsHintZoneInstanceName instanceName;
-
-                cout << "--- Calling setInstanceNameProperties()" << endl; 
-
-                printf ("Zone Name is %s \n", zones->zoneName);
-
-                setInstanceNameProperties(ctx, mbp, nsp,
-                                          zones, instanceName);
-
-                instnames.addElement(instanceName);
-
-                cout << "--- Added to enumeration"  << endl; 
-
-            }
-	    freeZones( all_zones );
-            cout << "--- enumInstanceNames () exited"  << endl; 
-        } 
-    }
+    DNSZONE * zones, *all_zones;
     
-  	
-    void Linux_DnsHintZoneResourceAccess::enumInstances(
-     const CmpiContext& ctx,
-     const CmpiBroker &mbp,
-     const char *nsp,
-     const char* *properties,
-  	 Linux_DnsHintZoneManualInstanceEnumeration& instances){
-	cout << "Linux_DnsHintZoneResourceAccess::enumInstances()" << endl;
-	cout << "--- enumInstances() called" << endl;
-
-        DNSZONE * zones = NULL, *all_zones;
-
-        cout << "---- calling getZones() " << endl;
-
-        zones = getZones();	//getZonesByType("hint");
-	all_zones = zones;
-
-        if (zones)
-        {
-            for (; zones->zoneName != NULL ; zones++)
-            {	    
-                if ( strcmp(zones->zoneType, "hint") )
-                        continue;
-
-                Linux_DnsHintZoneManualInstance instance;
-                Linux_DnsHintZoneInstanceName instanceName;
-
-                cout << "--- Calling setInstanceNameProperties() for zone" << endl;
-
-                printf (" -----%s \n", zones->zoneName);
-
-                setInstanceNameProperties(ctx, mbp, nsp,
-                                          zones, instanceName);
-
-                cout << "--- Calling setInstanceProperties()" << endl;
-
-                setInstanceProperties(ctx, mbp, zones,
-                                      instanceName, instance);
-
-                instances.addElement(instance);
-                
-		cout << "--- Added to enumeration"  << endl;
-            }
-	    freeZones( all_zones );
-        }
-        else
-        {
-            cout << "--- No Zones Found"  << endl;
-        }
-
-        cout << "--- enumInstances() exited"  << endl;
-    }
-  	
+    zones = getZones();	//getZonesByType("hint");
+    all_zones = zones;
+    if (zones) {
+      for (; zones->zoneName != NULL ; zones++) {	
+	if ( strcmp(zones->zoneType, "hint") )
+	  continue;
 	
-    Linux_DnsHintZoneManualInstance 
-     Linux_DnsHintZoneResourceAccess::getInstance(
-     const CmpiContext& ctx,
-     const CmpiBroker &mbp,
-     const char* *properties,
-     const Linux_DnsHintZoneInstanceName& anInstanceName){
-	cout << "--- getInstance() called" << endl; 
+	Linux_DnsHintZoneInstanceName instanceName;
+	
+	setInstanceNameProperties(aContext, aBroker, aNameSpaceP, zones, instanceName);
+	anInstanceNameEnumeration.addElement(instanceName);
+      }
+      freeZones( all_zones );
+    } 
 
-        DNSZONE * zones, *all_zones;
+#ifdef DEBUG
+    cout << "exiting Linux_DnsHintZone::enumInstanceNames" << endl;
+#endif
+  }
+
+  
+  //----------------------------------------------------------------------------
+
+  void
+  Linux_DnsHintZoneResourceAccess::enumInstances(
+    const CmpiContext& aContext,
+    const CmpiBroker& aBroker,
+    const char* aNameSpaceP,
+    const char** aPropertiesPP,
+    Linux_DnsHintZoneManualInstanceEnumeration& aManualInstanceEnumeration) {
+    
+#ifdef DEBUG
+    cout << "entering Linux_DnsHintZone::enumInstances" << endl;
+#endif
+
+    DNSZONE * zones = NULL, *all_zones;
+    
+    zones = getZones();	//getZonesByType("hint");
+    all_zones = zones;
+    
+    if (zones) {
+      for (; zones->zoneName != NULL ; zones++) {	    
+	if ( strcmp(zones->zoneType, "hint") )
+	  continue;
+	
 	Linux_DnsHintZoneManualInstance instance;
-
-        cout << "---- calling getZones() " << endl;
-
-        zones = getZones();	//getZonesByType("hint");
-	all_zones = zones;
-        if (zones)
-        {
-            for (; zones->zoneName != NULL ; zones++)
-            {
-                if ( strcmp(zones->zoneType, "hint") )
-                        continue;
-
-                cout << "--- zones->zoneName is "  << endl;
-                printf ("%s \n", zones->zoneName);
-
-                cout << "--- Name of Instance is "  << endl;
-                printf ("%s \n", anInstanceName.getName());
-
-                if ((strcmp(zones->zoneName, anInstanceName.getName())) == 0)
-                {
-                    cout << "--- Calling setInstanceProperties()" << endl; 
-                    setInstanceProperties(ctx, mbp, zones,
-                                          anInstanceName, instance);
-
-                    cout << "--- getInstance() exited "  << endl; 
-
-                    return instance; 
-                }
-            } // end for
-	    freeZones( all_zones );
-        }  // end if             
+	Linux_DnsHintZoneInstanceName instanceName;
+	
+	setInstanceNameProperties(aContext, aBroker, aNameSpaceP, zones, instanceName);
+	setInstanceProperties(aContext, aBroker, zones, instanceName, instance);
+	aManualInstanceEnumeration.addElement(instance);
+      }
+      freeZones( all_zones );
     }
-  	
-  	
-    void Linux_DnsHintZoneResourceAccess::setInstance(
-     const CmpiContext& ctx,
-     const CmpiBroker &mbp,
-     const char* *properties,
-     const Linux_DnsHintZoneManualInstance& newInstance){
 
-	cout << "--- setInstance() called" << endl;
+#ifdef DEBUG
+    cout << "exiting Linux_DnsHintZone::enumInstances" << endl;
+#endif
+  }
 
-        DNSZONE *zones, *myZone;
+  
+  //----------------------------------------------------------------------------
 
-        zones = getZones();
-        myZone = findZone(zones, newInstance.getInstanceName().getName());
+  Linux_DnsHintZoneManualInstance 
+  Linux_DnsHintZoneResourceAccess::getInstance(
+    const CmpiContext& aContext,
+    const CmpiBroker& aBroker,
+    const char** aPropertiesPP,
+    const Linux_DnsHintZoneInstanceName& anInstanceName) {
 
-        if ( ! myZone )
-                throw CmpiStatus(CMPI_RC_ERR_NOT_FOUND,"Zone does not exist");
+#ifdef DEBUG
+    cout << "entering Linux_DnsHintZone::getInstance" << endl;
+#endif
 
-        if ( strcmp(myZone->zoneType,"forward") != 0 )
-                throw CmpiStatus(CMPI_RC_ERR_NOT_FOUND,"Zone does not exist");
-
-        if ( newInstance.isResourceRecordFileSet() ) {
-                free(myZone->zoneFileName);
-                myZone->zoneFileName = strdup(newInstance.getResourceRecordFile());
-        }
-        updateZones(zones);
-	freeZones( zones );
-    };
-  	
-  	
-    void Linux_DnsHintZoneResourceAccess::createInstance(
-     const CmpiContext& ctx, const CmpiBroker &mbp,
-     const Linux_DnsHintZoneManualInstance& aManualInstance){
+    DNSZONE * zones, *all_zones;
+    Linux_DnsHintZoneManualInstance instance;
+    
+    zones = getZones();	//getZonesByType("hint");
+    all_zones = zones;
+    if (zones) {
+      for (; zones->zoneName != NULL ; zones++) {
+	if ( strcmp(zones->zoneType, "hint") )
+	  continue;
 	
-	cout << "--- createInstance() called" << endl;
-
-	DNSZONE * newZone = NULL;
-	Linux_DnsHintZoneInstanceName anInstanceName = aManualInstance.getInstanceName();
-	
-	if (((anInstanceName.getName()) == NULL) || ((anInstanceName.getName()) == "" ) || ((anInstanceName.getName()) =="") ) 
-        {
-            // throw exception that invalid key
-            cout << "---- Zonename is invalid" << endl;
-            throw CmpiStatus(CMPI_RC_ERR_INVALID_PARAMETER,"Zonename is invalid");
-
-        }
-
-        DNSZONE * all_zones = getZones();
-        if ( findZone(all_zones,anInstanceName.getName()) )
-        {
-                freeZones(all_zones);
-                throw CmpiStatus(CMPI_RC_ERR_INVALID_PARAMETER,"The zone already exist");
-        }
-        freeZones(all_zones);
-
-	newZone = (DNSZONE *)calloc(1+1,sizeof(DNSZONE));
-	if (newZone)
-        {
-		newZone->zoneName = (char *)anInstanceName.getName();
-
-		newZone->zoneType = "hint"; 
-
-            	cout << "---- newZone->zoneType is "<<  newZone->zoneType << endl;
-
-            	if (aManualInstance.isResourceRecordFileSet()) {
-                	newZone->zoneFileName = strdup(aManualInstance.getResourceRecordFile());
-            	}
-            	else {
-                	char * buffer;
-                	buffer = (char *)calloc((strlen(newZone->zoneType)+strlen(newZone->zoneName)+2),sizeof(char));
-                	strcat(buffer, newZone->zoneType);
-                	strcat(buffer, "/");
-                	strcat(buffer, newZone->zoneName);
-                	newZone->zoneFileName = buffer;
-            	}
-
-            	newZone->records = NULL;
-
-		cout << "---- calling addZones() " << endl;
-	
-        	DNSZONE * returnedZones = NULL;
-
-           	returnedZones = addZone(newZone, NULL);
-            	if (!returnedZones)
-            	{
-                	cout <<"---- addZone() failed " << endl;
-                	cout <<"---- createInstance Zone exited " << endl;
-                	throw CmpiStatus(CMPI_RC_ERROR,"addZone() failed");
-            	}
-		freeZones( returnedZones );
-            	cout <<"---- createInstance Zone exited " << endl;
-
+	if ((strcmp(zones->zoneName, anInstanceName.getName())) == 0) {
+	  setInstanceProperties(aContext, aBroker, zones, anInstanceName, instance);
+	  
+#ifdef DEBUG
+    cout << "exiting Linux_DnsHintZone::getInstance" << endl;
+#endif
+	  return instance; 
 	}
-    };
-  	
-  	
-    void Linux_DnsHintZoneResourceAccess::deleteInstance(
-     const CmpiContext& ctx, const CmpiBroker &mbp,
-     const Linux_DnsHintZoneInstanceName& inst){
+      }
+      freeZones( all_zones );
+    }
 
-        deleteZone( inst.getName() );
+#ifdef DEBUG
+    cout << "exiting Linux_DnsHintZone::getInstance" << endl;
+#endif
+  }
 
-    };
+  //----------------------------------------------------------------------------
+
+  void
+  Linux_DnsHintZoneResourceAccess::setInstance(
+     const CmpiContext& aContext,
+     const CmpiBroker& aBroker,
+     const char** aPropertiesPP,
+     const Linux_DnsHintZoneManualInstance& aManualInstance) {
+    
+#ifdef DEBUG
+    cout << "entering Linux_DnsHintZone::setInstance" << endl;
+#endif
+
+    DNSZONE *zones, *myZone;
+    
+    zones = getZones();
+    myZone = findZone(zones, aManualInstance.getInstanceName().getName());
+    
+    if ( ! myZone )
+      throw CmpiStatus(CMPI_RC_ERR_NOT_FOUND,"Zone does not exist");
+    
+    if ( strcmp(myZone->zoneType,"forward") != 0 )
+      throw CmpiStatus(CMPI_RC_ERR_NOT_FOUND,"Zone does not exist");
+    
+    if ( aManualInstance.isResourceRecordFileSet() ) {
+      free(myZone->zoneFileName);
+      myZone->zoneFileName = strdup(aManualInstance.getResourceRecordFile());
+    }
+    updateZones(zones);
+    freeZones( zones );
+
+#ifdef DEBUG
+    cout << "exiting Linux_DnsHintZone::setInstance" << endl;
+#endif
+  }
+
+  
+  //----------------------------------------------------------------------------
+
+  Linux_DnsHintZoneInstanceName
+  Linux_DnsHintZoneResourceAccess::createInstance(
+    const CmpiContext& aContext,
+    const CmpiBroker& aBroker,
+    const Linux_DnsHintZoneManualInstance& aManualInstance) {
+    
+#ifdef DEBUG
+    cout << "entering Linux_DnsHintZone::createInstance" << endl;
+#endif
+
+    DNSZONE * newZone = NULL;
+    Linux_DnsHintZoneInstanceName anInstanceName = aManualInstance.getInstanceName();
+    
+    if (((anInstanceName.getName()) == NULL) || ((anInstanceName.getName()) == "" ) || ((anInstanceName.getName()) =="") ) {
+      throw CmpiStatus(CMPI_RC_ERR_INVALID_PARAMETER,"Zonename is invalid");
+    }
+    
+    DNSZONE * all_zones = getZones();
+    if ( findZone(all_zones,anInstanceName.getName()) ) {
+      freeZones(all_zones);
+      throw CmpiStatus(CMPI_RC_ERR_INVALID_PARAMETER,"The zone already exist");
+    }
+    freeZones(all_zones);
+    
+    newZone = (DNSZONE *)calloc(1+1,sizeof(DNSZONE));
+    if (newZone) {
+      newZone->zoneName = (char *)anInstanceName.getName();
+      
+      newZone->zoneType = "hint"; 
+      
+      if (aManualInstance.isResourceRecordFileSet()) {
+	newZone->zoneFileName = strdup(aManualInstance.getResourceRecordFile());
 	
+      } else {
+	char * buffer;
+	buffer = (char *)calloc((strlen(newZone->zoneType)+strlen(newZone->zoneName)+2),sizeof(char));
+	strcat(buffer, newZone->zoneType);
+	strcat(buffer, "/");
+	strcat(buffer, newZone->zoneName);
+	newZone->zoneFileName = buffer;
+      }
+      
+      newZone->records = NULL;
+      
+      DNSZONE * returnedZones = NULL;
+      
+      returnedZones = addZone(newZone, NULL);
+      if (!returnedZones) {
+	throw CmpiStatus(CMPI_RC_ERROR,"addZone() failed");
+      }
+      freeZones( returnedZones );
+    }
+
+#ifdef DEBUG
+    cout << "exiting Linux_DnsHintZone::createInstance" << endl;
+#endif
+    return aManualInstance.getInstanceName();
+  }
+
+  
+  //----------------------------------------------------------------------------
+
+  void
+  Linux_DnsHintZoneResourceAccess::deleteInstance(
+    const CmpiContext& aContext,
+    const CmpiBroker& aBroker,
+    const Linux_DnsHintZoneInstanceName& anInstanceName) {
     
-    /* extrinsic methods */
-    /*
-    virtual CMPIUint32 Linux_DnsHintZoneResourceAccess::ApplyIncrementalChangeToCollection(
-     const CmpiContext& ctx, const CmpiBroker &mbp,
-     const Linux_DnsHintZoneInstanceName&,
-      const CIM_CollectionOfMSEsInstanceName &Collection,
+#ifdef DEBUG
+    cout << "entering Linux_DnsHintZone::deleteInstance" << endl;
+#endif
+
+    deleteZone( anInstanceName.getName() );
+
+#ifdef DEBUG
+    cout << "exiting Linux_DnsHintZone::deleteInstance" << endl;
+#endif
+  }
+
+	
+
+  
+  // extrinsic methods
+
+  /*
+  CMPIUint32 Linux_DnsHintZoneResourceAccess::ApplyIncrementalChangeToCollection(
+    const CmpiContext& aContext,
+    const CmpiBroker& aBroker,
+    const Linux_DnsHintZoneInstanceName& anInstanceName,
+      const CIM_CollectionOfMSEsInstanceName& Collection,
       int isCollectionPresent,
-      const CmpiDateTime &TimeToApply,
+      const CmpiDateTime& TimeToApply,
       int isTimeToApplyPresent,
-      const CMPIBoolean &ContinueOnError,
+      const CMPIBoolean& ContinueOnError,
       int isContinueOnErrorPresent,
-      const CmpiDateTime &MustBeCompletedBy,
+      const CmpiDateTime& MustBeCompletedBy,
       int isMustBeCompletedByPresent,
       const char** PropertiesToApply,
       const CMPICount PropertiesToApplySize,
       int isPropertiesToApplyPresent,
-      char** &CanNotApply,
-      CMPICount &CanNotApplySize) { };
-    */
-    /*
-    virtual CMPIUint32 Linux_DnsHintZoneResourceAccess::ApplyIncrementalChangeToMSE(
-     const CmpiContext& ctx, const CmpiBroker &mbp,
-     const Linux_DnsHintZoneInstanceName&,
-      const CIM_ManagedSystemElementInstanceName &MSE,
+      char**& CanNotApply,
+      CMPICount& CanNotApplySize) { }
+  */
+
+  /*
+  CMPIUint32 Linux_DnsHintZoneResourceAccess::ApplyIncrementalChangeToMSE(
+    const CmpiContext& aContext,
+    const CmpiBroker& aBroker,
+    const Linux_DnsHintZoneInstanceName& anInstanceName,
+      const CIM_ManagedSystemElementInstanceName& MSE,
       int isMSEPresent,
-      const CmpiDateTime &TimeToApply,
+      const CmpiDateTime& TimeToApply,
       int isTimeToApplyPresent,
-      const CmpiDateTime &MustBeCompletedBy,
+      const CmpiDateTime& MustBeCompletedBy,
       int isMustBeCompletedByPresent,
       const char** PropertiesToApply,
       const CMPICount PropertiesToApplySize,
-      int isPropertiesToApplyPresent) { };
-    */
-    /*
-    virtual CMPIUint32 Linux_DnsHintZoneResourceAccess::ApplyToCollection(
-     const CmpiContext& ctx, const CmpiBroker &mbp,
-     const Linux_DnsHintZoneInstanceName&,
-      const CIM_CollectionOfMSEsInstanceName &Collection,
+      int isPropertiesToApplyPresent) { }
+  */
+
+  /*
+  CMPIUint32 Linux_DnsHintZoneResourceAccess::ApplyToCollection(
+    const CmpiContext& aContext,
+    const CmpiBroker& aBroker,
+    const Linux_DnsHintZoneInstanceName& anInstanceName,
+      const CIM_CollectionOfMSEsInstanceName& Collection,
       int isCollectionPresent,
-      const CmpiDateTime &TimeToApply,
+      const CmpiDateTime& TimeToApply,
       int isTimeToApplyPresent,
-      const CMPIBoolean &ContinueOnError,
+      const CMPIBoolean& ContinueOnError,
       int isContinueOnErrorPresent,
-      const CmpiDateTime &MustBeCompletedBy,
+      const CmpiDateTime& MustBeCompletedBy,
       int isMustBeCompletedByPresent,
-      char** &CanNotApply,
-      CMPICount &CanNotApplySize) { };
-    */
-    /*
-    virtual CMPIUint32 Linux_DnsHintZoneResourceAccess::ApplyToMSE(
-     const CmpiContext& ctx, const CmpiBroker &mbp,
-     const Linux_DnsHintZoneInstanceName&,
-      const CIM_ManagedSystemElementInstanceName &MSE,
+      char**& CanNotApply,
+      CMPICount& CanNotApplySize) { }
+  */
+
+  /*
+  CMPIUint32 Linux_DnsHintZoneResourceAccess::ApplyToMSE(
+    const CmpiContext& aContext,
+    const CmpiBroker& aBroker,
+    const Linux_DnsHintZoneInstanceName& anInstanceName,
+      const CIM_ManagedSystemElementInstanceName& MSE,
       int isMSEPresent,
-      const CmpiDateTime &TimeToApply,
+      const CmpiDateTime& TimeToApply,
       int isTimeToApplyPresent,
-      const CmpiDateTime &MustBeCompletedBy,
-      int isMustBeCompletedByPresent) { };
-    */
-    /*
-    virtual CMPIUint32 Linux_DnsHintZoneResourceAccess::VerifyOKToApplyIncrementalChangeToCollection(
-     const CmpiContext& ctx, const CmpiBroker &mbp,
-     const Linux_DnsHintZoneInstanceName&,
-      const CIM_CollectionOfMSEsInstanceName &Collection,
+      const CmpiDateTime& MustBeCompletedBy,
+      int isMustBeCompletedByPresent) { }
+  */
+
+  /*
+  CMPIUint32 Linux_DnsHintZoneResourceAccess::VerifyOKToApplyIncrementalChangeToCollection(
+    const CmpiContext& aContext,
+    const CmpiBroker& aBroker,
+    const Linux_DnsHintZoneInstanceName& anInstanceName,
+      const CIM_CollectionOfMSEsInstanceName& Collection,
       int isCollectionPresent,
-      const CmpiDateTime &TimeToApply,
+      const CmpiDateTime& TimeToApply,
       int isTimeToApplyPresent,
-      const CmpiDateTime &MustBeCompletedBy,
+      const CmpiDateTime& MustBeCompletedBy,
       int isMustBeCompletedByPresent,
       const char** PropertiesToApply,
       const CMPICount PropertiesToApplySize,
       int isPropertiesToApplyPresent,
-      char** &CanNotApply,
-      CMPICount &CanNotApplySize) { };
-    */
-    /*
-    virtual CMPIUint32 Linux_DnsHintZoneResourceAccess::VerifyOKToApplyIncrementalChangeToMSE(
-     const CmpiContext& ctx, const CmpiBroker &mbp,
-     const Linux_DnsHintZoneInstanceName&,
-      const CIM_ManagedSystemElementInstanceName &MSE,
+      char**& CanNotApply,
+      CMPICount& CanNotApplySize) { }
+  */
+
+  /*
+  CMPIUint32 Linux_DnsHintZoneResourceAccess::VerifyOKToApplyIncrementalChangeToMSE(
+    const CmpiContext& aContext,
+    const CmpiBroker& aBroker,
+    const Linux_DnsHintZoneInstanceName& anInstanceName,
+      const CIM_ManagedSystemElementInstanceName& MSE,
       int isMSEPresent,
-      const CmpiDateTime &TimeToApply,
+      const CmpiDateTime& TimeToApply,
       int isTimeToApplyPresent,
-      const CmpiDateTime &MustBeCompletedBy,
+      const CmpiDateTime& MustBeCompletedBy,
       int isMustBeCompletedByPresent,
       const char** PropertiesToApply,
       const CMPICount PropertiesToApplySize,
-      int isPropertiesToApplyPresent) { };
-    */
-    /*
-    virtual CMPIUint32 Linux_DnsHintZoneResourceAccess::VerifyOKToApplyToCollection(
-     const CmpiContext& ctx, const CmpiBroker &mbp,
-     const Linux_DnsHintZoneInstanceName&,
-      const CIM_CollectionOfMSEsInstanceName &Collection,
+      int isPropertiesToApplyPresent) { }
+  */
+
+  /*
+  CMPIUint32 Linux_DnsHintZoneResourceAccess::VerifyOKToApplyToCollection(
+    const CmpiContext& aContext,
+    const CmpiBroker& aBroker,
+    const Linux_DnsHintZoneInstanceName& anInstanceName,
+      const CIM_CollectionOfMSEsInstanceName& Collection,
       int isCollectionPresent,
-      const CmpiDateTime &TimeToApply,
+      const CmpiDateTime& TimeToApply,
       int isTimeToApplyPresent,
-      const CmpiDateTime &MustBeCompletedBy,
+      const CmpiDateTime& MustBeCompletedBy,
       int isMustBeCompletedByPresent,
-      char** &CanNotApply,
-      CMPICount &CanNotApplySize) { };
-    */
-    /*
-    virtual CMPIUint32 Linux_DnsHintZoneResourceAccess::VerifyOKToApplyToMSE(
-     const CmpiContext& ctx, const CmpiBroker &mbp,
-     const Linux_DnsHintZoneInstanceName&,
-      const CIM_ManagedSystemElementInstanceName &MSE,
+      char**& CanNotApply,
+      CMPICount& CanNotApplySize) { }
+  */
+
+  /*
+  CMPIUint32 Linux_DnsHintZoneResourceAccess::VerifyOKToApplyToMSE(
+    const CmpiContext& aContext,
+    const CmpiBroker& aBroker,
+    const Linux_DnsHintZoneInstanceName& anInstanceName,
+      const CIM_ManagedSystemElementInstanceName& MSE,
       int isMSEPresent,
-      const CmpiDateTime &TimeToApply,
+      const CmpiDateTime& TimeToApply,
       int isTimeToApplyPresent,
-      const CmpiDateTime &MustBeCompletedBy,
-      int isMustBeCompletedByPresent) { };
-    */
-    
-    CMPIUint32 Linux_DnsHintZoneResourceAccess::disable(
-     const CmpiContext& ctx, const CmpiBroker &mbp,
-     const Linux_DnsHintZoneInstanceName& inst) {
+      const CmpiDateTime& MustBeCompletedBy,
+      int isMustBeCompletedByPresent) { }
+  */
 
-        if ( inst.getName() == NULL )
-                return 3;
-
-        disableZone( inst.getName() );
-    };
-    
-    
-    CMPIUint32 Linux_DnsHintZoneResourceAccess::enable(
-     const CmpiContext& ctx, const CmpiBroker &mbp,
-     const Linux_DnsHintZoneInstanceName& inst) {
-
-        if ( inst.getName() == NULL )
-                return 3;
-
-        enableZone( inst.getName() );
-
-     };
-    
 	
 }
 

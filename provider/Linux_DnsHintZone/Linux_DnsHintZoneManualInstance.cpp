@@ -1,20 +1,25 @@
- /**
- * Linux_DnsHintZoneManualInstance.cpp
- *
- * (C) Copyright IBM Corp. 2005
- *
- * THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
- * ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE
- * CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
- *
- * You can obtain a current copy of the Common Public License from
- * http://www.opensource.org/licenses/cpl1.0.php
- *
- * author:     Murillo Bernardes <bernarde@br.ibm.com>
- *
- * Contributors:
- *
- */
+// =======================================================================
+// Linux_DnsHintZoneManualInstance.cpp
+//     created on Fri, 3 Mar 2006 using ECUTE
+// 
+// Copyright (c) 2006, International Business Machines
+//
+// THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
+// ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE 
+// CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
+//
+// You can obtain a current copy of the Common Public License from
+// http://oss.software.ibm.com/developerworks/opensource/license-cpl.html
+//
+// Author:        generated
+//
+// Contributors:
+//                Murillo Bernardes <bernarde@br.ibm.com>
+//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//
+// =======================================================================
+//
+// 
 #include "Linux_DnsHintZoneManualInstance.h"
 #include "CmpiData.h"
 #include "CmpiString.h"
@@ -23,326 +28,404 @@
 
 namespace genProvider {
 
-  //*********************************************************
+  //****************************************************************************
   //Linux_DnsHintZoneManualInstance
-  //*********************************************************
-
+  //----------------------------------------------------------------------------
   //empty constructor
-  Linux_DnsHintZoneManualInstance::
-   Linux_DnsHintZoneManualInstance(){   	
+  Linux_DnsHintZoneManualInstance::Linux_DnsHintZoneManualInstance() {   	
    	init();  	   	
-  };
+  }
   
-  
+  //----------------------------------------------------------------------------
   //copy constructor	
-  Linux_DnsHintZoneManualInstance::
-   Linux_DnsHintZoneManualInstance
-   (const Linux_DnsHintZoneManualInstance& original){   	
-   	init(original);  	   	
-  };
+  //----------------------------------------------------------------------------
+  Linux_DnsHintZoneManualInstance::Linux_DnsHintZoneManualInstance(
+    const Linux_DnsHintZoneManualInstance& anInstance) {   	
+   	init(anInstance);  	   	
+  }
   
-  
+  //----------------------------------------------------------------------------
   //constructor using CmpiInstance
-  Linux_DnsHintZoneManualInstance::
-   Linux_DnsHintZoneManualInstance (const CmpiInstance& inst, const char* instanceNamespace){
+  //----------------------------------------------------------------------------
+  Linux_DnsHintZoneManualInstance::Linux_DnsHintZoneManualInstance(
+    const CmpiInstance& aCmpiInstance,
+    const char* anInstanceNamespaceP) {
+
     CmpiData cmpiData;
+
     init(); 
     
-    CmpiObjectPath cop=inst.getObjectPath();
-    cop.setNameSpace(instanceNamespace);
+    CmpiObjectPath cop = aCmpiInstance.getObjectPath();
+    cop.setNameSpace(anInstanceNamespaceP);
     setInstanceName(Linux_DnsHintZoneInstanceName(cop));
-    
-    cmpiData = inst.getProperty("ResourceRecordFile");
-    if(!cmpiData.isNullValue()){
+
+    cmpiData = aCmpiInstance.getProperty("ResourceRecordFile");
+    if ( ! cmpiData.isNullValue()){
       CmpiString ResourceRecordFile = cmpiData;
       setResourceRecordFile(ResourceRecordFile.charPtr());
     }
-    
-    cmpiData = inst.getProperty("Type");
-    if(!cmpiData.isNullValue()){
+
+    cmpiData = aCmpiInstance.getProperty("Type");
+    if ( ! cmpiData.isNullValue()){
       CMPIUint16 Type = cmpiData;
       setType(Type);
     }
+
     
   }
   
-  
+  //----------------------------------------------------------------------------
   //Destructor
+  //----------------------------------------------------------------------------
   Linux_DnsHintZoneManualInstance::
    ~Linux_DnsHintZoneManualInstance(){
    	reset();  	  
-  };
+  }
   
   
+  //----------------------------------------------------------------------------
   //copy operator
+  //----------------------------------------------------------------------------
   Linux_DnsHintZoneManualInstance&
-   Linux_DnsHintZoneManualInstance::operator=
-   (const Linux_DnsHintZoneManualInstance& original){   	
-   	init(original);
+  Linux_DnsHintZoneManualInstance::operator=(
+    const Linux_DnsHintZoneManualInstance& anInstance) {   	
+   	
+   	init(anInstance);
    	return *this;
-  };
+  
+  }
   
   
+  //----------------------------------------------------------------------------
   //converts to CmpiInstance
-  CmpiInstance Linux_DnsHintZoneManualInstance::
-   getCmpiInstance(const char** properties) const{
+  //----------------------------------------------------------------------------
+  CmpiInstance
+  Linux_DnsHintZoneManualInstance::getCmpiInstance(
+    const char** aPropertiesPP) const {
    	
    	CmpiObjectPath objectPath=getInstanceName().getObjectPath();      
     CmpiInstance cmpiInstance(objectPath);    
     getInstanceName().fillKeys(cmpiInstance);
     
-    if (properties) {
-	  cmpiInstance.setPropertyFilter(properties,0);
+    if (aPropertiesPP) {
+	    cmpiInstance.setPropertyFilter(aPropertiesPP,0);
     }
 
-  	if(isSet.ResourceRecordFile){
-  	  cmpiInstance.setProperty("ResourceRecordFile",CmpiData(m_ResourceRecordFile));
+  	if (isSet.ResourceRecordFile) {
+  	  
+  	  cmpiInstance.setProperty(
+  	    "ResourceRecordFile",
+  	    CmpiData(m_ResourceRecordFile));
   	}
 
-  	if(isSet.Type){
-  	  cmpiInstance.setProperty("Type",CmpiData(m_Type));
+  	if (isSet.Type) {
+  	  
+  	  cmpiInstance.setProperty(
+  	    "Type",
+  	    CmpiData(m_Type));
   	}
+
   	
   	return cmpiInstance;
   	
   }
   
-  
-  //InstanceName related methods
-  unsigned int Linux_DnsHintZoneManualInstance::
-   isInstanceNameSet() const{
+  //----------------------------------------------------------------------------
+  // InstanceName related methods
+  //----------------------------------------------------------------------------
+  unsigned int 
+  Linux_DnsHintZoneManualInstance::isInstanceNameSet() const {
   	return isSet.instanceName;
   }
   
+  //----------------------------------------------------------------------------
   const Linux_DnsHintZoneInstanceName&
-    Linux_DnsHintZoneManualInstance::getInstanceName() const{
+  Linux_DnsHintZoneManualInstance::getInstanceName() const {
 
-    if(!isSet.instanceName)
+    if( ! isSet.instanceName) {
    	  throw CmpiErrorFormater::getErrorException(
-   	   CmpiErrorFormater::NOT_SET,
-   	   "InstanceName not set in Linux_DnsHintZone instance");
+        CmpiErrorFormater::NOT_SET,
+        "InstanceName (CIM Key Attributes)",
+        "Linux_DnsHintZone");
+   	}
   		
    	return m_instanceName;
+  
   }
 
-  void Linux_DnsHintZoneManualInstance::setInstanceName(
-   const Linux_DnsHintZoneInstanceName& val){
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsHintZoneManualInstance::setInstanceName(
+    const Linux_DnsHintZoneInstanceName& val) {
+
     m_instanceName = val;
-    isSet.instanceName=1;
+    isSet.instanceName = 1;
+
   }
        
-  //ResourceRecordFile related methods
-  unsigned int Linux_DnsHintZoneManualInstance::isResourceRecordFileSet() const{
+  //----------------------------------------------------------------------------
+  // ResourceRecordFile related methods
+  //----------------------------------------------------------------------------
+  unsigned int
+  Linux_DnsHintZoneManualInstance::isResourceRecordFileSet() const {
     return isSet.ResourceRecordFile;
   }
-  void  Linux_DnsHintZoneManualInstance::
-   setResourceRecordFile(const char* val, int makeCopy){
-    if (isSet.ResourceRecordFile) {
-      delete []m_ResourceRecordFile;
-    }
-    if (makeCopy&&val) {
-      char* tmpval = new char[strlen(val)+1];
-      strcpy(tmpval,val);
-      m_ResourceRecordFile = tmpval;
-    } else {
-      m_ResourceRecordFile = val;
-    }
-    isSet.ResourceRecordFile=1;
-  }       
-  const char* Linux_DnsHintZoneManualInstance::
-   getResourceRecordFile() const{
+
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsHintZoneManualInstance::setResourceRecordFile(
+    const char* aValueP,
+    int aCopyFlag) {
     
-    if(!isSet.ResourceRecordFile)
+    if (isSet.ResourceRecordFile) {
+      delete [] m_ResourceRecordFile;
+    }
+    
+    if (aCopyFlag && aValueP) {
+      char* valueP = new char[strlen(aValueP) + 1];
+      strcpy(valueP,aValueP);
+      m_ResourceRecordFile = valueP;
+    } else {
+      m_ResourceRecordFile = aValueP;
+    }
+    
+    isSet.ResourceRecordFile = 1;
+
+  }       
+
+  //----------------------------------------------------------------------------
+  const char*
+  Linux_DnsHintZoneManualInstance::getResourceRecordFile() const {
+    
+    if ( ! isSet.ResourceRecordFile) {
    	  throw CmpiErrorFormater::getErrorException(
-   	   CmpiErrorFormater::NOT_SET,
-   	   "ResourceRecordFile not set");
-   	   	
+   	    CmpiErrorFormater::NOT_SET,
+        "ResourceRecordFile",
+        "Linux_DnsHintZone");
+   	}
+
+
     return m_ResourceRecordFile;
+
   }
        
-  //Type related methods
-  unsigned int Linux_DnsHintZoneManualInstance::isTypeSet() const{
+  //----------------------------------------------------------------------------
+  // Type related methods
+  //----------------------------------------------------------------------------
+  unsigned int
+  Linux_DnsHintZoneManualInstance::isTypeSet() const {
     return isSet.Type;
   }
-  void Linux_DnsHintZoneManualInstance::
-   setType(const CMPIUint16 val){
-    m_Type = val;
-    isSet.Type=1;
+
+  //----------------------------------------------------------------------------
+  void Linux_DnsHintZoneManualInstance::setType(
+    const CMPIUint16 aValue) {
+  
+    m_Type = aValue;
+    isSet.Type = 1;
+  
   }       
-  const CMPIUint16 Linux_DnsHintZoneManualInstance::
-   getType() const{
+
+  //----------------------------------------------------------------------------
+  const CMPIUint16
+  Linux_DnsHintZoneManualInstance::getType() const {
     
-    if(!isSet.Type)
+    if ( ! isSet.Type) {
    	  throw CmpiErrorFormater::getErrorException(
-   	   CmpiErrorFormater::NOT_SET,
-   	   "Type not set");
-   	   	
+   	    CmpiErrorFormater::NOT_SET,
+        "Type",
+        "Linux_DnsHintZone");
+   	}
+
+
     return m_Type;
+
   }
 
-
   
+  //----------------------------------------------------------------------------
   //set isSet attributes to FALSE
-  void Linux_DnsHintZoneManualInstance::init(){
-   	isSet.instanceName=0;
-   	   	
-    isSet.ResourceRecordFile=0;   	
-    isSet.Type=0;  	
-  };
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsHintZoneManualInstance::init() {
+   	isSet.instanceName = 0;
+    isSet.ResourceRecordFile = 0;
+    isSet.Type = 0;
+  	
+  }
   
-  
+  //----------------------------------------------------------------------------
   //copies another instance properties in this
-  void Linux_DnsHintZoneManualInstance::init
-   (const Linux_DnsHintZoneManualInstance& original){   	
+  //----------------------------------------------------------------------------
+  void 
+  Linux_DnsHintZoneManualInstance::init(
+    const Linux_DnsHintZoneManualInstance& anOriginal) {   	
+
    	init();
    	   	
-    if(original.isInstanceNameSet()){
-      setInstanceName(original.getInstanceName());
-    }   	
-    if(original.isResourceRecordFileSet()){
-      const char* ResourceRecordFileOriginal=original.getResourceRecordFile();
-      setResourceRecordFile(ResourceRecordFileOriginal, 1);
-    }   	
-    if(original.isTypeSet()){
-      const CMPIUint16 TypeOriginal=original.getType();
+    if(anOriginal.isInstanceNameSet()) {
+      setInstanceName(anOriginal.getInstanceName());
+    }
+       	
+    if (anOriginal.isResourceRecordFileSet()) {
+      const char* ResourceRecordFileOriginal = anOriginal.getResourceRecordFile();
+      setResourceRecordFile(ResourceRecordFileOriginal,1);
+    }
+   	
+    if (anOriginal.isTypeSet()) {
+      const CMPIUint16 TypeOriginal = anOriginal.getType();
       setType(TypeOriginal);
-    }    
-   }
+    }
+    
+  }
   
-  
+  //----------------------------------------------------------------------------
   //reset the instance data
-  void Linux_DnsHintZoneManualInstance::reset(){
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsHintZoneManualInstance::reset() {
    	
-
-  	if (isSet.ResourceRecordFile)
+  	if (isSet.ResourceRecordFile) {
   	  delete(m_ResourceRecordFile);
-  	  
-  };
+  	}
+
+  }
   
-  
-  //*********************************************************
+  //----------------------------------------------------------------------------
   //Linux_DnsHintZoneManualInstanceEnumerationElement	
-  //*********************************************************
-  
-  Linux_DnsHintZoneManualInstanceEnumerationElement::
-   Linux_DnsHintZoneManualInstanceEnumerationElement(){
+  //----------------------------------------------------------------------------
+  Linux_DnsHintZoneManualInstanceEnumerationElement::Linux_DnsHintZoneManualInstanceEnumerationElement() {
    	
-  	m_elementP=0;
-  	m_nextP=0;
+  	m_elementP = 0;
+  	m_nextP = 0;
   	  
-  };
+  }
   
-  
-  Linux_DnsHintZoneManualInstanceEnumerationElement::
-   ~Linux_DnsHintZoneManualInstanceEnumerationElement(){
+  //----------------------------------------------------------------------------
+  Linux_DnsHintZoneManualInstanceEnumerationElement::~Linux_DnsHintZoneManualInstanceEnumerationElement() {
    	
-  	if (m_elementP!=0)
+  	if (m_elementP) {
   	  delete(m_elementP);
-  	if (m_nextP!=0)
+  	}
+  	
+  	if (m_nextP) {
   	  delete(m_nextP);
+  	}
   	  
-  };
+  }
 
-  
-  //*********************************************************
+  //----------------------------------------------------------------------------
   //Linux_DnsHintZoneManualInstanceNameEnumeration
-  //*********************************************************
-
-  Linux_DnsHintZoneManualInstanceEnumeration::
-   Linux_DnsHintZoneManualInstanceEnumeration(){
+  //----------------------------------------------------------------------------
+  Linux_DnsHintZoneManualInstanceEnumeration::Linux_DnsHintZoneManualInstanceEnumeration() {
    	
-  	 firstElementP=0;
-     currentElementP=0;
-     endElementP=0;
-  };
+    m_firstElementP = 0;
+    m_currentElementP = 0;
+    m_endElementP = 0;
   
-  Linux_DnsHintZoneManualInstanceEnumeration::
-   Linux_DnsHintZoneManualInstanceEnumeration(
-   const Linux_DnsHintZoneManualInstanceEnumeration& original){
+  }
+  
+  //----------------------------------------------------------------------------
+  Linux_DnsHintZoneManualInstanceEnumeration::Linux_DnsHintZoneManualInstanceEnumeration(
+    const Linux_DnsHintZoneManualInstanceEnumeration& anInstanceEnumeration) {
    	
-     firstElementP=0;
-     currentElementP=0;
-     endElementP=0;
+    m_firstElementP = 0;
+    m_currentElementP = 0;
+    m_endElementP = 0;
   	 
-     int size=original.getSize();
-     for(int i=0;i<size;i++)
-       addElement(original.getElement(i));           
-  };
+    int size = anInstanceEnumeration.getSize();
+    for (int x=0; x < size;++x) {
+      addElement(anInstanceEnumeration.getElement(x));
+    }           
+
+  }
   
-  	  
-  Linux_DnsHintZoneManualInstanceEnumeration::
-   ~Linux_DnsHintZoneManualInstanceEnumeration(){
+  //----------------------------------------------------------------------------
+  Linux_DnsHintZoneManualInstanceEnumeration::~Linux_DnsHintZoneManualInstanceEnumeration() {
    	
-  	if (firstElementP!=0)
-  	  delete(firstElementP);
+  	if (m_firstElementP) {
+  	  delete(m_firstElementP);
+  	}
   	  	
-  };
+  }
   
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsHintZoneManualInstanceEnumeration::reset() {
+  	
+  	m_currentElementP = m_firstElementP;
+  	
+  }
   	  
-  void Linux_DnsHintZoneManualInstanceEnumeration::reset(){
+  //----------------------------------------------------------------------------
+  bool
+  Linux_DnsHintZoneManualInstanceEnumeration::hasNext() const {
   	
-  	currentElementP=firstElementP;
-  };
+  	return (m_currentElementP != 0);
   
-  	  
-  bool Linux_DnsHintZoneManualInstanceEnumeration::hasNext() const{
-  	
-  	return (currentElementP!=0);
+  }
   
-  };
-  
-  int Linux_DnsHintZoneManualInstanceEnumeration::getSize() const{
+  //----------------------------------------------------------------------------
+  int
+  Linux_DnsHintZoneManualInstanceEnumeration::getSize() const {
   	
-    int size=0;
-    Linux_DnsHintZoneManualInstanceEnumerationElement* followingP=firstElementP;
+    int size = 0;
+    Linux_DnsHintZoneManualInstanceEnumerationElement* followingP = m_firstElementP;
   	
-  	while(followingP!=0){
-        followingP=followingP->m_nextP;
-        size++;
+  	while (followingP) {
+      followingP = followingP->m_nextP;
+      ++size;
     }
   	
     return size;
     
-  };
+  }
   
+  //----------------------------------------------------------------------------
   const Linux_DnsHintZoneManualInstance&  
-   Linux_DnsHintZoneManualInstanceEnumeration::getElement(int pos) const{
+  Linux_DnsHintZoneManualInstanceEnumeration::getElement(int anIndex) const {
    
-    Linux_DnsHintZoneManualInstanceEnumerationElement* followingP=firstElementP;
+    Linux_DnsHintZoneManualInstanceEnumerationElement* followingP = m_firstElementP;
    
-    int i=0;
-    while((followingP!=0)&&(i<pos)){
-        followingP=followingP->m_nextP;
-        i++;
+    int x = 0;
+    while (followingP && (x < anIndex)) {
+      followingP = followingP->m_nextP;
+      ++x;
     }
     
     return *(followingP->m_elementP);
-  };
+
+  }
   
-  	  
+  //----------------------------------------------------------------------------
   const Linux_DnsHintZoneManualInstance&
-   Linux_DnsHintZoneManualInstanceEnumeration::getNext() {
+  Linux_DnsHintZoneManualInstanceEnumeration::getNext() {
    	
-  	 Linux_DnsHintZoneManualInstanceEnumerationElement* currentP=
-  	  currentElementP;
-  	 currentElementP=currentElementP->m_nextP;
+    Linux_DnsHintZoneManualInstanceEnumerationElement* currentElementP =
+  	  m_currentElementP;
+
+    m_currentElementP = m_currentElementP->m_nextP;
   	 
-  	 return *(currentP->m_elementP);
-  };
+    return *(currentElementP->m_elementP);
+
+  }
   	  
-  void Linux_DnsHintZoneManualInstanceEnumeration::addElement
-   (const Linux_DnsHintZoneManualInstance& elementP){
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsHintZoneManualInstanceEnumeration::addElement(
+    const Linux_DnsHintZoneManualInstance& anInstance) {
    	
-  	if(firstElementP==0){
-  	  firstElementP=new Linux_DnsHintZoneManualInstanceEnumerationElement();
-  	  firstElementP->m_elementP=new Linux_DnsHintZoneManualInstance(elementP);
-  	  endElementP=firstElementP;
-  	  currentElementP=firstElementP;
-  	}else{
-  	  endElementP->m_nextP=new Linux_DnsHintZoneManualInstanceEnumerationElement();
-  	  endElementP=endElementP->m_nextP;
-  	  endElementP->m_elementP=new Linux_DnsHintZoneManualInstance(elementP);
+  	if (m_firstElementP == 0) {
+  	  m_firstElementP = new Linux_DnsHintZoneManualInstanceEnumerationElement();
+  	  m_firstElementP->m_elementP = new Linux_DnsHintZoneManualInstance(anInstance);
+  	  m_endElementP = m_firstElementP;
+  	  m_currentElementP = m_firstElementP;
+  	} else {
+  	  m_endElementP->m_nextP = new Linux_DnsHintZoneManualInstanceEnumerationElement();
+  	  m_endElementP = m_endElementP->m_nextP;
+  	  m_endElementP->m_elementP = new Linux_DnsHintZoneManualInstance(anInstance);
   	}
-  };  
+
+  }
+  
 }
- 

@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.59)
-AC_INIT(SBLIM CMPI Provider for WBEM-SMT DNS task, 0.1.1, sblim-devel@lists.sourceforge.net, sblim-cmpi-dns)
+AC_INIT(SBLIM CMPI Provider for WBEM-SMT DNS task, 0.1.2, sblim-devel@lists.sourceforge.net, sblim-cmpi-dns)
 AC_CONFIG_SRCDIR([.])
 AC_CONFIG_HEADER([config.h])
 AM_INIT_AUTOMAKE([tar-ustar])
@@ -62,7 +62,9 @@ AC_FUNC_REALLOC
 AC_FUNC_SELECT_ARGTYPES
 AC_FUNC_STAT
 AC_CHECK_FUNCS([memmove select strchr strdup])
-AC_CONFIG_FILES(Makefile sblim-cmpi-dns.spec resource-access/Makefile provider/Makefile)
+AC_CONFIG_FILES(Makefile sblim-cmpi-dns.spec)
+AC_CONFIG_FILES(resource-access/Makefile resource-access/smt_dns_ra_support.conf.pre)
+AC_CONFIG_FILES(provider/Makefile)
 
 # Display configuration options
 echo "-------------------------------------------------------"
@@ -74,7 +76,10 @@ echo "PROVIDERDIR: " $PROVIDERDIR
 echo "CPPFLAGS:" $CPPFLAGS
 echo "LDFLAGS:" $LDFLAGS
 echo "-------------------------------------------------------"
+echo
 
 AC_OUTPUT
 
+echo
 echo "You may now run make"
+echo

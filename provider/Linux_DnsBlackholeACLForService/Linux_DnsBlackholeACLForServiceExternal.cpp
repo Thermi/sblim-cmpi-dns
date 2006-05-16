@@ -1,231 +1,321 @@
- /**
- * Linux_DnsBlackholeACLForServiceExternal.cpp
- *
- * (C) Copyright IBM Corp. 2005
- *
- * THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
- * ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE
- * CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
- *
- * You can obtain a current copy of the Common Public License from
- * http://www.opensource.org/licenses/cpl1.0.php
- *
- * author:     Murillo Bernardes <bernarde@br.ibm.com>
- *
- * Contributors:
- *
- */
+// =======================================================================
+// Linux_DnsBlackholeACLForServiceExternal.cpp
+//     created on Fri, 3 Mar 2006 using ECUTE
+// 
+// Copyright (c) 2006, International Business Machines
+//
+// THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
+// ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE 
+// CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
+//
+// You can obtain a current copy of the Common Public License from
+// http://oss.software.ibm.com/developerworks/opensource/license-cpl.html
+//
+// Author:        generated
+//
+// Contributors:
+//                Murillo Bernardes <bernarde@br.ibm.com>
+//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//
+// =======================================================================
+//
+// 
+
 #include "Linux_DnsBlackholeACLForServiceExternal.h"
 
-namespace genProvider{
+namespace genProvider {
 	
+	//----------------------------------------------------------------------------
   Linux_DnsBlackholeACLForServiceExternal::Linux_DnsBlackholeACLForServiceExternal(
-   const CmpiBroker& brkr, const CmpiContext& ctx ) 
-   : broker(brkr), context(ctx) {};
+    const CmpiBroker& aBroker,
+    const CmpiContext& aContext ) 
+    : m_broker(aBroker),
+    m_context(aContext) { }
    
-  Linux_DnsBlackholeACLForServiceExternal::
-   ~Linux_DnsBlackholeACLForServiceExternal(){};
+	//----------------------------------------------------------------------------
+  Linux_DnsBlackholeACLForServiceExternal::~Linux_DnsBlackholeACLForServiceExternal() { }
     
-  void Linux_DnsBlackholeACLForServiceExternal::enumInstanceNames(
-   const char *nsp,
-   Linux_DnsBlackholeACLForServiceInstanceNameEnumeration& instnames) {
+	//----------------------------------------------------------------------------
+  void 
+  Linux_DnsBlackholeACLForServiceExternal::enumInstanceNames(
+    const char *aNameSpaceP,
+    Linux_DnsBlackholeACLForServiceInstanceNameEnumeration& anInstanceNameEnumeration) {
 
-    CmpiObjectPath op(nsp,"Linux_DnsBlackholeACLForService");
-    CmpiEnumeration en=broker.enumInstanceNames(context,op);
-    while(en.hasNext()) {
-      CmpiObjectPath opi = en.getNext();
-      Linux_DnsBlackholeACLForServiceInstanceName iname(opi);
-      instnames.addElement(iname);
+    CmpiObjectPath classObjectPath(aNameSpaceP,"Linux_DnsBlackholeACLForService");
+    CmpiEnumeration cmpiEnumeration = 
+      m_broker.enumInstanceNames(m_context,classObjectPath);
+    while (cmpiEnumeration.hasNext()) {
+      CmpiObjectPath objectPath = cmpiEnumeration.getNext();
+      Linux_DnsBlackholeACLForServiceInstanceName instanceName(objectPath);
+      anInstanceNameEnumeration.addElement(instanceName);
     }
-  };
+  
+  }
   	  
-  void Linux_DnsBlackholeACLForServiceExternal::enumInstances(
-   const char *nsp,
-   const char* *properties,
-   Linux_DnsBlackholeACLForServiceInstanceEnumeration& instances) {
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsBlackholeACLForServiceExternal::enumInstances(
+    const char *aNameSpaceP,
+    const char** aPropertiesPP,
+    Linux_DnsBlackholeACLForServiceInstanceEnumeration& anInstanceEnumeration) {
    		
-    CmpiObjectPath op(nsp,"Linux_DnsBlackholeACLForService");
-    CmpiEnumeration en=broker.enumInstances(context,op,properties);
-    while(en.hasNext()) {
-      CmpiInstance inst = en.getNext();
-      Linux_DnsBlackholeACLForServiceInstance instance(inst,nsp);
-      instances.addElement(instance);
+    CmpiObjectPath classObjectPath(aNameSpaceP,"Linux_DnsBlackholeACLForService");
+    CmpiEnumeration cmpiEnumeration = 
+      m_broker.enumInstances(m_context,classObjectPath,aPropertiesPP);
+    while (cmpiEnumeration.hasNext()) {
+      CmpiInstance cmpiInstance = cmpiEnumeration.getNext();
+      Linux_DnsBlackholeACLForServiceInstance instance(cmpiInstance,aNameSpaceP);
+      anInstanceEnumeration.addElement(instance);
     }
-  };
+  
+  }
   	  
+	//----------------------------------------------------------------------------
   Linux_DnsBlackholeACLForServiceInstance
-   Linux_DnsBlackholeACLForServiceExternal::getInstance(
-   const char* *properties,
-   const Linux_DnsBlackholeACLForServiceInstanceName& instanceName) {
+  Linux_DnsBlackholeACLForServiceExternal::getInstance(
+    const char** aPropertiesPP,
+    const Linux_DnsBlackholeACLForServiceInstanceName& anInstanceName) {
     
-    CmpiObjectPath op=instanceName.getObjectPath();
-    CmpiInstance inst=broker.getInstance(context,op,properties);
-    return Linux_DnsBlackholeACLForServiceInstance(inst,instanceName.getNamespace());
+    CmpiObjectPath cmpiObjectPath = anInstanceName.getObjectPath();
+    CmpiInstance cmpiInstance = 
+      m_broker.getInstance(m_context,cmpiObjectPath,aPropertiesPP);
+  
+    return Linux_DnsBlackholeACLForServiceInstance(cmpiInstance,anInstanceName.getNamespace());
+  
   }
       
-  void Linux_DnsBlackholeACLForServiceExternal::setInstance(
-   const char* *properties,
-   const Linux_DnsBlackholeACLForServiceInstance& instance){
+	//----------------------------------------------------------------------------
+  void
+  Linux_DnsBlackholeACLForServiceExternal::setInstance(
+    const char** aPropertiesPP,
+    const Linux_DnsBlackholeACLForServiceInstance& anInstance) {
   
-    CmpiObjectPath op=instance.getInstanceName().getObjectPath();
-    CmpiInstance inst=instance.getCmpiInstance();
-    broker.setInstance(context,op,inst,properties);
+    CmpiObjectPath cmpiObjectPath = anInstance.getInstanceName().getObjectPath();
+    CmpiInstance cmpiInstance = anInstance.getCmpiInstance();
+    m_broker.setInstance(m_context,cmpiObjectPath,cmpiInstance,aPropertiesPP);
+  
   }
       
-  void Linux_DnsBlackholeACLForServiceExternal::createInstance(
-   const Linux_DnsBlackholeACLForServiceInstance& instance){
+	//----------------------------------------------------------------------------
+  Linux_DnsBlackholeACLForServiceInstanceName
+  Linux_DnsBlackholeACLForServiceExternal::createInstance(
+    const Linux_DnsBlackholeACLForServiceInstance& anInstance) {
   
-    CmpiObjectPath op=instance.getInstanceName().getObjectPath();
-    CmpiInstance inst=instance.getCmpiInstance();
-    broker.createInstance(context,op,inst);
+    CmpiObjectPath cmpiObjectPath = anInstance.getInstanceName().getObjectPath();
+    CmpiInstance cmpiInstance = anInstance.getCmpiInstance();
+    return Linux_DnsBlackholeACLForServiceInstanceName(
+		m_broker.createInstance(m_context,cmpiObjectPath,cmpiInstance));
+
   }
   
-  void Linux_DnsBlackholeACLForServiceExternal::deleteInstance(
-   const Linux_DnsBlackholeACLForServiceInstanceName& instanceName){
+	//----------------------------------------------------------------------------
+  void
+  Linux_DnsBlackholeACLForServiceExternal::deleteInstance(
+    const Linux_DnsBlackholeACLForServiceInstanceName& anInstanceName) {
     
-    CmpiObjectPath op=instanceName.getObjectPath();
-    broker.deleteInstance(context,op);
+    CmpiObjectPath cmpiObjectPath = anInstanceName.getObjectPath();
+    m_broker.deleteInstance(m_context,cmpiObjectPath);
+  
   }
-      
-    //Reference calls
-    
-    void Linux_DnsBlackholeACLForServiceExternal::
-     referencesElement( 
-     const char *nsp,
-     const char** properties,
-     const Linux_DnsAddressMatchListInstanceName& sourceInst,
-     Linux_DnsBlackholeACLForServiceInstanceEnumeration& instances){
-      
-      CmpiObjectPath op=sourceInst.getObjectPath();
-      CmpiEnumeration en=broker.references
-       (context, op, "Linux_DnsAddressMatchList",
-        "Element", properties);
-      while(en.hasNext()) {
-        CmpiInstance inst = en.getNext();
-        Linux_DnsBlackholeACLForServiceInstance instance(inst,nsp);
-        instances.addElement(instance);
-      }      
-    }
+  // Reference calls
 
-    void Linux_DnsBlackholeACLForServiceExternal::
-     referenceNamesElement( 
-     const char *nsp,
-     const Linux_DnsAddressMatchListInstanceName& sourceInst,
-     Linux_DnsBlackholeACLForServiceInstanceNameEnumeration& instanceNames){
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsBlackholeACLForServiceExternal::referencesSetting( 
+    const char* aNameSpaceP,
+    const char** aPropertiesPP,
+    const Linux_DnsServiceInstanceName& aSourceInstanceName,
+    Linux_DnsBlackholeACLForServiceInstanceEnumeration& anInstanceEnumeration) {
       
-      CmpiObjectPath op=sourceInst.getObjectPath();
-      CmpiEnumeration en=broker.referenceNames
-       (context, op, "Linux_DnsAddressMatchList",
-        "Element");
-      while(en.hasNext()) {
-        CmpiObjectPath instName = en.getNext();
-        Linux_DnsBlackholeACLForServiceInstanceName instanceName(instName);
-        instanceNames.addElement(instanceName);
-      }      
-    }
+    CmpiObjectPath cmpiObjectPath = aSourceInstanceName.getObjectPath();
 
-    void Linux_DnsBlackholeACLForServiceExternal::
-     referencesSetting( 
-     const char *nsp,
-     const char** properties,
-     const Linux_DnsServiceInstanceName& sourceInst,
-     Linux_DnsBlackholeACLForServiceInstanceEnumeration& instances){
-      
-      CmpiObjectPath op=sourceInst.getObjectPath();
-      CmpiEnumeration en=broker.references
-       (context, op, "Linux_DnsService",
-        "Setting", properties);
-      while(en.hasNext()) {
-        CmpiInstance inst = en.getNext();
-        Linux_DnsBlackholeACLForServiceInstance instance(inst,nsp);
-        instances.addElement(instance);
-      }      
-    }
+    CmpiEnumeration cmpiEnumeration = m_broker.references(
+      m_context,
+      cmpiObjectPath,
+      "Linux_DnsService",
+      "Setting",
+      aPropertiesPP);
 
-    void Linux_DnsBlackholeACLForServiceExternal::
-     referenceNamesSetting( 
-     const char *nsp,
-     const Linux_DnsServiceInstanceName& sourceInst,
-     Linux_DnsBlackholeACLForServiceInstanceNameEnumeration& instanceNames){
+    while (cmpiEnumeration.hasNext()) {
+      CmpiInstance cmpiInstance = cmpiEnumeration.getNext();
+      Linux_DnsBlackholeACLForServiceInstance instance(cmpiInstance,aNameSpaceP);
+      anInstanceEnumeration.addElement(instance);
+    }      
+
+  }
+
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsBlackholeACLForServiceExternal::referenceNamesSetting( 
+    const char* aNameSpaceP,
+    const Linux_DnsServiceInstanceName& aSourceInstanceName,
+    Linux_DnsBlackholeACLForServiceInstanceNameEnumeration& anInstanceNameEnumeration) {
       
-      CmpiObjectPath op=sourceInst.getObjectPath();
-      CmpiEnumeration en=broker.referenceNames
-       (context, op, "Linux_DnsService",
-        "Setting");
-      while(en.hasNext()) {
-        CmpiObjectPath instName = en.getNext();
-        Linux_DnsBlackholeACLForServiceInstanceName instanceName(instName);
-        instanceNames.addElement(instanceName);
-      }      
-    }
+    CmpiObjectPath cmpiObjectPath = aSourceInstanceName.getObjectPath();
+
+    CmpiEnumeration cmpiEnumeration = m_broker.referenceNames(
+      m_context,
+      cmpiObjectPath,
+      "Linux_DnsService",
+      "Setting");
+
+    while (cmpiEnumeration.hasNext()) {
+      CmpiObjectPath cmpiInstanceName = cmpiEnumeration.getNext();
+      Linux_DnsBlackholeACLForServiceInstanceName instanceName(cmpiInstanceName);
+      anInstanceNameEnumeration.addElement(instanceName);
+    }      
+
+  }
+
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsBlackholeACLForServiceExternal::referencesElement( 
+    const char* aNameSpaceP,
+    const char** aPropertiesPP,
+    const Linux_DnsAddressMatchListInstanceName& aSourceInstanceName,
+    Linux_DnsBlackholeACLForServiceInstanceEnumeration& anInstanceEnumeration){
+      
+    CmpiObjectPath cmpiObjectPath = aSourceInstanceName.getObjectPath();
+  
+    CmpiEnumeration cmpiEnumeration = m_broker.references(
+      m_context,
+      cmpiObjectPath,
+      "Linux_DnsAddressMatchList",
+      "Element",
+      aPropertiesPP);
+
+    while(cmpiEnumeration.hasNext()) {
+      CmpiInstance cmpiInstance = cmpiEnumeration.getNext();
+      Linux_DnsBlackholeACLForServiceInstance instance(cmpiInstance,aNameSpaceP);
+      anInstanceEnumeration.addElement(instance);
+    }      
+
+  }
+
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsBlackholeACLForServiceExternal::referenceNamesElement( 
+    const char* aNameSpaceP,
+    const Linux_DnsAddressMatchListInstanceName& aSourceInstanceName,
+    Linux_DnsBlackholeACLForServiceInstanceNameEnumeration& anInstanceNameEnumeration) {
+      
+    CmpiObjectPath cmpiObjectPath = aSourceInstanceName.getObjectPath();
+    CmpiEnumeration cmpiEnumeration = m_broker.referenceNames(
+      m_context,
+      cmpiObjectPath,
+      "Linux_DnsAddressMatchList",
+      "Element");
+   
+    while (cmpiEnumeration.hasNext()) {
+      CmpiObjectPath cmpiInstanceName = cmpiEnumeration.getNext();
+      Linux_DnsBlackholeACLForServiceInstanceName instanceName(cmpiInstanceName);
+      anInstanceNameEnumeration.addElement(instanceName);
+    }      
+
+  }
      
-    //Associator calls
-
-    void Linux_DnsBlackholeACLForServiceExternal::
-     associatorsElement( 
-     const char *nsp,
-     const char** properties,
-     const Linux_DnsAddressMatchListInstanceName& sourceInst,
-     Linux_DnsServiceInstanceEnumeration& instances){
+  //Associator calls
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsBlackholeACLForServiceExternal::associatorsSetting( 
+    const char* aNameSpaceP,
+    const char** aPropertiesPP,
+    const Linux_DnsServiceInstanceName& aSourceInstanceName,
+    Linux_DnsAddressMatchListInstanceEnumeration& anInstanceEnumeration) {
       
-      CmpiObjectPath op=sourceInst.getObjectPath();
-      CmpiEnumeration en=broker.associators
-       (context,op,0,0,0,0,properties);
-      while(en.hasNext()) {
-        CmpiInstance inst = en.getNext();
-        Linux_DnsServiceInstance instance(inst,nsp);
-        instances.addElement(instance);
-      }      
+    CmpiObjectPath cmpiObjectPath = aSourceInstanceName.getObjectPath();
+
+    CmpiEnumeration cmpiEnumeration = m_broker.associators(
+      m_context,
+      cmpiObjectPath,
+      0,
+      0,
+      0,
+      0,
+      aPropertiesPP);
+
+    while (cmpiEnumeration.hasNext()) {
+      CmpiInstance cmpiInstance = cmpiEnumeration.getNext();
+      Linux_DnsAddressMatchListInstance instance(cmpiInstance,aNameSpaceP);
+      anInstanceEnumeration.addElement(instance);
     }
 
-    void Linux_DnsBlackholeACLForServiceExternal::
-     associatorNamesElement( 
-     const char *nsp,
-     const Linux_DnsAddressMatchListInstanceName& sourceInst,
-     Linux_DnsServiceInstanceNameEnumeration& instanceNames){
+  }
+
+  //----------------------------------------------------------------------------
+  void Linux_DnsBlackholeACLForServiceExternal::associatorNamesSetting( 
+    const char* aNameSpaceP,
+    const Linux_DnsServiceInstanceName& aSourceInstanceName,
+    Linux_DnsAddressMatchListInstanceNameEnumeration& anInstanceNameEnumeration) {
       
-      CmpiObjectPath op=sourceInst.getObjectPath();
-      CmpiEnumeration en=broker.associatorNames
-       (context,op,0,0,0,0);
-      while(en.hasNext()) {
-        CmpiObjectPath instName = en.getNext();
-        Linux_DnsServiceInstanceName instanceName(instName);
-        instanceNames.addElement(instanceName);
-      }      
+    CmpiObjectPath cmpiObjectPath = aSourceInstanceName.getObjectPath();
+
+    CmpiEnumeration cmpiEnumeration = m_broker.associatorNames(
+     m_context,
+     cmpiObjectPath,
+     0,
+     0,
+     0,
+     0);
+
+    while(cmpiEnumeration.hasNext()) {
+      CmpiObjectPath cmpiInstanceName = cmpiEnumeration.getNext();
+      Linux_DnsAddressMatchListInstanceName instanceName(cmpiInstanceName);
+      anInstanceNameEnumeration.addElement(instanceName);
     }
 
-    void Linux_DnsBlackholeACLForServiceExternal::
-     associatorsSetting( 
-     const char *nsp,
-     const char** properties,
-     const Linux_DnsServiceInstanceName& sourceInst,
-     Linux_DnsAddressMatchListInstanceEnumeration& instances){
+  }
+
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsBlackholeACLForServiceExternal::associatorsElement( 
+    const char* aNameSpaceP,
+    const char** aPropertiesPP,
+    const Linux_DnsAddressMatchListInstanceName& aSourceInstanceName,
+    Linux_DnsServiceInstanceEnumeration& anInstanceEnumeration) {
       
-      CmpiObjectPath op=sourceInst.getObjectPath();
-      CmpiEnumeration en=broker.associators
-       (context,op,0,0,0,0,properties);
-      while(en.hasNext()) {
-        CmpiInstance inst = en.getNext();
-        Linux_DnsAddressMatchListInstance instance(inst,nsp);
-        instances.addElement(instance);
-      }      
+    CmpiObjectPath cmpiObjectPath = aSourceInstanceName.getObjectPath();
+
+    CmpiEnumeration cmpiEnumeration = m_broker.associators(
+      m_context,
+      cmpiObjectPath,
+      0,
+      0,
+      0,
+      0,
+      aPropertiesPP);
+
+    while (cmpiEnumeration.hasNext()) {
+      CmpiInstance cmpiInstance = cmpiEnumeration.getNext();
+      Linux_DnsServiceInstance instance(cmpiInstance,aNameSpaceP);
+      anInstanceEnumeration.addElement(instance);
+    }      
+
+  }
+
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsBlackholeACLForServiceExternal::associatorNamesElement( 
+    const char* aNameSpaceP,
+    const Linux_DnsAddressMatchListInstanceName& aSourceInstanceName,
+    Linux_DnsServiceInstanceNameEnumeration& anInstanceNameEnumeration) {
+      
+    CmpiObjectPath cmpiObjectPath = aSourceInstanceName.getObjectPath();
+
+    CmpiEnumeration cmpiEnumeration = m_broker.associatorNames(
+      m_context,
+      cmpiObjectPath,
+      0,
+      0,
+      0,
+      0);
+
+    while (cmpiEnumeration.hasNext()) {
+      CmpiObjectPath cmpiInstanceName = cmpiEnumeration.getNext();
+      Linux_DnsServiceInstanceName instanceName(cmpiInstanceName);
+      anInstanceNameEnumeration.addElement(instanceName);
     }
 
-    void Linux_DnsBlackholeACLForServiceExternal::
-     associatorNamesSetting( 
-     const char *nsp,
-     const Linux_DnsServiceInstanceName& sourceInst,
-     Linux_DnsAddressMatchListInstanceNameEnumeration& instanceNames){
-      
-      CmpiObjectPath op=sourceInst.getObjectPath();
-      CmpiEnumeration en=broker.associatorNames
-       (context,op,0,0,0,0);
-      while(en.hasNext()) {
-        CmpiObjectPath instName = en.getNext();
-        Linux_DnsAddressMatchListInstanceName instanceName(instName);
-        instanceNames.addElement(instanceName);
-      }      
-    }
-
+  }
       
 }

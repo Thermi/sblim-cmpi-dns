@@ -1,22 +1,28 @@
- /**
- * Linux_DnsManagedSystemElementForSettingManualInstance.h
- *
- * (C) Copyright IBM Corp. 2005
- *
- * THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
- * ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE
- * CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
- *
- * You can obtain a current copy of the Common Public License from
- * http://www.opensource.org/licenses/cpl1.0.php
- *
- * author:     Murillo Bernardes <bernarde@br.ibm.com>
- *
- * Contributors:
- *
- */
+// =======================================================================
+// Linux_DnsManagedSystemElementForSettingManualInstance.h
+//     created on Fri, 3 Mar 2006 using ECUTE
+// 
+// Copyright (c) 2006, International Business Machines
+//
+// THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
+// ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE 
+// CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
+//
+// You can obtain a current copy of the Common Public License from
+// http://oss.software.ibm.com/developerworks/opensource/license-cpl.html
+//
+// Author:        generated
+//
+// Contributors:
+//                Murillo Bernardes <bernarde@br.ibm.com>
+//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//
+// =======================================================================
+//
+// 
 #ifndef Linux_DnsManagedSystemElementForSettingManualInstance_h
 #define Linux_DnsManagedSystemElementForSettingManualInstance_h
+
 
 #include "cmpidt.h"
 #include "CmpiObjectPath.h"
@@ -27,79 +33,76 @@
 
 #include "Linux_DnsManagedSystemElementForSettingInstanceName.h"
 
+
 namespace genProvider {
 
   class Linux_DnsManagedSystemElementForSettingManualInstance {
-  public:
-       Linux_DnsManagedSystemElementForSettingManualInstance();
-  	
-       Linux_DnsManagedSystemElementForSettingManualInstance
-  	    (const Linux_DnsManagedSystemElementForSettingManualInstance& original);
-  	   
-       Linux_DnsManagedSystemElementForSettingManualInstance
-        (const CmpiInstance& inst, const char* instanceNamespace);
-  	 
-       ~Linux_DnsManagedSystemElementForSettingManualInstance();
        
-       Linux_DnsManagedSystemElementForSettingManualInstance& operator=
-  	    (const Linux_DnsManagedSystemElementForSettingManualInstance& original);
+    private:
+    void init();
+    void init(const Linux_DnsManagedSystemElementForSettingManualInstance& anInstance);
+    void reset();
        
-       CmpiInstance getCmpiInstance(const char** properties=0) const;
+    Linux_DnsManagedSystemElementForSettingInstanceName m_instanceName;
        
-       unsigned int isInstanceNameSet() const;
-       void setInstanceName(
-        const Linux_DnsManagedSystemElementForSettingInstanceName& val);        
-       const Linux_DnsManagedSystemElementForSettingInstanceName&
-        getInstanceName() const;
+    struct isSetType{
+      unsigned int instanceName:1;
+
+    } isSet;
+    
+    public:
+    Linux_DnsManagedSystemElementForSettingManualInstance();
+    Linux_DnsManagedSystemElementForSettingManualInstance(
+      const Linux_DnsManagedSystemElementForSettingManualInstance& anInstance);
+    Linux_DnsManagedSystemElementForSettingManualInstance(
+      const CmpiInstance& aCmpiInstance, 
+      const char* anInstanceNamespaceP);
+    ~Linux_DnsManagedSystemElementForSettingManualInstance();
        
-  private:
-       void init();
-       void init(const Linux_DnsManagedSystemElementForSettingManualInstance& original);
-       void reset();
+    Linux_DnsManagedSystemElementForSettingManualInstance& operator=(
+      const Linux_DnsManagedSystemElementForSettingManualInstance& anInstance);
        
-       Linux_DnsManagedSystemElementForSettingInstanceName m_instanceName;
-       
-       struct isSetType{
-       	 unsigned int instanceName:1;
-       } isSet;
+    CmpiInstance getCmpiInstance(const char** aPropertiesPP = 0) const;
+    unsigned int isInstanceNameSet() const;
+    void setInstanceName(const Linux_DnsManagedSystemElementForSettingInstanceName& anInstanceName);        
+    const Linux_DnsManagedSystemElementForSettingInstanceName& getInstanceName() const;
+
+
   };
   
-  
-  struct Linux_DnsManagedSystemElementForSettingManualInstanceEnumerationElement{
-  	Linux_DnsManagedSystemElementForSettingManualInstance* m_elementP;
-  	Linux_DnsManagedSystemElementForSettingManualInstanceEnumerationElement* m_nextP;
-  	
-  	Linux_DnsManagedSystemElementForSettingManualInstanceEnumerationElement();
-  	~Linux_DnsManagedSystemElementForSettingManualInstanceEnumerationElement();  	
+  struct Linux_DnsManagedSystemElementForSettingManualInstanceEnumerationElement {
+
+    Linux_DnsManagedSystemElementForSettingManualInstance* m_elementP;
+    Linux_DnsManagedSystemElementForSettingManualInstanceEnumerationElement* m_nextP;
+
+    Linux_DnsManagedSystemElementForSettingManualInstanceEnumerationElement();
+    ~Linux_DnsManagedSystemElementForSettingManualInstanceEnumerationElement();  
+
   };
   
 
   class Linux_DnsManagedSystemElementForSettingManualInstanceEnumeration {
-  	private:
-  	  Linux_DnsManagedSystemElementForSettingManualInstanceEnumerationElement* firstElementP;
-  	  Linux_DnsManagedSystemElementForSettingManualInstanceEnumerationElement* currentElementP;
-  	  Linux_DnsManagedSystemElementForSettingManualInstanceEnumerationElement* endElementP;
-  	
-  	public:
-  	  Linux_DnsManagedSystemElementForSettingManualInstanceEnumeration();
-  	  
-  	  Linux_DnsManagedSystemElementForSettingManualInstanceEnumeration(
-  	   const Linux_DnsManagedSystemElementForSettingManualInstanceEnumeration& original);
-  	  
-  	  ~Linux_DnsManagedSystemElementForSettingManualInstanceEnumeration();
-  	  
-  	  void reset();
-  	  
-  	  bool hasNext() const;
-  	  
-  	  const Linux_DnsManagedSystemElementForSettingManualInstance& getNext();
-  	  
-  	  int getSize() const;
-  	  
-  	  const Linux_DnsManagedSystemElementForSettingManualInstance& getElement(int pos) const;  	  
-  	  
-  	 void addElement(const Linux_DnsManagedSystemElementForSettingManualInstance& elementP);
-  };
-}
-#endif
 
+    private:
+    Linux_DnsManagedSystemElementForSettingManualInstanceEnumerationElement* m_firstElementP;
+    Linux_DnsManagedSystemElementForSettingManualInstanceEnumerationElement* m_currentElementP;
+    Linux_DnsManagedSystemElementForSettingManualInstanceEnumerationElement* m_endElementP;
+
+    public:
+    Linux_DnsManagedSystemElementForSettingManualInstanceEnumeration();
+    Linux_DnsManagedSystemElementForSettingManualInstanceEnumeration(
+      const Linux_DnsManagedSystemElementForSettingManualInstanceEnumeration& anInstanceEnumeration);
+    ~Linux_DnsManagedSystemElementForSettingManualInstanceEnumeration();
+
+    void reset();
+    bool hasNext() const;
+    const Linux_DnsManagedSystemElementForSettingManualInstance& getNext();
+    int getSize() const;
+    const Linux_DnsManagedSystemElementForSettingManualInstance& getElement(int anIndex) const;  	  
+    void addElement(const Linux_DnsManagedSystemElementForSettingManualInstance& anInstance);
+
+  };
+
+}
+
+#endif

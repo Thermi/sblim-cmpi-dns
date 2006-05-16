@@ -1,20 +1,25 @@
- /**
- * Linux_DnsSettingDefaultImplementation.h
- *
- * (C) Copyright IBM Corp. 2005
- *
- * THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
- * ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE
- * CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
- *
- * You can obtain a current copy of the Common Public License from
- * http://www.opensource.org/licenses/cpl1.0.php
- *
- * author:     Murillo Bernardes <bernarde@br.ibm.com>
- *
- * Contributors:
- *
- */
+// =======================================================================
+// Linux_DnsSettingDefaultImplementation.h
+//     created on Fri, 3 Mar 2006 using ECUTE
+// 
+// Copyright (c) 2006, International Business Machines
+//
+// THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
+// ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE 
+// CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
+//
+// You can obtain a current copy of the Common Public License from
+// http://oss.software.ibm.com/developerworks/opensource/license-cpl.html
+//
+// Author:        generated
+//
+// Contributors:
+//                Murillo Bernardes <bernarde@br.ibm.com>
+//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//
+// =======================================================================
+//
+// 
 #ifndef Linux_DnsSettingDefaultImplementation_h
 #define Linux_DnsSettingDefaultImplementation_h
 
@@ -28,6 +33,7 @@
 #include "CIM_ManagedSystemElementInstanceName.h"
 #include "Linux_DnsSettingInterface.h"
 
+
 namespace genProvider {
 
   class Linux_DnsSettingDefaultImplementation:
@@ -37,149 +43,187 @@ namespace genProvider {
     virtual ~Linux_DnsSettingDefaultImplementation() { };
     
     /* intrinsic methods */
+    
     virtual void enumInstanceNames(
-     const CmpiContext& ctx,
-     const CmpiBroker &mbp,
-     const char *nsp,
-     Linux_DnsSettingInstanceNameEnumeration& instnames);
+      const CmpiContext& aContext,
+      const CmpiBroker& aBroker,
+      const char* aNameSpaceP,
+      Linux_DnsSettingInstanceNameEnumeration& anInstanceNameEnumeration);
+    
   	
+    
     virtual void enumInstances(
-     const CmpiContext& ctx,
-     const CmpiBroker &mbp,
-     const char *nsp,
-     const char* *properties,
-  	 Linux_DnsSettingManualInstanceEnumeration& instances);
+      const CmpiContext& aContext,
+      const CmpiBroker& aBroker,
+      const char* aNameSpaceP,
+      const char** aPropertiesPP,
+  	  Linux_DnsSettingManualInstanceEnumeration& aManualInstanceEnumeration);
   	
+  	
+    
     virtual Linux_DnsSettingManualInstance getInstance(
-     const CmpiContext& ctx,
-     const CmpiBroker &mbp,
-     const char* *properties,
-     const Linux_DnsSettingInstanceName&);
+      const CmpiContext& aContext,
+      const CmpiBroker& aBroker,
+      const char** aPropertiesPP,
+      const Linux_DnsSettingInstanceName& anInstanceName);
+    
   	
+    
     virtual void setInstance(
-     const CmpiContext& ctx,
-     const CmpiBroker &mbp,
-     const char* *properties,
-     const Linux_DnsSettingManualInstance&);
+      const CmpiContext& aContext,
+      const CmpiBroker& aBroker,
+      const char** aPropertiesPP,
+      const Linux_DnsSettingManualInstance& aManualInstance);
+    
   	
-    virtual void createInstance(
-     const CmpiContext& ctx,
-     const CmpiBroker &mbp,
-     const Linux_DnsSettingManualInstance&);
+    
+    virtual Linux_DnsSettingInstanceName createInstance(
+      const CmpiContext& aContext,
+      const CmpiBroker& aBroker,
+      const Linux_DnsSettingManualInstance& aManualInstance);
+    
   	
+    
     virtual void deleteInstance(
-     const CmpiContext& ctx,
-     const CmpiBroker &mbp,
-     const Linux_DnsSettingInstanceName&);
+      const CmpiContext& aContext,
+      const CmpiBroker& aBroker,
+      const Linux_DnsSettingInstanceName& anInstanceName);
+    
 	
     
+    
     /* extrinsic methods */
-
+    
+    
     virtual CMPIUint32 ApplyIncrementalChangeToCollection(
-     const CmpiContext& ctx, const CmpiBroker &mbp,
-     const Linux_DnsSettingInstanceName&,
-      const CIM_CollectionOfMSEsInstanceName &Collection,
+      const CmpiContext& aContext,
+      const CmpiBroker& aBroker,
+      const Linux_DnsSettingInstanceName& anInstanceName,
+      const CIM_CollectionOfMSEsInstanceName& Collection,
       int isCollectionPresent,
-      const CmpiDateTime &TimeToApply,
+      const CmpiDateTime& TimeToApply,
       int isTimeToApplyPresent,
-      const CMPIBoolean &ContinueOnError,
+      const CMPIBoolean& ContinueOnError,
       int isContinueOnErrorPresent,
-      const CmpiDateTime &MustBeCompletedBy,
+      const CmpiDateTime& MustBeCompletedBy,
       int isMustBeCompletedByPresent,
       const char** PropertiesToApply,
       const CMPICount PropertiesToApplySize,
       int isPropertiesToApplyPresent,
-      char** &CanNotApply,
-      CMPICount &CanNotApplySize);
+      char**& CanNotApply,
+      CMPICount& CanNotApplySize);
+    
 
+    
     virtual CMPIUint32 ApplyIncrementalChangeToMSE(
-     const CmpiContext& ctx, const CmpiBroker &mbp,
-     const Linux_DnsSettingInstanceName&,
-      const CIM_ManagedSystemElementInstanceName &MSE,
+      const CmpiContext& aContext,
+      const CmpiBroker& aBroker,
+      const Linux_DnsSettingInstanceName& anInstanceName,
+      const CIM_ManagedSystemElementInstanceName& MSE,
       int isMSEPresent,
-      const CmpiDateTime &TimeToApply,
+      const CmpiDateTime& TimeToApply,
       int isTimeToApplyPresent,
-      const CmpiDateTime &MustBeCompletedBy,
+      const CmpiDateTime& MustBeCompletedBy,
       int isMustBeCompletedByPresent,
       const char** PropertiesToApply,
       const CMPICount PropertiesToApplySize,
       int isPropertiesToApplyPresent);
+    
 
+    
     virtual CMPIUint32 ApplyToCollection(
-     const CmpiContext& ctx, const CmpiBroker &mbp,
-     const Linux_DnsSettingInstanceName&,
-      const CIM_CollectionOfMSEsInstanceName &Collection,
+      const CmpiContext& aContext,
+      const CmpiBroker& aBroker,
+      const Linux_DnsSettingInstanceName& anInstanceName,
+      const CIM_CollectionOfMSEsInstanceName& Collection,
       int isCollectionPresent,
-      const CmpiDateTime &TimeToApply,
+      const CmpiDateTime& TimeToApply,
       int isTimeToApplyPresent,
-      const CMPIBoolean &ContinueOnError,
+      const CMPIBoolean& ContinueOnError,
       int isContinueOnErrorPresent,
-      const CmpiDateTime &MustBeCompletedBy,
+      const CmpiDateTime& MustBeCompletedBy,
       int isMustBeCompletedByPresent,
-      char** &CanNotApply,
-      CMPICount &CanNotApplySize);
+      char**& CanNotApply,
+      CMPICount& CanNotApplySize);
+    
 
+    
     virtual CMPIUint32 ApplyToMSE(
-     const CmpiContext& ctx, const CmpiBroker &mbp,
-     const Linux_DnsSettingInstanceName&,
-      const CIM_ManagedSystemElementInstanceName &MSE,
+      const CmpiContext& aContext,
+      const CmpiBroker& aBroker,
+      const Linux_DnsSettingInstanceName& anInstanceName,
+      const CIM_ManagedSystemElementInstanceName& MSE,
       int isMSEPresent,
-      const CmpiDateTime &TimeToApply,
+      const CmpiDateTime& TimeToApply,
       int isTimeToApplyPresent,
-      const CmpiDateTime &MustBeCompletedBy,
+      const CmpiDateTime& MustBeCompletedBy,
       int isMustBeCompletedByPresent);
+    
 
+    
     virtual CMPIUint32 VerifyOKToApplyIncrementalChangeToCollection(
-     const CmpiContext& ctx, const CmpiBroker &mbp,
-     const Linux_DnsSettingInstanceName&,
-      const CIM_CollectionOfMSEsInstanceName &Collection,
+      const CmpiContext& aContext,
+      const CmpiBroker& aBroker,
+      const Linux_DnsSettingInstanceName& anInstanceName,
+      const CIM_CollectionOfMSEsInstanceName& Collection,
       int isCollectionPresent,
-      const CmpiDateTime &TimeToApply,
+      const CmpiDateTime& TimeToApply,
       int isTimeToApplyPresent,
-      const CmpiDateTime &MustBeCompletedBy,
+      const CmpiDateTime& MustBeCompletedBy,
       int isMustBeCompletedByPresent,
       const char** PropertiesToApply,
       const CMPICount PropertiesToApplySize,
       int isPropertiesToApplyPresent,
-      char** &CanNotApply,
-      CMPICount &CanNotApplySize);
+      char**& CanNotApply,
+      CMPICount& CanNotApplySize);
+    
 
+    
     virtual CMPIUint32 VerifyOKToApplyIncrementalChangeToMSE(
-     const CmpiContext& ctx, const CmpiBroker &mbp,
-     const Linux_DnsSettingInstanceName&,
-      const CIM_ManagedSystemElementInstanceName &MSE,
+      const CmpiContext& aContext,
+      const CmpiBroker& aBroker,
+      const Linux_DnsSettingInstanceName& anInstanceName,
+      const CIM_ManagedSystemElementInstanceName& MSE,
       int isMSEPresent,
-      const CmpiDateTime &TimeToApply,
+      const CmpiDateTime& TimeToApply,
       int isTimeToApplyPresent,
-      const CmpiDateTime &MustBeCompletedBy,
+      const CmpiDateTime& MustBeCompletedBy,
       int isMustBeCompletedByPresent,
       const char** PropertiesToApply,
       const CMPICount PropertiesToApplySize,
       int isPropertiesToApplyPresent);
+    
 
+    
     virtual CMPIUint32 VerifyOKToApplyToCollection(
-     const CmpiContext& ctx, const CmpiBroker &mbp,
-     const Linux_DnsSettingInstanceName&,
-      const CIM_CollectionOfMSEsInstanceName &Collection,
+      const CmpiContext& aContext,
+      const CmpiBroker& aBroker,
+      const Linux_DnsSettingInstanceName& anInstanceName,
+      const CIM_CollectionOfMSEsInstanceName& Collection,
       int isCollectionPresent,
-      const CmpiDateTime &TimeToApply,
+      const CmpiDateTime& TimeToApply,
       int isTimeToApplyPresent,
-      const CmpiDateTime &MustBeCompletedBy,
+      const CmpiDateTime& MustBeCompletedBy,
       int isMustBeCompletedByPresent,
-      char** &CanNotApply,
-      CMPICount &CanNotApplySize);
+      char**& CanNotApply,
+      CMPICount& CanNotApplySize);
+    
 
+    
     virtual CMPIUint32 VerifyOKToApplyToMSE(
-     const CmpiContext& ctx, const CmpiBroker &mbp,
-     const Linux_DnsSettingInstanceName&,
-      const CIM_ManagedSystemElementInstanceName &MSE,
+      const CmpiContext& aContext,
+      const CmpiBroker& aBroker,
+      const Linux_DnsSettingInstanceName& anInstanceName,
+      const CIM_ManagedSystemElementInstanceName& MSE,
       int isMSEPresent,
-      const CmpiDateTime &TimeToApply,
+      const CmpiDateTime& TimeToApply,
       int isTimeToApplyPresent,
-      const CmpiDateTime &MustBeCompletedBy,
+      const CmpiDateTime& MustBeCompletedBy,
       int isMustBeCompletedByPresent);
+    
+
 	
   };
+  
 }
 #endif
-

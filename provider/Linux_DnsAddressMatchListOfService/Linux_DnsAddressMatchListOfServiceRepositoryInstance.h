@@ -1,22 +1,28 @@
- /**
- * Linux_DnsAddressMatchListOfServiceRepositoryInstance.h
- *
- * (C) Copyright IBM Corp. 2005
- *
- * THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
- * ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE
- * CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
- *
- * You can obtain a current copy of the Common Public License from
- * http://www.opensource.org/licenses/cpl1.0.php
- *
- * author:     Murillo Bernardes <bernarde@br.ibm.com>
- *
- * Contributors:
- *
- */
+// =======================================================================
+// Linux_DnsAddressMatchListOfServiceRepositoryInstance.h
+//     created on Fri, 3 Mar 2006 using ECUTE
+// 
+// Copyright (c) 2006, International Business Machines
+//
+// THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
+// ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE 
+// CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
+//
+// You can obtain a current copy of the Common Public License from
+// http://oss.software.ibm.com/developerworks/opensource/license-cpl.html
+//
+// Author:        generated
+//
+// Contributors:
+//                Murillo Bernardes <bernarde@br.ibm.com>
+//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//
+// =======================================================================
+//
+// 
 #ifndef Linux_DnsAddressMatchListOfServiceRepositoryInstance_h
 #define Linux_DnsAddressMatchListOfServiceRepositoryInstance_h
+
 
 #include "cmpidt.h"
 #include "CmpiObjectPath.h"
@@ -27,79 +33,76 @@
 
 #include "Linux_DnsAddressMatchListOfServiceInstanceName.h"
 
+
 namespace genProvider {
 
   class Linux_DnsAddressMatchListOfServiceRepositoryInstance {
-  public:
-       Linux_DnsAddressMatchListOfServiceRepositoryInstance();
-  	
-       Linux_DnsAddressMatchListOfServiceRepositoryInstance
-  	    (const Linux_DnsAddressMatchListOfServiceRepositoryInstance& original);
-  	   
-       Linux_DnsAddressMatchListOfServiceRepositoryInstance
-        (const CmpiInstance& inst, const char* instanceNamespace);
-  	 
-       ~Linux_DnsAddressMatchListOfServiceRepositoryInstance();
        
-       Linux_DnsAddressMatchListOfServiceRepositoryInstance& operator=
-  	    (const Linux_DnsAddressMatchListOfServiceRepositoryInstance& original);
+    private:
+    void init();
+    void init(const Linux_DnsAddressMatchListOfServiceRepositoryInstance& anInstance);
+    void reset();
        
-       CmpiInstance getCmpiInstance(const char** properties=0) const;
+    Linux_DnsAddressMatchListOfServiceInstanceName m_instanceName;
        
-       unsigned int isInstanceNameSet() const;
-       void setInstanceName(
-        const Linux_DnsAddressMatchListOfServiceInstanceName& val);        
-       const Linux_DnsAddressMatchListOfServiceInstanceName&
-        getInstanceName() const;
+    struct isSetType{
+      unsigned int instanceName:1;
+
+    } isSet;
+    
+    public:
+    Linux_DnsAddressMatchListOfServiceRepositoryInstance();
+    Linux_DnsAddressMatchListOfServiceRepositoryInstance(
+      const Linux_DnsAddressMatchListOfServiceRepositoryInstance& anInstance);
+    Linux_DnsAddressMatchListOfServiceRepositoryInstance(
+      const CmpiInstance& aCmpiInstance, 
+      const char* anInstanceNamespaceP);
+    ~Linux_DnsAddressMatchListOfServiceRepositoryInstance();
        
-  private:
-       void init();
-       void init(const Linux_DnsAddressMatchListOfServiceRepositoryInstance& original);
-       void reset();
+    Linux_DnsAddressMatchListOfServiceRepositoryInstance& operator=(
+      const Linux_DnsAddressMatchListOfServiceRepositoryInstance& anInstance);
        
-       Linux_DnsAddressMatchListOfServiceInstanceName m_instanceName;
-       
-       struct isSetType{
-       	 unsigned int instanceName:1;
-       } isSet;
+    CmpiInstance getCmpiInstance(const char** aPropertiesPP = 0) const;
+    unsigned int isInstanceNameSet() const;
+    void setInstanceName(const Linux_DnsAddressMatchListOfServiceInstanceName& anInstanceName);        
+    const Linux_DnsAddressMatchListOfServiceInstanceName& getInstanceName() const;
+
+
   };
   
-  
-  struct Linux_DnsAddressMatchListOfServiceRepositoryInstanceEnumerationElement{
-  	Linux_DnsAddressMatchListOfServiceRepositoryInstance* m_elementP;
-  	Linux_DnsAddressMatchListOfServiceRepositoryInstanceEnumerationElement* m_nextP;
-  	
-  	Linux_DnsAddressMatchListOfServiceRepositoryInstanceEnumerationElement();
-  	~Linux_DnsAddressMatchListOfServiceRepositoryInstanceEnumerationElement();  	
+  struct Linux_DnsAddressMatchListOfServiceRepositoryInstanceEnumerationElement {
+
+    Linux_DnsAddressMatchListOfServiceRepositoryInstance* m_elementP;
+    Linux_DnsAddressMatchListOfServiceRepositoryInstanceEnumerationElement* m_nextP;
+
+    Linux_DnsAddressMatchListOfServiceRepositoryInstanceEnumerationElement();
+    ~Linux_DnsAddressMatchListOfServiceRepositoryInstanceEnumerationElement();  
+
   };
   
 
   class Linux_DnsAddressMatchListOfServiceRepositoryInstanceEnumeration {
-  	private:
-  	  Linux_DnsAddressMatchListOfServiceRepositoryInstanceEnumerationElement* firstElementP;
-  	  Linux_DnsAddressMatchListOfServiceRepositoryInstanceEnumerationElement* currentElementP;
-  	  Linux_DnsAddressMatchListOfServiceRepositoryInstanceEnumerationElement* endElementP;
-  	
-  	public:
-  	  Linux_DnsAddressMatchListOfServiceRepositoryInstanceEnumeration();
-  	  
-  	  Linux_DnsAddressMatchListOfServiceRepositoryInstanceEnumeration(
-  	   const Linux_DnsAddressMatchListOfServiceRepositoryInstanceEnumeration& original);
-  	  
-  	  ~Linux_DnsAddressMatchListOfServiceRepositoryInstanceEnumeration();
-  	  
-  	  void reset();
-  	  
-  	  bool hasNext() const;
-  	  
-  	  const Linux_DnsAddressMatchListOfServiceRepositoryInstance& getNext();
-  	  
-  	  int getSize() const;
-  	  
-  	  const Linux_DnsAddressMatchListOfServiceRepositoryInstance& getElement(int pos) const;  	  
-  	  
-  	 void addElement(const Linux_DnsAddressMatchListOfServiceRepositoryInstance& elementP);
-  };
-}
-#endif
 
+    private:
+    Linux_DnsAddressMatchListOfServiceRepositoryInstanceEnumerationElement* m_firstElementP;
+    Linux_DnsAddressMatchListOfServiceRepositoryInstanceEnumerationElement* m_currentElementP;
+    Linux_DnsAddressMatchListOfServiceRepositoryInstanceEnumerationElement* m_endElementP;
+
+    public:
+    Linux_DnsAddressMatchListOfServiceRepositoryInstanceEnumeration();
+    Linux_DnsAddressMatchListOfServiceRepositoryInstanceEnumeration(
+      const Linux_DnsAddressMatchListOfServiceRepositoryInstanceEnumeration& anInstanceEnumeration);
+    ~Linux_DnsAddressMatchListOfServiceRepositoryInstanceEnumeration();
+
+    void reset();
+    bool hasNext() const;
+    const Linux_DnsAddressMatchListOfServiceRepositoryInstance& getNext();
+    int getSize() const;
+    const Linux_DnsAddressMatchListOfServiceRepositoryInstance& getElement(int anIndex) const;  	  
+    void addElement(const Linux_DnsAddressMatchListOfServiceRepositoryInstance& anInstance);
+
+  };
+
+}
+
+#endif

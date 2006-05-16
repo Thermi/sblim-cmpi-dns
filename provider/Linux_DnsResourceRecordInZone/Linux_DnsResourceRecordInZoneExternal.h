@@ -1,110 +1,121 @@
- /**
- * Linux_DnsResourceRecordInZoneExternal.h
- *
- * (C) Copyright IBM Corp. 2005
- *
- * THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
- * ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE
- * CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
- *
- * You can obtain a current copy of the Common Public License from
- * http://www.opensource.org/licenses/cpl1.0.php
- *
- * author:     Murillo Bernardes <bernarde@br.ibm.com>
- *
- * Contributors:
- *
- */
+// =======================================================================
+// Linux_DnsResourceRecordInZoneExternal.h
+//     created on Fri, 3 Mar 2006 using ECUTE
+// 
+// Copyright (c) 2006, International Business Machines
+//
+// THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
+// ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE 
+// CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
+//
+// You can obtain a current copy of the Common Public License from
+// http://oss.software.ibm.com/developerworks/opensource/license-cpl.html
+//
+// Author:        generated
+//
+// Contributors:
+//                Murillo Bernardes <bernarde@br.ibm.com>
+//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//
+// =======================================================================
+//
+// 
 #ifndef Linux_DnsResourceRecordInZoneExternal_h
 #define Linux_DnsResourceRecordInZoneExternal_h
 
+
 #include "Linux_DnsResourceRecordInZoneInstance.h"
-#include "Linux_DnsZoneInstance.h"
 #include "Linux_DnsResourceRecordInstance.h"
+#include "Linux_DnsZoneInstance.h"
+
 #include "CmpiBroker.h"
 
 namespace genProvider {
 
   class Linux_DnsResourceRecordInZoneExternal {
+    
+    private:
+    CmpiBroker m_broker;
+    CmpiContext m_context;
   	
     public:
     Linux_DnsResourceRecordInZoneExternal(
-     const CmpiBroker& brkr, const CmpiContext& ctx);
+      const CmpiBroker& aBroker,
+      const CmpiContext& aContext);
     virtual ~Linux_DnsResourceRecordInZoneExternal();
     
     virtual void enumInstanceNames(
-     const char *nsp,
-     Linux_DnsResourceRecordInZoneInstanceNameEnumeration&);
+      const char *aNameSpaceP,
+      Linux_DnsResourceRecordInZoneInstanceNameEnumeration& anInstanceNameEnumeration);
      
     virtual void enumInstances(
-     const char *nsp,
-     const char* *properties,
-     Linux_DnsResourceRecordInZoneInstanceEnumeration&);
+      const char *anNameSpaceP,
+      const char** aPropertiesPP,
+      Linux_DnsResourceRecordInZoneInstanceEnumeration& anInstanceEnumeration);
      
     virtual Linux_DnsResourceRecordInZoneInstance getInstance(
-     const char* *properties,
-     const Linux_DnsResourceRecordInZoneInstanceName&);
+      const char** aPropertiesPP,
+      const Linux_DnsResourceRecordInZoneInstanceName& anInstanceName);
      
     virtual void setInstance(
-     const char* *properties,
-     const Linux_DnsResourceRecordInZoneInstance&);
+      const char** aPropertiesPP,
+      const Linux_DnsResourceRecordInZoneInstance& anInstance);
      
-    virtual void createInstance(
-     const Linux_DnsResourceRecordInZoneInstance&);
+    virtual Linux_DnsResourceRecordInZoneInstanceName createInstance(
+      const Linux_DnsResourceRecordInZoneInstance& anInstance);
      
     virtual void deleteInstance(
-     const Linux_DnsResourceRecordInZoneInstanceName&);
-    
-    //association calls
-    
-    void referencesGroupComponent( 
-     const char *nsp,
-     const char** properties,
-     const Linux_DnsResourceRecordInstanceName& sourceInst,
-     Linux_DnsResourceRecordInZoneInstanceEnumeration& instances);
+      const Linux_DnsResourceRecordInZoneInstanceName& anInstanceName);
 
-    void referenceNamesGroupComponent( 
-     const char *nsp,
-     const Linux_DnsResourceRecordInstanceName& sourceInst,
-     Linux_DnsResourceRecordInZoneInstanceNameEnumeration& instanceNames);
+
+    //association calls
 
     void referencesPartComponent( 
-     const char *nsp,
-     const char** properties,
-     const Linux_DnsZoneInstanceName& sourceInst,
-     Linux_DnsResourceRecordInZoneInstanceEnumeration& instances);
+      const char *aNameSpaceP,
+      const char** aPropertiesPP,
+      const Linux_DnsZoneInstanceName& aSourceInstanceName,
+      Linux_DnsResourceRecordInZoneInstanceEnumeration& anInstanceEnumeration);
 
     void referenceNamesPartComponent( 
-     const char *nsp,
-     const Linux_DnsZoneInstanceName& sourceInst,
-     Linux_DnsResourceRecordInZoneInstanceNameEnumeration& instanceNames);
+      const char *aNameSpaceP,
+      const Linux_DnsZoneInstanceName& aSourceInstanceName,
+      Linux_DnsResourceRecordInZoneInstanceNameEnumeration& anInstanceNameEnumeration);
 
-    void associatorsGroupComponent( 
-     const char *nsp,
-     const char** properties,
-     const Linux_DnsResourceRecordInstanceName& sourceInst,
-     Linux_DnsZoneInstanceEnumeration& instances);
+    void referencesGroupComponent( 
+      const char *aNameSpaceP,
+      const char** aPropertiesPP,
+      const Linux_DnsResourceRecordInstanceName& aSourceInstanceName,
+      Linux_DnsResourceRecordInZoneInstanceEnumeration& anInstanceEnumeration);
 
-    void associatorNamesGroupComponent( 
-     const char *nsp,
-     const Linux_DnsResourceRecordInstanceName& sourceInst,
-     Linux_DnsZoneInstanceNameEnumeration& instanceNames);
+    void referenceNamesGroupComponent( 
+      const char *aNameSpaceP,
+      const Linux_DnsResourceRecordInstanceName& aSourceInstanceName,
+      Linux_DnsResourceRecordInZoneInstanceNameEnumeration& anInstanceNameEnumeration);
 
     void associatorsPartComponent( 
-     const char *nsp,
-     const char** properties,
-     const Linux_DnsZoneInstanceName& sourceInst,
-     Linux_DnsResourceRecordInstanceEnumeration& instances);
+      const char *aNameSpaceP,
+      const char** aPropertiesPP,
+      const Linux_DnsZoneInstanceName& aSourceInstanceName,
+      Linux_DnsResourceRecordInstanceEnumeration& anInstanceEnumeration);
 
     void associatorNamesPartComponent( 
-     const char *nsp,
-     const Linux_DnsZoneInstanceName& sourceInst,
-     Linux_DnsResourceRecordInstanceNameEnumeration& instanceNames);
+      const char *aNameSpaceP,
+      const Linux_DnsZoneInstanceName& aSourceInstanceName,
+      Linux_DnsResourceRecordInstanceNameEnumeration& anInstanceNameEnumeration);
 
-     
-    private:
-    CmpiBroker  broker;
-    CmpiContext context;
+    void associatorsGroupComponent( 
+      const char *aNameSpaceP,
+      const char** aPropertiesPP,
+      const Linux_DnsResourceRecordInstanceName& aSourceInstanceName,
+      Linux_DnsZoneInstanceEnumeration& anInstanceEnumeration);
+
+    void associatorNamesGroupComponent( 
+      const char *aNameSpaceP,
+      const Linux_DnsResourceRecordInstanceName& aSourceInstanceName,
+      Linux_DnsZoneInstanceNameEnumeration& anInstanceNameEnumeration); 
+  
   };
+
 }
+
 #endif

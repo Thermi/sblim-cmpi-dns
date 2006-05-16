@@ -1,20 +1,25 @@
- /**
- * Linux_DnsElementSettingManualInstance.cpp
- *
- * (C) Copyright IBM Corp. 2005
- *
- * THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
- * ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE
- * CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
- *
- * You can obtain a current copy of the Common Public License from
- * http://www.opensource.org/licenses/cpl1.0.php
- *
- * author:     Murillo Bernardes <bernarde@br.ibm.com>
- *
- * Contributors:
- *
- */
+// =======================================================================
+// Linux_DnsElementSettingManualInstance.cpp
+//     created on Fri, 3 Mar 2006 using ECUTE
+// 
+// Copyright (c) 2006, International Business Machines
+//
+// THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
+// ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE 
+// CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
+//
+// You can obtain a current copy of the Common Public License from
+// http://oss.software.ibm.com/developerworks/opensource/license-cpl.html
+//
+// Author:        generated
+//
+// Contributors:
+//                Murillo Bernardes <bernarde@br.ibm.com>
+//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//
+// =======================================================================
+//
+// 
 #include "Linux_DnsElementSettingManualInstance.h"
 #include "CmpiData.h"
 #include "CmpiString.h"
@@ -23,244 +28,283 @@
 
 namespace genProvider {
 
-  //*********************************************************
+  //****************************************************************************
   //Linux_DnsElementSettingManualInstance
-  //*********************************************************
-
+  //----------------------------------------------------------------------------
   //empty constructor
-  Linux_DnsElementSettingManualInstance::
-   Linux_DnsElementSettingManualInstance(){   	
+  Linux_DnsElementSettingManualInstance::Linux_DnsElementSettingManualInstance() {   	
    	init();  	   	
-  };
+  }
   
-  
+  //----------------------------------------------------------------------------
   //copy constructor	
-  Linux_DnsElementSettingManualInstance::
-   Linux_DnsElementSettingManualInstance
-   (const Linux_DnsElementSettingManualInstance& original){   	
-   	init(original);  	   	
-  };
+  //----------------------------------------------------------------------------
+  Linux_DnsElementSettingManualInstance::Linux_DnsElementSettingManualInstance(
+    const Linux_DnsElementSettingManualInstance& anInstance) {   	
+   	init(anInstance);  	   	
+  }
   
-  
+  //----------------------------------------------------------------------------
   //constructor using CmpiInstance
-  Linux_DnsElementSettingManualInstance::
-   Linux_DnsElementSettingManualInstance (const CmpiInstance& inst, const char* instanceNamespace){
+  //----------------------------------------------------------------------------
+  Linux_DnsElementSettingManualInstance::Linux_DnsElementSettingManualInstance(
+    const CmpiInstance& aCmpiInstance,
+    const char* anInstanceNamespaceP) {
+
     CmpiData cmpiData;
+
     init(); 
     
-    CmpiObjectPath cop=inst.getObjectPath();
-    cop.setNameSpace(instanceNamespace);
+    CmpiObjectPath cop = aCmpiInstance.getObjectPath();
+    cop.setNameSpace(anInstanceNamespaceP);
     setInstanceName(Linux_DnsElementSettingInstanceName(cop));
+
     
   }
   
-  
+  //----------------------------------------------------------------------------
   //Destructor
+  //----------------------------------------------------------------------------
   Linux_DnsElementSettingManualInstance::
    ~Linux_DnsElementSettingManualInstance(){
    	reset();  	  
-  };
+  }
   
   
+  //----------------------------------------------------------------------------
   //copy operator
+  //----------------------------------------------------------------------------
   Linux_DnsElementSettingManualInstance&
-   Linux_DnsElementSettingManualInstance::operator=
-   (const Linux_DnsElementSettingManualInstance& original){   	
-   	init(original);
+  Linux_DnsElementSettingManualInstance::operator=(
+    const Linux_DnsElementSettingManualInstance& anInstance) {   	
+   	
+   	init(anInstance);
    	return *this;
-  };
+  
+  }
   
   
+  //----------------------------------------------------------------------------
   //converts to CmpiInstance
-  CmpiInstance Linux_DnsElementSettingManualInstance::
-   getCmpiInstance(const char** properties) const{
+  //----------------------------------------------------------------------------
+  CmpiInstance
+  Linux_DnsElementSettingManualInstance::getCmpiInstance(
+    const char** aPropertiesPP) const {
    	
    	CmpiObjectPath objectPath=getInstanceName().getObjectPath();      
     CmpiInstance cmpiInstance(objectPath);    
     getInstanceName().fillKeys(cmpiInstance);
     
-    if (properties) {
-	  cmpiInstance.setPropertyFilter(properties,0);
+    if (aPropertiesPP) {
+	    cmpiInstance.setPropertyFilter(aPropertiesPP,0);
     }
+
   	
   	return cmpiInstance;
   	
   }
   
-  
-  //InstanceName related methods
-  unsigned int Linux_DnsElementSettingManualInstance::
-   isInstanceNameSet() const{
+  //----------------------------------------------------------------------------
+  // InstanceName related methods
+  //----------------------------------------------------------------------------
+  unsigned int 
+  Linux_DnsElementSettingManualInstance::isInstanceNameSet() const {
   	return isSet.instanceName;
   }
   
+  //----------------------------------------------------------------------------
   const Linux_DnsElementSettingInstanceName&
-    Linux_DnsElementSettingManualInstance::getInstanceName() const{
+  Linux_DnsElementSettingManualInstance::getInstanceName() const {
 
-    if(!isSet.instanceName)
+    if( ! isSet.instanceName) {
    	  throw CmpiErrorFormater::getErrorException(
-   	   CmpiErrorFormater::NOT_SET,
-   	   "InstanceName not set in Linux_DnsElementSetting instance");
+        CmpiErrorFormater::NOT_SET,
+        "InstanceName (CIM Key Attributes)",
+        "Linux_DnsElementSetting");
+   	}
   		
    	return m_instanceName;
+  
   }
 
-  void Linux_DnsElementSettingManualInstance::setInstanceName(
-   const Linux_DnsElementSettingInstanceName& val){
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsElementSettingManualInstance::setInstanceName(
+    const Linux_DnsElementSettingInstanceName& val) {
+
     m_instanceName = val;
-    isSet.instanceName=1;
+    isSet.instanceName = 1;
+
   }
 
-
   
+  //----------------------------------------------------------------------------
   //set isSet attributes to FALSE
-  void Linux_DnsElementSettingManualInstance::init(){
-   	isSet.instanceName=0;
-   	  	
-  };
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsElementSettingManualInstance::init() {
+   	isSet.instanceName = 0;
+  	
+  }
   
-  
+  //----------------------------------------------------------------------------
   //copies another instance properties in this
-  void Linux_DnsElementSettingManualInstance::init
-   (const Linux_DnsElementSettingManualInstance& original){   	
+  //----------------------------------------------------------------------------
+  void 
+  Linux_DnsElementSettingManualInstance::init(
+    const Linux_DnsElementSettingManualInstance& anOriginal) {   	
+
    	init();
    	   	
-    if(original.isInstanceNameSet()){
-      setInstanceName(original.getInstanceName());
-    }    
-   }
+    if(anOriginal.isInstanceNameSet()) {
+      setInstanceName(anOriginal.getInstanceName());
+    }
+        
+  }
   
-  
+  //----------------------------------------------------------------------------
   //reset the instance data
-  void Linux_DnsElementSettingManualInstance::reset(){
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsElementSettingManualInstance::reset() {
    	
-  	  
-  };
+  }
   
-  
-  //*********************************************************
+  //----------------------------------------------------------------------------
   //Linux_DnsElementSettingManualInstanceEnumerationElement	
-  //*********************************************************
-  
-  Linux_DnsElementSettingManualInstanceEnumerationElement::
-   Linux_DnsElementSettingManualInstanceEnumerationElement(){
+  //----------------------------------------------------------------------------
+  Linux_DnsElementSettingManualInstanceEnumerationElement::Linux_DnsElementSettingManualInstanceEnumerationElement() {
    	
-  	m_elementP=0;
-  	m_nextP=0;
+  	m_elementP = 0;
+  	m_nextP = 0;
   	  
-  };
+  }
   
-  
-  Linux_DnsElementSettingManualInstanceEnumerationElement::
-   ~Linux_DnsElementSettingManualInstanceEnumerationElement(){
+  //----------------------------------------------------------------------------
+  Linux_DnsElementSettingManualInstanceEnumerationElement::~Linux_DnsElementSettingManualInstanceEnumerationElement() {
    	
-  	if (m_elementP!=0)
+  	if (m_elementP) {
   	  delete(m_elementP);
-  	if (m_nextP!=0)
+  	}
+  	
+  	if (m_nextP) {
   	  delete(m_nextP);
+  	}
   	  
-  };
+  }
 
-  
-  //*********************************************************
+  //----------------------------------------------------------------------------
   //Linux_DnsElementSettingManualInstanceNameEnumeration
-  //*********************************************************
-
-  Linux_DnsElementSettingManualInstanceEnumeration::
-   Linux_DnsElementSettingManualInstanceEnumeration(){
+  //----------------------------------------------------------------------------
+  Linux_DnsElementSettingManualInstanceEnumeration::Linux_DnsElementSettingManualInstanceEnumeration() {
    	
-  	 firstElementP=0;
-     currentElementP=0;
-     endElementP=0;
-  };
+    m_firstElementP = 0;
+    m_currentElementP = 0;
+    m_endElementP = 0;
   
-  Linux_DnsElementSettingManualInstanceEnumeration::
-   Linux_DnsElementSettingManualInstanceEnumeration(
-   const Linux_DnsElementSettingManualInstanceEnumeration& original){
+  }
+  
+  //----------------------------------------------------------------------------
+  Linux_DnsElementSettingManualInstanceEnumeration::Linux_DnsElementSettingManualInstanceEnumeration(
+    const Linux_DnsElementSettingManualInstanceEnumeration& anInstanceEnumeration) {
    	
-     firstElementP=0;
-     currentElementP=0;
-     endElementP=0;
+    m_firstElementP = 0;
+    m_currentElementP = 0;
+    m_endElementP = 0;
   	 
-     int size=original.getSize();
-     for(int i=0;i<size;i++)
-       addElement(original.getElement(i));           
-  };
+    int size = anInstanceEnumeration.getSize();
+    for (int x=0; x < size;++x) {
+      addElement(anInstanceEnumeration.getElement(x));
+    }           
+
+  }
   
-  	  
-  Linux_DnsElementSettingManualInstanceEnumeration::
-   ~Linux_DnsElementSettingManualInstanceEnumeration(){
+  //----------------------------------------------------------------------------
+  Linux_DnsElementSettingManualInstanceEnumeration::~Linux_DnsElementSettingManualInstanceEnumeration() {
    	
-  	if (firstElementP!=0)
-  	  delete(firstElementP);
+  	if (m_firstElementP) {
+  	  delete(m_firstElementP);
+  	}
   	  	
-  };
+  }
   
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsElementSettingManualInstanceEnumeration::reset() {
+  	
+  	m_currentElementP = m_firstElementP;
+  	
+  }
   	  
-  void Linux_DnsElementSettingManualInstanceEnumeration::reset(){
+  //----------------------------------------------------------------------------
+  bool
+  Linux_DnsElementSettingManualInstanceEnumeration::hasNext() const {
   	
-  	currentElementP=firstElementP;
-  };
+  	return (m_currentElementP != 0);
   
-  	  
-  bool Linux_DnsElementSettingManualInstanceEnumeration::hasNext() const{
-  	
-  	return (currentElementP!=0);
+  }
   
-  };
-  
-  int Linux_DnsElementSettingManualInstanceEnumeration::getSize() const{
+  //----------------------------------------------------------------------------
+  int
+  Linux_DnsElementSettingManualInstanceEnumeration::getSize() const {
   	
-    int size=0;
-    Linux_DnsElementSettingManualInstanceEnumerationElement* followingP=firstElementP;
+    int size = 0;
+    Linux_DnsElementSettingManualInstanceEnumerationElement* followingP = m_firstElementP;
   	
-  	while(followingP!=0){
-        followingP=followingP->m_nextP;
-        size++;
+  	while (followingP) {
+      followingP = followingP->m_nextP;
+      ++size;
     }
   	
     return size;
     
-  };
+  }
   
+  //----------------------------------------------------------------------------
   const Linux_DnsElementSettingManualInstance&  
-   Linux_DnsElementSettingManualInstanceEnumeration::getElement(int pos) const{
+  Linux_DnsElementSettingManualInstanceEnumeration::getElement(int anIndex) const {
    
-    Linux_DnsElementSettingManualInstanceEnumerationElement* followingP=firstElementP;
+    Linux_DnsElementSettingManualInstanceEnumerationElement* followingP = m_firstElementP;
    
-    int i=0;
-    while((followingP!=0)&&(i<pos)){
-        followingP=followingP->m_nextP;
-        i++;
+    int x = 0;
+    while (followingP && (x < anIndex)) {
+      followingP = followingP->m_nextP;
+      ++x;
     }
     
     return *(followingP->m_elementP);
-  };
+
+  }
   
-  	  
+  //----------------------------------------------------------------------------
   const Linux_DnsElementSettingManualInstance&
-   Linux_DnsElementSettingManualInstanceEnumeration::getNext() {
+  Linux_DnsElementSettingManualInstanceEnumeration::getNext() {
    	
-  	 Linux_DnsElementSettingManualInstanceEnumerationElement* currentP=
-  	  currentElementP;
-  	 currentElementP=currentElementP->m_nextP;
+    Linux_DnsElementSettingManualInstanceEnumerationElement* currentElementP =
+  	  m_currentElementP;
+
+    m_currentElementP = m_currentElementP->m_nextP;
   	 
-  	 return *(currentP->m_elementP);
-  };
+    return *(currentElementP->m_elementP);
+
+  }
   	  
-  void Linux_DnsElementSettingManualInstanceEnumeration::addElement
-   (const Linux_DnsElementSettingManualInstance& elementP){
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsElementSettingManualInstanceEnumeration::addElement(
+    const Linux_DnsElementSettingManualInstance& anInstance) {
    	
-  	if(firstElementP==0){
-  	  firstElementP=new Linux_DnsElementSettingManualInstanceEnumerationElement();
-  	  firstElementP->m_elementP=new Linux_DnsElementSettingManualInstance(elementP);
-  	  endElementP=firstElementP;
-  	  currentElementP=firstElementP;
-  	}else{
-  	  endElementP->m_nextP=new Linux_DnsElementSettingManualInstanceEnumerationElement();
-  	  endElementP=endElementP->m_nextP;
-  	  endElementP->m_elementP=new Linux_DnsElementSettingManualInstance(elementP);
+  	if (m_firstElementP == 0) {
+  	  m_firstElementP = new Linux_DnsElementSettingManualInstanceEnumerationElement();
+  	  m_firstElementP->m_elementP = new Linux_DnsElementSettingManualInstance(anInstance);
+  	  m_endElementP = m_firstElementP;
+  	  m_currentElementP = m_firstElementP;
+  	} else {
+  	  m_endElementP->m_nextP = new Linux_DnsElementSettingManualInstanceEnumerationElement();
+  	  m_endElementP = m_endElementP->m_nextP;
+  	  m_endElementP->m_elementP = new Linux_DnsElementSettingManualInstance(anInstance);
   	}
-  };  
+
+  }
+  
 }
- 

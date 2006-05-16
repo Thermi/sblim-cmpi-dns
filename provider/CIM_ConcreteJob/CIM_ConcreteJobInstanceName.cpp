@@ -1,20 +1,25 @@
- /**
- * CIM_ConcreteJobInstanceName.cpp
- *
- * (C) Copyright IBM Corp. 2005
- *
- * THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
- * ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE
- * CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
- *
- * You can obtain a current copy of the Common Public License from
- * http://www.opensource.org/licenses/cpl1.0.php
- *
- * author:     Murillo Bernardes <bernarde@br.ibm.com>
- *
- * Contributors:
- *
- */
+// =======================================================================
+// CIM_ConcreteJobInstanceName.cpp
+//     created on Fri, 3 Mar 2006 using ECUTE
+// 
+// Copyright (c) 2006, International Business Machines
+//
+// THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
+// ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE 
+// CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
+//
+// You can obtain a current copy of the Common Public License from
+// http://oss.software.ibm.com/developerworks/opensource/license-cpl.html
+//
+// Author:        generated
+//
+// Contributors:
+//                Murillo Bernardes <bernarde@br.ibm.com>
+//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//
+// =======================================================================
+//
+// 
 #include "CIM_ConcreteJobInstanceName.h"
 #include "CmpiData.h"
 #include "CmpiString.h"
@@ -23,322 +28,376 @@
 
 namespace genProvider {
 	
-  //*********************************************************
+  //****************************************************************************
   //CIM_ConcreteJobInstanceName
-  //*********************************************************
-  
-  //empty constructor
-  CIM_ConcreteJobInstanceName::
-   CIM_ConcreteJobInstanceName(){
+  //---------------------------------------------------------------------------- 
+  // empty constructor
+  //---------------------------------------------------------------------------- 
+  CIM_ConcreteJobInstanceName::CIM_ConcreteJobInstanceName() {
    	init();  	
-  };
+  }
   
+  //---------------------------------------------------------------------------- 
+  // copy constructor	
+  //---------------------------------------------------------------------------- 
+  CIM_ConcreteJobInstanceName::CIM_ConcreteJobInstanceName(
+    const CIM_ConcreteJobInstanceName& anInstanceName) {
+   	init(anInstanceName);  	
+  }
   
-  //copy constructor	
-  CIM_ConcreteJobInstanceName::
-   CIM_ConcreteJobInstanceName
-   (const CIM_ConcreteJobInstanceName& original){
-   	init(original);  	
-  };
-  
-  
-  //contructor using CmpiObjectPath
-  CIM_ConcreteJobInstanceName::
-   CIM_ConcreteJobInstanceName (const CmpiObjectPath& path){
+  //---------------------------------------------------------------------------- 
+  // constructor using CmpiObjectPath
+  //---------------------------------------------------------------------------- 
+  CIM_ConcreteJobInstanceName::CIM_ConcreteJobInstanceName(
+    const CmpiObjectPath& path) {
     
     init();
     
-    m_CIMClassNameP=path.getClassName().charPtr();
+    m_CIMClassNameP = path.getClassName().charPtr();
     
-    CmpiString namespaceOP;
-    namespaceOP=path.getNameSpace();
-    setNamespace(namespaceOP.charPtr(),1);
-    
+    CmpiString namespaceP;
+    namespaceP = path.getNameSpace();
+    setNamespace(namespaceP.charPtr(),1);
+        
     CmpiString InstanceID = path.getKey("InstanceID");
     setInstanceID(InstanceID.charPtr());
+
     
   }
   
-  
-  //destructor
-  CIM_ConcreteJobInstanceName::
-   ~CIM_ConcreteJobInstanceName(){
+  //---------------------------------------------------------------------------- 
+  // destructor
+  //---------------------------------------------------------------------------- 
+  CIM_ConcreteJobInstanceName::~CIM_ConcreteJobInstanceName() {
    	reset();  	  
-  };
-  
-  
-  //copy operator
-  CIM_ConcreteJobInstanceName&
-   CIM_ConcreteJobInstanceName::operator=
-   (const CIM_ConcreteJobInstanceName& original){    
-    init(original);
-   	return *this;    
   }
   
+  //---------------------------------------------------------------------------- 
+  //copy operator
+  //---------------------------------------------------------------------------- 
+  CIM_ConcreteJobInstanceName&
+  CIM_ConcreteJobInstanceName::operator=(
+    const CIM_ConcreteJobInstanceName& anInstanceName) {    
+    
+    init(anInstanceName);
+   	return *this;    
   
+  }
+  
+  //---------------------------------------------------------------------------- 
   //returns the related CmpiObjectPath
-  CmpiObjectPath CIM_ConcreteJobInstanceName::
-   getObjectPath() const{
+  //---------------------------------------------------------------------------- 
+  CmpiObjectPath 
+  CIM_ConcreteJobInstanceName::getObjectPath() const {
    	
-   	CmpiObjectPath objectPath(m_namespace, m_CIMClassNameP);
+   	CmpiObjectPath objectPath(m_nameSpaceP, m_CIMClassNameP);
+   	  	objectPath.setKey(
+  	  "InstanceID",
+  	  CmpiData(m_InstanceID));
 
-  	objectPath.setKey("InstanceID",CmpiData(m_InstanceID));
   	
   	return objectPath;
   	
   }
   
-  
-  //adds the related CmpiObjectPath to an existing cmpiInstance
-  void CIM_ConcreteJobInstanceName::fillKeys(CmpiInstance& cmpiInstance) const{
+  //---------------------------------------------------------------------------- 
+  // adds the related CmpiObjectPath to an existing cmpiInstance
+  //---------------------------------------------------------------------------- 
+  void 
+  CIM_ConcreteJobInstanceName::fillKeys(CmpiInstance& cmpiInstance) const {
   	
-
-  	if(isSet.InstanceID){
-  	  cmpiInstance.setProperty("InstanceID",CmpiData(m_InstanceID));
+  	if (isSet.InstanceID) {
+  	  
+  	  cmpiInstance.setProperty(
+  	    "InstanceID",
+  	    CmpiData(m_InstanceID));
   	}
+
   }
   
   
-  //NameSpace related methods
-  unsigned int CIM_ConcreteJobInstanceName::
-   isNameSpaceSet() const{
-  	return isSet.m_namespace;
+  //---------------------------------------------------------------------------- 
+  // NameSpace related methods
+  //---------------------------------------------------------------------------- 
+  unsigned int 
+  CIM_ConcreteJobInstanceName::isNameSpaceSet() const {
+  	return isSet.m_nameSpaceP;
   }
   
-  const char * CIM_ConcreteJobInstanceName::
-   getNamespace() const {
-    if(!isSet.m_namespace)
+  //---------------------------------------------------------------------------- 
+  const char* 
+  CIM_ConcreteJobInstanceName::getNamespace() const {
+    if ( ! isSet.m_nameSpaceP) {
    	  throw CmpiErrorFormater::getErrorException(
    	   CmpiErrorFormater::NOT_SET,
-   	   "NameSpace not set in CIM_ConcreteJob instanceName");
-  	return m_namespace;
+   	   "NameSpace",
+   	   "CIM_ConcreteJob");
+   	}
+  	return m_nameSpaceP;
   }
 
-  void CIM_ConcreteJobInstanceName::
-   setNamespace(const char* val, int makeCopy){
-    if (isSet.m_namespace) {
-      delete m_namespace;
+  //---------------------------------------------------------------------------- 
+  void
+  CIM_ConcreteJobInstanceName::setNamespace(
+    const char* aNameSpaceP,
+    int aCopyFlag) {
+  
+    if (isSet.m_nameSpaceP) {
+      delete m_nameSpaceP;
     }
-    if (makeCopy&&val) {
-      char* tmpval = new char[strlen(val)+1];
-      strcpy(tmpval,val);
-      m_namespace = tmpval;
+    
+    if (aCopyFlag && aNameSpaceP) {
+      char* nameSpaceP = new char[strlen(aNameSpaceP) + 1];
+      strcpy(nameSpaceP,aNameSpaceP);
+      m_nameSpaceP = nameSpaceP;
     } else {
-      m_namespace = val;
+      m_nameSpaceP = aNameSpaceP;
     }
-    isSet.m_namespace=1;
+    
+    isSet.m_nameSpaceP = 1;
   }
-       
-  //InstanceID related methods
-  unsigned int CIM_ConcreteJobInstanceName::isInstanceIDSet() const{
+         
+  //----------------------------------------------------------------------------
+  // InstanceID related methods
+  //----------------------------------------------------------------------------
+  unsigned int
+  CIM_ConcreteJobInstanceName::isInstanceIDSet() const {
     return isSet.InstanceID;
   }
-  void  CIM_ConcreteJobInstanceName::
-   setInstanceID(const char* val, int makeCopy){
-    if (isSet.InstanceID) {
-      delete []m_InstanceID;
-    }
-    if (makeCopy&&val) {
-      char* tmpval = new char[strlen(val)+1];
-      strcpy(tmpval,val);
-      m_InstanceID = tmpval;
-    } else {
-      m_InstanceID = val;
-    }
-    isSet.InstanceID=1;
-  }       
-  const char* CIM_ConcreteJobInstanceName::
-   getInstanceID() const{
+
+  //----------------------------------------------------------------------------
+  void
+  CIM_ConcreteJobInstanceName::setInstanceID(
+    const char* aValueP,
+    int aCopyFlag) {
     
-    if(!isSet.InstanceID)
+    if (isSet.InstanceID) {
+      delete [] m_InstanceID;
+    }
+    
+    if (aCopyFlag && aValueP) {
+      char* valueP = new char[strlen(aValueP) + 1];
+      strcpy(valueP,aValueP);
+      m_InstanceID = valueP;
+    } else {
+      m_InstanceID = aValueP;
+    }
+    
+    isSet.InstanceID = 1;
+
+  }       
+
+  //----------------------------------------------------------------------------
+  const char*
+  CIM_ConcreteJobInstanceName::getInstanceID() const {
+    
+    if ( ! isSet.InstanceID) {
    	  throw CmpiErrorFormater::getErrorException(
-   	   CmpiErrorFormater::NOT_SET,
-   	   "InstanceID not set");
-   	   	
+   	    CmpiErrorFormater::NOT_SET,
+        "InstanceID",
+        "CIM_ConcreteJob");
+   	}
+
+
     return m_InstanceID;
+
   }
 
-  
-  //set isSet variables to FALSE
-  void CIM_ConcreteJobInstanceName::init(){
+
+  //---------------------------------------------------------------------------- 
+  void 
+  CIM_ConcreteJobInstanceName::init() {
   	
-  	m_CIMClassNameP="CIM_ConcreteJob";
-  	isSet.m_namespace=0;    	
-    isSet.InstanceID=0;
+  	m_CIMClassNameP = "CIM_ConcreteJob";
+  	isSet.m_nameSpaceP = 0; 
+  	    isSet.InstanceID = 0;
+
+  	
   }
   
-  
+  //---------------------------------------------------------------------------- 
   //copies another instance properties in this
-  void CIM_ConcreteJobInstanceName::init
-   (const CIM_ConcreteJobInstanceName& original){
+  //---------------------------------------------------------------------------- 
+  void 
+  CIM_ConcreteJobInstanceName::init(
+    const CIM_ConcreteJobInstanceName& anOriginal) {
+   	
    	init();
    	   	
-    m_CIMClassNameP=original.m_CIMClassNameP;
-    if(original.isNameSpaceSet()){
-      setNamespace(original.getNamespace(),1);
-    }   	
-    if(original.isInstanceIDSet()){
-      const char* InstanceIDOriginal=original.getInstanceID();
-      setInstanceID(InstanceIDOriginal, 1);
-    }    
-  }
-  
-  //reset the instanceName data
-  void CIM_ConcreteJobInstanceName::reset(){   	
-  	if (isSet.m_namespace)
-  	  delete(m_namespace);
-
-  	if (isSet.InstanceID)
-  	  delete(m_InstanceID);  	  
-  };
-  
-  
-  
-  
-  //*********************************************************
-  //CIM_ConcreteJobInstanceNameEnumerationElement	
-  //*********************************************************
-  
-  CIM_ConcreteJobInstanceNameEnumerationElement::
-   CIM_ConcreteJobInstanceNameEnumerationElement(){
-   	
-  	m_elementP=0;
-  	m_nextP=0;
-  	  
-  };
-  
-  
-  CIM_ConcreteJobInstanceNameEnumerationElement::
-   ~CIM_ConcreteJobInstanceNameEnumerationElement(){
-   	
-  	if (m_elementP!=0)
-  	  delete(m_elementP);
-  	if (m_nextP!=0)
-  	  delete(m_nextP);
-  	  
-  };
-
-  
-  //*********************************************************
-  //CIM_ConcreteJobInstanceNameEnumeration
-  //*********************************************************
-  
-  CIM_ConcreteJobInstanceNameEnumeration::
-   CIM_ConcreteJobInstanceNameEnumeration(){
-   	
-  	 firstElementP=0;
-     currentElementP=0;
-     endElementP=0;
-  };
-  
-  CIM_ConcreteJobInstanceNameEnumeration::
-   CIM_ConcreteJobInstanceNameEnumeration(const CmpiArray& arr){
-  	
-  	firstElementP=0;
-    currentElementP=0;
-    endElementP=0;
-    
-    int size = arr.size();
-    for (int i=0; i < size; i++) {
-     addElement(CIM_ConcreteJobInstanceName(arr[i]));
+    m_CIMClassNameP = anOriginal.m_CIMClassNameP;
+    if (anOriginal.isNameSpaceSet()){
+      setNamespace(anOriginal.getNamespace(),1);
     }
+       	
+    if (anOriginal.isInstanceIDSet()) {
+      const char* InstanceIDOriginal = anOriginal.getInstanceID();
+      setInstanceID(InstanceIDOriginal,1);
+    }
+    
+  
   }
   
-  CIM_ConcreteJobInstanceNameEnumeration::
-   CIM_ConcreteJobInstanceNameEnumeration(
-   const CIM_ConcreteJobInstanceNameEnumeration& original){
+  //---------------------------------------------------------------------------- 
+  void
+  CIM_ConcreteJobInstanceName::reset() {
+  	if (isSet.m_nameSpaceP) {
+  	  delete(m_nameSpaceP);
+  	}
+  	
+  	if (isSet.InstanceID) {
+  	  delete(m_InstanceID);
+  	}
+  	  
+  }
+  
+  //---------------------------------------------------------------------------- 
+  CIM_ConcreteJobInstanceNameEnumerationElement::CIM_ConcreteJobInstanceNameEnumerationElement() {
+  	m_elementP = 0;
+  	m_nextP = 0; 
+  }
+  
+  //---------------------------------------------------------------------------- 
+  CIM_ConcreteJobInstanceNameEnumerationElement::~CIM_ConcreteJobInstanceNameEnumerationElement() {
    	
-     firstElementP=0;
-     currentElementP=0;
-     endElementP=0;
+  	if (m_elementP) {
+  	  delete(m_elementP);
+  	}
+  	if (m_nextP) {
+  	  delete(m_nextP);
+  	}
+  	  
+  }
+  
+  //---------------------------------------------------------------------------- 
+  CIM_ConcreteJobInstanceNameEnumeration::CIM_ConcreteJobInstanceNameEnumeration() {
+  	 m_firstElementP = 0;
+     m_currentElementP = 0;
+     m_endElementP = 0;
+  }
+  
+  //---------------------------------------------------------------------------- 
+  CIM_ConcreteJobInstanceNameEnumeration::CIM_ConcreteJobInstanceNameEnumeration(
+    const CmpiArray& aCmpiArray) {
+  	
+  	m_firstElementP = 0;
+    m_currentElementP = 0;
+    m_endElementP = 0;
+    
+    int size = aCmpiArray.size();
+    for (int x=0; x < size; ++x) {
+      addElement(CIM_ConcreteJobInstanceName(aCmpiArray[x]));
+    }
+    
+  }
+  
+  //---------------------------------------------------------------------------- 
+  CIM_ConcreteJobInstanceNameEnumeration::CIM_ConcreteJobInstanceNameEnumeration(
+    const CIM_ConcreteJobInstanceNameEnumeration& anInstanceNameEnumeration) {
+   	
+    m_firstElementP = 0;
+    m_currentElementP = 0;
+    m_endElementP = 0;
   	 
-     int size=original.getSize();
-     for(int i=0;i<size;i++)
-       addElement(original.getElement(i));           
-  };
-  
+    int size = anInstanceNameEnumeration.getSize();
+    for (int x=0; x < size; ++x) {
+      addElement(anInstanceNameEnumeration.getElement(x));
+    }
+
+  }
   	  
-  CIM_ConcreteJobInstanceNameEnumeration::
-   ~CIM_ConcreteJobInstanceNameEnumeration(){
+  //---------------------------------------------------------------------------- 
+  CIM_ConcreteJobInstanceNameEnumeration::~CIM_ConcreteJobInstanceNameEnumeration() {
    	
-  	if (firstElementP!=0)
-  	  delete(firstElementP);
+  	if (m_firstElementP) {
+  	  delete(m_firstElementP);
+  	}
   	  	
-  };
-  
-  	  
-  void CIM_ConcreteJobInstanceNameEnumeration::reset(){
+  }
+
+  //---------------------------------------------------------------------------- 
+  void 
+  CIM_ConcreteJobInstanceNameEnumeration::reset() {
   	
-  	currentElementP=firstElementP;
-  };
+  	m_currentElementP = m_firstElementP;
   
-  	  
-  bool CIM_ConcreteJobInstanceNameEnumeration::hasNext() const{
+  }
+
+  //---------------------------------------------------------------------------- 
+  bool 
+  CIM_ConcreteJobInstanceNameEnumeration::hasNext() const {
   	
-  	return (currentElementP!=0);
+  	return (m_currentElementP != 0);
   
-  };
+  }
   
-  int CIM_ConcreteJobInstanceNameEnumeration::getSize() const{
+  //---------------------------------------------------------------------------- 
+  int
+  CIM_ConcreteJobInstanceNameEnumeration::getSize() const {
   	
-    int size=0;
-    CIM_ConcreteJobInstanceNameEnumerationElement* followingP=firstElementP;
+    int size = 0;
+    CIM_ConcreteJobInstanceNameEnumerationElement* followingP = m_firstElementP;
   	
-  	while(followingP!=0){
-        followingP=followingP->m_nextP;
-        size++;
+  	while (followingP) {
+      followingP = followingP->m_nextP;
+      ++size;
     }
   	
     return size;
-  };
   
+  }
+  
+  //---------------------------------------------------------------------------- 
   const CIM_ConcreteJobInstanceName&  
-   CIM_ConcreteJobInstanceNameEnumeration::getElement(int pos) const{
+   CIM_ConcreteJobInstanceNameEnumeration::getElement(int anIndex) const {
    
-    CIM_ConcreteJobInstanceNameEnumerationElement* followingP=firstElementP;
+    CIM_ConcreteJobInstanceNameEnumerationElement* followingP = m_firstElementP;
    
-    int i=0;
-    while((followingP!=0)&&(i<pos)){
-        followingP=followingP->m_nextP;
-        i++;
+    int x=0;
+    while (followingP && (x < anIndex) ) {
+      followingP = followingP->m_nextP;
+      ++x;
     }
     
     return *(followingP->m_elementP);
-  };
   
-  	  
+  }
+  
+  //---------------------------------------------------------------------------- 
   const CIM_ConcreteJobInstanceName&
-   CIM_ConcreteJobInstanceNameEnumeration::getNext() {
+  CIM_ConcreteJobInstanceNameEnumeration::getNext() {
    	
-  	 CIM_ConcreteJobInstanceNameEnumerationElement* currentP=
-  	  currentElementP;
-  	 currentElementP=currentElementP->m_nextP;
+  	 CIM_ConcreteJobInstanceNameEnumerationElement* currentP = m_currentElementP;
+  	 m_currentElementP = m_currentElementP->m_nextP;
   	 
   	 return *(currentP->m_elementP);
-  };
-  	  
-  void CIM_ConcreteJobInstanceNameEnumeration::addElement
-   (const CIM_ConcreteJobInstanceName& elementP){
-   	
-  	if(firstElementP==0){
-  	  firstElementP=new CIM_ConcreteJobInstanceNameEnumerationElement();
-  	  firstElementP->m_elementP=new CIM_ConcreteJobInstanceName(elementP);
-  	  endElementP=firstElementP;
-  	  currentElementP=firstElementP;
-  	}else{
-  	  endElementP->m_nextP=new CIM_ConcreteJobInstanceNameEnumerationElement();
-  	  endElementP=endElementP->m_nextP;
-  	  endElementP->m_elementP=new CIM_ConcreteJobInstanceName(elementP);
-  	}
-  };
   
-  CIM_ConcreteJobInstanceNameEnumeration::operator CmpiArray() const{
-  	int size=getSize();
-   	CmpiArray arr=CmpiArray(size,CMPI_instance);
-   	for(int i=0;i<size;i++){
-   	  arr[i]=getElement(i).getObjectPath();
+  }
+  	  
+  //---------------------------------------------------------------------------- 
+  void CIM_ConcreteJobInstanceNameEnumeration::addElement
+   (const CIM_ConcreteJobInstanceName& anElementP){
+   	
+  	if (m_firstElementP==0) {
+  	  m_firstElementP = new CIM_ConcreteJobInstanceNameEnumerationElement();
+  	  m_firstElementP->m_elementP = new CIM_ConcreteJobInstanceName(anElementP);
+  	  m_endElementP = m_firstElementP;
+  	  m_currentElementP = m_firstElementP;
+  	} else {
+  	  m_endElementP->m_nextP = new CIM_ConcreteJobInstanceNameEnumerationElement();
+  	  m_endElementP = m_endElementP->m_nextP;
+  	  m_endElementP->m_elementP=new CIM_ConcreteJobInstanceName(anElementP);
+  	}
+
+  }
+  
+  //---------------------------------------------------------------------------- 
+  CIM_ConcreteJobInstanceNameEnumeration::operator CmpiArray() const {
+  	int size = getSize();
+   	CmpiArray cmpiArray = CmpiArray(size,CMPI_instance);
+   	for (int x=0; x < size; ++x) {
+   	  cmpiArray[x]=getElement(x).getObjectPath();
    	}
-   	return arr;
-  };  
+   	return cmpiArray;
+  }
+  
 }
- 

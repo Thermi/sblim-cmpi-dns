@@ -1,20 +1,25 @@
- /**
- * Linux_DnsAllowUpdateACLForZoneInstance.cpp
- *
- * (C) Copyright IBM Corp. 2005
- *
- * THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
- * ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE
- * CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
- *
- * You can obtain a current copy of the Common Public License from
- * http://www.opensource.org/licenses/cpl1.0.php
- *
- * author:     Murillo Bernardes <bernarde@br.ibm.com>
- *
- * Contributors:
- *
- */
+// =======================================================================
+// Linux_DnsAllowUpdateACLForZoneInstance.cpp
+//     created on Fri, 3 Mar 2006 using ECUTE
+// 
+// Copyright (c) 2006, International Business Machines
+//
+// THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
+// ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE 
+// CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
+//
+// You can obtain a current copy of the Common Public License from
+// http://oss.software.ibm.com/developerworks/opensource/license-cpl.html
+//
+// Author:        generated
+//
+// Contributors:
+//                Murillo Bernardes <bernarde@br.ibm.com>
+//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//
+// =======================================================================
+//
+// 
 #include "Linux_DnsAllowUpdateACLForZoneInstance.h"
 #include "CmpiData.h"
 #include "CmpiString.h"
@@ -23,244 +28,283 @@
 
 namespace genProvider {
 
-  //*********************************************************
+  //****************************************************************************
   //Linux_DnsAllowUpdateACLForZoneInstance
-  //*********************************************************
-
+  //----------------------------------------------------------------------------
   //empty constructor
-  Linux_DnsAllowUpdateACLForZoneInstance::
-   Linux_DnsAllowUpdateACLForZoneInstance(){   	
+  Linux_DnsAllowUpdateACLForZoneInstance::Linux_DnsAllowUpdateACLForZoneInstance() {   	
    	init();  	   	
-  };
+  }
   
-  
+  //----------------------------------------------------------------------------
   //copy constructor	
-  Linux_DnsAllowUpdateACLForZoneInstance::
-   Linux_DnsAllowUpdateACLForZoneInstance
-   (const Linux_DnsAllowUpdateACLForZoneInstance& original){   	
-   	init(original);  	   	
-  };
+  //----------------------------------------------------------------------------
+  Linux_DnsAllowUpdateACLForZoneInstance::Linux_DnsAllowUpdateACLForZoneInstance(
+    const Linux_DnsAllowUpdateACLForZoneInstance& anInstance) {   	
+   	init(anInstance);  	   	
+  }
   
-  
+  //----------------------------------------------------------------------------
   //constructor using CmpiInstance
-  Linux_DnsAllowUpdateACLForZoneInstance::
-   Linux_DnsAllowUpdateACLForZoneInstance (const CmpiInstance& inst, const char* instanceNamespace){
+  //----------------------------------------------------------------------------
+  Linux_DnsAllowUpdateACLForZoneInstance::Linux_DnsAllowUpdateACLForZoneInstance(
+    const CmpiInstance& aCmpiInstance,
+    const char* anInstanceNamespaceP) {
+
     CmpiData cmpiData;
+
     init(); 
     
-    CmpiObjectPath cop=inst.getObjectPath();
-    cop.setNameSpace(instanceNamespace);
+    CmpiObjectPath cop = aCmpiInstance.getObjectPath();
+    cop.setNameSpace(anInstanceNamespaceP);
     setInstanceName(Linux_DnsAllowUpdateACLForZoneInstanceName(cop));
+
     
   }
   
-  
+  //----------------------------------------------------------------------------
   //Destructor
+  //----------------------------------------------------------------------------
   Linux_DnsAllowUpdateACLForZoneInstance::
    ~Linux_DnsAllowUpdateACLForZoneInstance(){
    	reset();  	  
-  };
+  }
   
   
+  //----------------------------------------------------------------------------
   //copy operator
+  //----------------------------------------------------------------------------
   Linux_DnsAllowUpdateACLForZoneInstance&
-   Linux_DnsAllowUpdateACLForZoneInstance::operator=
-   (const Linux_DnsAllowUpdateACLForZoneInstance& original){   	
-   	init(original);
+  Linux_DnsAllowUpdateACLForZoneInstance::operator=(
+    const Linux_DnsAllowUpdateACLForZoneInstance& anInstance) {   	
+   	
+   	init(anInstance);
    	return *this;
-  };
+  
+  }
   
   
+  //----------------------------------------------------------------------------
   //converts to CmpiInstance
-  CmpiInstance Linux_DnsAllowUpdateACLForZoneInstance::
-   getCmpiInstance(const char** properties) const{
+  //----------------------------------------------------------------------------
+  CmpiInstance
+  Linux_DnsAllowUpdateACLForZoneInstance::getCmpiInstance(
+    const char** aPropertiesPP) const {
    	
    	CmpiObjectPath objectPath=getInstanceName().getObjectPath();      
     CmpiInstance cmpiInstance(objectPath);    
     getInstanceName().fillKeys(cmpiInstance);
     
-    if (properties) {
-	  cmpiInstance.setPropertyFilter(properties,0);
+    if (aPropertiesPP) {
+	    cmpiInstance.setPropertyFilter(aPropertiesPP,0);
     }
+
   	
   	return cmpiInstance;
   	
   }
   
-  
-  //InstanceName related methods
-  unsigned int Linux_DnsAllowUpdateACLForZoneInstance::
-   isInstanceNameSet() const{
+  //----------------------------------------------------------------------------
+  // InstanceName related methods
+  //----------------------------------------------------------------------------
+  unsigned int 
+  Linux_DnsAllowUpdateACLForZoneInstance::isInstanceNameSet() const {
   	return isSet.instanceName;
   }
   
+  //----------------------------------------------------------------------------
   const Linux_DnsAllowUpdateACLForZoneInstanceName&
-    Linux_DnsAllowUpdateACLForZoneInstance::getInstanceName() const{
+  Linux_DnsAllowUpdateACLForZoneInstance::getInstanceName() const {
 
-    if(!isSet.instanceName)
+    if( ! isSet.instanceName) {
    	  throw CmpiErrorFormater::getErrorException(
-   	   CmpiErrorFormater::NOT_SET,
-   	   "InstanceName not set in Linux_DnsAllowUpdateACLForZone instance");
+        CmpiErrorFormater::NOT_SET,
+        "InstanceName (CIM Key Attributes)",
+        "Linux_DnsAllowUpdateACLForZone");
+   	}
   		
    	return m_instanceName;
+  
   }
 
-  void Linux_DnsAllowUpdateACLForZoneInstance::setInstanceName(
-   const Linux_DnsAllowUpdateACLForZoneInstanceName& val){
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsAllowUpdateACLForZoneInstance::setInstanceName(
+    const Linux_DnsAllowUpdateACLForZoneInstanceName& val) {
+
     m_instanceName = val;
-    isSet.instanceName=1;
+    isSet.instanceName = 1;
+
   }
 
-
   
+  //----------------------------------------------------------------------------
   //set isSet attributes to FALSE
-  void Linux_DnsAllowUpdateACLForZoneInstance::init(){
-   	isSet.instanceName=0;
-   	  	
-  };
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsAllowUpdateACLForZoneInstance::init() {
+   	isSet.instanceName = 0;
+  	
+  }
   
-  
+  //----------------------------------------------------------------------------
   //copies another instance properties in this
-  void Linux_DnsAllowUpdateACLForZoneInstance::init
-   (const Linux_DnsAllowUpdateACLForZoneInstance& original){   	
+  //----------------------------------------------------------------------------
+  void 
+  Linux_DnsAllowUpdateACLForZoneInstance::init(
+    const Linux_DnsAllowUpdateACLForZoneInstance& anOriginal) {   	
+
    	init();
    	   	
-    if(original.isInstanceNameSet()){
-      setInstanceName(original.getInstanceName());
-    }    
-   }
+    if(anOriginal.isInstanceNameSet()) {
+      setInstanceName(anOriginal.getInstanceName());
+    }
+        
+  }
   
-  
+  //----------------------------------------------------------------------------
   //reset the instance data
-  void Linux_DnsAllowUpdateACLForZoneInstance::reset(){
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsAllowUpdateACLForZoneInstance::reset() {
    	
-  	  
-  };
+  }
   
-  
-  //*********************************************************
+  //----------------------------------------------------------------------------
   //Linux_DnsAllowUpdateACLForZoneInstanceEnumerationElement	
-  //*********************************************************
-  
-  Linux_DnsAllowUpdateACLForZoneInstanceEnumerationElement::
-   Linux_DnsAllowUpdateACLForZoneInstanceEnumerationElement(){
+  //----------------------------------------------------------------------------
+  Linux_DnsAllowUpdateACLForZoneInstanceEnumerationElement::Linux_DnsAllowUpdateACLForZoneInstanceEnumerationElement() {
    	
-  	m_elementP=0;
-  	m_nextP=0;
+  	m_elementP = 0;
+  	m_nextP = 0;
   	  
-  };
+  }
   
-  
-  Linux_DnsAllowUpdateACLForZoneInstanceEnumerationElement::
-   ~Linux_DnsAllowUpdateACLForZoneInstanceEnumerationElement(){
+  //----------------------------------------------------------------------------
+  Linux_DnsAllowUpdateACLForZoneInstanceEnumerationElement::~Linux_DnsAllowUpdateACLForZoneInstanceEnumerationElement() {
    	
-  	if (m_elementP!=0)
+  	if (m_elementP) {
   	  delete(m_elementP);
-  	if (m_nextP!=0)
+  	}
+  	
+  	if (m_nextP) {
   	  delete(m_nextP);
+  	}
   	  
-  };
+  }
 
-  
-  //*********************************************************
+  //----------------------------------------------------------------------------
   //Linux_DnsAllowUpdateACLForZoneInstanceNameEnumeration
-  //*********************************************************
-
-  Linux_DnsAllowUpdateACLForZoneInstanceEnumeration::
-   Linux_DnsAllowUpdateACLForZoneInstanceEnumeration(){
+  //----------------------------------------------------------------------------
+  Linux_DnsAllowUpdateACLForZoneInstanceEnumeration::Linux_DnsAllowUpdateACLForZoneInstanceEnumeration() {
    	
-  	 firstElementP=0;
-     currentElementP=0;
-     endElementP=0;
-  };
+    m_firstElementP = 0;
+    m_currentElementP = 0;
+    m_endElementP = 0;
   
-  Linux_DnsAllowUpdateACLForZoneInstanceEnumeration::
-   Linux_DnsAllowUpdateACLForZoneInstanceEnumeration(
-   const Linux_DnsAllowUpdateACLForZoneInstanceEnumeration& original){
+  }
+  
+  //----------------------------------------------------------------------------
+  Linux_DnsAllowUpdateACLForZoneInstanceEnumeration::Linux_DnsAllowUpdateACLForZoneInstanceEnumeration(
+    const Linux_DnsAllowUpdateACLForZoneInstanceEnumeration& anInstanceEnumeration) {
    	
-     firstElementP=0;
-     currentElementP=0;
-     endElementP=0;
+    m_firstElementP = 0;
+    m_currentElementP = 0;
+    m_endElementP = 0;
   	 
-     int size=original.getSize();
-     for(int i=0;i<size;i++)
-       addElement(original.getElement(i));           
-  };
+    int size = anInstanceEnumeration.getSize();
+    for (int x=0; x < size;++x) {
+      addElement(anInstanceEnumeration.getElement(x));
+    }           
+
+  }
   
-  	  
-  Linux_DnsAllowUpdateACLForZoneInstanceEnumeration::
-   ~Linux_DnsAllowUpdateACLForZoneInstanceEnumeration(){
+  //----------------------------------------------------------------------------
+  Linux_DnsAllowUpdateACLForZoneInstanceEnumeration::~Linux_DnsAllowUpdateACLForZoneInstanceEnumeration() {
    	
-  	if (firstElementP!=0)
-  	  delete(firstElementP);
+  	if (m_firstElementP) {
+  	  delete(m_firstElementP);
+  	}
   	  	
-  };
+  }
   
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsAllowUpdateACLForZoneInstanceEnumeration::reset() {
+  	
+  	m_currentElementP = m_firstElementP;
+  	
+  }
   	  
-  void Linux_DnsAllowUpdateACLForZoneInstanceEnumeration::reset(){
+  //----------------------------------------------------------------------------
+  bool
+  Linux_DnsAllowUpdateACLForZoneInstanceEnumeration::hasNext() const {
   	
-  	currentElementP=firstElementP;
-  };
+  	return (m_currentElementP != 0);
   
-  	  
-  bool Linux_DnsAllowUpdateACLForZoneInstanceEnumeration::hasNext() const{
-  	
-  	return (currentElementP!=0);
+  }
   
-  };
-  
-  int Linux_DnsAllowUpdateACLForZoneInstanceEnumeration::getSize() const{
+  //----------------------------------------------------------------------------
+  int
+  Linux_DnsAllowUpdateACLForZoneInstanceEnumeration::getSize() const {
   	
-    int size=0;
-    Linux_DnsAllowUpdateACLForZoneInstanceEnumerationElement* followingP=firstElementP;
+    int size = 0;
+    Linux_DnsAllowUpdateACLForZoneInstanceEnumerationElement* followingP = m_firstElementP;
   	
-  	while(followingP!=0){
-        followingP=followingP->m_nextP;
-        size++;
+  	while (followingP) {
+      followingP = followingP->m_nextP;
+      ++size;
     }
   	
     return size;
     
-  };
+  }
   
+  //----------------------------------------------------------------------------
   const Linux_DnsAllowUpdateACLForZoneInstance&  
-   Linux_DnsAllowUpdateACLForZoneInstanceEnumeration::getElement(int pos) const{
+  Linux_DnsAllowUpdateACLForZoneInstanceEnumeration::getElement(int anIndex) const {
    
-    Linux_DnsAllowUpdateACLForZoneInstanceEnumerationElement* followingP=firstElementP;
+    Linux_DnsAllowUpdateACLForZoneInstanceEnumerationElement* followingP = m_firstElementP;
    
-    int i=0;
-    while((followingP!=0)&&(i<pos)){
-        followingP=followingP->m_nextP;
-        i++;
+    int x = 0;
+    while (followingP && (x < anIndex)) {
+      followingP = followingP->m_nextP;
+      ++x;
     }
     
     return *(followingP->m_elementP);
-  };
+
+  }
   
-  	  
+  //----------------------------------------------------------------------------
   const Linux_DnsAllowUpdateACLForZoneInstance&
-   Linux_DnsAllowUpdateACLForZoneInstanceEnumeration::getNext() {
+  Linux_DnsAllowUpdateACLForZoneInstanceEnumeration::getNext() {
    	
-  	 Linux_DnsAllowUpdateACLForZoneInstanceEnumerationElement* currentP=
-  	  currentElementP;
-  	 currentElementP=currentElementP->m_nextP;
+    Linux_DnsAllowUpdateACLForZoneInstanceEnumerationElement* currentElementP =
+  	  m_currentElementP;
+
+    m_currentElementP = m_currentElementP->m_nextP;
   	 
-  	 return *(currentP->m_elementP);
-  };
+    return *(currentElementP->m_elementP);
+
+  }
   	  
-  void Linux_DnsAllowUpdateACLForZoneInstanceEnumeration::addElement
-   (const Linux_DnsAllowUpdateACLForZoneInstance& elementP){
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsAllowUpdateACLForZoneInstanceEnumeration::addElement(
+    const Linux_DnsAllowUpdateACLForZoneInstance& anInstance) {
    	
-  	if(firstElementP==0){
-  	  firstElementP=new Linux_DnsAllowUpdateACLForZoneInstanceEnumerationElement();
-  	  firstElementP->m_elementP=new Linux_DnsAllowUpdateACLForZoneInstance(elementP);
-  	  endElementP=firstElementP;
-  	  currentElementP=firstElementP;
-  	}else{
-  	  endElementP->m_nextP=new Linux_DnsAllowUpdateACLForZoneInstanceEnumerationElement();
-  	  endElementP=endElementP->m_nextP;
-  	  endElementP->m_elementP=new Linux_DnsAllowUpdateACLForZoneInstance(elementP);
+  	if (m_firstElementP == 0) {
+  	  m_firstElementP = new Linux_DnsAllowUpdateACLForZoneInstanceEnumerationElement();
+  	  m_firstElementP->m_elementP = new Linux_DnsAllowUpdateACLForZoneInstance(anInstance);
+  	  m_endElementP = m_firstElementP;
+  	  m_currentElementP = m_firstElementP;
+  	} else {
+  	  m_endElementP->m_nextP = new Linux_DnsAllowUpdateACLForZoneInstanceEnumerationElement();
+  	  m_endElementP = m_endElementP->m_nextP;
+  	  m_endElementP->m_elementP = new Linux_DnsAllowUpdateACLForZoneInstance(anInstance);
   	}
-  };  
+
+  }
+  
 }
- 

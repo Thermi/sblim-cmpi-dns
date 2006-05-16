@@ -1,231 +1,321 @@
- /**
- * Linux_DnsAllowUpdateACLForZoneExternal.cpp
- *
- * (C) Copyright IBM Corp. 2005
- *
- * THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
- * ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE
- * CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
- *
- * You can obtain a current copy of the Common Public License from
- * http://www.opensource.org/licenses/cpl1.0.php
- *
- * author:     Murillo Bernardes <bernarde@br.ibm.com>
- *
- * Contributors:
- *
- */
+// =======================================================================
+// Linux_DnsAllowUpdateACLForZoneExternal.cpp
+//     created on Fri, 3 Mar 2006 using ECUTE
+// 
+// Copyright (c) 2006, International Business Machines
+//
+// THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
+// ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE 
+// CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
+//
+// You can obtain a current copy of the Common Public License from
+// http://oss.software.ibm.com/developerworks/opensource/license-cpl.html
+//
+// Author:        generated
+//
+// Contributors:
+//                Murillo Bernardes <bernarde@br.ibm.com>
+//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//
+// =======================================================================
+//
+// 
+
 #include "Linux_DnsAllowUpdateACLForZoneExternal.h"
 
-namespace genProvider{
+namespace genProvider {
 	
+	//----------------------------------------------------------------------------
   Linux_DnsAllowUpdateACLForZoneExternal::Linux_DnsAllowUpdateACLForZoneExternal(
-   const CmpiBroker& brkr, const CmpiContext& ctx ) 
-   : broker(brkr), context(ctx) {};
+    const CmpiBroker& aBroker,
+    const CmpiContext& aContext ) 
+    : m_broker(aBroker),
+    m_context(aContext) { }
    
-  Linux_DnsAllowUpdateACLForZoneExternal::
-   ~Linux_DnsAllowUpdateACLForZoneExternal(){};
+	//----------------------------------------------------------------------------
+  Linux_DnsAllowUpdateACLForZoneExternal::~Linux_DnsAllowUpdateACLForZoneExternal() { }
     
-  void Linux_DnsAllowUpdateACLForZoneExternal::enumInstanceNames(
-   const char *nsp,
-   Linux_DnsAllowUpdateACLForZoneInstanceNameEnumeration& instnames) {
+	//----------------------------------------------------------------------------
+  void 
+  Linux_DnsAllowUpdateACLForZoneExternal::enumInstanceNames(
+    const char *aNameSpaceP,
+    Linux_DnsAllowUpdateACLForZoneInstanceNameEnumeration& anInstanceNameEnumeration) {
 
-    CmpiObjectPath op(nsp,"Linux_DnsAllowUpdateACLForZone");
-    CmpiEnumeration en=broker.enumInstanceNames(context,op);
-    while(en.hasNext()) {
-      CmpiObjectPath opi = en.getNext();
-      Linux_DnsAllowUpdateACLForZoneInstanceName iname(opi);
-      instnames.addElement(iname);
+    CmpiObjectPath classObjectPath(aNameSpaceP,"Linux_DnsAllowUpdateACLForZone");
+    CmpiEnumeration cmpiEnumeration = 
+      m_broker.enumInstanceNames(m_context,classObjectPath);
+    while (cmpiEnumeration.hasNext()) {
+      CmpiObjectPath objectPath = cmpiEnumeration.getNext();
+      Linux_DnsAllowUpdateACLForZoneInstanceName instanceName(objectPath);
+      anInstanceNameEnumeration.addElement(instanceName);
     }
-  };
+  
+  }
   	  
-  void Linux_DnsAllowUpdateACLForZoneExternal::enumInstances(
-   const char *nsp,
-   const char* *properties,
-   Linux_DnsAllowUpdateACLForZoneInstanceEnumeration& instances) {
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsAllowUpdateACLForZoneExternal::enumInstances(
+    const char *aNameSpaceP,
+    const char** aPropertiesPP,
+    Linux_DnsAllowUpdateACLForZoneInstanceEnumeration& anInstanceEnumeration) {
    		
-    CmpiObjectPath op(nsp,"Linux_DnsAllowUpdateACLForZone");
-    CmpiEnumeration en=broker.enumInstances(context,op,properties);
-    while(en.hasNext()) {
-      CmpiInstance inst = en.getNext();
-      Linux_DnsAllowUpdateACLForZoneInstance instance(inst,nsp);
-      instances.addElement(instance);
+    CmpiObjectPath classObjectPath(aNameSpaceP,"Linux_DnsAllowUpdateACLForZone");
+    CmpiEnumeration cmpiEnumeration = 
+      m_broker.enumInstances(m_context,classObjectPath,aPropertiesPP);
+    while (cmpiEnumeration.hasNext()) {
+      CmpiInstance cmpiInstance = cmpiEnumeration.getNext();
+      Linux_DnsAllowUpdateACLForZoneInstance instance(cmpiInstance,aNameSpaceP);
+      anInstanceEnumeration.addElement(instance);
     }
-  };
+  
+  }
   	  
+	//----------------------------------------------------------------------------
   Linux_DnsAllowUpdateACLForZoneInstance
-   Linux_DnsAllowUpdateACLForZoneExternal::getInstance(
-   const char* *properties,
-   const Linux_DnsAllowUpdateACLForZoneInstanceName& instanceName) {
+  Linux_DnsAllowUpdateACLForZoneExternal::getInstance(
+    const char** aPropertiesPP,
+    const Linux_DnsAllowUpdateACLForZoneInstanceName& anInstanceName) {
     
-    CmpiObjectPath op=instanceName.getObjectPath();
-    CmpiInstance inst=broker.getInstance(context,op,properties);
-    return Linux_DnsAllowUpdateACLForZoneInstance(inst,instanceName.getNamespace());
+    CmpiObjectPath cmpiObjectPath = anInstanceName.getObjectPath();
+    CmpiInstance cmpiInstance = 
+      m_broker.getInstance(m_context,cmpiObjectPath,aPropertiesPP);
+  
+    return Linux_DnsAllowUpdateACLForZoneInstance(cmpiInstance,anInstanceName.getNamespace());
+  
   }
       
-  void Linux_DnsAllowUpdateACLForZoneExternal::setInstance(
-   const char* *properties,
-   const Linux_DnsAllowUpdateACLForZoneInstance& instance){
+	//----------------------------------------------------------------------------
+  void
+  Linux_DnsAllowUpdateACLForZoneExternal::setInstance(
+    const char** aPropertiesPP,
+    const Linux_DnsAllowUpdateACLForZoneInstance& anInstance) {
   
-    CmpiObjectPath op=instance.getInstanceName().getObjectPath();
-    CmpiInstance inst=instance.getCmpiInstance();
-    broker.setInstance(context,op,inst,properties);
+    CmpiObjectPath cmpiObjectPath = anInstance.getInstanceName().getObjectPath();
+    CmpiInstance cmpiInstance = anInstance.getCmpiInstance();
+    m_broker.setInstance(m_context,cmpiObjectPath,cmpiInstance,aPropertiesPP);
+  
   }
       
-  void Linux_DnsAllowUpdateACLForZoneExternal::createInstance(
-   const Linux_DnsAllowUpdateACLForZoneInstance& instance){
+	//----------------------------------------------------------------------------
+  Linux_DnsAllowUpdateACLForZoneInstanceName
+  Linux_DnsAllowUpdateACLForZoneExternal::createInstance(
+    const Linux_DnsAllowUpdateACLForZoneInstance& anInstance) {
   
-    CmpiObjectPath op=instance.getInstanceName().getObjectPath();
-    CmpiInstance inst=instance.getCmpiInstance();
-    broker.createInstance(context,op,inst);
+    CmpiObjectPath cmpiObjectPath = anInstance.getInstanceName().getObjectPath();
+    CmpiInstance cmpiInstance = anInstance.getCmpiInstance();
+    return Linux_DnsAllowUpdateACLForZoneInstanceName(
+		m_broker.createInstance(m_context,cmpiObjectPath,cmpiInstance));
+
   }
   
-  void Linux_DnsAllowUpdateACLForZoneExternal::deleteInstance(
-   const Linux_DnsAllowUpdateACLForZoneInstanceName& instanceName){
+	//----------------------------------------------------------------------------
+  void
+  Linux_DnsAllowUpdateACLForZoneExternal::deleteInstance(
+    const Linux_DnsAllowUpdateACLForZoneInstanceName& anInstanceName) {
     
-    CmpiObjectPath op=instanceName.getObjectPath();
-    broker.deleteInstance(context,op);
+    CmpiObjectPath cmpiObjectPath = anInstanceName.getObjectPath();
+    m_broker.deleteInstance(m_context,cmpiObjectPath);
+  
   }
-      
-    //Reference calls
-    
-    void Linux_DnsAllowUpdateACLForZoneExternal::
-     referencesElement( 
-     const char *nsp,
-     const char** properties,
-     const Linux_DnsAddressMatchListInstanceName& sourceInst,
-     Linux_DnsAllowUpdateACLForZoneInstanceEnumeration& instances){
-      
-      CmpiObjectPath op=sourceInst.getObjectPath();
-      CmpiEnumeration en=broker.references
-       (context, op, "Linux_DnsAddressMatchList",
-        "Element", properties);
-      while(en.hasNext()) {
-        CmpiInstance inst = en.getNext();
-        Linux_DnsAllowUpdateACLForZoneInstance instance(inst,nsp);
-        instances.addElement(instance);
-      }      
-    }
+  // Reference calls
 
-    void Linux_DnsAllowUpdateACLForZoneExternal::
-     referenceNamesElement( 
-     const char *nsp,
-     const Linux_DnsAddressMatchListInstanceName& sourceInst,
-     Linux_DnsAllowUpdateACLForZoneInstanceNameEnumeration& instanceNames){
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsAllowUpdateACLForZoneExternal::referencesSetting( 
+    const char* aNameSpaceP,
+    const char** aPropertiesPP,
+    const Linux_DnsZoneInstanceName& aSourceInstanceName,
+    Linux_DnsAllowUpdateACLForZoneInstanceEnumeration& anInstanceEnumeration) {
       
-      CmpiObjectPath op=sourceInst.getObjectPath();
-      CmpiEnumeration en=broker.referenceNames
-       (context, op, "Linux_DnsAddressMatchList",
-        "Element");
-      while(en.hasNext()) {
-        CmpiObjectPath instName = en.getNext();
-        Linux_DnsAllowUpdateACLForZoneInstanceName instanceName(instName);
-        instanceNames.addElement(instanceName);
-      }      
-    }
+    CmpiObjectPath cmpiObjectPath = aSourceInstanceName.getObjectPath();
 
-    void Linux_DnsAllowUpdateACLForZoneExternal::
-     referencesSetting( 
-     const char *nsp,
-     const char** properties,
-     const Linux_DnsZoneInstanceName& sourceInst,
-     Linux_DnsAllowUpdateACLForZoneInstanceEnumeration& instances){
-      
-      CmpiObjectPath op=sourceInst.getObjectPath();
-      CmpiEnumeration en=broker.references
-       (context, op, "Linux_DnsZone",
-        "Setting", properties);
-      while(en.hasNext()) {
-        CmpiInstance inst = en.getNext();
-        Linux_DnsAllowUpdateACLForZoneInstance instance(inst,nsp);
-        instances.addElement(instance);
-      }      
-    }
+    CmpiEnumeration cmpiEnumeration = m_broker.references(
+      m_context,
+      cmpiObjectPath,
+      "Linux_DnsZone",
+      "Setting",
+      aPropertiesPP);
 
-    void Linux_DnsAllowUpdateACLForZoneExternal::
-     referenceNamesSetting( 
-     const char *nsp,
-     const Linux_DnsZoneInstanceName& sourceInst,
-     Linux_DnsAllowUpdateACLForZoneInstanceNameEnumeration& instanceNames){
+    while (cmpiEnumeration.hasNext()) {
+      CmpiInstance cmpiInstance = cmpiEnumeration.getNext();
+      Linux_DnsAllowUpdateACLForZoneInstance instance(cmpiInstance,aNameSpaceP);
+      anInstanceEnumeration.addElement(instance);
+    }      
+
+  }
+
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsAllowUpdateACLForZoneExternal::referenceNamesSetting( 
+    const char* aNameSpaceP,
+    const Linux_DnsZoneInstanceName& aSourceInstanceName,
+    Linux_DnsAllowUpdateACLForZoneInstanceNameEnumeration& anInstanceNameEnumeration) {
       
-      CmpiObjectPath op=sourceInst.getObjectPath();
-      CmpiEnumeration en=broker.referenceNames
-       (context, op, "Linux_DnsZone",
-        "Setting");
-      while(en.hasNext()) {
-        CmpiObjectPath instName = en.getNext();
-        Linux_DnsAllowUpdateACLForZoneInstanceName instanceName(instName);
-        instanceNames.addElement(instanceName);
-      }      
-    }
+    CmpiObjectPath cmpiObjectPath = aSourceInstanceName.getObjectPath();
+
+    CmpiEnumeration cmpiEnumeration = m_broker.referenceNames(
+      m_context,
+      cmpiObjectPath,
+      "Linux_DnsZone",
+      "Setting");
+
+    while (cmpiEnumeration.hasNext()) {
+      CmpiObjectPath cmpiInstanceName = cmpiEnumeration.getNext();
+      Linux_DnsAllowUpdateACLForZoneInstanceName instanceName(cmpiInstanceName);
+      anInstanceNameEnumeration.addElement(instanceName);
+    }      
+
+  }
+
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsAllowUpdateACLForZoneExternal::referencesElement( 
+    const char* aNameSpaceP,
+    const char** aPropertiesPP,
+    const Linux_DnsAddressMatchListInstanceName& aSourceInstanceName,
+    Linux_DnsAllowUpdateACLForZoneInstanceEnumeration& anInstanceEnumeration){
+      
+    CmpiObjectPath cmpiObjectPath = aSourceInstanceName.getObjectPath();
+  
+    CmpiEnumeration cmpiEnumeration = m_broker.references(
+      m_context,
+      cmpiObjectPath,
+      "Linux_DnsAddressMatchList",
+      "Element",
+      aPropertiesPP);
+
+    while(cmpiEnumeration.hasNext()) {
+      CmpiInstance cmpiInstance = cmpiEnumeration.getNext();
+      Linux_DnsAllowUpdateACLForZoneInstance instance(cmpiInstance,aNameSpaceP);
+      anInstanceEnumeration.addElement(instance);
+    }      
+
+  }
+
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsAllowUpdateACLForZoneExternal::referenceNamesElement( 
+    const char* aNameSpaceP,
+    const Linux_DnsAddressMatchListInstanceName& aSourceInstanceName,
+    Linux_DnsAllowUpdateACLForZoneInstanceNameEnumeration& anInstanceNameEnumeration) {
+      
+    CmpiObjectPath cmpiObjectPath = aSourceInstanceName.getObjectPath();
+    CmpiEnumeration cmpiEnumeration = m_broker.referenceNames(
+      m_context,
+      cmpiObjectPath,
+      "Linux_DnsAddressMatchList",
+      "Element");
+   
+    while (cmpiEnumeration.hasNext()) {
+      CmpiObjectPath cmpiInstanceName = cmpiEnumeration.getNext();
+      Linux_DnsAllowUpdateACLForZoneInstanceName instanceName(cmpiInstanceName);
+      anInstanceNameEnumeration.addElement(instanceName);
+    }      
+
+  }
      
-    //Associator calls
-
-    void Linux_DnsAllowUpdateACLForZoneExternal::
-     associatorsElement( 
-     const char *nsp,
-     const char** properties,
-     const Linux_DnsAddressMatchListInstanceName& sourceInst,
-     Linux_DnsZoneInstanceEnumeration& instances){
+  //Associator calls
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsAllowUpdateACLForZoneExternal::associatorsSetting( 
+    const char* aNameSpaceP,
+    const char** aPropertiesPP,
+    const Linux_DnsZoneInstanceName& aSourceInstanceName,
+    Linux_DnsAddressMatchListInstanceEnumeration& anInstanceEnumeration) {
       
-      CmpiObjectPath op=sourceInst.getObjectPath();
-      CmpiEnumeration en=broker.associators
-       (context,op,0,0,0,0,properties);
-      while(en.hasNext()) {
-        CmpiInstance inst = en.getNext();
-        Linux_DnsZoneInstance instance(inst,nsp);
-        instances.addElement(instance);
-      }      
+    CmpiObjectPath cmpiObjectPath = aSourceInstanceName.getObjectPath();
+
+    CmpiEnumeration cmpiEnumeration = m_broker.associators(
+      m_context,
+      cmpiObjectPath,
+      0,
+      0,
+      0,
+      0,
+      aPropertiesPP);
+
+    while (cmpiEnumeration.hasNext()) {
+      CmpiInstance cmpiInstance = cmpiEnumeration.getNext();
+      Linux_DnsAddressMatchListInstance instance(cmpiInstance,aNameSpaceP);
+      anInstanceEnumeration.addElement(instance);
     }
 
-    void Linux_DnsAllowUpdateACLForZoneExternal::
-     associatorNamesElement( 
-     const char *nsp,
-     const Linux_DnsAddressMatchListInstanceName& sourceInst,
-     Linux_DnsZoneInstanceNameEnumeration& instanceNames){
+  }
+
+  //----------------------------------------------------------------------------
+  void Linux_DnsAllowUpdateACLForZoneExternal::associatorNamesSetting( 
+    const char* aNameSpaceP,
+    const Linux_DnsZoneInstanceName& aSourceInstanceName,
+    Linux_DnsAddressMatchListInstanceNameEnumeration& anInstanceNameEnumeration) {
       
-      CmpiObjectPath op=sourceInst.getObjectPath();
-      CmpiEnumeration en=broker.associatorNames
-       (context,op,0,0,0,0);
-      while(en.hasNext()) {
-        CmpiObjectPath instName = en.getNext();
-        Linux_DnsZoneInstanceName instanceName(instName);
-        instanceNames.addElement(instanceName);
-      }      
+    CmpiObjectPath cmpiObjectPath = aSourceInstanceName.getObjectPath();
+
+    CmpiEnumeration cmpiEnumeration = m_broker.associatorNames(
+     m_context,
+     cmpiObjectPath,
+     0,
+     0,
+     0,
+     0);
+
+    while(cmpiEnumeration.hasNext()) {
+      CmpiObjectPath cmpiInstanceName = cmpiEnumeration.getNext();
+      Linux_DnsAddressMatchListInstanceName instanceName(cmpiInstanceName);
+      anInstanceNameEnumeration.addElement(instanceName);
     }
 
-    void Linux_DnsAllowUpdateACLForZoneExternal::
-     associatorsSetting( 
-     const char *nsp,
-     const char** properties,
-     const Linux_DnsZoneInstanceName& sourceInst,
-     Linux_DnsAddressMatchListInstanceEnumeration& instances){
+  }
+
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsAllowUpdateACLForZoneExternal::associatorsElement( 
+    const char* aNameSpaceP,
+    const char** aPropertiesPP,
+    const Linux_DnsAddressMatchListInstanceName& aSourceInstanceName,
+    Linux_DnsZoneInstanceEnumeration& anInstanceEnumeration) {
       
-      CmpiObjectPath op=sourceInst.getObjectPath();
-      CmpiEnumeration en=broker.associators
-       (context,op,0,0,0,0,properties);
-      while(en.hasNext()) {
-        CmpiInstance inst = en.getNext();
-        Linux_DnsAddressMatchListInstance instance(inst,nsp);
-        instances.addElement(instance);
-      }      
+    CmpiObjectPath cmpiObjectPath = aSourceInstanceName.getObjectPath();
+
+    CmpiEnumeration cmpiEnumeration = m_broker.associators(
+      m_context,
+      cmpiObjectPath,
+      0,
+      0,
+      0,
+      0,
+      aPropertiesPP);
+
+    while (cmpiEnumeration.hasNext()) {
+      CmpiInstance cmpiInstance = cmpiEnumeration.getNext();
+      Linux_DnsZoneInstance instance(cmpiInstance,aNameSpaceP);
+      anInstanceEnumeration.addElement(instance);
+    }      
+
+  }
+
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsAllowUpdateACLForZoneExternal::associatorNamesElement( 
+    const char* aNameSpaceP,
+    const Linux_DnsAddressMatchListInstanceName& aSourceInstanceName,
+    Linux_DnsZoneInstanceNameEnumeration& anInstanceNameEnumeration) {
+      
+    CmpiObjectPath cmpiObjectPath = aSourceInstanceName.getObjectPath();
+
+    CmpiEnumeration cmpiEnumeration = m_broker.associatorNames(
+      m_context,
+      cmpiObjectPath,
+      0,
+      0,
+      0,
+      0);
+
+    while (cmpiEnumeration.hasNext()) {
+      CmpiObjectPath cmpiInstanceName = cmpiEnumeration.getNext();
+      Linux_DnsZoneInstanceName instanceName(cmpiInstanceName);
+      anInstanceNameEnumeration.addElement(instanceName);
     }
 
-    void Linux_DnsAllowUpdateACLForZoneExternal::
-     associatorNamesSetting( 
-     const char *nsp,
-     const Linux_DnsZoneInstanceName& sourceInst,
-     Linux_DnsAddressMatchListInstanceNameEnumeration& instanceNames){
-      
-      CmpiObjectPath op=sourceInst.getObjectPath();
-      CmpiEnumeration en=broker.associatorNames
-       (context,op,0,0,0,0);
-      while(en.hasNext()) {
-        CmpiObjectPath instName = en.getNext();
-        Linux_DnsAddressMatchListInstanceName instanceName(instName);
-        instanceNames.addElement(instanceName);
-      }      
-    }
-
+  }
       
 }

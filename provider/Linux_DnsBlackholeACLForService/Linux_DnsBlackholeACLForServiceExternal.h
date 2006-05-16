@@ -1,110 +1,121 @@
- /**
- * Linux_DnsBlackholeACLForServiceExternal.h
- *
- * (C) Copyright IBM Corp. 2005
- *
- * THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
- * ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE
- * CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
- *
- * You can obtain a current copy of the Common Public License from
- * http://www.opensource.org/licenses/cpl1.0.php
- *
- * author:     Murillo Bernardes <bernarde@br.ibm.com>
- *
- * Contributors:
- *
- */
+// =======================================================================
+// Linux_DnsBlackholeACLForServiceExternal.h
+//     created on Fri, 3 Mar 2006 using ECUTE
+// 
+// Copyright (c) 2006, International Business Machines
+//
+// THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
+// ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE 
+// CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
+//
+// You can obtain a current copy of the Common Public License from
+// http://oss.software.ibm.com/developerworks/opensource/license-cpl.html
+//
+// Author:        generated
+//
+// Contributors:
+//                Murillo Bernardes <bernarde@br.ibm.com>
+//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//
+// =======================================================================
+//
+// 
 #ifndef Linux_DnsBlackholeACLForServiceExternal_h
 #define Linux_DnsBlackholeACLForServiceExternal_h
 
+
 #include "Linux_DnsBlackholeACLForServiceInstance.h"
-#include "Linux_DnsServiceInstance.h"
 #include "Linux_DnsAddressMatchListInstance.h"
+#include "Linux_DnsServiceInstance.h"
+
 #include "CmpiBroker.h"
 
 namespace genProvider {
 
   class Linux_DnsBlackholeACLForServiceExternal {
+    
+    private:
+    CmpiBroker m_broker;
+    CmpiContext m_context;
   	
     public:
     Linux_DnsBlackholeACLForServiceExternal(
-     const CmpiBroker& brkr, const CmpiContext& ctx);
+      const CmpiBroker& aBroker,
+      const CmpiContext& aContext);
     virtual ~Linux_DnsBlackholeACLForServiceExternal();
     
     virtual void enumInstanceNames(
-     const char *nsp,
-     Linux_DnsBlackholeACLForServiceInstanceNameEnumeration&);
+      const char *aNameSpaceP,
+      Linux_DnsBlackholeACLForServiceInstanceNameEnumeration& anInstanceNameEnumeration);
      
     virtual void enumInstances(
-     const char *nsp,
-     const char* *properties,
-     Linux_DnsBlackholeACLForServiceInstanceEnumeration&);
+      const char *anNameSpaceP,
+      const char** aPropertiesPP,
+      Linux_DnsBlackholeACLForServiceInstanceEnumeration& anInstanceEnumeration);
      
     virtual Linux_DnsBlackholeACLForServiceInstance getInstance(
-     const char* *properties,
-     const Linux_DnsBlackholeACLForServiceInstanceName&);
+      const char** aPropertiesPP,
+      const Linux_DnsBlackholeACLForServiceInstanceName& anInstanceName);
      
     virtual void setInstance(
-     const char* *properties,
-     const Linux_DnsBlackholeACLForServiceInstance&);
+      const char** aPropertiesPP,
+      const Linux_DnsBlackholeACLForServiceInstance& anInstance);
      
-    virtual void createInstance(
-     const Linux_DnsBlackholeACLForServiceInstance&);
+    virtual Linux_DnsBlackholeACLForServiceInstanceName createInstance(
+      const Linux_DnsBlackholeACLForServiceInstance& anInstance);
      
     virtual void deleteInstance(
-     const Linux_DnsBlackholeACLForServiceInstanceName&);
-    
-    //association calls
-    
-    void referencesElement( 
-     const char *nsp,
-     const char** properties,
-     const Linux_DnsAddressMatchListInstanceName& sourceInst,
-     Linux_DnsBlackholeACLForServiceInstanceEnumeration& instances);
+      const Linux_DnsBlackholeACLForServiceInstanceName& anInstanceName);
 
-    void referenceNamesElement( 
-     const char *nsp,
-     const Linux_DnsAddressMatchListInstanceName& sourceInst,
-     Linux_DnsBlackholeACLForServiceInstanceNameEnumeration& instanceNames);
+
+    //association calls
 
     void referencesSetting( 
-     const char *nsp,
-     const char** properties,
-     const Linux_DnsServiceInstanceName& sourceInst,
-     Linux_DnsBlackholeACLForServiceInstanceEnumeration& instances);
+      const char *aNameSpaceP,
+      const char** aPropertiesPP,
+      const Linux_DnsServiceInstanceName& aSourceInstanceName,
+      Linux_DnsBlackholeACLForServiceInstanceEnumeration& anInstanceEnumeration);
 
     void referenceNamesSetting( 
-     const char *nsp,
-     const Linux_DnsServiceInstanceName& sourceInst,
-     Linux_DnsBlackholeACLForServiceInstanceNameEnumeration& instanceNames);
+      const char *aNameSpaceP,
+      const Linux_DnsServiceInstanceName& aSourceInstanceName,
+      Linux_DnsBlackholeACLForServiceInstanceNameEnumeration& anInstanceNameEnumeration);
 
-    void associatorsElement( 
-     const char *nsp,
-     const char** properties,
-     const Linux_DnsAddressMatchListInstanceName& sourceInst,
-     Linux_DnsServiceInstanceEnumeration& instances);
+    void referencesElement( 
+      const char *aNameSpaceP,
+      const char** aPropertiesPP,
+      const Linux_DnsAddressMatchListInstanceName& aSourceInstanceName,
+      Linux_DnsBlackholeACLForServiceInstanceEnumeration& anInstanceEnumeration);
 
-    void associatorNamesElement( 
-     const char *nsp,
-     const Linux_DnsAddressMatchListInstanceName& sourceInst,
-     Linux_DnsServiceInstanceNameEnumeration& instanceNames);
+    void referenceNamesElement( 
+      const char *aNameSpaceP,
+      const Linux_DnsAddressMatchListInstanceName& aSourceInstanceName,
+      Linux_DnsBlackholeACLForServiceInstanceNameEnumeration& anInstanceNameEnumeration);
 
     void associatorsSetting( 
-     const char *nsp,
-     const char** properties,
-     const Linux_DnsServiceInstanceName& sourceInst,
-     Linux_DnsAddressMatchListInstanceEnumeration& instances);
+      const char *aNameSpaceP,
+      const char** aPropertiesPP,
+      const Linux_DnsServiceInstanceName& aSourceInstanceName,
+      Linux_DnsAddressMatchListInstanceEnumeration& anInstanceEnumeration);
 
     void associatorNamesSetting( 
-     const char *nsp,
-     const Linux_DnsServiceInstanceName& sourceInst,
-     Linux_DnsAddressMatchListInstanceNameEnumeration& instanceNames);
+      const char *aNameSpaceP,
+      const Linux_DnsServiceInstanceName& aSourceInstanceName,
+      Linux_DnsAddressMatchListInstanceNameEnumeration& anInstanceNameEnumeration);
 
-     
-    private:
-    CmpiBroker  broker;
-    CmpiContext context;
+    void associatorsElement( 
+      const char *aNameSpaceP,
+      const char** aPropertiesPP,
+      const Linux_DnsAddressMatchListInstanceName& aSourceInstanceName,
+      Linux_DnsServiceInstanceEnumeration& anInstanceEnumeration);
+
+    void associatorNamesElement( 
+      const char *aNameSpaceP,
+      const Linux_DnsAddressMatchListInstanceName& aSourceInstanceName,
+      Linux_DnsServiceInstanceNameEnumeration& anInstanceNameEnumeration); 
+  
   };
+
 }
+
 #endif

@@ -1,22 +1,28 @@
- /**
- * Linux_DnsBlackholeACLForServiceRepositoryInstance.h
- *
- * (C) Copyright IBM Corp. 2005
- *
- * THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
- * ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE
- * CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
- *
- * You can obtain a current copy of the Common Public License from
- * http://www.opensource.org/licenses/cpl1.0.php
- *
- * author:     Murillo Bernardes <bernarde@br.ibm.com>
- *
- * Contributors:
- *
- */
+// =======================================================================
+// Linux_DnsBlackholeACLForServiceRepositoryInstance.h
+//     created on Fri, 3 Mar 2006 using ECUTE
+// 
+// Copyright (c) 2006, International Business Machines
+//
+// THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
+// ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE 
+// CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
+//
+// You can obtain a current copy of the Common Public License from
+// http://oss.software.ibm.com/developerworks/opensource/license-cpl.html
+//
+// Author:        generated
+//
+// Contributors:
+//                Murillo Bernardes <bernarde@br.ibm.com>
+//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//
+// =======================================================================
+//
+// 
 #ifndef Linux_DnsBlackholeACLForServiceRepositoryInstance_h
 #define Linux_DnsBlackholeACLForServiceRepositoryInstance_h
+
 
 #include "cmpidt.h"
 #include "CmpiObjectPath.h"
@@ -27,79 +33,76 @@
 
 #include "Linux_DnsBlackholeACLForServiceInstanceName.h"
 
+
 namespace genProvider {
 
   class Linux_DnsBlackholeACLForServiceRepositoryInstance {
-  public:
-       Linux_DnsBlackholeACLForServiceRepositoryInstance();
-  	
-       Linux_DnsBlackholeACLForServiceRepositoryInstance
-  	    (const Linux_DnsBlackholeACLForServiceRepositoryInstance& original);
-  	   
-       Linux_DnsBlackholeACLForServiceRepositoryInstance
-        (const CmpiInstance& inst, const char* instanceNamespace);
-  	 
-       ~Linux_DnsBlackholeACLForServiceRepositoryInstance();
        
-       Linux_DnsBlackholeACLForServiceRepositoryInstance& operator=
-  	    (const Linux_DnsBlackholeACLForServiceRepositoryInstance& original);
+    private:
+    void init();
+    void init(const Linux_DnsBlackholeACLForServiceRepositoryInstance& anInstance);
+    void reset();
        
-       CmpiInstance getCmpiInstance(const char** properties=0) const;
+    Linux_DnsBlackholeACLForServiceInstanceName m_instanceName;
        
-       unsigned int isInstanceNameSet() const;
-       void setInstanceName(
-        const Linux_DnsBlackholeACLForServiceInstanceName& val);        
-       const Linux_DnsBlackholeACLForServiceInstanceName&
-        getInstanceName() const;
+    struct isSetType{
+      unsigned int instanceName:1;
+
+    } isSet;
+    
+    public:
+    Linux_DnsBlackholeACLForServiceRepositoryInstance();
+    Linux_DnsBlackholeACLForServiceRepositoryInstance(
+      const Linux_DnsBlackholeACLForServiceRepositoryInstance& anInstance);
+    Linux_DnsBlackholeACLForServiceRepositoryInstance(
+      const CmpiInstance& aCmpiInstance, 
+      const char* anInstanceNamespaceP);
+    ~Linux_DnsBlackholeACLForServiceRepositoryInstance();
        
-  private:
-       void init();
-       void init(const Linux_DnsBlackholeACLForServiceRepositoryInstance& original);
-       void reset();
+    Linux_DnsBlackholeACLForServiceRepositoryInstance& operator=(
+      const Linux_DnsBlackholeACLForServiceRepositoryInstance& anInstance);
        
-       Linux_DnsBlackholeACLForServiceInstanceName m_instanceName;
-       
-       struct isSetType{
-       	 unsigned int instanceName:1;
-       } isSet;
+    CmpiInstance getCmpiInstance(const char** aPropertiesPP = 0) const;
+    unsigned int isInstanceNameSet() const;
+    void setInstanceName(const Linux_DnsBlackholeACLForServiceInstanceName& anInstanceName);        
+    const Linux_DnsBlackholeACLForServiceInstanceName& getInstanceName() const;
+
+
   };
   
-  
-  struct Linux_DnsBlackholeACLForServiceRepositoryInstanceEnumerationElement{
-  	Linux_DnsBlackholeACLForServiceRepositoryInstance* m_elementP;
-  	Linux_DnsBlackholeACLForServiceRepositoryInstanceEnumerationElement* m_nextP;
-  	
-  	Linux_DnsBlackholeACLForServiceRepositoryInstanceEnumerationElement();
-  	~Linux_DnsBlackholeACLForServiceRepositoryInstanceEnumerationElement();  	
+  struct Linux_DnsBlackholeACLForServiceRepositoryInstanceEnumerationElement {
+
+    Linux_DnsBlackholeACLForServiceRepositoryInstance* m_elementP;
+    Linux_DnsBlackholeACLForServiceRepositoryInstanceEnumerationElement* m_nextP;
+
+    Linux_DnsBlackholeACLForServiceRepositoryInstanceEnumerationElement();
+    ~Linux_DnsBlackholeACLForServiceRepositoryInstanceEnumerationElement();  
+
   };
   
 
   class Linux_DnsBlackholeACLForServiceRepositoryInstanceEnumeration {
-  	private:
-  	  Linux_DnsBlackholeACLForServiceRepositoryInstanceEnumerationElement* firstElementP;
-  	  Linux_DnsBlackholeACLForServiceRepositoryInstanceEnumerationElement* currentElementP;
-  	  Linux_DnsBlackholeACLForServiceRepositoryInstanceEnumerationElement* endElementP;
-  	
-  	public:
-  	  Linux_DnsBlackholeACLForServiceRepositoryInstanceEnumeration();
-  	  
-  	  Linux_DnsBlackholeACLForServiceRepositoryInstanceEnumeration(
-  	   const Linux_DnsBlackholeACLForServiceRepositoryInstanceEnumeration& original);
-  	  
-  	  ~Linux_DnsBlackholeACLForServiceRepositoryInstanceEnumeration();
-  	  
-  	  void reset();
-  	  
-  	  bool hasNext() const;
-  	  
-  	  const Linux_DnsBlackholeACLForServiceRepositoryInstance& getNext();
-  	  
-  	  int getSize() const;
-  	  
-  	  const Linux_DnsBlackholeACLForServiceRepositoryInstance& getElement(int pos) const;  	  
-  	  
-  	 void addElement(const Linux_DnsBlackholeACLForServiceRepositoryInstance& elementP);
-  };
-}
-#endif
 
+    private:
+    Linux_DnsBlackholeACLForServiceRepositoryInstanceEnumerationElement* m_firstElementP;
+    Linux_DnsBlackholeACLForServiceRepositoryInstanceEnumerationElement* m_currentElementP;
+    Linux_DnsBlackholeACLForServiceRepositoryInstanceEnumerationElement* m_endElementP;
+
+    public:
+    Linux_DnsBlackholeACLForServiceRepositoryInstanceEnumeration();
+    Linux_DnsBlackholeACLForServiceRepositoryInstanceEnumeration(
+      const Linux_DnsBlackholeACLForServiceRepositoryInstanceEnumeration& anInstanceEnumeration);
+    ~Linux_DnsBlackholeACLForServiceRepositoryInstanceEnumeration();
+
+    void reset();
+    bool hasNext() const;
+    const Linux_DnsBlackholeACLForServiceRepositoryInstance& getNext();
+    int getSize() const;
+    const Linux_DnsBlackholeACLForServiceRepositoryInstance& getElement(int anIndex) const;  	  
+    void addElement(const Linux_DnsBlackholeACLForServiceRepositoryInstance& anInstance);
+
+  };
+
+}
+
+#endif

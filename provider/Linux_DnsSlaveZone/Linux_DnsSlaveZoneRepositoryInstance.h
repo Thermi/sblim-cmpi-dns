@@ -1,22 +1,28 @@
- /**
- * Linux_DnsSlaveZoneRepositoryInstance.h
- *
- * (C) Copyright IBM Corp. 2005
- *
- * THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
- * ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE
- * CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
- *
- * You can obtain a current copy of the Common Public License from
- * http://www.opensource.org/licenses/cpl1.0.php
- *
- * author:     Murillo Bernardes <bernarde@br.ibm.com>
- *
- * Contributors:
- *
- */
+// =======================================================================
+// Linux_DnsSlaveZoneRepositoryInstance.h
+//     created on Fri, 3 Mar 2006 using ECUTE
+// 
+// Copyright (c) 2006, International Business Machines
+//
+// THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
+// ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE 
+// CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
+//
+// You can obtain a current copy of the Common Public License from
+// http://oss.software.ibm.com/developerworks/opensource/license-cpl.html
+//
+// Author:        generated
+//
+// Contributors:
+//                Murillo Bernardes <bernarde@br.ibm.com>
+//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//
+// =======================================================================
+//
+// 
 #ifndef Linux_DnsSlaveZoneRepositoryInstance_h
 #define Linux_DnsSlaveZoneRepositoryInstance_h
+
 
 #include "cmpidt.h"
 #include "CmpiObjectPath.h"
@@ -27,79 +33,76 @@
 
 #include "Linux_DnsSlaveZoneInstanceName.h"
 
+
 namespace genProvider {
 
   class Linux_DnsSlaveZoneRepositoryInstance {
-  public:
-       Linux_DnsSlaveZoneRepositoryInstance();
-  	
-       Linux_DnsSlaveZoneRepositoryInstance
-  	    (const Linux_DnsSlaveZoneRepositoryInstance& original);
-  	   
-       Linux_DnsSlaveZoneRepositoryInstance
-        (const CmpiInstance& inst, const char* instanceNamespace);
-  	 
-       ~Linux_DnsSlaveZoneRepositoryInstance();
        
-       Linux_DnsSlaveZoneRepositoryInstance& operator=
-  	    (const Linux_DnsSlaveZoneRepositoryInstance& original);
+    private:
+    void init();
+    void init(const Linux_DnsSlaveZoneRepositoryInstance& anInstance);
+    void reset();
        
-       CmpiInstance getCmpiInstance(const char** properties=0) const;
+    Linux_DnsSlaveZoneInstanceName m_instanceName;
        
-       unsigned int isInstanceNameSet() const;
-       void setInstanceName(
-        const Linux_DnsSlaveZoneInstanceName& val);        
-       const Linux_DnsSlaveZoneInstanceName&
-        getInstanceName() const;
+    struct isSetType{
+      unsigned int instanceName:1;
+
+    } isSet;
+    
+    public:
+    Linux_DnsSlaveZoneRepositoryInstance();
+    Linux_DnsSlaveZoneRepositoryInstance(
+      const Linux_DnsSlaveZoneRepositoryInstance& anInstance);
+    Linux_DnsSlaveZoneRepositoryInstance(
+      const CmpiInstance& aCmpiInstance, 
+      const char* anInstanceNamespaceP);
+    ~Linux_DnsSlaveZoneRepositoryInstance();
        
-  private:
-       void init();
-       void init(const Linux_DnsSlaveZoneRepositoryInstance& original);
-       void reset();
+    Linux_DnsSlaveZoneRepositoryInstance& operator=(
+      const Linux_DnsSlaveZoneRepositoryInstance& anInstance);
        
-       Linux_DnsSlaveZoneInstanceName m_instanceName;
-       
-       struct isSetType{
-       	 unsigned int instanceName:1;
-       } isSet;
+    CmpiInstance getCmpiInstance(const char** aPropertiesPP = 0) const;
+    unsigned int isInstanceNameSet() const;
+    void setInstanceName(const Linux_DnsSlaveZoneInstanceName& anInstanceName);        
+    const Linux_DnsSlaveZoneInstanceName& getInstanceName() const;
+
+
   };
   
-  
-  struct Linux_DnsSlaveZoneRepositoryInstanceEnumerationElement{
-  	Linux_DnsSlaveZoneRepositoryInstance* m_elementP;
-  	Linux_DnsSlaveZoneRepositoryInstanceEnumerationElement* m_nextP;
-  	
-  	Linux_DnsSlaveZoneRepositoryInstanceEnumerationElement();
-  	~Linux_DnsSlaveZoneRepositoryInstanceEnumerationElement();  	
+  struct Linux_DnsSlaveZoneRepositoryInstanceEnumerationElement {
+
+    Linux_DnsSlaveZoneRepositoryInstance* m_elementP;
+    Linux_DnsSlaveZoneRepositoryInstanceEnumerationElement* m_nextP;
+
+    Linux_DnsSlaveZoneRepositoryInstanceEnumerationElement();
+    ~Linux_DnsSlaveZoneRepositoryInstanceEnumerationElement();  
+
   };
   
 
   class Linux_DnsSlaveZoneRepositoryInstanceEnumeration {
-  	private:
-  	  Linux_DnsSlaveZoneRepositoryInstanceEnumerationElement* firstElementP;
-  	  Linux_DnsSlaveZoneRepositoryInstanceEnumerationElement* currentElementP;
-  	  Linux_DnsSlaveZoneRepositoryInstanceEnumerationElement* endElementP;
-  	
-  	public:
-  	  Linux_DnsSlaveZoneRepositoryInstanceEnumeration();
-  	  
-  	  Linux_DnsSlaveZoneRepositoryInstanceEnumeration(
-  	   const Linux_DnsSlaveZoneRepositoryInstanceEnumeration& original);
-  	  
-  	  ~Linux_DnsSlaveZoneRepositoryInstanceEnumeration();
-  	  
-  	  void reset();
-  	  
-  	  bool hasNext() const;
-  	  
-  	  const Linux_DnsSlaveZoneRepositoryInstance& getNext();
-  	  
-  	  int getSize() const;
-  	  
-  	  const Linux_DnsSlaveZoneRepositoryInstance& getElement(int pos) const;  	  
-  	  
-  	 void addElement(const Linux_DnsSlaveZoneRepositoryInstance& elementP);
-  };
-}
-#endif
 
+    private:
+    Linux_DnsSlaveZoneRepositoryInstanceEnumerationElement* m_firstElementP;
+    Linux_DnsSlaveZoneRepositoryInstanceEnumerationElement* m_currentElementP;
+    Linux_DnsSlaveZoneRepositoryInstanceEnumerationElement* m_endElementP;
+
+    public:
+    Linux_DnsSlaveZoneRepositoryInstanceEnumeration();
+    Linux_DnsSlaveZoneRepositoryInstanceEnumeration(
+      const Linux_DnsSlaveZoneRepositoryInstanceEnumeration& anInstanceEnumeration);
+    ~Linux_DnsSlaveZoneRepositoryInstanceEnumeration();
+
+    void reset();
+    bool hasNext() const;
+    const Linux_DnsSlaveZoneRepositoryInstance& getNext();
+    int getSize() const;
+    const Linux_DnsSlaveZoneRepositoryInstance& getElement(int anIndex) const;  	  
+    void addElement(const Linux_DnsSlaveZoneRepositoryInstance& anInstance);
+
+  };
+
+}
+
+#endif

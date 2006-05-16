@@ -1,20 +1,25 @@
- /**
- * Linux_DnsServiceDefaultImplementation.h
- *
- * (C) Copyright IBM Corp. 2005
- *
- * THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
- * ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE
- * CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
- *
- * You can obtain a current copy of the Common Public License from
- * http://www.opensource.org/licenses/cpl1.0.php
- *
- * author:     Murillo Bernardes <bernarde@br.ibm.com>
- *
- * Contributors:
- *
- */
+// =======================================================================
+// Linux_DnsServiceDefaultImplementation.h
+//     created on Fri, 3 Mar 2006 using ECUTE
+// 
+// Copyright (c) 2006, International Business Machines
+//
+// THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
+// ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE 
+// CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
+//
+// You can obtain a current copy of the Common Public License from
+// http://oss.software.ibm.com/developerworks/opensource/license-cpl.html
+//
+// Author:        generated
+//
+// Contributors:
+//                Murillo Bernardes <bernarde@br.ibm.com>
+//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//
+// =======================================================================
+//
+// 
 #ifndef Linux_DnsServiceDefaultImplementation_h
 #define Linux_DnsServiceDefaultImplementation_h
 
@@ -27,6 +32,7 @@
 #include "CIM_ConcreteJobInstanceName.h"
 #include "Linux_DnsServiceInterface.h"
 
+
 namespace genProvider {
 
   class Linux_DnsServiceDefaultImplementation:
@@ -36,62 +42,85 @@ namespace genProvider {
     virtual ~Linux_DnsServiceDefaultImplementation() { };
     
     /* intrinsic methods */
+    
     virtual void enumInstanceNames(
-     const CmpiContext& ctx,
-     const CmpiBroker &mbp,
-     const char *nsp,
-     Linux_DnsServiceInstanceNameEnumeration& instnames);
+      const CmpiContext& aContext,
+      const CmpiBroker& aBroker,
+      const char* aNameSpaceP,
+      Linux_DnsServiceInstanceNameEnumeration& anInstanceNameEnumeration);
+    
   	
+    
     virtual void enumInstances(
-     const CmpiContext& ctx,
-     const CmpiBroker &mbp,
-     const char *nsp,
-     const char* *properties,
-  	 Linux_DnsServiceManualInstanceEnumeration& instances);
+      const CmpiContext& aContext,
+      const CmpiBroker& aBroker,
+      const char* aNameSpaceP,
+      const char** aPropertiesPP,
+  	  Linux_DnsServiceManualInstanceEnumeration& aManualInstanceEnumeration);
   	
+  	
+    
     virtual Linux_DnsServiceManualInstance getInstance(
-     const CmpiContext& ctx,
-     const CmpiBroker &mbp,
-     const char* *properties,
-     const Linux_DnsServiceInstanceName&);
+      const CmpiContext& aContext,
+      const CmpiBroker& aBroker,
+      const char** aPropertiesPP,
+      const Linux_DnsServiceInstanceName& anInstanceName);
+    
   	
+    
     virtual void setInstance(
-     const CmpiContext& ctx,
-     const CmpiBroker &mbp,
-     const char* *properties,
-     const Linux_DnsServiceManualInstance&);
+      const CmpiContext& aContext,
+      const CmpiBroker& aBroker,
+      const char** aPropertiesPP,
+      const Linux_DnsServiceManualInstance& aManualInstance);
+    
   	
-    virtual void createInstance(
-     const CmpiContext& ctx,
-     const CmpiBroker &mbp,
-     const Linux_DnsServiceManualInstance&);
+    
+    virtual Linux_DnsServiceInstanceName createInstance(
+      const CmpiContext& aContext,
+      const CmpiBroker& aBroker,
+      const Linux_DnsServiceManualInstance& aManualInstance);
+    
   	
+    
     virtual void deleteInstance(
-     const CmpiContext& ctx,
-     const CmpiBroker &mbp,
-     const Linux_DnsServiceInstanceName&);
+      const CmpiContext& aContext,
+      const CmpiBroker& aBroker,
+      const Linux_DnsServiceInstanceName& anInstanceName);
+    
 	
     
+    
     /* extrinsic methods */
-
+    
+    
     virtual CMPIUint32 RequestStateChange(
-     const CmpiContext& ctx, const CmpiBroker &mbp,
-     const Linux_DnsServiceInstanceName&,
-      const CMPIUint16 &RequestedState,
+      const CmpiContext& aContext,
+      const CmpiBroker& aBroker,
+      const Linux_DnsServiceInstanceName& anInstanceName,
+      const CMPIUint16& RequestedState,
       int isRequestedStatePresent,
-      CIM_ConcreteJobInstanceName &Job,
-      const CmpiDateTime &TimeoutPeriod,
+      CIM_ConcreteJobInstanceName& Job,
+      const CmpiDateTime& TimeoutPeriod,
       int isTimeoutPeriodPresent);
+    
 
+    
     virtual CMPIUint32 StartService(
-     const CmpiContext& ctx, const CmpiBroker &mbp,
-     const Linux_DnsServiceInstanceName&);
+      const CmpiContext& aContext,
+      const CmpiBroker& aBroker,
+      const Linux_DnsServiceInstanceName& anInstanceName);
+    
 
+    
     virtual CMPIUint32 StopService(
-     const CmpiContext& ctx, const CmpiBroker &mbp,
-     const Linux_DnsServiceInstanceName&);
+      const CmpiContext& aContext,
+      const CmpiBroker& aBroker,
+      const Linux_DnsServiceInstanceName& anInstanceName);
+    
+
 	
   };
+  
 }
 #endif
-

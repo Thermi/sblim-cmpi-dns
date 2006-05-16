@@ -1,20 +1,25 @@
- /**
- * Linux_DnsSettingContextInstanceName.cpp
- *
- * (C) Copyright IBM Corp. 2005
- *
- * THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
- * ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE
- * CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
- *
- * You can obtain a current copy of the Common Public License from
- * http://www.opensource.org/licenses/cpl1.0.php
- *
- * author:     Murillo Bernardes <bernarde@br.ibm.com>
- *
- * Contributors:
- *
- */
+// =======================================================================
+// Linux_DnsSettingContextInstanceName.cpp
+//     created on Fri, 3 Mar 2006 using ECUTE
+// 
+// Copyright (c) 2006, International Business Machines
+//
+// THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
+// ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE 
+// CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
+//
+// You can obtain a current copy of the Common Public License from
+// http://oss.software.ibm.com/developerworks/opensource/license-cpl.html
+//
+// Author:        generated
+//
+// Contributors:
+//                Murillo Bernardes <bernarde@br.ibm.com>
+//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//
+// =======================================================================
+//
+// 
 #include "Linux_DnsSettingContextInstanceName.h"
 #include "CmpiData.h"
 #include "CmpiString.h"
@@ -23,344 +28,411 @@
 
 namespace genProvider {
 	
-  //*********************************************************
+  //****************************************************************************
   //Linux_DnsSettingContextInstanceName
-  //*********************************************************
-  
-  //empty constructor
-  Linux_DnsSettingContextInstanceName::
-   Linux_DnsSettingContextInstanceName(){
+  //---------------------------------------------------------------------------- 
+  // empty constructor
+  //---------------------------------------------------------------------------- 
+  Linux_DnsSettingContextInstanceName::Linux_DnsSettingContextInstanceName() {
    	init();  	
-  };
+  }
   
+  //---------------------------------------------------------------------------- 
+  // copy constructor	
+  //---------------------------------------------------------------------------- 
+  Linux_DnsSettingContextInstanceName::Linux_DnsSettingContextInstanceName(
+    const Linux_DnsSettingContextInstanceName& anInstanceName) {
+   	init(anInstanceName);  	
+  }
   
-  //copy constructor	
-  Linux_DnsSettingContextInstanceName::
-   Linux_DnsSettingContextInstanceName
-   (const Linux_DnsSettingContextInstanceName& original){
-   	init(original);  	
-  };
-  
-  
-  //contructor using CmpiObjectPath
-  Linux_DnsSettingContextInstanceName::
-   Linux_DnsSettingContextInstanceName (const CmpiObjectPath& path){
+  //---------------------------------------------------------------------------- 
+  // constructor using CmpiObjectPath
+  //---------------------------------------------------------------------------- 
+  Linux_DnsSettingContextInstanceName::Linux_DnsSettingContextInstanceName(
+    const CmpiObjectPath& path) {
     
     init();
     
-    m_CIMClassNameP=path.getClassName().charPtr();
+    m_CIMClassNameP = path.getClassName().charPtr();
     
-    CmpiString namespaceOP;
-    namespaceOP=path.getNameSpace();
-    setNamespace(namespaceOP.charPtr(),1);
-    
-    CmpiObjectPath Context = path.getKey("Context");
-    setContext(Linux_DnsConfigurationInstanceName(Context));
-    
+    CmpiString namespaceP;
+    namespaceP = path.getNameSpace();
+    setNamespace(namespaceP.charPtr(),1);
+        
     CmpiObjectPath Setting = path.getKey("Setting");
     setSetting(Linux_DnsSettingInstanceName(Setting));
     
+    CmpiObjectPath Context = path.getKey("Context");
+    setContext(Linux_DnsConfigurationInstanceName(Context));
+
+    
   }
   
-  
-  //destructor
-  Linux_DnsSettingContextInstanceName::
-   ~Linux_DnsSettingContextInstanceName(){
+  //---------------------------------------------------------------------------- 
+  // destructor
+  //---------------------------------------------------------------------------- 
+  Linux_DnsSettingContextInstanceName::~Linux_DnsSettingContextInstanceName() {
    	reset();  	  
-  };
-  
-  
-  //copy operator
-  Linux_DnsSettingContextInstanceName&
-   Linux_DnsSettingContextInstanceName::operator=
-   (const Linux_DnsSettingContextInstanceName& original){    
-    init(original);
-   	return *this;    
   }
   
+  //---------------------------------------------------------------------------- 
+  //copy operator
+  //---------------------------------------------------------------------------- 
+  Linux_DnsSettingContextInstanceName&
+  Linux_DnsSettingContextInstanceName::operator=(
+    const Linux_DnsSettingContextInstanceName& anInstanceName) {    
+    
+    init(anInstanceName);
+   	return *this;    
   
+  }
+  
+  //---------------------------------------------------------------------------- 
   //returns the related CmpiObjectPath
-  CmpiObjectPath Linux_DnsSettingContextInstanceName::
-   getObjectPath() const{
+  //---------------------------------------------------------------------------- 
+  CmpiObjectPath 
+  Linux_DnsSettingContextInstanceName::getObjectPath() const {
    	
-   	CmpiObjectPath objectPath(m_namespace, m_CIMClassNameP);
+   	CmpiObjectPath objectPath(m_nameSpaceP, m_CIMClassNameP);
+   	  	objectPath.setKey(
+  	  "Setting",
+  	  CmpiData(m_Setting.getObjectPath()));
+  	objectPath.setKey(
+  	  "Context",
+  	  CmpiData(m_Context.getObjectPath()));
 
-  	objectPath.setKey("Context",CmpiData(m_Context.getObjectPath()));
-
-  	objectPath.setKey("Setting",CmpiData(m_Setting.getObjectPath()));
   	
   	return objectPath;
   	
   }
   
-  
-  //adds the related CmpiObjectPath to an existing cmpiInstance
-  void Linux_DnsSettingContextInstanceName::fillKeys(CmpiInstance& cmpiInstance) const{
+  //---------------------------------------------------------------------------- 
+  // adds the related CmpiObjectPath to an existing cmpiInstance
+  //---------------------------------------------------------------------------- 
+  void 
+  Linux_DnsSettingContextInstanceName::fillKeys(CmpiInstance& cmpiInstance) const {
   	
-
-  	if(isSet.Context){
-  	  cmpiInstance.setProperty("Context",CmpiData(m_Context.getObjectPath()));
+  	if (isSet.Setting) {
+  	  
+  	  cmpiInstance.setProperty(
+  	    "Setting",
+  	    CmpiData(m_Setting.getObjectPath()));
   	}
 
-  	if(isSet.Setting){
-  	  cmpiInstance.setProperty("Setting",CmpiData(m_Setting.getObjectPath()));
+  	if (isSet.Context) {
+  	  
+  	  cmpiInstance.setProperty(
+  	    "Context",
+  	    CmpiData(m_Context.getObjectPath()));
   	}
+
   }
   
   
-  //NameSpace related methods
-  unsigned int Linux_DnsSettingContextInstanceName::
-   isNameSpaceSet() const{
-  	return isSet.m_namespace;
+  //---------------------------------------------------------------------------- 
+  // NameSpace related methods
+  //---------------------------------------------------------------------------- 
+  unsigned int 
+  Linux_DnsSettingContextInstanceName::isNameSpaceSet() const {
+  	return isSet.m_nameSpaceP;
   }
   
-  const char * Linux_DnsSettingContextInstanceName::
-   getNamespace() const {
-    if(!isSet.m_namespace)
+  //---------------------------------------------------------------------------- 
+  const char* 
+  Linux_DnsSettingContextInstanceName::getNamespace() const {
+    if ( ! isSet.m_nameSpaceP) {
    	  throw CmpiErrorFormater::getErrorException(
    	   CmpiErrorFormater::NOT_SET,
-   	   "NameSpace not set in Linux_DnsSettingContext instanceName");
-  	return m_namespace;
+   	   "NameSpace",
+   	   "Linux_DnsSettingContext");
+   	}
+  	return m_nameSpaceP;
   }
 
-  void Linux_DnsSettingContextInstanceName::
-   setNamespace(const char* val, int makeCopy){
-    if (isSet.m_namespace) {
-      delete m_namespace;
+  //---------------------------------------------------------------------------- 
+  void
+  Linux_DnsSettingContextInstanceName::setNamespace(
+    const char* aNameSpaceP,
+    int aCopyFlag) {
+  
+    if (isSet.m_nameSpaceP) {
+      delete m_nameSpaceP;
     }
-    if (makeCopy&&val) {
-      char* tmpval = new char[strlen(val)+1];
-      strcpy(tmpval,val);
-      m_namespace = tmpval;
-    } else {
-      m_namespace = val;
-    }
-    isSet.m_namespace=1;
-  }
-       
-  //Context related methods
-  unsigned int Linux_DnsSettingContextInstanceName::isContextSet() const{
-    return isSet.Context;
-  }
-  void Linux_DnsSettingContextInstanceName::
-   setContext(const Linux_DnsConfigurationInstanceName& val){
-    m_Context = val;
-    isSet.Context=1;
-  }       
-  const Linux_DnsConfigurationInstanceName& Linux_DnsSettingContextInstanceName::
-   getContext() const{
     
-    if(!isSet.Context)
-   	  throw CmpiErrorFormater::getErrorException(
-   	   CmpiErrorFormater::NOT_SET,
-   	   "Context not set");
-   	   	
-    return m_Context;
+    if (aCopyFlag && aNameSpaceP) {
+      char* nameSpaceP = new char[strlen(aNameSpaceP) + 1];
+      strcpy(nameSpaceP,aNameSpaceP);
+      m_nameSpaceP = nameSpaceP;
+    } else {
+      m_nameSpaceP = aNameSpaceP;
+    }
+    
+    isSet.m_nameSpaceP = 1;
   }
-       
-  //Setting related methods
-  unsigned int Linux_DnsSettingContextInstanceName::isSettingSet() const{
+         
+  //----------------------------------------------------------------------------
+  // Setting related methods
+  //----------------------------------------------------------------------------
+  unsigned int
+  Linux_DnsSettingContextInstanceName::isSettingSet() const {
     return isSet.Setting;
   }
-  void Linux_DnsSettingContextInstanceName::
-   setSetting(const Linux_DnsSettingInstanceName& val){
-    m_Setting = val;
-    isSet.Setting=1;
+
+  //----------------------------------------------------------------------------
+  void Linux_DnsSettingContextInstanceName::setSetting(
+    const Linux_DnsSettingInstanceName& aValue) {
+  
+    m_Setting = aValue;
+    isSet.Setting = 1;
+  
   }       
-  const Linux_DnsSettingInstanceName& Linux_DnsSettingContextInstanceName::
-   getSetting() const{
+
+  //----------------------------------------------------------------------------
+  const Linux_DnsSettingInstanceName&
+  Linux_DnsSettingContextInstanceName::getSetting() const {
     
-    if(!isSet.Setting)
+    if ( ! isSet.Setting) {
    	  throw CmpiErrorFormater::getErrorException(
-   	   CmpiErrorFormater::NOT_SET,
-   	   "Setting not set");
-   	   	
+   	    CmpiErrorFormater::NOT_SET,
+        "Setting",
+        "Linux_DnsSettingContext");
+   	}
+
+
     return m_Setting;
+
+  }
+       
+  //----------------------------------------------------------------------------
+  // Context related methods
+  //----------------------------------------------------------------------------
+  unsigned int
+  Linux_DnsSettingContextInstanceName::isContextSet() const {
+    return isSet.Context;
   }
 
+  //----------------------------------------------------------------------------
+  void Linux_DnsSettingContextInstanceName::setContext(
+    const Linux_DnsConfigurationInstanceName& aValue) {
   
-  //set isSet variables to FALSE
-  void Linux_DnsSettingContextInstanceName::init(){
+    m_Context = aValue;
+    isSet.Context = 1;
+  
+  }       
+
+  //----------------------------------------------------------------------------
+  const Linux_DnsConfigurationInstanceName&
+  Linux_DnsSettingContextInstanceName::getContext() const {
+    
+    if ( ! isSet.Context) {
+   	  throw CmpiErrorFormater::getErrorException(
+   	    CmpiErrorFormater::NOT_SET,
+        "Context",
+        "Linux_DnsSettingContext");
+   	}
+
+
+    return m_Context;
+
+  }
+
+
+  //---------------------------------------------------------------------------- 
+  void 
+  Linux_DnsSettingContextInstanceName::init() {
   	
-  	m_CIMClassNameP="Linux_DnsSettingContext";
-  	isSet.m_namespace=0;    	
-    isSet.Context=0;   	
-    isSet.Setting=0;
+  	m_CIMClassNameP = "Linux_DnsSettingContext";
+  	isSet.m_nameSpaceP = 0; 
+  	    isSet.Setting = 0;
+    isSet.Context = 0;
+
+  	
   }
   
-  
+  //---------------------------------------------------------------------------- 
   //copies another instance properties in this
-  void Linux_DnsSettingContextInstanceName::init
-   (const Linux_DnsSettingContextInstanceName& original){
+  //---------------------------------------------------------------------------- 
+  void 
+  Linux_DnsSettingContextInstanceName::init(
+    const Linux_DnsSettingContextInstanceName& anOriginal) {
+   	
    	init();
    	   	
-    m_CIMClassNameP=original.m_CIMClassNameP;
-    if(original.isNameSpaceSet()){
-      setNamespace(original.getNamespace(),1);
-    }   	
-    if(original.isContextSet()){
-      const Linux_DnsConfigurationInstanceName& ContextOriginal=original.getContext();
-      setContext(ContextOriginal);
-    }   	
-    if(original.isSettingSet()){
-      const Linux_DnsSettingInstanceName& SettingOriginal=original.getSetting();
-      setSetting(SettingOriginal);
-    }    
-  }
-  
-  //reset the instanceName data
-  void Linux_DnsSettingContextInstanceName::reset(){   	
-  	if (isSet.m_namespace)
-  	  delete(m_namespace);  	  
-  };
-  
-  
-  
-  
-  //*********************************************************
-  //Linux_DnsSettingContextInstanceNameEnumerationElement	
-  //*********************************************************
-  
-  Linux_DnsSettingContextInstanceNameEnumerationElement::
-   Linux_DnsSettingContextInstanceNameEnumerationElement(){
-   	
-  	m_elementP=0;
-  	m_nextP=0;
-  	  
-  };
-  
-  
-  Linux_DnsSettingContextInstanceNameEnumerationElement::
-   ~Linux_DnsSettingContextInstanceNameEnumerationElement(){
-   	
-  	if (m_elementP!=0)
-  	  delete(m_elementP);
-  	if (m_nextP!=0)
-  	  delete(m_nextP);
-  	  
-  };
-
-  
-  //*********************************************************
-  //Linux_DnsSettingContextInstanceNameEnumeration
-  //*********************************************************
-  
-  Linux_DnsSettingContextInstanceNameEnumeration::
-   Linux_DnsSettingContextInstanceNameEnumeration(){
-   	
-  	 firstElementP=0;
-     currentElementP=0;
-     endElementP=0;
-  };
-  
-  Linux_DnsSettingContextInstanceNameEnumeration::
-   Linux_DnsSettingContextInstanceNameEnumeration(const CmpiArray& arr){
-  	
-  	firstElementP=0;
-    currentElementP=0;
-    endElementP=0;
-    
-    int size = arr.size();
-    for (int i=0; i < size; i++) {
-     addElement(Linux_DnsSettingContextInstanceName(arr[i]));
+    m_CIMClassNameP = anOriginal.m_CIMClassNameP;
+    if (anOriginal.isNameSpaceSet()){
+      setNamespace(anOriginal.getNamespace(),1);
     }
+       	
+    if (anOriginal.isSettingSet()) {
+      const Linux_DnsSettingInstanceName& SettingOriginal = anOriginal.getSetting();
+      setSetting(SettingOriginal);
+    }
+   	
+    if (anOriginal.isContextSet()) {
+      const Linux_DnsConfigurationInstanceName& ContextOriginal = anOriginal.getContext();
+      setContext(ContextOriginal);
+    }
+    
+  
   }
   
-  Linux_DnsSettingContextInstanceNameEnumeration::
-   Linux_DnsSettingContextInstanceNameEnumeration(
-   const Linux_DnsSettingContextInstanceNameEnumeration& original){
+  //---------------------------------------------------------------------------- 
+  void
+  Linux_DnsSettingContextInstanceName::reset() {
+  	if (isSet.m_nameSpaceP) {
+  	  delete(m_nameSpaceP);
+  	}
+  	  	  
+  }
+  
+  //---------------------------------------------------------------------------- 
+  Linux_DnsSettingContextInstanceNameEnumerationElement::Linux_DnsSettingContextInstanceNameEnumerationElement() {
+  	m_elementP = 0;
+  	m_nextP = 0; 
+  }
+  
+  //---------------------------------------------------------------------------- 
+  Linux_DnsSettingContextInstanceNameEnumerationElement::~Linux_DnsSettingContextInstanceNameEnumerationElement() {
    	
-     firstElementP=0;
-     currentElementP=0;
-     endElementP=0;
+  	if (m_elementP) {
+  	  delete(m_elementP);
+  	}
+  	if (m_nextP) {
+  	  delete(m_nextP);
+  	}
+  	  
+  }
+  
+  //---------------------------------------------------------------------------- 
+  Linux_DnsSettingContextInstanceNameEnumeration::Linux_DnsSettingContextInstanceNameEnumeration() {
+  	 m_firstElementP = 0;
+     m_currentElementP = 0;
+     m_endElementP = 0;
+  }
+  
+  //---------------------------------------------------------------------------- 
+  Linux_DnsSettingContextInstanceNameEnumeration::Linux_DnsSettingContextInstanceNameEnumeration(
+    const CmpiArray& aCmpiArray) {
+  	
+  	m_firstElementP = 0;
+    m_currentElementP = 0;
+    m_endElementP = 0;
+    
+    int size = aCmpiArray.size();
+    for (int x=0; x < size; ++x) {
+      addElement(Linux_DnsSettingContextInstanceName(aCmpiArray[x]));
+    }
+    
+  }
+  
+  //---------------------------------------------------------------------------- 
+  Linux_DnsSettingContextInstanceNameEnumeration::Linux_DnsSettingContextInstanceNameEnumeration(
+    const Linux_DnsSettingContextInstanceNameEnumeration& anInstanceNameEnumeration) {
+   	
+    m_firstElementP = 0;
+    m_currentElementP = 0;
+    m_endElementP = 0;
   	 
-     int size=original.getSize();
-     for(int i=0;i<size;i++)
-       addElement(original.getElement(i));           
-  };
-  
+    int size = anInstanceNameEnumeration.getSize();
+    for (int x=0; x < size; ++x) {
+      addElement(anInstanceNameEnumeration.getElement(x));
+    }
+
+  }
   	  
-  Linux_DnsSettingContextInstanceNameEnumeration::
-   ~Linux_DnsSettingContextInstanceNameEnumeration(){
+  //---------------------------------------------------------------------------- 
+  Linux_DnsSettingContextInstanceNameEnumeration::~Linux_DnsSettingContextInstanceNameEnumeration() {
    	
-  	if (firstElementP!=0)
-  	  delete(firstElementP);
+  	if (m_firstElementP) {
+  	  delete(m_firstElementP);
+  	}
   	  	
-  };
-  
-  	  
-  void Linux_DnsSettingContextInstanceNameEnumeration::reset(){
+  }
+
+  //---------------------------------------------------------------------------- 
+  void 
+  Linux_DnsSettingContextInstanceNameEnumeration::reset() {
   	
-  	currentElementP=firstElementP;
-  };
+  	m_currentElementP = m_firstElementP;
   
-  	  
-  bool Linux_DnsSettingContextInstanceNameEnumeration::hasNext() const{
+  }
+
+  //---------------------------------------------------------------------------- 
+  bool 
+  Linux_DnsSettingContextInstanceNameEnumeration::hasNext() const {
   	
-  	return (currentElementP!=0);
+  	return (m_currentElementP != 0);
   
-  };
+  }
   
-  int Linux_DnsSettingContextInstanceNameEnumeration::getSize() const{
+  //---------------------------------------------------------------------------- 
+  int
+  Linux_DnsSettingContextInstanceNameEnumeration::getSize() const {
   	
-    int size=0;
-    Linux_DnsSettingContextInstanceNameEnumerationElement* followingP=firstElementP;
+    int size = 0;
+    Linux_DnsSettingContextInstanceNameEnumerationElement* followingP = m_firstElementP;
   	
-  	while(followingP!=0){
-        followingP=followingP->m_nextP;
-        size++;
+  	while (followingP) {
+      followingP = followingP->m_nextP;
+      ++size;
     }
   	
     return size;
-  };
   
+  }
+  
+  //---------------------------------------------------------------------------- 
   const Linux_DnsSettingContextInstanceName&  
-   Linux_DnsSettingContextInstanceNameEnumeration::getElement(int pos) const{
+   Linux_DnsSettingContextInstanceNameEnumeration::getElement(int anIndex) const {
    
-    Linux_DnsSettingContextInstanceNameEnumerationElement* followingP=firstElementP;
+    Linux_DnsSettingContextInstanceNameEnumerationElement* followingP = m_firstElementP;
    
-    int i=0;
-    while((followingP!=0)&&(i<pos)){
-        followingP=followingP->m_nextP;
-        i++;
+    int x=0;
+    while (followingP && (x < anIndex) ) {
+      followingP = followingP->m_nextP;
+      ++x;
     }
     
     return *(followingP->m_elementP);
-  };
   
-  	  
+  }
+  
+  //---------------------------------------------------------------------------- 
   const Linux_DnsSettingContextInstanceName&
-   Linux_DnsSettingContextInstanceNameEnumeration::getNext() {
+  Linux_DnsSettingContextInstanceNameEnumeration::getNext() {
    	
-  	 Linux_DnsSettingContextInstanceNameEnumerationElement* currentP=
-  	  currentElementP;
-  	 currentElementP=currentElementP->m_nextP;
+  	 Linux_DnsSettingContextInstanceNameEnumerationElement* currentP = m_currentElementP;
+  	 m_currentElementP = m_currentElementP->m_nextP;
   	 
   	 return *(currentP->m_elementP);
-  };
-  	  
-  void Linux_DnsSettingContextInstanceNameEnumeration::addElement
-   (const Linux_DnsSettingContextInstanceName& elementP){
-   	
-  	if(firstElementP==0){
-  	  firstElementP=new Linux_DnsSettingContextInstanceNameEnumerationElement();
-  	  firstElementP->m_elementP=new Linux_DnsSettingContextInstanceName(elementP);
-  	  endElementP=firstElementP;
-  	  currentElementP=firstElementP;
-  	}else{
-  	  endElementP->m_nextP=new Linux_DnsSettingContextInstanceNameEnumerationElement();
-  	  endElementP=endElementP->m_nextP;
-  	  endElementP->m_elementP=new Linux_DnsSettingContextInstanceName(elementP);
-  	}
-  };
   
-  Linux_DnsSettingContextInstanceNameEnumeration::operator CmpiArray() const{
-  	int size=getSize();
-   	CmpiArray arr=CmpiArray(size,CMPI_instance);
-   	for(int i=0;i<size;i++){
-   	  arr[i]=getElement(i).getObjectPath();
+  }
+  	  
+  //---------------------------------------------------------------------------- 
+  void Linux_DnsSettingContextInstanceNameEnumeration::addElement
+   (const Linux_DnsSettingContextInstanceName& anElementP){
+   	
+  	if (m_firstElementP==0) {
+  	  m_firstElementP = new Linux_DnsSettingContextInstanceNameEnumerationElement();
+  	  m_firstElementP->m_elementP = new Linux_DnsSettingContextInstanceName(anElementP);
+  	  m_endElementP = m_firstElementP;
+  	  m_currentElementP = m_firstElementP;
+  	} else {
+  	  m_endElementP->m_nextP = new Linux_DnsSettingContextInstanceNameEnumerationElement();
+  	  m_endElementP = m_endElementP->m_nextP;
+  	  m_endElementP->m_elementP=new Linux_DnsSettingContextInstanceName(anElementP);
+  	}
+
+  }
+  
+  //---------------------------------------------------------------------------- 
+  Linux_DnsSettingContextInstanceNameEnumeration::operator CmpiArray() const {
+  	int size = getSize();
+   	CmpiArray cmpiArray = CmpiArray(size,CMPI_instance);
+   	for (int x=0; x < size; ++x) {
+   	  cmpiArray[x]=getElement(x).getObjectPath();
    	}
-   	return arr;
-  };  
+   	return cmpiArray;
+  }
+  
 }
- 

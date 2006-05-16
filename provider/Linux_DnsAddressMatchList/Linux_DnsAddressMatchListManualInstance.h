@@ -1,22 +1,28 @@
- /**
- * Linux_DnsAddressMatchListManualInstance.h
- *
- * (C) Copyright IBM Corp. 2005
- *
- * THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
- * ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE
- * CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
- *
- * You can obtain a current copy of the Common Public License from
- * http://www.opensource.org/licenses/cpl1.0.php
- *
- * author:     Murillo Bernardes <bernarde@br.ibm.com>
- *
- * Contributors:
- *
- */
+// =======================================================================
+// Linux_DnsAddressMatchListManualInstance.h
+//     created on Fri, 3 Mar 2006 using ECUTE
+// 
+// Copyright (c) 2006, International Business Machines
+//
+// THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
+// ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE 
+// CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
+//
+// You can obtain a current copy of the Common Public License from
+// http://oss.software.ibm.com/developerworks/opensource/license-cpl.html
+//
+// Author:        generated
+//
+// Contributors:
+//                Murillo Bernardes <bernarde@br.ibm.com>
+//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//
+// =======================================================================
+//
+// 
 #ifndef Linux_DnsAddressMatchListManualInstance_h
 #define Linux_DnsAddressMatchListManualInstance_h
+
 
 #include "cmpidt.h"
 #include "CmpiObjectPath.h"
@@ -27,92 +33,89 @@
 
 #include "Linux_DnsAddressMatchListInstanceName.h"
 
+
 namespace genProvider {
 
   class Linux_DnsAddressMatchListManualInstance {
-  public:
-       Linux_DnsAddressMatchListManualInstance();
-  	
-       Linux_DnsAddressMatchListManualInstance
-  	    (const Linux_DnsAddressMatchListManualInstance& original);
-  	   
-       Linux_DnsAddressMatchListManualInstance
-        (const CmpiInstance& inst, const char* instanceNamespace);
-  	 
-       ~Linux_DnsAddressMatchListManualInstance();
        
-       Linux_DnsAddressMatchListManualInstance& operator=
-  	    (const Linux_DnsAddressMatchListManualInstance& original);
+    private:
+    void init();
+    void init(const Linux_DnsAddressMatchListManualInstance& anInstance);
+    void reset();
        
-       CmpiInstance getCmpiInstance(const char** properties=0) const;
+    Linux_DnsAddressMatchListInstanceName m_instanceName;
+    CMPIUint16 m_AddressListType;
+    const char** m_AddressList;
+    unsigned int m_AddressListSize;
        
-       unsigned int isInstanceNameSet() const;
-       void setInstanceName(
-        const Linux_DnsAddressMatchListInstanceName& val);        
-       const Linux_DnsAddressMatchListInstanceName&
-        getInstanceName() const;
+    struct isSetType{
+      unsigned int instanceName:1;
+      unsigned int AddressListType:1;
+      unsigned int AddressList:1;
 
-       unsigned int isAddressListTypeSet() const;
-       void setAddressListType(const CMPIUint16 val);
-       const CMPIUint16 getAddressListType() const;
+    } isSet;
+    
+    public:
+    Linux_DnsAddressMatchListManualInstance();
+    Linux_DnsAddressMatchListManualInstance(
+      const Linux_DnsAddressMatchListManualInstance& anInstance);
+    Linux_DnsAddressMatchListManualInstance(
+      const CmpiInstance& aCmpiInstance, 
+      const char* anInstanceNamespaceP);
+    ~Linux_DnsAddressMatchListManualInstance();
+       
+    Linux_DnsAddressMatchListManualInstance& operator=(
+      const Linux_DnsAddressMatchListManualInstance& anInstance);
+       
+    CmpiInstance getCmpiInstance(const char** aPropertiesPP = 0) const;
+    unsigned int isInstanceNameSet() const;
+    void setInstanceName(const Linux_DnsAddressMatchListInstanceName& anInstanceName);        
+    const Linux_DnsAddressMatchListInstanceName& getInstanceName() const;
 
-       unsigned int isAddressListSet() const;
-       void setAddressList(const char** val, unsigned const int size, int makeCopy = 1);
-       const char** getAddressList(unsigned int& size) const;
-       
-  private:
-       void init();
-       void init(const Linux_DnsAddressMatchListManualInstance& original);
-       void reset();
-       
-       Linux_DnsAddressMatchListInstanceName m_instanceName;
-       CMPIUint16 m_AddressListType;
-       const char** m_AddressList;
-        unsigned int AddressListArraySize;
-       
-       struct isSetType{
-       	 unsigned int instanceName:1;
-         unsigned int AddressListType:1;
-         unsigned int AddressList:1;
-       } isSet;
+    unsigned int isAddressListTypeSet() const;
+    void setAddressListType(const CMPIUint16 aValue);
+    const CMPIUint16 getAddressListType() const;
+
+    unsigned int isAddressListSet() const;
+    void setAddressList(const char** aValue, unsigned const int aSize, int aCopyFlag = 1);
+    const char** getAddressList(unsigned int& aSize) const;
+
+
   };
   
-  
-  struct Linux_DnsAddressMatchListManualInstanceEnumerationElement{
-  	Linux_DnsAddressMatchListManualInstance* m_elementP;
-  	Linux_DnsAddressMatchListManualInstanceEnumerationElement* m_nextP;
-  	
-  	Linux_DnsAddressMatchListManualInstanceEnumerationElement();
-  	~Linux_DnsAddressMatchListManualInstanceEnumerationElement();  	
+  struct Linux_DnsAddressMatchListManualInstanceEnumerationElement {
+
+    Linux_DnsAddressMatchListManualInstance* m_elementP;
+    Linux_DnsAddressMatchListManualInstanceEnumerationElement* m_nextP;
+
+    Linux_DnsAddressMatchListManualInstanceEnumerationElement();
+    ~Linux_DnsAddressMatchListManualInstanceEnumerationElement();  
+
   };
   
 
   class Linux_DnsAddressMatchListManualInstanceEnumeration {
-  	private:
-  	  Linux_DnsAddressMatchListManualInstanceEnumerationElement* firstElementP;
-  	  Linux_DnsAddressMatchListManualInstanceEnumerationElement* currentElementP;
-  	  Linux_DnsAddressMatchListManualInstanceEnumerationElement* endElementP;
-  	
-  	public:
-  	  Linux_DnsAddressMatchListManualInstanceEnumeration();
-  	  
-  	  Linux_DnsAddressMatchListManualInstanceEnumeration(
-  	   const Linux_DnsAddressMatchListManualInstanceEnumeration& original);
-  	  
-  	  ~Linux_DnsAddressMatchListManualInstanceEnumeration();
-  	  
-  	  void reset();
-  	  
-  	  bool hasNext() const;
-  	  
-  	  const Linux_DnsAddressMatchListManualInstance& getNext();
-  	  
-  	  int getSize() const;
-  	  
-  	  const Linux_DnsAddressMatchListManualInstance& getElement(int pos) const;  	  
-  	  
-  	 void addElement(const Linux_DnsAddressMatchListManualInstance& elementP);
-  };
-}
-#endif
 
+    private:
+    Linux_DnsAddressMatchListManualInstanceEnumerationElement* m_firstElementP;
+    Linux_DnsAddressMatchListManualInstanceEnumerationElement* m_currentElementP;
+    Linux_DnsAddressMatchListManualInstanceEnumerationElement* m_endElementP;
+
+    public:
+    Linux_DnsAddressMatchListManualInstanceEnumeration();
+    Linux_DnsAddressMatchListManualInstanceEnumeration(
+      const Linux_DnsAddressMatchListManualInstanceEnumeration& anInstanceEnumeration);
+    ~Linux_DnsAddressMatchListManualInstanceEnumeration();
+
+    void reset();
+    bool hasNext() const;
+    const Linux_DnsAddressMatchListManualInstance& getNext();
+    int getSize() const;
+    const Linux_DnsAddressMatchListManualInstance& getElement(int anIndex) const;  	  
+    void addElement(const Linux_DnsAddressMatchListManualInstance& anInstance);
+
+  };
+
+}
+
+#endif

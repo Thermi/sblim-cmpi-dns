@@ -1,22 +1,28 @@
- /**
- * Linux_DnsQueryACLForServiceInstance.h
- *
- * (C) Copyright IBM Corp. 2005
- *
- * THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
- * ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE
- * CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
- *
- * You can obtain a current copy of the Common Public License from
- * http://www.opensource.org/licenses/cpl1.0.php
- *
- * author:     Murillo Bernardes <bernarde@br.ibm.com>
- *
- * Contributors:
- *
- */
+// =======================================================================
+// Linux_DnsQueryACLForServiceInstance.h
+//     created on Fri, 3 Mar 2006 using ECUTE
+// 
+// Copyright (c) 2006, International Business Machines
+//
+// THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
+// ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE 
+// CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
+//
+// You can obtain a current copy of the Common Public License from
+// http://oss.software.ibm.com/developerworks/opensource/license-cpl.html
+//
+// Author:        generated
+//
+// Contributors:
+//                Murillo Bernardes <bernarde@br.ibm.com>
+//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//
+// =======================================================================
+//
+// 
 #ifndef Linux_DnsQueryACLForServiceInstance_h
 #define Linux_DnsQueryACLForServiceInstance_h
+
 
 #include "cmpidt.h"
 #include "CmpiObjectPath.h"
@@ -27,79 +33,76 @@
 
 #include "Linux_DnsQueryACLForServiceInstanceName.h"
 
+
 namespace genProvider {
 
   class Linux_DnsQueryACLForServiceInstance {
-  public:
-       Linux_DnsQueryACLForServiceInstance();
-  	
-       Linux_DnsQueryACLForServiceInstance
-  	    (const Linux_DnsQueryACLForServiceInstance& original);
-  	   
-       Linux_DnsQueryACLForServiceInstance
-        (const CmpiInstance& inst, const char* instanceNamespace);
-  	 
-       ~Linux_DnsQueryACLForServiceInstance();
        
-       Linux_DnsQueryACLForServiceInstance& operator=
-  	    (const Linux_DnsQueryACLForServiceInstance& original);
+    private:
+    void init();
+    void init(const Linux_DnsQueryACLForServiceInstance& anInstance);
+    void reset();
        
-       CmpiInstance getCmpiInstance(const char** properties=0) const;
+    Linux_DnsQueryACLForServiceInstanceName m_instanceName;
        
-       unsigned int isInstanceNameSet() const;
-       void setInstanceName(
-        const Linux_DnsQueryACLForServiceInstanceName& val);        
-       const Linux_DnsQueryACLForServiceInstanceName&
-        getInstanceName() const;
+    struct isSetType{
+      unsigned int instanceName:1;
+
+    } isSet;
+    
+    public:
+    Linux_DnsQueryACLForServiceInstance();
+    Linux_DnsQueryACLForServiceInstance(
+      const Linux_DnsQueryACLForServiceInstance& anInstance);
+    Linux_DnsQueryACLForServiceInstance(
+      const CmpiInstance& aCmpiInstance, 
+      const char* anInstanceNamespaceP);
+    ~Linux_DnsQueryACLForServiceInstance();
        
-  private:
-       void init();
-       void init(const Linux_DnsQueryACLForServiceInstance& original);
-       void reset();
+    Linux_DnsQueryACLForServiceInstance& operator=(
+      const Linux_DnsQueryACLForServiceInstance& anInstance);
        
-       Linux_DnsQueryACLForServiceInstanceName m_instanceName;
-       
-       struct isSetType{
-       	 unsigned int instanceName:1;
-       } isSet;
+    CmpiInstance getCmpiInstance(const char** aPropertiesPP = 0) const;
+    unsigned int isInstanceNameSet() const;
+    void setInstanceName(const Linux_DnsQueryACLForServiceInstanceName& anInstanceName);        
+    const Linux_DnsQueryACLForServiceInstanceName& getInstanceName() const;
+
+
   };
   
-  
-  struct Linux_DnsQueryACLForServiceInstanceEnumerationElement{
-  	Linux_DnsQueryACLForServiceInstance* m_elementP;
-  	Linux_DnsQueryACLForServiceInstanceEnumerationElement* m_nextP;
-  	
-  	Linux_DnsQueryACLForServiceInstanceEnumerationElement();
-  	~Linux_DnsQueryACLForServiceInstanceEnumerationElement();  	
+  struct Linux_DnsQueryACLForServiceInstanceEnumerationElement {
+
+    Linux_DnsQueryACLForServiceInstance* m_elementP;
+    Linux_DnsQueryACLForServiceInstanceEnumerationElement* m_nextP;
+
+    Linux_DnsQueryACLForServiceInstanceEnumerationElement();
+    ~Linux_DnsQueryACLForServiceInstanceEnumerationElement();  
+
   };
   
 
   class Linux_DnsQueryACLForServiceInstanceEnumeration {
-  	private:
-  	  Linux_DnsQueryACLForServiceInstanceEnumerationElement* firstElementP;
-  	  Linux_DnsQueryACLForServiceInstanceEnumerationElement* currentElementP;
-  	  Linux_DnsQueryACLForServiceInstanceEnumerationElement* endElementP;
-  	
-  	public:
-  	  Linux_DnsQueryACLForServiceInstanceEnumeration();
-  	  
-  	  Linux_DnsQueryACLForServiceInstanceEnumeration(
-  	   const Linux_DnsQueryACLForServiceInstanceEnumeration& original);
-  	  
-  	  ~Linux_DnsQueryACLForServiceInstanceEnumeration();
-  	  
-  	  void reset();
-  	  
-  	  bool hasNext() const;
-  	  
-  	  const Linux_DnsQueryACLForServiceInstance& getNext();
-  	  
-  	  int getSize() const;
-  	  
-  	  const Linux_DnsQueryACLForServiceInstance& getElement(int pos) const;  	  
-  	  
-  	 void addElement(const Linux_DnsQueryACLForServiceInstance& elementP);
-  };
-}
-#endif
 
+    private:
+    Linux_DnsQueryACLForServiceInstanceEnumerationElement* m_firstElementP;
+    Linux_DnsQueryACLForServiceInstanceEnumerationElement* m_currentElementP;
+    Linux_DnsQueryACLForServiceInstanceEnumerationElement* m_endElementP;
+
+    public:
+    Linux_DnsQueryACLForServiceInstanceEnumeration();
+    Linux_DnsQueryACLForServiceInstanceEnumeration(
+      const Linux_DnsQueryACLForServiceInstanceEnumeration& anInstanceEnumeration);
+    ~Linux_DnsQueryACLForServiceInstanceEnumeration();
+
+    void reset();
+    bool hasNext() const;
+    const Linux_DnsQueryACLForServiceInstance& getNext();
+    int getSize() const;
+    const Linux_DnsQueryACLForServiceInstance& getElement(int anIndex) const;  	  
+    void addElement(const Linux_DnsQueryACLForServiceInstance& anInstance);
+
+  };
+
+}
+
+#endif

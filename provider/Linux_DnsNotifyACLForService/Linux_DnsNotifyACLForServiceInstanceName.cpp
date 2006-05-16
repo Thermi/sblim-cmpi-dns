@@ -1,20 +1,25 @@
- /**
- * Linux_DnsNotifyACLForServiceInstanceName.cpp
- *
- * (C) Copyright IBM Corp. 2005
- *
- * THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
- * ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE
- * CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
- *
- * You can obtain a current copy of the Common Public License from
- * http://www.opensource.org/licenses/cpl1.0.php
- *
- * author:     Murillo Bernardes <bernarde@br.ibm.com>
- *
- * Contributors:
- *
- */
+// =======================================================================
+// Linux_DnsNotifyACLForServiceInstanceName.cpp
+//     created on Fri, 3 Mar 2006 using ECUTE
+// 
+// Copyright (c) 2006, International Business Machines
+//
+// THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
+// ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE 
+// CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
+//
+// You can obtain a current copy of the Common Public License from
+// http://oss.software.ibm.com/developerworks/opensource/license-cpl.html
+//
+// Author:        generated
+//
+// Contributors:
+//                Murillo Bernardes <bernarde@br.ibm.com>
+//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//
+// =======================================================================
+//
+// 
 #include "Linux_DnsNotifyACLForServiceInstanceName.h"
 #include "CmpiData.h"
 #include "CmpiString.h"
@@ -23,344 +28,411 @@
 
 namespace genProvider {
 	
-  //*********************************************************
+  //****************************************************************************
   //Linux_DnsNotifyACLForServiceInstanceName
-  //*********************************************************
-  
-  //empty constructor
-  Linux_DnsNotifyACLForServiceInstanceName::
-   Linux_DnsNotifyACLForServiceInstanceName(){
+  //---------------------------------------------------------------------------- 
+  // empty constructor
+  //---------------------------------------------------------------------------- 
+  Linux_DnsNotifyACLForServiceInstanceName::Linux_DnsNotifyACLForServiceInstanceName() {
    	init();  	
-  };
+  }
   
+  //---------------------------------------------------------------------------- 
+  // copy constructor	
+  //---------------------------------------------------------------------------- 
+  Linux_DnsNotifyACLForServiceInstanceName::Linux_DnsNotifyACLForServiceInstanceName(
+    const Linux_DnsNotifyACLForServiceInstanceName& anInstanceName) {
+   	init(anInstanceName);  	
+  }
   
-  //copy constructor	
-  Linux_DnsNotifyACLForServiceInstanceName::
-   Linux_DnsNotifyACLForServiceInstanceName
-   (const Linux_DnsNotifyACLForServiceInstanceName& original){
-   	init(original);  	
-  };
-  
-  
-  //contructor using CmpiObjectPath
-  Linux_DnsNotifyACLForServiceInstanceName::
-   Linux_DnsNotifyACLForServiceInstanceName (const CmpiObjectPath& path){
+  //---------------------------------------------------------------------------- 
+  // constructor using CmpiObjectPath
+  //---------------------------------------------------------------------------- 
+  Linux_DnsNotifyACLForServiceInstanceName::Linux_DnsNotifyACLForServiceInstanceName(
+    const CmpiObjectPath& path) {
     
     init();
     
-    m_CIMClassNameP=path.getClassName().charPtr();
+    m_CIMClassNameP = path.getClassName().charPtr();
     
-    CmpiString namespaceOP;
-    namespaceOP=path.getNameSpace();
-    setNamespace(namespaceOP.charPtr(),1);
-    
-    CmpiObjectPath Element = path.getKey("Element");
-    setElement(Linux_DnsServiceInstanceName(Element));
-    
+    CmpiString namespaceP;
+    namespaceP = path.getNameSpace();
+    setNamespace(namespaceP.charPtr(),1);
+        
     CmpiObjectPath Setting = path.getKey("Setting");
     setSetting(Linux_DnsAddressMatchListInstanceName(Setting));
     
+    CmpiObjectPath Element = path.getKey("Element");
+    setElement(Linux_DnsServiceInstanceName(Element));
+
+    
   }
   
-  
-  //destructor
-  Linux_DnsNotifyACLForServiceInstanceName::
-   ~Linux_DnsNotifyACLForServiceInstanceName(){
+  //---------------------------------------------------------------------------- 
+  // destructor
+  //---------------------------------------------------------------------------- 
+  Linux_DnsNotifyACLForServiceInstanceName::~Linux_DnsNotifyACLForServiceInstanceName() {
    	reset();  	  
-  };
-  
-  
-  //copy operator
-  Linux_DnsNotifyACLForServiceInstanceName&
-   Linux_DnsNotifyACLForServiceInstanceName::operator=
-   (const Linux_DnsNotifyACLForServiceInstanceName& original){    
-    init(original);
-   	return *this;    
   }
   
+  //---------------------------------------------------------------------------- 
+  //copy operator
+  //---------------------------------------------------------------------------- 
+  Linux_DnsNotifyACLForServiceInstanceName&
+  Linux_DnsNotifyACLForServiceInstanceName::operator=(
+    const Linux_DnsNotifyACLForServiceInstanceName& anInstanceName) {    
+    
+    init(anInstanceName);
+   	return *this;    
   
+  }
+  
+  //---------------------------------------------------------------------------- 
   //returns the related CmpiObjectPath
-  CmpiObjectPath Linux_DnsNotifyACLForServiceInstanceName::
-   getObjectPath() const{
+  //---------------------------------------------------------------------------- 
+  CmpiObjectPath 
+  Linux_DnsNotifyACLForServiceInstanceName::getObjectPath() const {
    	
-   	CmpiObjectPath objectPath(m_namespace, m_CIMClassNameP);
+   	CmpiObjectPath objectPath(m_nameSpaceP, m_CIMClassNameP);
+   	  	objectPath.setKey(
+  	  "Setting",
+  	  CmpiData(m_Setting.getObjectPath()));
+  	objectPath.setKey(
+  	  "Element",
+  	  CmpiData(m_Element.getObjectPath()));
 
-  	objectPath.setKey("Element",CmpiData(m_Element.getObjectPath()));
-
-  	objectPath.setKey("Setting",CmpiData(m_Setting.getObjectPath()));
   	
   	return objectPath;
   	
   }
   
-  
-  //adds the related CmpiObjectPath to an existing cmpiInstance
-  void Linux_DnsNotifyACLForServiceInstanceName::fillKeys(CmpiInstance& cmpiInstance) const{
+  //---------------------------------------------------------------------------- 
+  // adds the related CmpiObjectPath to an existing cmpiInstance
+  //---------------------------------------------------------------------------- 
+  void 
+  Linux_DnsNotifyACLForServiceInstanceName::fillKeys(CmpiInstance& cmpiInstance) const {
   	
-
-  	if(isSet.Element){
-  	  cmpiInstance.setProperty("Element",CmpiData(m_Element.getObjectPath()));
+  	if (isSet.Setting) {
+  	  
+  	  cmpiInstance.setProperty(
+  	    "Setting",
+  	    CmpiData(m_Setting.getObjectPath()));
   	}
 
-  	if(isSet.Setting){
-  	  cmpiInstance.setProperty("Setting",CmpiData(m_Setting.getObjectPath()));
+  	if (isSet.Element) {
+  	  
+  	  cmpiInstance.setProperty(
+  	    "Element",
+  	    CmpiData(m_Element.getObjectPath()));
   	}
+
   }
   
   
-  //NameSpace related methods
-  unsigned int Linux_DnsNotifyACLForServiceInstanceName::
-   isNameSpaceSet() const{
-  	return isSet.m_namespace;
+  //---------------------------------------------------------------------------- 
+  // NameSpace related methods
+  //---------------------------------------------------------------------------- 
+  unsigned int 
+  Linux_DnsNotifyACLForServiceInstanceName::isNameSpaceSet() const {
+  	return isSet.m_nameSpaceP;
   }
   
-  const char * Linux_DnsNotifyACLForServiceInstanceName::
-   getNamespace() const {
-    if(!isSet.m_namespace)
+  //---------------------------------------------------------------------------- 
+  const char* 
+  Linux_DnsNotifyACLForServiceInstanceName::getNamespace() const {
+    if ( ! isSet.m_nameSpaceP) {
    	  throw CmpiErrorFormater::getErrorException(
    	   CmpiErrorFormater::NOT_SET,
-   	   "NameSpace not set in Linux_DnsNotifyACLForService instanceName");
-  	return m_namespace;
+   	   "NameSpace",
+   	   "Linux_DnsNotifyACLForService");
+   	}
+  	return m_nameSpaceP;
   }
 
-  void Linux_DnsNotifyACLForServiceInstanceName::
-   setNamespace(const char* val, int makeCopy){
-    if (isSet.m_namespace) {
-      delete m_namespace;
+  //---------------------------------------------------------------------------- 
+  void
+  Linux_DnsNotifyACLForServiceInstanceName::setNamespace(
+    const char* aNameSpaceP,
+    int aCopyFlag) {
+  
+    if (isSet.m_nameSpaceP) {
+      delete m_nameSpaceP;
     }
-    if (makeCopy&&val) {
-      char* tmpval = new char[strlen(val)+1];
-      strcpy(tmpval,val);
-      m_namespace = tmpval;
-    } else {
-      m_namespace = val;
-    }
-    isSet.m_namespace=1;
-  }
-       
-  //Element related methods
-  unsigned int Linux_DnsNotifyACLForServiceInstanceName::isElementSet() const{
-    return isSet.Element;
-  }
-  void Linux_DnsNotifyACLForServiceInstanceName::
-   setElement(const Linux_DnsServiceInstanceName& val){
-    m_Element = val;
-    isSet.Element=1;
-  }       
-  const Linux_DnsServiceInstanceName& Linux_DnsNotifyACLForServiceInstanceName::
-   getElement() const{
     
-    if(!isSet.Element)
-   	  throw CmpiErrorFormater::getErrorException(
-   	   CmpiErrorFormater::NOT_SET,
-   	   "Element not set");
-   	   	
-    return m_Element;
+    if (aCopyFlag && aNameSpaceP) {
+      char* nameSpaceP = new char[strlen(aNameSpaceP) + 1];
+      strcpy(nameSpaceP,aNameSpaceP);
+      m_nameSpaceP = nameSpaceP;
+    } else {
+      m_nameSpaceP = aNameSpaceP;
+    }
+    
+    isSet.m_nameSpaceP = 1;
   }
-       
-  //Setting related methods
-  unsigned int Linux_DnsNotifyACLForServiceInstanceName::isSettingSet() const{
+         
+  //----------------------------------------------------------------------------
+  // Setting related methods
+  //----------------------------------------------------------------------------
+  unsigned int
+  Linux_DnsNotifyACLForServiceInstanceName::isSettingSet() const {
     return isSet.Setting;
   }
-  void Linux_DnsNotifyACLForServiceInstanceName::
-   setSetting(const Linux_DnsAddressMatchListInstanceName& val){
-    m_Setting = val;
-    isSet.Setting=1;
+
+  //----------------------------------------------------------------------------
+  void Linux_DnsNotifyACLForServiceInstanceName::setSetting(
+    const Linux_DnsAddressMatchListInstanceName& aValue) {
+  
+    m_Setting = aValue;
+    isSet.Setting = 1;
+  
   }       
-  const Linux_DnsAddressMatchListInstanceName& Linux_DnsNotifyACLForServiceInstanceName::
-   getSetting() const{
+
+  //----------------------------------------------------------------------------
+  const Linux_DnsAddressMatchListInstanceName&
+  Linux_DnsNotifyACLForServiceInstanceName::getSetting() const {
     
-    if(!isSet.Setting)
+    if ( ! isSet.Setting) {
    	  throw CmpiErrorFormater::getErrorException(
-   	   CmpiErrorFormater::NOT_SET,
-   	   "Setting not set");
-   	   	
+   	    CmpiErrorFormater::NOT_SET,
+        "Setting",
+        "Linux_DnsNotifyACLForService");
+   	}
+
+
     return m_Setting;
+
+  }
+       
+  //----------------------------------------------------------------------------
+  // Element related methods
+  //----------------------------------------------------------------------------
+  unsigned int
+  Linux_DnsNotifyACLForServiceInstanceName::isElementSet() const {
+    return isSet.Element;
   }
 
+  //----------------------------------------------------------------------------
+  void Linux_DnsNotifyACLForServiceInstanceName::setElement(
+    const Linux_DnsServiceInstanceName& aValue) {
   
-  //set isSet variables to FALSE
-  void Linux_DnsNotifyACLForServiceInstanceName::init(){
+    m_Element = aValue;
+    isSet.Element = 1;
+  
+  }       
+
+  //----------------------------------------------------------------------------
+  const Linux_DnsServiceInstanceName&
+  Linux_DnsNotifyACLForServiceInstanceName::getElement() const {
+    
+    if ( ! isSet.Element) {
+   	  throw CmpiErrorFormater::getErrorException(
+   	    CmpiErrorFormater::NOT_SET,
+        "Element",
+        "Linux_DnsNotifyACLForService");
+   	}
+
+
+    return m_Element;
+
+  }
+
+
+  //---------------------------------------------------------------------------- 
+  void 
+  Linux_DnsNotifyACLForServiceInstanceName::init() {
   	
-  	m_CIMClassNameP="Linux_DnsNotifyACLForService";
-  	isSet.m_namespace=0;    	
-    isSet.Element=0;   	
-    isSet.Setting=0;
+  	m_CIMClassNameP = "Linux_DnsNotifyACLForService";
+  	isSet.m_nameSpaceP = 0; 
+  	    isSet.Setting = 0;
+    isSet.Element = 0;
+
+  	
   }
   
-  
+  //---------------------------------------------------------------------------- 
   //copies another instance properties in this
-  void Linux_DnsNotifyACLForServiceInstanceName::init
-   (const Linux_DnsNotifyACLForServiceInstanceName& original){
+  //---------------------------------------------------------------------------- 
+  void 
+  Linux_DnsNotifyACLForServiceInstanceName::init(
+    const Linux_DnsNotifyACLForServiceInstanceName& anOriginal) {
+   	
    	init();
    	   	
-    m_CIMClassNameP=original.m_CIMClassNameP;
-    if(original.isNameSpaceSet()){
-      setNamespace(original.getNamespace(),1);
-    }   	
-    if(original.isElementSet()){
-      const Linux_DnsServiceInstanceName& ElementOriginal=original.getElement();
-      setElement(ElementOriginal);
-    }   	
-    if(original.isSettingSet()){
-      const Linux_DnsAddressMatchListInstanceName& SettingOriginal=original.getSetting();
-      setSetting(SettingOriginal);
-    }    
-  }
-  
-  //reset the instanceName data
-  void Linux_DnsNotifyACLForServiceInstanceName::reset(){   	
-  	if (isSet.m_namespace)
-  	  delete(m_namespace);  	  
-  };
-  
-  
-  
-  
-  //*********************************************************
-  //Linux_DnsNotifyACLForServiceInstanceNameEnumerationElement	
-  //*********************************************************
-  
-  Linux_DnsNotifyACLForServiceInstanceNameEnumerationElement::
-   Linux_DnsNotifyACLForServiceInstanceNameEnumerationElement(){
-   	
-  	m_elementP=0;
-  	m_nextP=0;
-  	  
-  };
-  
-  
-  Linux_DnsNotifyACLForServiceInstanceNameEnumerationElement::
-   ~Linux_DnsNotifyACLForServiceInstanceNameEnumerationElement(){
-   	
-  	if (m_elementP!=0)
-  	  delete(m_elementP);
-  	if (m_nextP!=0)
-  	  delete(m_nextP);
-  	  
-  };
-
-  
-  //*********************************************************
-  //Linux_DnsNotifyACLForServiceInstanceNameEnumeration
-  //*********************************************************
-  
-  Linux_DnsNotifyACLForServiceInstanceNameEnumeration::
-   Linux_DnsNotifyACLForServiceInstanceNameEnumeration(){
-   	
-  	 firstElementP=0;
-     currentElementP=0;
-     endElementP=0;
-  };
-  
-  Linux_DnsNotifyACLForServiceInstanceNameEnumeration::
-   Linux_DnsNotifyACLForServiceInstanceNameEnumeration(const CmpiArray& arr){
-  	
-  	firstElementP=0;
-    currentElementP=0;
-    endElementP=0;
-    
-    int size = arr.size();
-    for (int i=0; i < size; i++) {
-     addElement(Linux_DnsNotifyACLForServiceInstanceName(arr[i]));
+    m_CIMClassNameP = anOriginal.m_CIMClassNameP;
+    if (anOriginal.isNameSpaceSet()){
+      setNamespace(anOriginal.getNamespace(),1);
     }
+       	
+    if (anOriginal.isSettingSet()) {
+      const Linux_DnsAddressMatchListInstanceName& SettingOriginal = anOriginal.getSetting();
+      setSetting(SettingOriginal);
+    }
+   	
+    if (anOriginal.isElementSet()) {
+      const Linux_DnsServiceInstanceName& ElementOriginal = anOriginal.getElement();
+      setElement(ElementOriginal);
+    }
+    
+  
   }
   
-  Linux_DnsNotifyACLForServiceInstanceNameEnumeration::
-   Linux_DnsNotifyACLForServiceInstanceNameEnumeration(
-   const Linux_DnsNotifyACLForServiceInstanceNameEnumeration& original){
+  //---------------------------------------------------------------------------- 
+  void
+  Linux_DnsNotifyACLForServiceInstanceName::reset() {
+  	if (isSet.m_nameSpaceP) {
+  	  delete(m_nameSpaceP);
+  	}
+  	  	  
+  }
+  
+  //---------------------------------------------------------------------------- 
+  Linux_DnsNotifyACLForServiceInstanceNameEnumerationElement::Linux_DnsNotifyACLForServiceInstanceNameEnumerationElement() {
+  	m_elementP = 0;
+  	m_nextP = 0; 
+  }
+  
+  //---------------------------------------------------------------------------- 
+  Linux_DnsNotifyACLForServiceInstanceNameEnumerationElement::~Linux_DnsNotifyACLForServiceInstanceNameEnumerationElement() {
    	
-     firstElementP=0;
-     currentElementP=0;
-     endElementP=0;
+  	if (m_elementP) {
+  	  delete(m_elementP);
+  	}
+  	if (m_nextP) {
+  	  delete(m_nextP);
+  	}
+  	  
+  }
+  
+  //---------------------------------------------------------------------------- 
+  Linux_DnsNotifyACLForServiceInstanceNameEnumeration::Linux_DnsNotifyACLForServiceInstanceNameEnumeration() {
+  	 m_firstElementP = 0;
+     m_currentElementP = 0;
+     m_endElementP = 0;
+  }
+  
+  //---------------------------------------------------------------------------- 
+  Linux_DnsNotifyACLForServiceInstanceNameEnumeration::Linux_DnsNotifyACLForServiceInstanceNameEnumeration(
+    const CmpiArray& aCmpiArray) {
+  	
+  	m_firstElementP = 0;
+    m_currentElementP = 0;
+    m_endElementP = 0;
+    
+    int size = aCmpiArray.size();
+    for (int x=0; x < size; ++x) {
+      addElement(Linux_DnsNotifyACLForServiceInstanceName(aCmpiArray[x]));
+    }
+    
+  }
+  
+  //---------------------------------------------------------------------------- 
+  Linux_DnsNotifyACLForServiceInstanceNameEnumeration::Linux_DnsNotifyACLForServiceInstanceNameEnumeration(
+    const Linux_DnsNotifyACLForServiceInstanceNameEnumeration& anInstanceNameEnumeration) {
+   	
+    m_firstElementP = 0;
+    m_currentElementP = 0;
+    m_endElementP = 0;
   	 
-     int size=original.getSize();
-     for(int i=0;i<size;i++)
-       addElement(original.getElement(i));           
-  };
-  
+    int size = anInstanceNameEnumeration.getSize();
+    for (int x=0; x < size; ++x) {
+      addElement(anInstanceNameEnumeration.getElement(x));
+    }
+
+  }
   	  
-  Linux_DnsNotifyACLForServiceInstanceNameEnumeration::
-   ~Linux_DnsNotifyACLForServiceInstanceNameEnumeration(){
+  //---------------------------------------------------------------------------- 
+  Linux_DnsNotifyACLForServiceInstanceNameEnumeration::~Linux_DnsNotifyACLForServiceInstanceNameEnumeration() {
    	
-  	if (firstElementP!=0)
-  	  delete(firstElementP);
+  	if (m_firstElementP) {
+  	  delete(m_firstElementP);
+  	}
   	  	
-  };
-  
-  	  
-  void Linux_DnsNotifyACLForServiceInstanceNameEnumeration::reset(){
+  }
+
+  //---------------------------------------------------------------------------- 
+  void 
+  Linux_DnsNotifyACLForServiceInstanceNameEnumeration::reset() {
   	
-  	currentElementP=firstElementP;
-  };
+  	m_currentElementP = m_firstElementP;
   
-  	  
-  bool Linux_DnsNotifyACLForServiceInstanceNameEnumeration::hasNext() const{
+  }
+
+  //---------------------------------------------------------------------------- 
+  bool 
+  Linux_DnsNotifyACLForServiceInstanceNameEnumeration::hasNext() const {
   	
-  	return (currentElementP!=0);
+  	return (m_currentElementP != 0);
   
-  };
+  }
   
-  int Linux_DnsNotifyACLForServiceInstanceNameEnumeration::getSize() const{
+  //---------------------------------------------------------------------------- 
+  int
+  Linux_DnsNotifyACLForServiceInstanceNameEnumeration::getSize() const {
   	
-    int size=0;
-    Linux_DnsNotifyACLForServiceInstanceNameEnumerationElement* followingP=firstElementP;
+    int size = 0;
+    Linux_DnsNotifyACLForServiceInstanceNameEnumerationElement* followingP = m_firstElementP;
   	
-  	while(followingP!=0){
-        followingP=followingP->m_nextP;
-        size++;
+  	while (followingP) {
+      followingP = followingP->m_nextP;
+      ++size;
     }
   	
     return size;
-  };
   
+  }
+  
+  //---------------------------------------------------------------------------- 
   const Linux_DnsNotifyACLForServiceInstanceName&  
-   Linux_DnsNotifyACLForServiceInstanceNameEnumeration::getElement(int pos) const{
+   Linux_DnsNotifyACLForServiceInstanceNameEnumeration::getElement(int anIndex) const {
    
-    Linux_DnsNotifyACLForServiceInstanceNameEnumerationElement* followingP=firstElementP;
+    Linux_DnsNotifyACLForServiceInstanceNameEnumerationElement* followingP = m_firstElementP;
    
-    int i=0;
-    while((followingP!=0)&&(i<pos)){
-        followingP=followingP->m_nextP;
-        i++;
+    int x=0;
+    while (followingP && (x < anIndex) ) {
+      followingP = followingP->m_nextP;
+      ++x;
     }
     
     return *(followingP->m_elementP);
-  };
   
-  	  
+  }
+  
+  //---------------------------------------------------------------------------- 
   const Linux_DnsNotifyACLForServiceInstanceName&
-   Linux_DnsNotifyACLForServiceInstanceNameEnumeration::getNext() {
+  Linux_DnsNotifyACLForServiceInstanceNameEnumeration::getNext() {
    	
-  	 Linux_DnsNotifyACLForServiceInstanceNameEnumerationElement* currentP=
-  	  currentElementP;
-  	 currentElementP=currentElementP->m_nextP;
+  	 Linux_DnsNotifyACLForServiceInstanceNameEnumerationElement* currentP = m_currentElementP;
+  	 m_currentElementP = m_currentElementP->m_nextP;
   	 
   	 return *(currentP->m_elementP);
-  };
-  	  
-  void Linux_DnsNotifyACLForServiceInstanceNameEnumeration::addElement
-   (const Linux_DnsNotifyACLForServiceInstanceName& elementP){
-   	
-  	if(firstElementP==0){
-  	  firstElementP=new Linux_DnsNotifyACLForServiceInstanceNameEnumerationElement();
-  	  firstElementP->m_elementP=new Linux_DnsNotifyACLForServiceInstanceName(elementP);
-  	  endElementP=firstElementP;
-  	  currentElementP=firstElementP;
-  	}else{
-  	  endElementP->m_nextP=new Linux_DnsNotifyACLForServiceInstanceNameEnumerationElement();
-  	  endElementP=endElementP->m_nextP;
-  	  endElementP->m_elementP=new Linux_DnsNotifyACLForServiceInstanceName(elementP);
-  	}
-  };
   
-  Linux_DnsNotifyACLForServiceInstanceNameEnumeration::operator CmpiArray() const{
-  	int size=getSize();
-   	CmpiArray arr=CmpiArray(size,CMPI_instance);
-   	for(int i=0;i<size;i++){
-   	  arr[i]=getElement(i).getObjectPath();
+  }
+  	  
+  //---------------------------------------------------------------------------- 
+  void Linux_DnsNotifyACLForServiceInstanceNameEnumeration::addElement
+   (const Linux_DnsNotifyACLForServiceInstanceName& anElementP){
+   	
+  	if (m_firstElementP==0) {
+  	  m_firstElementP = new Linux_DnsNotifyACLForServiceInstanceNameEnumerationElement();
+  	  m_firstElementP->m_elementP = new Linux_DnsNotifyACLForServiceInstanceName(anElementP);
+  	  m_endElementP = m_firstElementP;
+  	  m_currentElementP = m_firstElementP;
+  	} else {
+  	  m_endElementP->m_nextP = new Linux_DnsNotifyACLForServiceInstanceNameEnumerationElement();
+  	  m_endElementP = m_endElementP->m_nextP;
+  	  m_endElementP->m_elementP=new Linux_DnsNotifyACLForServiceInstanceName(anElementP);
+  	}
+
+  }
+  
+  //---------------------------------------------------------------------------- 
+  Linux_DnsNotifyACLForServiceInstanceNameEnumeration::operator CmpiArray() const {
+  	int size = getSize();
+   	CmpiArray cmpiArray = CmpiArray(size,CMPI_instance);
+   	for (int x=0; x < size; ++x) {
+   	  cmpiArray[x]=getElement(x).getObjectPath();
    	}
-   	return arr;
-  };  
+   	return cmpiArray;
+  }
+  
 }
- 

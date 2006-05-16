@@ -1,266 +1,417 @@
- /**
- * Linux_DnsResourceRecordDefaultImplementation.cpp
- *
- * (C) Copyright IBM Corp. 2005
- *
- * THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
- * ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE
- * CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
- *
- * You can obtain a current copy of the Common Public License from
- * http://www.opensource.org/licenses/cpl1.0.php
- *
- * author:     Murillo Bernardes <bernarde@br.ibm.com>
- *
- * Contributors:
- *
- */
-#include "Linux_DnsResourceRecordDefaultImplementation.h"
-#include <iostream>
+// =======================================================================
+// Linux_DnsResourceRecordDefaultImplementation.cpp
+//     created on Fri, 3 Mar 2006 using ECUTE
+// 
+// Copyright (c) 2006, International Business Machines
+//
+// THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
+// ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE 
+// CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
+//
+// You can obtain a current copy of the Common Public License from
+// http://oss.software.ibm.com/developerworks/opensource/license-cpl.html
+//
+// Author:        generated
+//
+// Contributors:
+//                Murillo Bernardes <bernarde@br.ibm.com>
+//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//
+// =======================================================================
+//
+// 
 
-using namespace std;
+#include "Linux_DnsResourceRecordDefaultImplementation.h"
+#include "Linux_DnsResourceRecordRepositoryInstance.h"
+#include <iostream>
 
 namespace genProvider {
 
   /* intrinsic methods */
-  void Linux_DnsResourceRecordDefaultImplementation::enumInstanceNames(
-   const CmpiContext& ctx, const CmpiBroker &mbp, const char *nsp,
-   Linux_DnsResourceRecordInstanceNameEnumeration& instnames){
-   	cout<<"enumInstances not supported for Linux_DnsResourceRecord"<<endl;
+  //----------------------------------------------------------------------------	
+  void
+  Linux_DnsResourceRecordDefaultImplementation::enumInstanceNames(
+    const CmpiContext& aContext,
+    const CmpiBroker& aBroker,
+    const char* aNameSpaceP,
+    Linux_DnsResourceRecordInstanceNameEnumeration& anInstanceNameEnumeration) {
+
+#ifdef DEBUG
+   	std::cout << "enumInstanceNames not supported for Linux_DnsResourceRecord" << std::endl;
+#endif   	
+
    	throw CmpiErrorFormater::getErrorException(
-   	 CmpiErrorFormater::NOT_IMPLEMENTED,
-   	 "enumInstances not implemented for Linux_DnsResourceRecord");   
+   	  CmpiErrorFormater::METHOD_NOT_FOUND,
+   	  "enumInstanceEnumeration",
+   	  "Linux_DnsResourceRecord");   
+
   }
-  	
-  void Linux_DnsResourceRecordDefaultImplementation::enumInstances(
-   const CmpiContext& ctx,
-   const CmpiBroker &mbp,
-   const char *nsp,
-   const char* *properties,
-   Linux_DnsResourceRecordManualInstanceEnumeration& instances){
-    
-    cout<<"Using default enumInstances implementation for Linux_DnsResourceRecord"<<endl;
-    cout<<"LetŽs get the instanceNames"<<endl;
+
+  //----------------------------------------------------------------------------	
+  void 
+  Linux_DnsResourceRecordDefaultImplementation::enumInstances(
+    const CmpiContext& aContext,
+    const CmpiBroker& aBroker,
+    const char* aNameSpaceP,
+    const char** aPropertiesPP,
+    Linux_DnsResourceRecordManualInstanceEnumeration& anInstanceEnumeration) {
+
+#ifdef DEBUG
+    std::cout << "Using default enumInstances implementation for Linux_DnsResourceRecord" << std::endl;
+    std::cout << "Let's get the instanceNames" << std::endl;
+#endif    
+
     Linux_DnsResourceRecordInstanceNameEnumeration namesEnumeration;
-    enumInstanceNames(ctx, mbp,nsp,namesEnumeration);
-    cout<<"Getting each instance"<<endl;
-    while(namesEnumeration.hasNext()){
-      Linux_DnsResourceRecordInstanceName name=
-    	  namesEnumeration.getNext();
-    	cout<<"Getting an instance for instanceName"<<endl;
-    	Linux_DnsResourceRecordManualInstance instance=
-    	  getInstance(ctx, mbp, properties, name);
-    	cout<<"adding instance to enum"<<endl;
-    	instances.addElement(instance);
-    	cout<<"Added!"<<endl;
-    };
+    enumInstanceNames(aContext,aBroker,aNameSpaceP,namesEnumeration);
+
+#ifdef DEBUG
+    std::cout << "Getting each instance" << std::endl;
+#endif    
+    
+    while (namesEnumeration.hasNext()) {
+    
+      Linux_DnsResourceRecordInstanceName instanceName = namesEnumeration.getNext();
+    
+      Linux_DnsResourceRecordRepositoryInstance repositoryInstance;
+
+      // try to fetch repository instance
+      try {
+        Linux_DnsResourceRecordInstanceName repositoryInstanceName(instanceName);
+        repositoryInstanceName.setNamespace("IBMShadow/cimv2");
+        CmpiObjectPath repositoryCmpiObjectPath = repositoryInstanceName.getObjectPath();
+        CmpiBroker cmpiBroker(aBroker);
+        CmpiInstance repositoryCmpiInstance = cmpiBroker.getInstance(
+            aContext,
+            repositoryCmpiObjectPath,
+            aPropertiesPP);
+        Linux_DnsResourceRecordRepositoryInstance localRepositoryInstance(
+      	  repositoryCmpiInstance,
+          "IBMShadow/cimv2");
+        repositoryInstance = localRepositoryInstance;
+      } catch (const CmpiStatus& rc) { }                             
+    
+#ifdef DEBUG
+    	std::cout << "Getting an instance for instanceName" << std::endl;
+#endif
+    	
+    	Linux_DnsResourceRecordManualInstance instance = getInstance(
+    	  aContext,
+    	  aBroker,
+    	  aPropertiesPP,
+    	  instanceName);
+
+      // add the static data
+
+
+#ifdef DEBUG
+    	std::cout << "adding instance to enum" << std::endl;
+#endif
+    	
+    	anInstanceEnumeration.addElement(instance);
+
+#ifdef DEBUG
+    	std::cout << "Added!" << std::endl;
+#endif
+    	
+    }
+
   }
-  	
+
+  //----------------------------------------------------------------------------	
   Linux_DnsResourceRecordManualInstance 
-   Linux_DnsResourceRecordDefaultImplementation::getInstance(
-   const CmpiContext& ctx,
-   const CmpiBroker &mbp,
-   const char* *properties,
-   const Linux_DnsResourceRecordInstanceName&){
-    cout<<"getInstance not supported for Linux_DnsResourceRecord"<<endl;
+  Linux_DnsResourceRecordDefaultImplementation::getInstance(
+    const CmpiContext& aContext,
+    const CmpiBroker& aBroker,
+    const char** aPropertiesPP,
+    const Linux_DnsResourceRecordInstanceName& anInstanceName) {
+
+#ifdef DEBUG
+    std::cout << "getInstance not supported for Linux_DnsResourceRecord" << std::endl;
+#endif
+    	
+
     throw CmpiErrorFormater::getErrorException(
-   	 CmpiErrorFormater::NOT_IMPLEMENTED,
-   	 "getInstance not implemented for Linux_DnsResourceRecord");
+   	  CmpiErrorFormater::METHOD_NOT_FOUND,
+   	  "getInstance",
+   	  "Linux_DnsResourceRecord");
+
   }
   	
-  void Linux_DnsResourceRecordDefaultImplementation::setInstance(
-   const CmpiContext& ctx,
-   const CmpiBroker &mbp,
-   const char* *properties,
-   const Linux_DnsResourceRecordManualInstance&){
-   	cout<<"setInstance not supported for Linux_DnsResourceRecord"<<endl;
-     throw CmpiErrorFormater::getErrorException(
-   	 CmpiErrorFormater::NOT_IMPLEMENTED,
-   	 "setInstance not implemented for Linux_DnsResourceRecord");
-  }
-  	
-  void Linux_DnsResourceRecordDefaultImplementation::
-   createInstance(const CmpiContext& ctx, const CmpiBroker &mbp,
-   const Linux_DnsResourceRecordManualInstance&){
-   	cout<<"createInstance not supported for Linux_DnsResourceRecord"<<endl;
-    throw CmpiErrorFormater::getErrorException(
-   	 CmpiErrorFormater::NOT_IMPLEMENTED,
-   	 "createInstance not implemented for Linux_DnsResourceRecord");
-  }
-  	
-  void Linux_DnsResourceRecordDefaultImplementation::
-   deleteInstance(const CmpiContext& ctx, const CmpiBroker &mbp,
-   const Linux_DnsResourceRecordInstanceName&){
-   	cout<<"deleteInstance not supported for Linux_DnsResourceRecord"<<endl;
-    throw CmpiErrorFormater::getErrorException(
-   	 CmpiErrorFormater::NOT_IMPLEMENTED,
-   	 "deleteInstance not implemented for Linux_DnsResourceRecord");
-  }
-	
+  //----------------------------------------------------------------------------	
+  void 
+  Linux_DnsResourceRecordDefaultImplementation::setInstance(
+    const CmpiContext& aContext,
+    const CmpiBroker& aBroker,
+    const char** aPropertiesPP,
+    const Linux_DnsResourceRecordManualInstance& aManualInstance) {
   
+#ifdef DEBUG
+    std::cout << "setInstance not supported for Linux_DnsResourceRecord" << std::endl;
+#endif
+    	
+   
+    throw CmpiErrorFormater::getErrorException(
+   	  CmpiErrorFormater::METHOD_NOT_FOUND,
+   	  "setInstance",
+   	  "Linux_DnsResourceRecord");
+   	 
+  }
+  	
+  //----------------------------------------------------------------------------	
+  Linux_DnsResourceRecordInstanceName  
+  Linux_DnsResourceRecordDefaultImplementation::createInstance(
+    const CmpiContext& aContext, 
+    const CmpiBroker& aBroker,
+    const Linux_DnsResourceRecordManualInstance& aManualInstance) {
+
+#ifdef DEBUG
+   	std::cout << "createInstance not supported for Linux_DnsResourceRecord" << std::endl;
+#endif
+
+    throw CmpiErrorFormater::getErrorException(
+   	 CmpiErrorFormater::METHOD_NOT_FOUND,
+   	 "createInstance",
+   	 "Linux_DnsResourceRecord");
+
+  }
+
+  //----------------------------------------------------------------------------	
+  void 
+  Linux_DnsResourceRecordDefaultImplementation::deleteInstance(
+    const CmpiContext& aContext, 
+    const CmpiBroker& aBroker,
+    const Linux_DnsResourceRecordInstanceName& anInstanceName) {
+
+#ifdef DEBUG
+   	std::cout << "deleteInstance not supported for Linux_DnsResourceRecord" << std::endl;
+#endif
+
+    throw CmpiErrorFormater::getErrorException(
+      CmpiErrorFormater::METHOD_NOT_FOUND,
+      "deleteInstance",
+      "Linux_DnsResourceRecord");
+
+  }
+
+  
+
   /* extrinsic methods */
-
-    CMPIUint32 Linux_DnsResourceRecordDefaultImplementation::ApplyIncrementalChangeToCollection(
-     const CmpiContext& ctx, const CmpiBroker &mbp,
-     const Linux_DnsResourceRecordInstanceName&,
-      const CIM_CollectionOfMSEsInstanceName &Collection,
+  
+  //----------------------------------------------------------------------------  
+  CMPIUint32
+  Linux_DnsResourceRecordDefaultImplementation::ApplyIncrementalChangeToCollection(
+    const CmpiContext& aContext,
+    const CmpiBroker& aBroker,
+    const Linux_DnsResourceRecordInstanceName& anInstanceName,
+      const CIM_CollectionOfMSEsInstanceName& Collection,
       int isCollectionPresent,
-      const CmpiDateTime &TimeToApply,
+      const CmpiDateTime& TimeToApply,
       int isTimeToApplyPresent,
-      const CMPIBoolean &ContinueOnError,
+      const CMPIBoolean& ContinueOnError,
       int isContinueOnErrorPresent,
-      const CmpiDateTime &MustBeCompletedBy,
+      const CmpiDateTime& MustBeCompletedBy,
       int isMustBeCompletedByPresent,
       const char** PropertiesToApply,
       const CMPICount PropertiesToApplySize,
       int isPropertiesToApplyPresent,
-      char** &CanNotApply,
-      CMPICount &CanNotApplySize){
-      cout<<"ApplyIncrementalChangeToCollection() not supported in Linux_DnsResourceRecord"<<endl;
-   	  throw CmpiErrorFormater::getErrorException(
-   	   CmpiErrorFormater::NOT_IMPLEMENTED,
-   	   "ApplyIncrementalChangeToCollection() not implemented in Linux_DnsResourceRecord");
-    };
+      char**& CanNotApply,
+      CMPICount& CanNotApplySize) {
 
-    CMPIUint32 Linux_DnsResourceRecordDefaultImplementation::ApplyIncrementalChangeToMSE(
-     const CmpiContext& ctx, const CmpiBroker &mbp,
-     const Linux_DnsResourceRecordInstanceName&,
-      const CIM_ManagedSystemElementInstanceName &MSE,
+#ifdef DEBUG
+    std::cout << "ApplyIncrementalChangeToCollection() not supported in Linux_DnsResourceRecord" << std::endl;
+#endif    
+    
+ 	  throw CmpiErrorFormater::getErrorException(
+      CmpiErrorFormater::METHOD_NOT_FOUND,
+      "ApplyIncrementalChangeToCollection",
+      "Linux_DnsResourceRecord");
+      
+  }
+
+  //----------------------------------------------------------------------------  
+  CMPIUint32
+  Linux_DnsResourceRecordDefaultImplementation::ApplyIncrementalChangeToMSE(
+    const CmpiContext& aContext,
+    const CmpiBroker& aBroker,
+    const Linux_DnsResourceRecordInstanceName& anInstanceName,
+      const CIM_ManagedSystemElementInstanceName& MSE,
       int isMSEPresent,
-      const CmpiDateTime &TimeToApply,
+      const CmpiDateTime& TimeToApply,
       int isTimeToApplyPresent,
-      const CmpiDateTime &MustBeCompletedBy,
+      const CmpiDateTime& MustBeCompletedBy,
       int isMustBeCompletedByPresent,
       const char** PropertiesToApply,
       const CMPICount PropertiesToApplySize,
-      int isPropertiesToApplyPresent){
-      cout<<"ApplyIncrementalChangeToMSE() not supported in Linux_DnsResourceRecord"<<endl;
-   	  throw CmpiErrorFormater::getErrorException(
-   	   CmpiErrorFormater::NOT_IMPLEMENTED,
-   	   "ApplyIncrementalChangeToMSE() not implemented in Linux_DnsResourceRecord");
-    };
+      int isPropertiesToApplyPresent) {
 
-    CMPIUint32 Linux_DnsResourceRecordDefaultImplementation::ApplyToCollection(
-     const CmpiContext& ctx, const CmpiBroker &mbp,
-     const Linux_DnsResourceRecordInstanceName&,
-      const CIM_CollectionOfMSEsInstanceName &Collection,
+#ifdef DEBUG
+    std::cout << "ApplyIncrementalChangeToMSE() not supported in Linux_DnsResourceRecord" << std::endl;
+#endif    
+    
+ 	  throw CmpiErrorFormater::getErrorException(
+      CmpiErrorFormater::METHOD_NOT_FOUND,
+      "ApplyIncrementalChangeToMSE",
+      "Linux_DnsResourceRecord");
+      
+  }
+
+  //----------------------------------------------------------------------------  
+  CMPIUint32
+  Linux_DnsResourceRecordDefaultImplementation::ApplyToCollection(
+    const CmpiContext& aContext,
+    const CmpiBroker& aBroker,
+    const Linux_DnsResourceRecordInstanceName& anInstanceName,
+      const CIM_CollectionOfMSEsInstanceName& Collection,
       int isCollectionPresent,
-      const CmpiDateTime &TimeToApply,
+      const CmpiDateTime& TimeToApply,
       int isTimeToApplyPresent,
-      const CMPIBoolean &ContinueOnError,
+      const CMPIBoolean& ContinueOnError,
       int isContinueOnErrorPresent,
-      const CmpiDateTime &MustBeCompletedBy,
+      const CmpiDateTime& MustBeCompletedBy,
       int isMustBeCompletedByPresent,
-      char** &CanNotApply,
-      CMPICount &CanNotApplySize){
-      cout<<"ApplyToCollection() not supported in Linux_DnsResourceRecord"<<endl;
-   	  throw CmpiErrorFormater::getErrorException(
-   	   CmpiErrorFormater::NOT_IMPLEMENTED,
-   	   "ApplyToCollection() not implemented in Linux_DnsResourceRecord");
-    };
+      char**& CanNotApply,
+      CMPICount& CanNotApplySize) {
 
-    CMPIUint32 Linux_DnsResourceRecordDefaultImplementation::ApplyToMSE(
-     const CmpiContext& ctx, const CmpiBroker &mbp,
-     const Linux_DnsResourceRecordInstanceName&,
-      const CIM_ManagedSystemElementInstanceName &MSE,
+#ifdef DEBUG
+    std::cout << "ApplyToCollection() not supported in Linux_DnsResourceRecord" << std::endl;
+#endif    
+    
+ 	  throw CmpiErrorFormater::getErrorException(
+      CmpiErrorFormater::METHOD_NOT_FOUND,
+      "ApplyToCollection",
+      "Linux_DnsResourceRecord");
+      
+  }
+
+  //----------------------------------------------------------------------------  
+  CMPIUint32
+  Linux_DnsResourceRecordDefaultImplementation::ApplyToMSE(
+    const CmpiContext& aContext,
+    const CmpiBroker& aBroker,
+    const Linux_DnsResourceRecordInstanceName& anInstanceName,
+      const CIM_ManagedSystemElementInstanceName& MSE,
       int isMSEPresent,
-      const CmpiDateTime &TimeToApply,
+      const CmpiDateTime& TimeToApply,
       int isTimeToApplyPresent,
-      const CmpiDateTime &MustBeCompletedBy,
-      int isMustBeCompletedByPresent){
-      cout<<"ApplyToMSE() not supported in Linux_DnsResourceRecord"<<endl;
-   	  throw CmpiErrorFormater::getErrorException(
-   	   CmpiErrorFormater::NOT_IMPLEMENTED,
-   	   "ApplyToMSE() not implemented in Linux_DnsResourceRecord");
-    };
+      const CmpiDateTime& MustBeCompletedBy,
+      int isMustBeCompletedByPresent) {
 
-    CMPIUint32 Linux_DnsResourceRecordDefaultImplementation::VerifyOKToApplyIncrementalChangeToCollection(
-     const CmpiContext& ctx, const CmpiBroker &mbp,
-     const Linux_DnsResourceRecordInstanceName&,
-      const CIM_CollectionOfMSEsInstanceName &Collection,
+#ifdef DEBUG
+    std::cout << "ApplyToMSE() not supported in Linux_DnsResourceRecord" << std::endl;
+#endif    
+    
+ 	  throw CmpiErrorFormater::getErrorException(
+      CmpiErrorFormater::METHOD_NOT_FOUND,
+      "ApplyToMSE",
+      "Linux_DnsResourceRecord");
+      
+  }
+
+  //----------------------------------------------------------------------------  
+  CMPIUint32
+  Linux_DnsResourceRecordDefaultImplementation::VerifyOKToApplyIncrementalChangeToCollection(
+    const CmpiContext& aContext,
+    const CmpiBroker& aBroker,
+    const Linux_DnsResourceRecordInstanceName& anInstanceName,
+      const CIM_CollectionOfMSEsInstanceName& Collection,
       int isCollectionPresent,
-      const CmpiDateTime &TimeToApply,
+      const CmpiDateTime& TimeToApply,
       int isTimeToApplyPresent,
-      const CmpiDateTime &MustBeCompletedBy,
+      const CmpiDateTime& MustBeCompletedBy,
       int isMustBeCompletedByPresent,
       const char** PropertiesToApply,
       const CMPICount PropertiesToApplySize,
       int isPropertiesToApplyPresent,
-      char** &CanNotApply,
-      CMPICount &CanNotApplySize){
-      cout<<"VerifyOKToApplyIncrementalChangeToCollection() not supported in Linux_DnsResourceRecord"<<endl;
-   	  throw CmpiErrorFormater::getErrorException(
-   	   CmpiErrorFormater::NOT_IMPLEMENTED,
-   	   "VerifyOKToApplyIncrementalChangeToCollection() not implemented in Linux_DnsResourceRecord");
-    };
+      char**& CanNotApply,
+      CMPICount& CanNotApplySize) {
 
-    CMPIUint32 Linux_DnsResourceRecordDefaultImplementation::VerifyOKToApplyIncrementalChangeToMSE(
-     const CmpiContext& ctx, const CmpiBroker &mbp,
-     const Linux_DnsResourceRecordInstanceName&,
-      const CIM_ManagedSystemElementInstanceName &MSE,
+#ifdef DEBUG
+    std::cout << "VerifyOKToApplyIncrementalChangeToCollection() not supported in Linux_DnsResourceRecord" << std::endl;
+#endif    
+    
+ 	  throw CmpiErrorFormater::getErrorException(
+      CmpiErrorFormater::METHOD_NOT_FOUND,
+      "VerifyOKToApplyIncrementalChangeToCollection",
+      "Linux_DnsResourceRecord");
+      
+  }
+
+  //----------------------------------------------------------------------------  
+  CMPIUint32
+  Linux_DnsResourceRecordDefaultImplementation::VerifyOKToApplyIncrementalChangeToMSE(
+    const CmpiContext& aContext,
+    const CmpiBroker& aBroker,
+    const Linux_DnsResourceRecordInstanceName& anInstanceName,
+      const CIM_ManagedSystemElementInstanceName& MSE,
       int isMSEPresent,
-      const CmpiDateTime &TimeToApply,
+      const CmpiDateTime& TimeToApply,
       int isTimeToApplyPresent,
-      const CmpiDateTime &MustBeCompletedBy,
+      const CmpiDateTime& MustBeCompletedBy,
       int isMustBeCompletedByPresent,
       const char** PropertiesToApply,
       const CMPICount PropertiesToApplySize,
-      int isPropertiesToApplyPresent){
-      cout<<"VerifyOKToApplyIncrementalChangeToMSE() not supported in Linux_DnsResourceRecord"<<endl;
-   	  throw CmpiErrorFormater::getErrorException(
-   	   CmpiErrorFormater::NOT_IMPLEMENTED,
-   	   "VerifyOKToApplyIncrementalChangeToMSE() not implemented in Linux_DnsResourceRecord");
-    };
+      int isPropertiesToApplyPresent) {
 
-    CMPIUint32 Linux_DnsResourceRecordDefaultImplementation::VerifyOKToApplyToCollection(
-     const CmpiContext& ctx, const CmpiBroker &mbp,
-     const Linux_DnsResourceRecordInstanceName&,
-      const CIM_CollectionOfMSEsInstanceName &Collection,
+#ifdef DEBUG
+    std::cout << "VerifyOKToApplyIncrementalChangeToMSE() not supported in Linux_DnsResourceRecord" << std::endl;
+#endif    
+    
+ 	  throw CmpiErrorFormater::getErrorException(
+      CmpiErrorFormater::METHOD_NOT_FOUND,
+      "VerifyOKToApplyIncrementalChangeToMSE",
+      "Linux_DnsResourceRecord");
+      
+  }
+
+  //----------------------------------------------------------------------------  
+  CMPIUint32
+  Linux_DnsResourceRecordDefaultImplementation::VerifyOKToApplyToCollection(
+    const CmpiContext& aContext,
+    const CmpiBroker& aBroker,
+    const Linux_DnsResourceRecordInstanceName& anInstanceName,
+      const CIM_CollectionOfMSEsInstanceName& Collection,
       int isCollectionPresent,
-      const CmpiDateTime &TimeToApply,
+      const CmpiDateTime& TimeToApply,
       int isTimeToApplyPresent,
-      const CmpiDateTime &MustBeCompletedBy,
+      const CmpiDateTime& MustBeCompletedBy,
       int isMustBeCompletedByPresent,
-      char** &CanNotApply,
-      CMPICount &CanNotApplySize){
-      cout<<"VerifyOKToApplyToCollection() not supported in Linux_DnsResourceRecord"<<endl;
-   	  throw CmpiErrorFormater::getErrorException(
-   	   CmpiErrorFormater::NOT_IMPLEMENTED,
-   	   "VerifyOKToApplyToCollection() not implemented in Linux_DnsResourceRecord");
-    };
+      char**& CanNotApply,
+      CMPICount& CanNotApplySize) {
 
-    CMPIUint32 Linux_DnsResourceRecordDefaultImplementation::VerifyOKToApplyToMSE(
-     const CmpiContext& ctx, const CmpiBroker &mbp,
-     const Linux_DnsResourceRecordInstanceName&,
-      const CIM_ManagedSystemElementInstanceName &MSE,
+#ifdef DEBUG
+    std::cout << "VerifyOKToApplyToCollection() not supported in Linux_DnsResourceRecord" << std::endl;
+#endif    
+    
+ 	  throw CmpiErrorFormater::getErrorException(
+      CmpiErrorFormater::METHOD_NOT_FOUND,
+      "VerifyOKToApplyToCollection",
+      "Linux_DnsResourceRecord");
+      
+  }
+
+  //----------------------------------------------------------------------------  
+  CMPIUint32
+  Linux_DnsResourceRecordDefaultImplementation::VerifyOKToApplyToMSE(
+    const CmpiContext& aContext,
+    const CmpiBroker& aBroker,
+    const Linux_DnsResourceRecordInstanceName& anInstanceName,
+      const CIM_ManagedSystemElementInstanceName& MSE,
       int isMSEPresent,
-      const CmpiDateTime &TimeToApply,
+      const CmpiDateTime& TimeToApply,
       int isTimeToApplyPresent,
-      const CmpiDateTime &MustBeCompletedBy,
-      int isMustBeCompletedByPresent){
-      cout<<"VerifyOKToApplyToMSE() not supported in Linux_DnsResourceRecord"<<endl;
-   	  throw CmpiErrorFormater::getErrorException(
-   	   CmpiErrorFormater::NOT_IMPLEMENTED,
-   	   "VerifyOKToApplyToMSE() not implemented in Linux_DnsResourceRecord");
-    };
+      const CmpiDateTime& MustBeCompletedBy,
+      int isMustBeCompletedByPresent) {
 
-    CMPIUint32 Linux_DnsResourceRecordDefaultImplementation::disable(
-     const CmpiContext& ctx, const CmpiBroker &mbp,
-     const Linux_DnsResourceRecordInstanceName&){
-      cout<<"disable() not supported in Linux_DnsResourceRecord"<<endl;
-   	  throw CmpiErrorFormater::getErrorException(
-   	   CmpiErrorFormater::NOT_IMPLEMENTED,
-   	   "disable() not implemented in Linux_DnsResourceRecord");
-    };
+#ifdef DEBUG
+    std::cout << "VerifyOKToApplyToMSE() not supported in Linux_DnsResourceRecord" << std::endl;
+#endif    
+    
+ 	  throw CmpiErrorFormater::getErrorException(
+      CmpiErrorFormater::METHOD_NOT_FOUND,
+      "VerifyOKToApplyToMSE",
+      "Linux_DnsResourceRecord");
+      
+  }
 
-    CMPIUint32 Linux_DnsResourceRecordDefaultImplementation::enable(
-     const CmpiContext& ctx, const CmpiBroker &mbp,
-     const Linux_DnsResourceRecordInstanceName&){
-      cout<<"enable() not supported in Linux_DnsResourceRecord"<<endl;
-   	  throw CmpiErrorFormater::getErrorException(
-   	   CmpiErrorFormater::NOT_IMPLEMENTED,
-   	   "enable() not implemented in Linux_DnsResourceRecord");
-    };
-	
+
 }
-

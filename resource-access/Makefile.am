@@ -1,4 +1,4 @@
-# $Id: Makefile.am,v 1.4 2006/02/02 15:50:27 taphorn Exp $
+# $Id: Makefile.am,v 1.5 2006/05/16 16:57:57 taphorn Exp $
 # ==================================================================
 # (C) Copyright IBM Corp. 2005
 #
@@ -13,6 +13,7 @@
 # Description:  Automake input file for resource access layer.
 # ==================================================================
 
+AM_CFLAGS = -Wall
 
 # SBLIM Include Directory
 sblimincdir = $(includedir)/sblim
@@ -45,31 +46,15 @@ CLEANFILES =
 # Start from an empty extra distribution file list
 EXTRA_DIST =
 
-# Pre Build requirements need to be compiled prior anything else
-BUILT_SOURCES = 
-
-
-######################################################################################
-# sed scriptlets for replacing values in .in files
-do_substDir    = sed -e 's,[@]SYSCONFDIR[@],$(sysconfdir),g' \
-                     -e 's,[@]SCRIPTDIR[@],$(pkgdatadir),g'
-
-
 
 ######################################################################################
 # Automake instructions for 'resource-access' dir
-AM_CFLAGS = -Wall
 
-BUILT_SOURCES += \
-		smt_dns_ra_support.conf 
-
-smt_dns_ra_support.conf: smt_dns_ra_support.conf.in
-	$(do_substDir) $< > $@
-
+smt_dns_ra_support.conf: smt_dns_ra_support.conf.pre
+	sed -e 's,[@]SCRIPTDIR[@],$(pkgdatadir),g' -e s?$$\{prefix\}?$(prefix)?g -e s?$$\{exec_prefix\}?$(prefix)?g $< > $@
 
 # Adding new generated files to file list for clean up
-CLEANFILES += \
-		smt_dns_ra_support.conf
+CLEANFILES +=   smt_dns_ra_support.conf
 
 # Files for /etc directory
 sysconf_DATA += smt_dns_ra_support.conf
@@ -79,18 +64,20 @@ lib_LTLIBRARIES += libRaToolsDns.la
 
 # LibRaTools sources
 libRaToolsDns_la_SOURCES = \
-		smt_dns_ra_support.conf.in \
 		smt_dns_ra_support.h \
 		smt_dns_ra_support.c \
 		smt_dns_ra_perlxsi.c \
 		smt_dns_ra_rrhandle.c \
 		smt_dns_ra_service.c
-libRaToolsDns_la_CPPFLAGS = -fPIC `perl -MExtUtils::Embed -e ccopts` \
-                            -DUSE_CACHE \
-                            -DCONFFILE=\"$(sysconfdir)/smt_dns_ra_support.conf\" \
-                            -D_GNU_SOURCE
 
-libRaToolsDns_la_LDFLAGS = -fPIC `perl -MExtUtils::Embed -e ldopts`
+libRaToolsDns_la_CPPFLAGS = \
+                -fPIC `perl -MExtUtils::Embed -e ccopts` \
+                -DUSE_CACHE \
+                -DCONFFILE=\"$(sysconfdir)/smt_dns_ra_support.conf\" \
+                -D_GNU_SOURCE
+
+libRaToolsDns_la_LDFLAGS = \
+                -fPIC `perl -MExtUtils::Embed -e ldopts`
 
 # Scripts that are copied to an executable (at least for the libs) directory.
 pkgdata_SCRIPTS += \

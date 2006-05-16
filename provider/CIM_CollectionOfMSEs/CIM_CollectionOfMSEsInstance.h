@@ -1,22 +1,28 @@
- /**
- * CIM_CollectionOfMSEsInstance.h
- *
- * (C) Copyright IBM Corp. 2005
- *
- * THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
- * ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE
- * CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
- *
- * You can obtain a current copy of the Common Public License from
- * http://www.opensource.org/licenses/cpl1.0.php
- *
- * author:     Murillo Bernardes <bernarde@br.ibm.com>
- *
- * Contributors:
- *
- */
+// =======================================================================
+// CIM_CollectionOfMSEsInstance.h
+//     created on Fri, 3 Mar 2006 using ECUTE
+// 
+// Copyright (c) 2006, International Business Machines
+//
+// THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
+// ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE 
+// CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
+//
+// You can obtain a current copy of the Common Public License from
+// http://oss.software.ibm.com/developerworks/opensource/license-cpl.html
+//
+// Author:        generated
+//
+// Contributors:
+//                Murillo Bernardes <bernarde@br.ibm.com>
+//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//
+// =======================================================================
+//
+// 
 #ifndef CIM_CollectionOfMSEsInstance_h
 #define CIM_CollectionOfMSEsInstance_h
+
 
 #include "cmpidt.h"
 #include "CmpiObjectPath.h"
@@ -27,103 +33,100 @@
 
 #include "CIM_CollectionOfMSEsInstanceName.h"
 
+
 namespace genProvider {
 
   class CIM_CollectionOfMSEsInstance {
-  public:
-       CIM_CollectionOfMSEsInstance();
-  	
-       CIM_CollectionOfMSEsInstance
-  	    (const CIM_CollectionOfMSEsInstance& original);
-  	   
-       CIM_CollectionOfMSEsInstance
-        (const CmpiInstance& inst, const char* instanceNamespace);
-  	 
-       ~CIM_CollectionOfMSEsInstance();
        
-       CIM_CollectionOfMSEsInstance& operator=
-  	    (const CIM_CollectionOfMSEsInstance& original);
+    private:
+    void init();
+    void init(const CIM_CollectionOfMSEsInstance& anInstance);
+    void reset();
        
-       CmpiInstance getCmpiInstance(const char** properties=0) const;
+    CIM_CollectionOfMSEsInstanceName m_instanceName;
+    const char* m_Caption;
+    const char* m_CollectionID;
+    const char* m_Description;
+    const char* m_ElementName;
        
-       unsigned int isInstanceNameSet() const;
-       void setInstanceName(
-        const CIM_CollectionOfMSEsInstanceName& val);        
-       const CIM_CollectionOfMSEsInstanceName&
-        getInstanceName() const;
+    struct isSetType{
+      unsigned int instanceName:1;
+      unsigned int Caption:1;
+      unsigned int CollectionID:1;
+      unsigned int Description:1;
+      unsigned int ElementName:1;
 
-       unsigned int isCaptionSet() const;
-       void setCaption(const char* val, int makeCopy = 1);
-       const char* getCaption() const;
-
-       unsigned int isCollectionIDSet() const;
-       void setCollectionID(const char* val, int makeCopy = 1);
-       const char* getCollectionID() const;
-
-       unsigned int isDescriptionSet() const;
-       void setDescription(const char* val, int makeCopy = 1);
-       const char* getDescription() const;
-
-       unsigned int isElementNameSet() const;
-       void setElementName(const char* val, int makeCopy = 1);
-       const char* getElementName() const;
+    } isSet;
+    
+    public:
+    CIM_CollectionOfMSEsInstance();
+    CIM_CollectionOfMSEsInstance(
+      const CIM_CollectionOfMSEsInstance& anInstance);
+    CIM_CollectionOfMSEsInstance(
+      const CmpiInstance& aCmpiInstance, 
+      const char* anInstanceNamespaceP);
+    ~CIM_CollectionOfMSEsInstance();
        
-  private:
-       void init();
-       void init(const CIM_CollectionOfMSEsInstance& original);
-       void reset();
+    CIM_CollectionOfMSEsInstance& operator=(
+      const CIM_CollectionOfMSEsInstance& anInstance);
        
-       CIM_CollectionOfMSEsInstanceName m_instanceName;
-       const char* m_Caption;
-       const char* m_CollectionID;
-       const char* m_Description;
-       const char* m_ElementName;
-       
-       struct isSetType{
-       	 unsigned int instanceName:1;
-         unsigned int Caption:1;
-         unsigned int CollectionID:1;
-         unsigned int Description:1;
-         unsigned int ElementName:1;
-       } isSet;
+    CmpiInstance getCmpiInstance(const char** aPropertiesPP = 0) const;
+    unsigned int isInstanceNameSet() const;
+    void setInstanceName(const CIM_CollectionOfMSEsInstanceName& anInstanceName);        
+    const CIM_CollectionOfMSEsInstanceName& getInstanceName() const;
+
+    unsigned int isCaptionSet() const;
+    void setCaption(const char* aValue, int aCopyFlag = 1);
+    const char* getCaption() const;
+
+    unsigned int isCollectionIDSet() const;
+    void setCollectionID(const char* aValue, int aCopyFlag = 1);
+    const char* getCollectionID() const;
+
+    unsigned int isDescriptionSet() const;
+    void setDescription(const char* aValue, int aCopyFlag = 1);
+    const char* getDescription() const;
+
+    unsigned int isElementNameSet() const;
+    void setElementName(const char* aValue, int aCopyFlag = 1);
+    const char* getElementName() const;
+
+
   };
   
-  
-  struct CIM_CollectionOfMSEsInstanceEnumerationElement{
-  	CIM_CollectionOfMSEsInstance* m_elementP;
-  	CIM_CollectionOfMSEsInstanceEnumerationElement* m_nextP;
-  	
-  	CIM_CollectionOfMSEsInstanceEnumerationElement();
-  	~CIM_CollectionOfMSEsInstanceEnumerationElement();  	
+  struct CIM_CollectionOfMSEsInstanceEnumerationElement {
+
+    CIM_CollectionOfMSEsInstance* m_elementP;
+    CIM_CollectionOfMSEsInstanceEnumerationElement* m_nextP;
+
+    CIM_CollectionOfMSEsInstanceEnumerationElement();
+    ~CIM_CollectionOfMSEsInstanceEnumerationElement();  
+
   };
   
 
   class CIM_CollectionOfMSEsInstanceEnumeration {
-  	private:
-  	  CIM_CollectionOfMSEsInstanceEnumerationElement* firstElementP;
-  	  CIM_CollectionOfMSEsInstanceEnumerationElement* currentElementP;
-  	  CIM_CollectionOfMSEsInstanceEnumerationElement* endElementP;
-  	
-  	public:
-  	  CIM_CollectionOfMSEsInstanceEnumeration();
-  	  
-  	  CIM_CollectionOfMSEsInstanceEnumeration(
-  	   const CIM_CollectionOfMSEsInstanceEnumeration& original);
-  	  
-  	  ~CIM_CollectionOfMSEsInstanceEnumeration();
-  	  
-  	  void reset();
-  	  
-  	  bool hasNext() const;
-  	  
-  	  const CIM_CollectionOfMSEsInstance& getNext();
-  	  
-  	  int getSize() const;
-  	  
-  	  const CIM_CollectionOfMSEsInstance& getElement(int pos) const;  	  
-  	  
-  	 void addElement(const CIM_CollectionOfMSEsInstance& elementP);
-  };
-}
-#endif
 
+    private:
+    CIM_CollectionOfMSEsInstanceEnumerationElement* m_firstElementP;
+    CIM_CollectionOfMSEsInstanceEnumerationElement* m_currentElementP;
+    CIM_CollectionOfMSEsInstanceEnumerationElement* m_endElementP;
+
+    public:
+    CIM_CollectionOfMSEsInstanceEnumeration();
+    CIM_CollectionOfMSEsInstanceEnumeration(
+      const CIM_CollectionOfMSEsInstanceEnumeration& anInstanceEnumeration);
+    ~CIM_CollectionOfMSEsInstanceEnumeration();
+
+    void reset();
+    bool hasNext() const;
+    const CIM_CollectionOfMSEsInstance& getNext();
+    int getSize() const;
+    const CIM_CollectionOfMSEsInstance& getElement(int anIndex) const;  	  
+    void addElement(const CIM_CollectionOfMSEsInstance& anInstance);
+
+  };
+
+}
+
+#endif

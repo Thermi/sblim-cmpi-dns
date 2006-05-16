@@ -1,20 +1,25 @@
- /**
- * Linux_DnsHintZoneInstanceName.h
- *
- * (C) Copyright IBM Corp. 2005
- *
- * THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
- * ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE
- * CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
- *
- * You can obtain a current copy of the Common Public License from
- * http://www.opensource.org/licenses/cpl1.0.php
- *
- * author:     Murillo Bernardes <bernarde@br.ibm.com>
- *
- * Contributors:
- *
- */
+// =======================================================================
+// Linux_DnsHintZoneInstanceName.h
+//     created on Fri, 3 Mar 2006 using ECUTE
+// 
+// Copyright (c) 2006, International Business Machines
+//
+// THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
+// ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE 
+// CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
+//
+// You can obtain a current copy of the Common Public License from
+// http://oss.software.ibm.com/developerworks/opensource/license-cpl.html
+//
+// Author:        generated
+//
+// Contributors:
+//                Murillo Bernardes <bernarde@br.ibm.com>
+//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//
+// =======================================================================
+//
+// 
 #ifndef Linux_DnsHintZoneInstanceName_h
 #define Linux_DnsHintZoneInstanceName_h
 
@@ -27,52 +32,55 @@
 #include "ArrayConverter.h"
 #include "CmpiErrorFormater.h"
 
+
 namespace genProvider {
 
   class Linux_DnsHintZoneInstanceName {
-  public:
-       Linux_DnsHintZoneInstanceName();
-  	
-       Linux_DnsHintZoneInstanceName
-  	    (const Linux_DnsHintZoneInstanceName& original);
-  	   
-       Linux_DnsHintZoneInstanceName
-        (const CmpiObjectPath& path);
-  	 
-       ~Linux_DnsHintZoneInstanceName();
        
-       Linux_DnsHintZoneInstanceName& operator=
-  	    (const Linux_DnsHintZoneInstanceName& original);
+    private:
+    void init();
+    void init(const Linux_DnsHintZoneInstanceName& anInstanceName);
+    void reset();
        
-       CmpiObjectPath getObjectPath() const;
+    const char* m_CIMClassNameP;
+    const char* m_nameSpaceP;
+    
+    const char* m_Name;
        
-       void fillKeys(CmpiInstance& cmpiInstance) const;
-       
-       unsigned int isNameSpaceSet() const;
-       void setNamespace(const char * val, int makeCopy = 1);
-       const char * getNamespace() const;
+    struct isSetType{
+      unsigned int m_nameSpaceP:1;
+      unsigned int Name:1;
 
-       unsigned int isNameSet() const;
-       void setName(const char* val, int makeCopy = 1);
-       const char* getName() const;
+    } isSet;
+  
+    public:
+    Linux_DnsHintZoneInstanceName();
+  	
+    Linux_DnsHintZoneInstanceName(const Linux_DnsHintZoneInstanceName& anInstanceName);
+  	   
+    Linux_DnsHintZoneInstanceName(const CmpiObjectPath& path);
+  	 
+    ~Linux_DnsHintZoneInstanceName();
        
-  private:
-       void init();
-       void init(const Linux_DnsHintZoneInstanceName& original);
-       void reset();
+    Linux_DnsHintZoneInstanceName& operator=(const Linux_DnsHintZoneInstanceName& anInstanceName);
        
-       const char* m_CIMClassNameP;
-       const char* m_namespace;
-       const char* m_Name;
+    CmpiObjectPath getObjectPath() const;
        
-       struct isSetType{
-       	 unsigned int m_namespace:1;
-         unsigned int Name:1;
-       } isSet;
+    void fillKeys(CmpiInstance& cmpiInstance) const;
+       
+    unsigned int isNameSpaceSet() const;
+    void setNamespace(const char* aNameSpaceP, int aCopyFlag = 1);
+    const char* getNamespace() const;
+    
+    unsigned int isNameSet() const;
+    void setName(const char* aValue, int aCopyFlag = 1);
+    const char* getName() const;
+
+
   };
   
-  
-  struct Linux_DnsHintZoneInstanceNameEnumerationElement{
+  //****************************************************************************
+  struct Linux_DnsHintZoneInstanceNameEnumerationElement {
   	Linux_DnsHintZoneInstanceName* m_elementP;
   	Linux_DnsHintZoneInstanceNameEnumerationElement* m_nextP;
   	
@@ -80,38 +88,40 @@ namespace genProvider {
   	~Linux_DnsHintZoneInstanceNameEnumerationElement();  	
   };
   
-
+  //****************************************************************************
   class Linux_DnsHintZoneInstanceNameEnumeration {
+  
   	private:
-  	  Linux_DnsHintZoneInstanceNameEnumerationElement* firstElementP;
-  	  Linux_DnsHintZoneInstanceNameEnumerationElement* currentElementP;
-  	  Linux_DnsHintZoneInstanceNameEnumerationElement* endElementP;
+    Linux_DnsHintZoneInstanceNameEnumerationElement* m_firstElementP;
+  	Linux_DnsHintZoneInstanceNameEnumerationElement* m_currentElementP;
+  	Linux_DnsHintZoneInstanceNameEnumerationElement* m_endElementP;
   	
   	public:
-  	  Linux_DnsHintZoneInstanceNameEnumeration();
+    Linux_DnsHintZoneInstanceNameEnumeration();
   	  
-  	  Linux_DnsHintZoneInstanceNameEnumeration(const CmpiArray& arr);
+    Linux_DnsHintZoneInstanceNameEnumeration(const CmpiArray& arr);
   	  
-  	  Linux_DnsHintZoneInstanceNameEnumeration(
-  	   const Linux_DnsHintZoneInstanceNameEnumeration& original);
+    Linux_DnsHintZoneInstanceNameEnumeration(const Linux_DnsHintZoneInstanceNameEnumeration& anInstanceNameEnumeration);
+  	   
+    ~Linux_DnsHintZoneInstanceNameEnumeration();
   	  
-  	  ~Linux_DnsHintZoneInstanceNameEnumeration();
+    void reset();
   	  
-  	  void reset();
+    bool hasNext() const;
   	  
-  	  bool hasNext() const;
+    const Linux_DnsHintZoneInstanceName& getNext();
   	  
-  	  const Linux_DnsHintZoneInstanceName& getNext();
+    int getSize() const;
   	  
-  	  int getSize() const;
+    const Linux_DnsHintZoneInstanceName& getElement(int anIndex) const;  	  
   	  
-  	  const Linux_DnsHintZoneInstanceName& getElement(int pos) const;  	  
+    //no copy of the element is done
+    void addElement(const Linux_DnsHintZoneInstanceName& anInstanceName);
   	  
-  	  //no copy of the element is done
-  	  void addElement(const Linux_DnsHintZoneInstanceName& elementP);
-  	  
-  	  operator CmpiArray() const;
+    operator CmpiArray() const;
+
   };
+
 }
 #endif
 

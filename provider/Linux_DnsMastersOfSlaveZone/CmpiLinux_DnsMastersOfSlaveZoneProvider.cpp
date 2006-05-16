@@ -1,533 +1,656 @@
- /**
- * CmpiLinux_DnsMastersOfSlaveZoneProvider.cpp
- *
- * (C) Copyright IBM Corp. 2005
- *
- * THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
- * ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE
- * CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
- *
- * You can obtain a current copy of the Common Public License from
- * http://www.opensource.org/licenses/cpl1.0.php
- *
- * author:     Murillo Bernardes <bernarde@br.ibm.com>
- *
- * Contributors:
- *
- */
+// =======================================================================
+// CmpiLinux_DnsMastersOfSlaveZoneProvider.cpp
+//     created on Fri, 3 Mar 2006 using ECUTE
+// 
+// Copyright (c) 2006, International Business Machines
+//
+// THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
+// ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE 
+// CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
+//
+// You can obtain a current copy of the Common Public License from
+// http://oss.software.ibm.com/developerworks/opensource/license-cpl.html
+//
+// Author:        generated
+//
+// Contributors:
+//                Murillo Bernardes <bernarde@br.ibm.com>
+//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//
+// =======================================================================
+//
+// 
 #include "CmpiLinux_DnsMastersOfSlaveZoneProvider.h"
 #include "ArrayConverter.h"
 #include "Linux_DnsMastersOfSlaveZoneManualInstance.h"
 #include "Linux_DnsMastersOfSlaveZoneRepositoryInstance.h"
-#include "Linux_DnsSlaveZoneInstance.h"
 #include "Linux_DnsIPAddressInstance.h"
+#include "Linux_DnsSlaveZoneInstance.h"
+
 
 #include <iostream>
 #include <strings.h>
 
-using namespace std;
-
 namespace genProvider {
 
-  CmpiLinux_DnsMastersOfSlaveZoneProvider::
-   CmpiLinux_DnsMastersOfSlaveZoneProvider (
-   const CmpiBroker &mbp, const CmpiContext& ctx):
-    CmpiBaseMI(mbp, ctx), CmpiInstanceMI(mbp,ctx),
-    CmpiMethodMI(mbp,ctx), CmpiAssociationMI(mbp,ctx), cppBroker(mbp) {
+  //----------------------------------------------------------------------------
+  CmpiLinux_DnsMastersOfSlaveZoneProvider::CmpiLinux_DnsMastersOfSlaveZoneProvider(
+    const CmpiBroker& aBroker, 
+    const CmpiContext& aContext)
+    : CmpiBaseMI(aBroker,aContext), 
+    CmpiInstanceMI(aBroker,aContext),
+    CmpiMethodMI(aBroker,aContext),
+     CmpiAssociationMI(aBroker,aContext),m_cmpiBroker(aBroker) {
       
-      interfaceP=Linux_DnsMastersOfSlaveZoneFactory::getImplementation();           
-      cout<<"Provider was constructed"<<endl;
-  };
-    
-        
-  const char * CmpiLinux_DnsMastersOfSlaveZoneProvider::
-   shadowNameSpaceP="IBMShadow/cimv2";
-        
-  CmpiLinux_DnsMastersOfSlaveZoneProvider::
-   ~CmpiLinux_DnsMastersOfSlaveZoneProvider(){
-	  delete interfaceP;
-  };
+    m_interfaceP = Linux_DnsMastersOfSlaveZoneFactory::getImplementation();           
+
+#ifdef DEBUG 
+    std::cout << "Provider was constructed" << std::endl;
+#endif    
   
-  int CmpiLinux_DnsMastersOfSlaveZoneProvider::isUnloadable() const{
+  }
+        
+  //----------------------------------------------------------------------------
+  CmpiLinux_DnsMastersOfSlaveZoneProvider::~CmpiLinux_DnsMastersOfSlaveZoneProvider() {
+    delete m_interfaceP;
+  }
+  
+  //----------------------------------------------------------------------------
+  int 
+  CmpiLinux_DnsMastersOfSlaveZoneProvider::isUnloadable() const {
     return 0;
   }
 	
-  /* -----------------------------------------------------------------------*/
-  /*                       Adding shadow properties                         */
-  /* -----------------------------------------------------------------------*/
-
-  void CmpiLinux_DnsMastersOfSlaveZoneProvider::completeInstance(
-   const Linux_DnsMastersOfSlaveZoneInstanceName& instanceName,
-   CmpiInstance& target, const CmpiContext& ctx){
+  //----------------------------------------------------------------------------
+  void 
+  CmpiLinux_DnsMastersOfSlaveZoneProvider::completeInstance(
+    const Linux_DnsMastersOfSlaveZoneInstanceName& anInstanceName,
+    CmpiInstance& anInstance, 
+    const CmpiContext& aContext) {
 	  	
-    Linux_DnsMastersOfSlaveZoneInstanceName shadowInstanceName(instanceName);
-    shadowInstanceName.setNamespace(shadowNameSpaceP);
-    CmpiObjectPath cmpiObjectPath=shadowInstanceName.getObjectPath();
+    Linux_DnsMastersOfSlaveZoneInstanceName shadowInstanceName(anInstanceName);
+    shadowInstanceName.setNamespace("IBMShadow/cimv2");
+    CmpiObjectPath cmpiObjectPath = shadowInstanceName.getObjectPath();
 	  
-    try{
-      const char* propertiesP=0;
-      CmpiInstance shadowInstance=cppBroker.getInstance (
-       ctx, cmpiObjectPath,&propertiesP);
-      copyShadowData(&shadowInstance,&target);
-    }catch(const CmpiStatus& rc){};                             
-  };
+    try {
+      const char* propertiesP = 0;
+      CmpiInstance shadowInstance = m_cmpiBroker.getInstance(
+        aContext, 
+        cmpiObjectPath,
+        &propertiesP);
+      copyShadowData(&shadowInstance,&anInstance);
+    } catch (const CmpiStatus& rc) {}                             
+  
+  }
 	
-	
-  void CmpiLinux_DnsMastersOfSlaveZoneProvider::copyShadowData (
-   const CmpiInstance* source, CmpiInstance* target){
-    
-	  
-  };
-    
-  /* -----------------------------------------------------------------------*/
-  /*                       Extracting shadow instance                         */
-  /* -----------------------------------------------------------------------*/
+  //----------------------------------------------------------------------------
+  void 
+  CmpiLinux_DnsMastersOfSlaveZoneProvider::copyShadowData(
+    const CmpiInstance* aSourceInstanceP, 
+    CmpiInstance* aTargetInstanceP) {
 
-  CmpiInstance* CmpiLinux_DnsMastersOfSlaveZoneProvider::
-   getShadowInstance (const CmpiInstance& original,
-   const Linux_DnsMastersOfSlaveZoneInstanceName& instanceName){
-     
-    Linux_DnsMastersOfSlaveZoneInstanceName shadowInstanceName(instanceName);
-    shadowInstanceName.setNamespace(shadowNameSpaceP);
-    CmpiObjectPath cmpiObjectPath=shadowInstanceName.getObjectPath();
+    if (aSourceInstanceP && aTargetInstanceP) {
       
-    CmpiInstance* targetP=new CmpiInstance(cmpiObjectPath);
-      
-    copyShadowData(&original,targetP);
-      
-    if(targetP->getPropertyCount()==0)
-      return 0;
-    else
-      return targetP;
+    }
+
   }
 
-  /* -----------------------------------------------------------------------*/
-  /*                          House keeping                              */
-  /* -----------------------------------------------------------------------*/
+  //----------------------------------------------------------------------------
+  CmpiInstance* 
+  CmpiLinux_DnsMastersOfSlaveZoneProvider::getShadowInstance(
+    const CmpiInstance& anInstance,
+    const Linux_DnsMastersOfSlaveZoneInstanceName& anInstanceName) {
+     
+    Linux_DnsMastersOfSlaveZoneInstanceName shadowInstanceName(anInstanceName);
+    shadowInstanceName.setNamespace("IBMShadow/cimv2");
+    CmpiObjectPath cmpiObjectPath = shadowInstanceName.getObjectPath();
+      
+    CmpiInstance* targetP = new CmpiInstance(cmpiObjectPath);
+      
+    if (targetP) {
+      copyShadowData(&anInstance,targetP);
+      if (0 == targetP->getPropertyCount()) {
+        delete targetP;
+        targetP = 0;
+      }
+    }
+  
+    return targetP;
+  
+  }
 
-  void CmpiLinux_DnsMastersOfSlaveZoneProvider::removeDanglingShadowInstances (
-   const Linux_DnsMastersOfSlaveZoneInstanceNameEnumeration& dinInsNames){
+  //----------------------------------------------------------------------------
+  void
+  CmpiLinux_DnsMastersOfSlaveZoneProvider::removeDanglingShadowInstances (
+   const Linux_DnsMastersOfSlaveZoneInstanceNameEnumeration& anInstanceNameEnumerations) {
 	
-    //TODO: enumerate shadow instance names and remove those not included
-	// in dinInsNames
+    // TODO: enumerate shadow instance names and remove those not included
+	  // in anInstanceNameEnumeration
 	
-  };	 	
+  }
 	
-  /* -----------------------------------------------------------------------*/
-  /*                          Provider Factory                              */
-  /* -----------------------------------------------------------------------*/
-
+  //----------------------------------------------------------------------------
+  //                          Provider Factory
+  //----------------------------------------------------------------------------
   CMProviderBase(CmpiLinux_DnsMastersOfSlaveZoneProvider);
 
   CMInstanceMIFactory(
-   CmpiLinux_DnsMastersOfSlaveZoneProvider, CmpiLinux_DnsMastersOfSlaveZoneProvider);
+    CmpiLinux_DnsMastersOfSlaveZoneProvider, 
+    CmpiLinux_DnsMastersOfSlaveZoneProvider);
 
   CMMethodMIFactory(
-   CmpiLinux_DnsMastersOfSlaveZoneProvider, CmpiLinux_DnsMastersOfSlaveZoneProvider);
-    
-    CMAssociationMIFactory( CmpiLinux_DnsMastersOfSlaveZoneProvider,
-     CmpiLinux_DnsMastersOfSlaveZoneProvider);
+    CmpiLinux_DnsMastersOfSlaveZoneProvider, 
+    CmpiLinux_DnsMastersOfSlaveZoneProvider);    CMAssociationMIFactory(
+      CmpiLinux_DnsMastersOfSlaveZoneProvider,
+      CmpiLinux_DnsMastersOfSlaveZoneProvider);
+	
+	
+  //----------------------------------------------------------------------------
+  //                      Instance Provider Interface
+  //----------------------------------------------------------------------------
 
-	
-	
-  /* -----------------------------------------------------------------------*/
-  /*                      Instance Provider Interface                       */
-  /* -----------------------------------------------------------------------*/
-
-  //enumInstanceNames
-	
-  CmpiStatus CmpiLinux_DnsMastersOfSlaveZoneProvider::enumInstanceNames (
-   const CmpiContext& ctx, CmpiResult& rslt,
-   const CmpiObjectPath& cop){
+  //----------------------------------------------------------------------------
+  CmpiStatus 
+  CmpiLinux_DnsMastersOfSlaveZoneProvider::enumInstanceNames(
+    const CmpiContext& aContext, 
+    CmpiResult& aResult,
+    const CmpiObjectPath& aCop) {
       
-    cout<<"enumerating instanceNames"<<endl;
-    CmpiString nameSpace=cop.getNameSpace();
-    const char* nameSpaceP=nameSpace.charPtr();
+#ifdef DEBUG 
+    std::cout << "enumerating instanceNames" << std::endl;
+#endif
+
+    CmpiString nameSpace = aCop.getNameSpace();
+    const char* nameSpaceP = nameSpace.charPtr();
 
     Linux_DnsMastersOfSlaveZoneInstanceNameEnumeration enumeration;
-    interfaceP->enumInstanceNames(ctx, cppBroker, nameSpaceP, enumeration);
+    m_interfaceP->enumInstanceNames(
+      aContext,
+      m_cmpiBroker,
+      nameSpaceP,
+      enumeration);
                    
-    while ( enumeration.hasNext() ){
-      const Linux_DnsMastersOfSlaveZoneInstanceName& instanceName=
-      enumeration.getNext();
-        
-      CmpiObjectPath objectPath=instanceName.getObjectPath();
-        
-      rslt.returnData(objectPath);
+    while (enumeration.hasNext() ){
+      const Linux_DnsMastersOfSlaveZoneInstanceName& instanceName = enumeration.getNext();
+      CmpiObjectPath objectPath = instanceName.getObjectPath();
+      aResult.returnData(objectPath);
     }
       
-    //we make housekeeping
+    // we make housekeeping
     removeDanglingShadowInstances(enumeration);
       
-    rslt.returnDone();
+    aResult.returnDone();
     return CmpiStatus(CMPI_RC_OK);
-  };
+
+  }
+
+  //----------------------------------------------------------------------------
+  CmpiStatus 
+  CmpiLinux_DnsMastersOfSlaveZoneProvider::enumInstances(
+    const CmpiContext& aContext,
+    CmpiResult& aResult,
+    const CmpiObjectPath& aCop, 
+    const char** aPropertiesPP) {
      
-     
-  //enumInstances
-     
-  CmpiStatus CmpiLinux_DnsMastersOfSlaveZoneProvider::enumInstances (
-   const CmpiContext& ctx, CmpiResult& rslt,
-   const CmpiObjectPath& cop, const char* *properties){
-     
-    cout<<"enumerating instances"<<endl;
-    CmpiString nameSpace=cop.getNameSpace();
-    const char* nameSpaceP=nameSpace.charPtr();
+#ifdef DEBUG 
+    std::cout << "enumerating instances" << std::endl;
+#endif
+
+    CmpiString nameSpace = aCop.getNameSpace();
+    const char* nameSpaceP = nameSpace.charPtr();
       
     Linux_DnsMastersOfSlaveZoneManualInstanceEnumeration enumeration;
-    interfaceP->enumInstances(ctx, cppBroker, nameSpaceP, properties, enumeration);
+    m_interfaceP->enumInstances(
+      aContext, 
+      m_cmpiBroker, 
+      nameSpaceP, 
+      aPropertiesPP,
+      enumeration);
+
+#ifdef DEBUG 
+    std::cout << "enumerated" << std::endl;
+#endif
       
-    cout<<"enumerated"<<endl;
-      
-    while ( enumeration.hasNext() ){
+    while (enumeration.hasNext()) {
+   	  const Linux_DnsMastersOfSlaveZoneManualInstance& instance = enumeration.getNext();
       	
-   	  const Linux_DnsMastersOfSlaveZoneManualInstance& instance=
-       enumeration.getNext();
+#ifdef DEBUG 
+      std::cout << "enumerating getNext" << std::endl;
+#endif
       	
-      cout<<"enumerating getNext"<<endl;
-      	
-      CmpiInstance cmpiInstance=instance.getCmpiInstance(properties);
-      cout<<"transformed"<<endl;
+      CmpiInstance cmpiInstance = instance.getCmpiInstance(aPropertiesPP);
+
+#ifdef DEBUG 
+      std::cout << "transformed" << std::endl;
+#endif
       	
       //add the static data
-      completeInstance(instance.getInstanceName(),cmpiInstance,ctx);
+      // MJ: No, this is done in the implementation (or DefaultImplementation)
+      // completeInstance(instance.getInstanceName(),cmpiInstance,aContext);
       	
-      rslt.returnData(cmpiInstance);
+      aResult.returnData(cmpiInstance);
+    
     }
       
-    rslt.returnDone();
+    aResult.returnDone();
     return CmpiStatus(CMPI_RC_OK);
-  };
+  
+  }
     
-    
-  //getInstance
-    
-  CmpiStatus CmpiLinux_DnsMastersOfSlaveZoneProvider::getInstance (
-   const CmpiContext& ctx, CmpiResult& rslt,
-   const CmpiObjectPath& cop, const char* *properties){
+  //----------------------------------------------------------------------------
+  CmpiStatus 
+  CmpiLinux_DnsMastersOfSlaveZoneProvider::getInstance (
+    const CmpiContext& aContext, 
+    CmpiResult& aResult,
+    const CmpiObjectPath& aCop,
+    const char** aPropertiesPP) {
      	
-    //covert to instanceName
-    Linux_DnsMastersOfSlaveZoneInstanceName instanceName(cop);
+    // convert to instanceName
+    Linux_DnsMastersOfSlaveZoneInstanceName instanceName(aCop);
+    
+    CmpiInstance* repositoryCmpiInstanceP = 0;
+    
+    // try to fetch repository instance
+    try {
+      Linux_DnsMastersOfSlaveZoneInstanceName repositoryInstanceName(instanceName);
+      repositoryInstanceName.setNamespace("IBMShadow/cimv2");
+      CmpiObjectPath repositoryCmpiObjectPath = repositoryInstanceName.getObjectPath();
+      repositoryCmpiInstanceP = new CmpiInstance(
+        m_cmpiBroker.getInstance(
+          aContext, 
+          repositoryCmpiObjectPath,
+          aPropertiesPP));
+    } catch (const CmpiStatus& rc) { }                             
       
-    //get instance for instanceName
+    // get instance for instanceName
     Linux_DnsMastersOfSlaveZoneManualInstance instance;
-    instance=interfaceP->getInstance(ctx, cppBroker, properties, instanceName);
+    instance = m_interfaceP->getInstance(
+      aContext,
+      m_cmpiBroker,
+      aPropertiesPP,
+      instanceName);
       
-    //we convert the instance in a cmpiInstance
-    CmpiInstance cmpiInstance=instance.getCmpiInstance(properties);
+    // convert the instance in a cmpiInstance
+    CmpiInstance cmpiInstance = instance.getCmpiInstance(aPropertiesPP);
       
-    //add the static data
-    completeInstance(instance.getInstanceName(), cmpiInstance, ctx);
+    // add the static data 
+    copyShadowData(repositoryCmpiInstanceP,&cmpiInstance);
       
-    rslt.returnData(cmpiInstance);
-      
-    rslt.returnDone();
+    if (repositoryCmpiInstanceP) {
+      delete repositoryCmpiInstanceP;
+    }
+
+    aResult.returnData(cmpiInstance);
+    aResult.returnDone();
     return CmpiStatus(CMPI_RC_OK);
-  };
+
+  }
     
-    
-  CmpiStatus CmpiLinux_DnsMastersOfSlaveZoneProvider::createInstance (
-   const CmpiContext& ctx, CmpiResult& rslt,
-   const CmpiObjectPath& cop,const CmpiInstance& inst){
+  //----------------------------------------------------------------------------
+  CmpiStatus 
+  CmpiLinux_DnsMastersOfSlaveZoneProvider::createInstance (
+    const CmpiContext& aContext,
+    CmpiResult& aResult,
+    const CmpiObjectPath& aCop,
+    const CmpiInstance& aCmpiInstance) {
    	
-   	Linux_DnsMastersOfSlaveZoneManualInstance instance (
-     inst,cop.getNameSpace().charPtr());
-    /*
+   	Linux_DnsMastersOfSlaveZoneManualInstance manualInstance(
+      aCmpiInstance,
+      aCop.getNameSpace().charPtr());
+    
     //REPOSITORY DATA    
-    CmpiInstance* backupShadowInstance=0;
-   	CmpiInstance shadowInstance=
-     Linux_DnsMastersOfSlaveZoneRepositoryInstance(inst,shadowNameSpaceP)
-     .getCmpiInstance(0);     
-     
-   	//We keep a backup of the existing data for recovering previous
-   	//state if the resource access raise an exception
-   	CmpiObjectPath shadowOp=shadowInstance.getObjectPath();
-    try{
-   	  backupShadowInstance=new CmpiInstance(
-   	   cppBroker.getInstance (ctx, shadowOp,0));
-   	  //if the shadow instance exist we delete it
-   	  cppBroker.deleteInstance(ctx, shadowOp);   	    
-   	}catch(CmpiStatus& rc){};   	
-    
-    cppBroker.createInstance(ctx, shadowOp,shadowInstance);     
-      */   	
-    
-    //RESOURCE ACCESS DATA   
-    try{
-      interfaceP->createInstance(ctx, cppBroker, instance);
-    }catch(CmpiStatus& rc){
-      //If something went wrong we recover the previous state
-      /*cppBroker.deleteInstance(ctx, shadowOp);
-      if(backupShadowInstance){
-        cppBroker.createInstance(ctx, shadowOp,*backupShadowInstance);
-      }*/
+//    CmpiInstance* backupShadowInstanceP = 0;
+//   	CmpiInstance shadowInstance = 
+//   	  Linux_DnsMastersOfSlaveZoneRepositoryInstance(aCmpiInstance,"IBMShadow/cimv2").getCmpiInstance(0);     
+//     
+//   	//We keep a backup of the existing data for recovering previous
+//   	//state if the resource access raise an exception
+//   	CmpiObjectPath shadowOp = shadowInstance.getObjectPath();
+//    try {
+//   	  backupShadowInstanceP = new CmpiInstance(
+//        m_cmpiBroker.getInstance(aContext,shadowOp,0));
+//   	  //if the shadow instance exist we delete it
+//   	  m_cmpiBroker.deleteInstance(aContext,shadowOp);   	    
+//   	} catch (CmpiStatus& rc) {}   	
+//    m_cmpiBroker.createInstance(aContext,shadowOp,shadowInstance);     
+//    
+//    // resource access data (manual instance)   
+    try { 
+        aResult.returnData(m_interfaceP->createInstance(aContext, m_cmpiBroker, manualInstance).
+			getObjectPath());
+    } catch (CmpiStatus& rc) {
+//      //If something went wrong we recover the previous state
+//      m_cmpiBroker.deleteInstance(aContext,shadowOp);
+//      if (backupShadowInstanceP) {
+//        m_cmpiBroker.createInstance(aContext,shadowOp,*backupShadowInstanceP);
+//      }
       throw rc;
     }
     
-    /*if(backupShadowInstance)
-      delete(backupShadowInstance);
-    */
-    rslt.returnDone();
+//    if (backupShadowInstanceP) {
+//      delete(backupShadowInstanceP);
+//    }
+    
+    aResult.returnDone();
     return CmpiStatus(CMPI_RC_OK);
-  };
+  
+  }
     
-    
-  CmpiStatus CmpiLinux_DnsMastersOfSlaveZoneProvider::setInstance (
-   const CmpiContext& ctx, CmpiResult& rslt,
-   const CmpiObjectPath& cop, const CmpiInstance& inst,
-   const char* *properties){
+  //----------------------------------------------------------------------------
+  CmpiStatus 
+  CmpiLinux_DnsMastersOfSlaveZoneProvider::setInstance (
+    const CmpiContext& aContext,
+    CmpiResult& aResult,
+    const CmpiObjectPath& aCop,
+    const CmpiInstance& aCmpiInstance,
+    const char** aPropertiesPP) {
    	
-   	Linux_DnsMastersOfSlaveZoneManualInstance instance (
-     inst,cop.getNameSpace().charPtr());
-    /*
+   	Linux_DnsMastersOfSlaveZoneManualInstance manualInstance(
+      aCmpiInstance,
+      aCop.getNameSpace().charPtr());
+    
     //REPOSITORY DATA    
-    CmpiInstance* backupShadowInstance=0;
-    CmpiInstance shadowInstance=
-     Linux_DnsMastersOfSlaveZoneRepositoryInstance(inst,shadowNameSpaceP)
-     .getCmpiInstance(0);     
-     
-   	//We keep a backup of the existing data for recovering previous
-   	//state if the resource access raise an exception
-   	CmpiObjectPath shadowOp=shadowInstance.getObjectPath();
-    try{
-   	  backupShadowInstance=new CmpiInstance(
-   	   cppBroker.getInstance (ctx, shadowOp,0));
-   	}catch(CmpiStatus& rc){};   	
+//    CmpiInstance* backupShadowInstanceP = 0;
+//    CmpiInstance shadowInstance =
+//      Linux_DnsMastersOfSlaveZoneRepositoryInstance(aCmpiInstance,"IBMShadow/cimv2").getCmpiInstance(0);     
+//     
+//   	//We keep a backup of the existing data for recovering previous
+//   	//state if the resource access raise an exception
+//   	CmpiObjectPath shadowOp = shadowInstance.getObjectPath();
+//    try {
+//   	  backupShadowInstanceP = new CmpiInstance(
+//   	   m_cmpiBroker.getInstance(aContext,shadowOp,0));
+//   	} catch (CmpiStatus& rc) {}   	
+//    
+//    //if the instance existed before we delete it
+//    //(setInstance is buggy in Pegasus)
+//    if (backupShadowInstanceP) {
+//      m_cmpiBroker.setInstance(aContext,shadowOp,shadowInstance,aPropertiesPP);
+//    } else {
+//      m_cmpiBroker.createInstance(aContext,shadowOp,shadowInstance);
+//    }
     
-    //if the instance existed before we delete it
-    //(setInstance is buggy in Pegasus)
-    if(backupShadowInstance)
-      cppBroker.setInstance(ctx, shadowOp,shadowInstance,properties);
-    else
-      cppBroker.createInstance(ctx, shadowOp,shadowInstance);      
-    */
-    
-    //RESOURCE ACCESS DATA   
-    try{
-      interfaceP->setInstance(ctx, cppBroker, properties, instance);
-    }catch(CmpiStatus& rc){
+    // resource access data (manual instance)   
+    try {
+      m_interfaceP->setInstance(aContext,m_cmpiBroker,aPropertiesPP,manualInstance);
+    } catch (CmpiStatus& rc) {
       //If something went wrong we recover the previous state
-      /*cppBroker.deleteInstance(ctx, shadowOp);
-      if(backupShadowInstance){
-        cppBroker.createInstance(ctx, shadowOp,*backupShadowInstance);
-      }*/
+//      m_cmpiBroker.deleteInstance(aContext,shadowOp);
+//      if (backupShadowInstanceP) {
+//        m_cmpiBroker.createInstance(aContext,shadowOp,*backupShadowInstanceP);
+//      }
       throw rc;
-    };
+    }
       
-    /*if(backupShadowInstance)
-      delete(backupShadowInstance);
-      */  
-    rslt.returnDone();
+//    if (backupShadowInstanceP) {
+//      delete backupShadowInstanceP;
+//    }
+        
+    aResult.returnDone();
     return CmpiStatus(CMPI_RC_OK);
-  };
     
+  }
     
-  CmpiStatus CmpiLinux_DnsMastersOfSlaveZoneProvider::deleteInstance (
-   const CmpiContext& ctx, CmpiResult& rslt,
-   const CmpiObjectPath& cop){
+  //----------------------------------------------------------------------------
+  CmpiStatus
+  CmpiLinux_DnsMastersOfSlaveZoneProvider::deleteInstance(
+    const CmpiContext& aContext,
+    CmpiResult& aResult,
+    const CmpiObjectPath& aCop) {
       
-    Linux_DnsMastersOfSlaveZoneInstanceName instanceName=
-     Linux_DnsMastersOfSlaveZoneInstanceName(cop);
-    interfaceP->deleteInstance(ctx, cppBroker, instanceName);
+    Linux_DnsMastersOfSlaveZoneInstanceName instanceName = Linux_DnsMastersOfSlaveZoneInstanceName(aCop);
+    m_interfaceP->deleteInstance(aContext,m_cmpiBroker,instanceName);
 
-    instanceName.setNamespace(shadowNameSpaceP);
-    /*CmpiObjectPath op=instanceName.getObjectPath();
+    instanceName.setNamespace("IBMShadow/cimv2");
+    CmpiObjectPath op = instanceName.getObjectPath();
       
-    try{  //The instance could not have static data
-      cppBroker.deleteInstance(ctx, op);
-    }catch(CmpiStatus& rc){};
-      */
-    rslt.returnDone();
+    try { // The instance could not have static data
+      m_cmpiBroker.deleteInstance(aContext,op);
+    } catch (CmpiStatus& rc) {}
+      
+    aResult.returnDone();
     return CmpiStatus(CMPI_RC_OK);
-  };
+  
+  }
     
-    
-  CmpiStatus CmpiLinux_DnsMastersOfSlaveZoneProvider::invokeMethod (
-   const CmpiContext& ctx, CmpiResult& rslt,
-   const CmpiObjectPath& ref, const char* methodName,
-   const CmpiArgs& in, CmpiArgs& out){
+  //----------------------------------------------------------------------------
+  CmpiStatus
+  CmpiLinux_DnsMastersOfSlaveZoneProvider::invokeMethod(
+    const CmpiContext& aContext,
+    CmpiResult& aResult,
+    const CmpiObjectPath& aCop,
+    const char* aMethodNameP,
+    const CmpiArgs& in,
+    CmpiArgs& out) {
      	
-    Linux_DnsMastersOfSlaveZoneInstanceName instanceName=
-     Linux_DnsMastersOfSlaveZoneInstanceName(ref);
+    Linux_DnsMastersOfSlaveZoneInstanceName instanceName = Linux_DnsMastersOfSlaveZoneInstanceName(aCop);
      
-    {
-     rslt.returnDone();
+     {
+
+      aResult.returnDone();
       return CmpiErrorFormater::getErrorException(
-   	   CmpiErrorFormater::METHOD_NOT_FOUND,
-   	   "Method not available");
+        CmpiErrorFormater::METHOD_NOT_FOUND,
+        aMethodNameP,
+        "Linux_DnsMastersOfSlaveZone");
+
     }
       
-    rslt.returnDone();
+    aResult.returnDone();
     return CmpiStatus(CMPI_RC_OK);      
-  };
-  /* -----------------------------------------------------------------------*/
-  /*                          Association Logic                             */
-  /* -----------------------------------------------------------------------*/
 
-  CmpiStatus CmpiLinux_DnsMastersOfSlaveZoneProvider::associationLogic( 
-   const CmpiContext& ctx, 
-   CmpiResult& rslt,
-   const CmpiObjectPath& cop,
-   const int instances,
-   const int references,
-   const char** properties) {
+  }
 
-    /* TODO : check if source instance cop exists */
+  //----------------------------------------------------------------------------
+  //                          Association Logic                             
+  //----------------------------------------------------------------------------
+  CmpiStatus 
+  CmpiLinux_DnsMastersOfSlaveZoneProvider::associationLogic( 
+    const CmpiContext& aContext, 
+    CmpiResult& aResult,
+    const CmpiObjectPath& aCop,
+    const int anInstanceFlag,
+    const int aReferenceFlag,
+    const char** aPropertiesPP) {
 
-    const char * nsp = cop.getNameSpace().charPtr();
+    /* TODO : check if source instance aCop exists */
 
-    if( references == 0 && instances == 1 ) {
+    const char* namespaceP = aCop.getNameSpace().charPtr();
+
+    if( aReferenceFlag == 0 && anInstanceFlag == 1 ) {
       /* associators() */
 
-      if(cop.classPathIsA("Linux_DnsSlaveZone")) {
-        Linux_DnsIPAddressInstanceEnumeration enumeration;
-        Linux_DnsSlaveZoneInstanceName Element(cop);
-        interfaceP->associatorsSetting(
-	    ctx, cppBroker, nsp, properties,
-	    Element, enumeration);
+      if (aCop.classPathIsA("Linux_DnsIPAddress")) {
+        
+        Linux_DnsSlaveZoneInstanceEnumeration enumeration;
+        Linux_DnsIPAddressInstanceName Setting(aCop);
+        m_interfaceP->associatorsElement(
+	        aContext, 
+	        m_cmpiBroker, 
+	        namespaceP, 
+	        aPropertiesPP,
+	        Setting,
+	        enumeration);
 
         while(enumeration.hasNext()) {
-	      const Linux_DnsIPAddressInstance instance =
-          enumeration.getNext();
-          CmpiInstance cmpiInstance = instance.getCmpiInstance(properties);
-          rslt.returnData(cmpiInstance);
-	    }
-      }
-      else if(cop.classPathIsA("Linux_DnsIPAddress")) {
-        Linux_DnsSlaveZoneInstanceEnumeration enumeration;
-        Linux_DnsIPAddressInstanceName Setting(cop);
-        interfaceP->associatorsElement(
-         ctx, cppBroker, nsp, properties,
-         Setting, enumeration);
+	        const Linux_DnsSlaveZoneInstance instance = enumeration.getNext();
+          CmpiInstance cmpiInstance = instance.getCmpiInstance(aPropertiesPP);
+          aResult.returnData(cmpiInstance);
+	      }
+	      
+      } else if(aCop.classPathIsA("Linux_DnsSlaveZone")) {
+        
+        Linux_DnsIPAddressInstanceEnumeration enumeration;
+        Linux_DnsSlaveZoneInstanceName Element(aCop);
+        m_interfaceP->associatorsSetting(
+          aContext,
+          m_cmpiBroker,
+          namespaceP,
+          aPropertiesPP,
+          Element,
+          enumeration);
 	
         while(enumeration.hasNext()) {
-          const Linux_DnsSlaveZoneInstance instance =
-          enumeration.getNext();
-          CmpiInstance cmpiInstance = instance.getCmpiInstance(properties);
-          rslt.returnData(cmpiInstance);
+          const Linux_DnsIPAddressInstance instance = enumeration.getNext();
+          CmpiInstance cmpiInstance = instance.getCmpiInstance(aPropertiesPP);
+          aResult.returnData(cmpiInstance);
         }
-      }      
-    } /* end of associators() */
-    else {
-      /* associatorNames() || references() || referenceNames() */
+      }   
+         
+    } else { /* end of associators() */
+    
+      /* associatorNames() || aReferenceFlag() || referenceNames() */
 
       Linux_DnsMastersOfSlaveZoneManualInstanceEnumeration enumeration;
 
-      if(cop.classPathIsA("Linux_DnsSlaveZone")) {
-        Linux_DnsSlaveZoneInstanceName Element(cop);
-        interfaceP->referencesSetting(
-         ctx, cppBroker, nsp, properties,
-         Element, enumeration);
+      if(aCop.classPathIsA("Linux_DnsIPAddress")) {
+        Linux_DnsIPAddressInstanceName Setting(aCop);
+        m_interfaceP->referencesElement(
+          aContext, 
+          m_cmpiBroker,
+          namespaceP,
+          aPropertiesPP,
+          Setting,
+          enumeration);
       }
       
-      if(cop.classPathIsA("Linux_DnsIPAddress")) {
-        Linux_DnsIPAddressInstanceName Setting(cop);
-        interfaceP->referencesElement(
-	     ctx, cppBroker, nsp, properties,
-	     Setting, enumeration);
+      if(aCop.classPathIsA("Linux_DnsSlaveZone")) {
+        Linux_DnsSlaveZoneInstanceName Element(aCop);
+        m_interfaceP->referencesSetting(
+	        aContext,
+	        m_cmpiBroker,
+	        namespaceP,
+	        aPropertiesPP,
+	        Element,
+	        enumeration);
       }
 
       while(enumeration.hasNext()) {
 
-        const Linux_DnsMastersOfSlaveZoneManualInstance manualInstance =
-         enumeration.getNext();
+        const Linux_DnsMastersOfSlaveZoneManualInstance manualInstance = enumeration.getNext();
 
-        const Linux_DnsMastersOfSlaveZoneInstanceName instanceName = 
-         manualInstance.getInstanceName();
+        const Linux_DnsMastersOfSlaveZoneInstanceName instanceName = manualInstance.getInstanceName();
 
-        if( references == 1 ) {
-          /* referenceNames() : references == 1 && instances == 0 */
-          if(instances == 0 ) {
+        if( aReferenceFlag == 1 ) {
+          // referenceNames() : aReferenceFlag == 1 && anInstanceFlag == 0
+          
+          if(anInstanceFlag == 0 ) {
             CmpiObjectPath cmpiObjectPath = instanceName.getObjectPath();
-            rslt.returnData(cmpiObjectPath);
-          } /* references() : references == 1 && instances == 1 */
-          else {
-            CmpiInstance cmpiInstance = manualInstance.getCmpiInstance(properties);
+            aResult.returnData(cmpiObjectPath);
+          } else { /* aReferenceFlag() : aReferenceFlag == 1 && anInstanceFlag == 1 */
+            CmpiInstance cmpiInstance = manualInstance.getCmpiInstance(aPropertiesPP);
             /* todo: complete the Instance */
-            rslt.returnData(cmpiInstance);
+            aResult.returnData(cmpiInstance);
           }
-        }
-        /* associatorNames() : references == 0 && instances == 0 */
-        else {
+
+        } else { // associatorNames() : aReferenceFlag == 0 && anInstanceFlag == 0 
       
-          if(cop.classPathIsA("Linux_DnsSlaveZone")) {
+          if(aCop.classPathIsA("Linux_DnsIPAddress")) {
+            const Linux_DnsSlaveZoneInstanceName Element = instanceName.getElement();
+            CmpiObjectPath cmpiObjectPath = Element.getObjectPath();
+            aResult.returnData(cmpiObjectPath);
+          }
+        
+          if(aCop.classPathIsA("Linux_DnsSlaveZone")) {
             const Linux_DnsIPAddressInstanceName Setting = 
             instanceName.getSetting();
             CmpiObjectPath cmpiObjectPath = Setting.getObjectPath();
-            rslt.returnData(cmpiObjectPath);
+            aResult.returnData(cmpiObjectPath);
           }
-        
-          if(cop.classPathIsA("Linux_DnsIPAddress")) {
-            const Linux_DnsSlaveZoneInstanceName Element = 
-            instanceName.getElement();
-            CmpiObjectPath cmpiObjectPath = Element.getObjectPath();
-            rslt.returnData(cmpiObjectPath);
-          }
+          
         }
+        
       }
-    } /* end of associatorNames() || references() || referenceNames() */
+      
+    } // end of associatorNames() || aReferenceFlag() || referenceNames()
     
-    rslt.returnDone();
+    aResult.returnDone();
+  
     return CmpiStatus(CMPI_RC_OK);
-  };
   
-  /* -----------------------------------------------------------------------*/
-  /*                     Association Provider Interface                     */
-  /* -----------------------------------------------------------------------*/
-
-
-  CmpiStatus CmpiLinux_DnsMastersOfSlaveZoneProvider::associators (
-   const CmpiContext& ctx, CmpiResult& rslt,
-   const CmpiObjectPath& cop, 
-   const char * assocClass, const char * resultClass,
-   const char * role, const char * resultRole, 
-   const char** properties) {
+  }
+  
+  //----------------------------------------------------------------------------
+  //                     Association Provider Interface
+  //----------------------------------------------------------------------------
+  CmpiStatus 
+  CmpiLinux_DnsMastersOfSlaveZoneProvider::associators(
+    const CmpiContext& aContext, 
+    CmpiResult& aResult,
+    const CmpiObjectPath& aCop, 
+    const char* anAssociationClassnameP,
+    const char* aResultClassnameP,
+    const char* aRolenameP, 
+    const char* aResultRolenameP, 
+    const char** aPropertiesPP) {
      
-    cout<<"calling associators() of class Linux_DnsMastersOfSlaveZone"<<endl;
+#ifdef DEBUG
+    std::cout << "calling associators() of class Linux_DnsMastersOfSlaveZone" << std::endl;
+#endif    
       
-    CmpiStatus rc = associationLogic(ctx,rslt,cop,1,0,properties);
+    CmpiStatus rc = associationLogic(aContext,aResult,aCop,1,0,aPropertiesPP);
+  
     return CmpiStatus(rc);
       
   }
-    
 
-  CmpiStatus CmpiLinux_DnsMastersOfSlaveZoneProvider::associatorNames (
-   const CmpiContext& ctx, CmpiResult& rslt,
-   const CmpiObjectPath& cop,
-   const char * assocClass, const char * resultClass,
-   const char * role, const char * resultRole) {
+  //----------------------------------------------------------------------------
+  CmpiStatus 
+  CmpiLinux_DnsMastersOfSlaveZoneProvider::associatorNames(
+    const CmpiContext& aContext,
+    CmpiResult& aResult,
+    const CmpiObjectPath& aCop,
+    const char* anAssociationClassnameP,
+    const char* aResultClassnameP,
+    const char* aRolenameP, 
+    const char* aResultRolenameP) {
    
-    cout<<"calling associatorNames() of class Linux_DnsMastersOfSlaveZone"<<endl;
+#ifdef DEBUG
+    std::cout << "calling associatorNames() of class Linux_DnsMastersOfSlaveZone" << std::endl;
+#endif    
     
-    CmpiStatus rc = associationLogic(ctx,rslt,cop,0,0);
+    CmpiStatus rc = associationLogic(aContext,aResult,aCop,0,0);
+  
     return CmpiStatus(rc);
   
   }
 
-
-  CmpiStatus CmpiLinux_DnsMastersOfSlaveZoneProvider::references ( 
-   const CmpiContext& ctx, CmpiResult& rslt,
-   const CmpiObjectPath& cop,
-   const char * assocClass, const char * role,
-   const char** properties) {
+  //----------------------------------------------------------------------------
+  CmpiStatus
+  CmpiLinux_DnsMastersOfSlaveZoneProvider::references( 
+    const CmpiContext& aContext,
+    CmpiResult& aResult,
+    const CmpiObjectPath& aCop,
+    const char* anAssociationClassnameP,
+    const char* aRolenameP,
+    const char** aPropertiesPP) {
     
-    cout<<"calling references() of class Linux_DnsMastersOfSlaveZone"<<endl;
+#ifdef DEBUG
+    std::cout << "calling aReferenceFlag() of class Linux_DnsMastersOfSlaveZone" << std::endl;
+#endif    
     
-    CmpiStatus rc = associationLogic(ctx,rslt,cop,1,1,properties);
+    CmpiStatus rc = associationLogic(aContext,aResult,aCop,1,1,aPropertiesPP);
+  
     return CmpiStatus(rc);
   
   }
     
-    
-  CmpiStatus CmpiLinux_DnsMastersOfSlaveZoneProvider::referenceNames (
-   const CmpiContext& ctx, CmpiResult& rslt,
-   const CmpiObjectPath& cop,
-   const char * assocClass, const char * role) {
+  //----------------------------------------------------------------------------
+  CmpiStatus
+  CmpiLinux_DnsMastersOfSlaveZoneProvider::referenceNames(
+    const CmpiContext& aContext,
+    CmpiResult& aResult,
+    const CmpiObjectPath& aCop,
+    const char* anAssociationClassnameP,
+    const char* aRolenameP) {
    
-    cout<<"calling referenceNames() of class Linux_DnsMastersOfSlaveZone"<<endl;
+#ifdef DEBUG
+    std::cout << "calling referenceNames() of class Linux_DnsMastersOfSlaveZone" << std::endl;
+#endif    
     
-    CmpiStatus rc = associationLogic(ctx,rslt,cop,0,1);
+    CmpiStatus rc = associationLogic(aContext,aResult,aCop,0,1);
+  
     return CmpiStatus(rc);
+  
   } 
 }	
 

@@ -1,22 +1,28 @@
- /**
- * Linux_DnsRecursionACLForServiceInstance.h
- *
- * (C) Copyright IBM Corp. 2005
- *
- * THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
- * ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE
- * CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
- *
- * You can obtain a current copy of the Common Public License from
- * http://www.opensource.org/licenses/cpl1.0.php
- *
- * author:     Murillo Bernardes <bernarde@br.ibm.com>
- *
- * Contributors:
- *
- */
+// =======================================================================
+// Linux_DnsRecursionACLForServiceInstance.h
+//     created on Fri, 3 Mar 2006 using ECUTE
+// 
+// Copyright (c) 2006, International Business Machines
+//
+// THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
+// ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE 
+// CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
+//
+// You can obtain a current copy of the Common Public License from
+// http://oss.software.ibm.com/developerworks/opensource/license-cpl.html
+//
+// Author:        generated
+//
+// Contributors:
+//                Murillo Bernardes <bernarde@br.ibm.com>
+//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//
+// =======================================================================
+//
+// 
 #ifndef Linux_DnsRecursionACLForServiceInstance_h
 #define Linux_DnsRecursionACLForServiceInstance_h
+
 
 #include "cmpidt.h"
 #include "CmpiObjectPath.h"
@@ -27,79 +33,76 @@
 
 #include "Linux_DnsRecursionACLForServiceInstanceName.h"
 
+
 namespace genProvider {
 
   class Linux_DnsRecursionACLForServiceInstance {
-  public:
-       Linux_DnsRecursionACLForServiceInstance();
-  	
-       Linux_DnsRecursionACLForServiceInstance
-  	    (const Linux_DnsRecursionACLForServiceInstance& original);
-  	   
-       Linux_DnsRecursionACLForServiceInstance
-        (const CmpiInstance& inst, const char* instanceNamespace);
-  	 
-       ~Linux_DnsRecursionACLForServiceInstance();
        
-       Linux_DnsRecursionACLForServiceInstance& operator=
-  	    (const Linux_DnsRecursionACLForServiceInstance& original);
+    private:
+    void init();
+    void init(const Linux_DnsRecursionACLForServiceInstance& anInstance);
+    void reset();
        
-       CmpiInstance getCmpiInstance(const char** properties=0) const;
+    Linux_DnsRecursionACLForServiceInstanceName m_instanceName;
        
-       unsigned int isInstanceNameSet() const;
-       void setInstanceName(
-        const Linux_DnsRecursionACLForServiceInstanceName& val);        
-       const Linux_DnsRecursionACLForServiceInstanceName&
-        getInstanceName() const;
+    struct isSetType{
+      unsigned int instanceName:1;
+
+    } isSet;
+    
+    public:
+    Linux_DnsRecursionACLForServiceInstance();
+    Linux_DnsRecursionACLForServiceInstance(
+      const Linux_DnsRecursionACLForServiceInstance& anInstance);
+    Linux_DnsRecursionACLForServiceInstance(
+      const CmpiInstance& aCmpiInstance, 
+      const char* anInstanceNamespaceP);
+    ~Linux_DnsRecursionACLForServiceInstance();
        
-  private:
-       void init();
-       void init(const Linux_DnsRecursionACLForServiceInstance& original);
-       void reset();
+    Linux_DnsRecursionACLForServiceInstance& operator=(
+      const Linux_DnsRecursionACLForServiceInstance& anInstance);
        
-       Linux_DnsRecursionACLForServiceInstanceName m_instanceName;
-       
-       struct isSetType{
-       	 unsigned int instanceName:1;
-       } isSet;
+    CmpiInstance getCmpiInstance(const char** aPropertiesPP = 0) const;
+    unsigned int isInstanceNameSet() const;
+    void setInstanceName(const Linux_DnsRecursionACLForServiceInstanceName& anInstanceName);        
+    const Linux_DnsRecursionACLForServiceInstanceName& getInstanceName() const;
+
+
   };
   
-  
-  struct Linux_DnsRecursionACLForServiceInstanceEnumerationElement{
-  	Linux_DnsRecursionACLForServiceInstance* m_elementP;
-  	Linux_DnsRecursionACLForServiceInstanceEnumerationElement* m_nextP;
-  	
-  	Linux_DnsRecursionACLForServiceInstanceEnumerationElement();
-  	~Linux_DnsRecursionACLForServiceInstanceEnumerationElement();  	
+  struct Linux_DnsRecursionACLForServiceInstanceEnumerationElement {
+
+    Linux_DnsRecursionACLForServiceInstance* m_elementP;
+    Linux_DnsRecursionACLForServiceInstanceEnumerationElement* m_nextP;
+
+    Linux_DnsRecursionACLForServiceInstanceEnumerationElement();
+    ~Linux_DnsRecursionACLForServiceInstanceEnumerationElement();  
+
   };
   
 
   class Linux_DnsRecursionACLForServiceInstanceEnumeration {
-  	private:
-  	  Linux_DnsRecursionACLForServiceInstanceEnumerationElement* firstElementP;
-  	  Linux_DnsRecursionACLForServiceInstanceEnumerationElement* currentElementP;
-  	  Linux_DnsRecursionACLForServiceInstanceEnumerationElement* endElementP;
-  	
-  	public:
-  	  Linux_DnsRecursionACLForServiceInstanceEnumeration();
-  	  
-  	  Linux_DnsRecursionACLForServiceInstanceEnumeration(
-  	   const Linux_DnsRecursionACLForServiceInstanceEnumeration& original);
-  	  
-  	  ~Linux_DnsRecursionACLForServiceInstanceEnumeration();
-  	  
-  	  void reset();
-  	  
-  	  bool hasNext() const;
-  	  
-  	  const Linux_DnsRecursionACLForServiceInstance& getNext();
-  	  
-  	  int getSize() const;
-  	  
-  	  const Linux_DnsRecursionACLForServiceInstance& getElement(int pos) const;  	  
-  	  
-  	 void addElement(const Linux_DnsRecursionACLForServiceInstance& elementP);
-  };
-}
-#endif
 
+    private:
+    Linux_DnsRecursionACLForServiceInstanceEnumerationElement* m_firstElementP;
+    Linux_DnsRecursionACLForServiceInstanceEnumerationElement* m_currentElementP;
+    Linux_DnsRecursionACLForServiceInstanceEnumerationElement* m_endElementP;
+
+    public:
+    Linux_DnsRecursionACLForServiceInstanceEnumeration();
+    Linux_DnsRecursionACLForServiceInstanceEnumeration(
+      const Linux_DnsRecursionACLForServiceInstanceEnumeration& anInstanceEnumeration);
+    ~Linux_DnsRecursionACLForServiceInstanceEnumeration();
+
+    void reset();
+    bool hasNext() const;
+    const Linux_DnsRecursionACLForServiceInstance& getNext();
+    int getSize() const;
+    const Linux_DnsRecursionACLForServiceInstance& getElement(int anIndex) const;  	  
+    void addElement(const Linux_DnsRecursionACLForServiceInstance& anInstance);
+
+  };
+
+}
+
+#endif

@@ -97,7 +97,7 @@ class Linux_DnsService : CIM_Service
 // ===================================================================
 // DNS Zone - Base class
 // ===================================================================
-[ Description("Class representing DNS zones.")]
+[ Abstract, Description("Class representing DNS zones.")]
 class Linux_DnsZone : CIM_Setting
 {
   [Key,

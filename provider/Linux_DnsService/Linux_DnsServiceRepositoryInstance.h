@@ -1,22 +1,28 @@
- /**
- * Linux_DnsServiceRepositoryInstance.h
- *
- * (C) Copyright IBM Corp. 2005
- *
- * THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
- * ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE
- * CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
- *
- * You can obtain a current copy of the Common Public License from
- * http://www.opensource.org/licenses/cpl1.0.php
- *
- * author:     Murillo Bernardes <bernarde@br.ibm.com>
- *
- * Contributors:
- *
- */
+// =======================================================================
+// Linux_DnsServiceRepositoryInstance.h
+//     created on Fri, 3 Mar 2006 using ECUTE
+// 
+// Copyright (c) 2006, International Business Machines
+//
+// THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
+// ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE 
+// CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
+//
+// You can obtain a current copy of the Common Public License from
+// http://oss.software.ibm.com/developerworks/opensource/license-cpl.html
+//
+// Author:        generated
+//
+// Contributors:
+//                Murillo Bernardes <bernarde@br.ibm.com>
+//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//
+// =======================================================================
+//
+// 
 #ifndef Linux_DnsServiceRepositoryInstance_h
 #define Linux_DnsServiceRepositoryInstance_h
+
 
 #include "cmpidt.h"
 #include "CmpiObjectPath.h"
@@ -27,79 +33,76 @@
 
 #include "Linux_DnsServiceInstanceName.h"
 
+
 namespace genProvider {
 
   class Linux_DnsServiceRepositoryInstance {
-  public:
-       Linux_DnsServiceRepositoryInstance();
-  	
-       Linux_DnsServiceRepositoryInstance
-  	    (const Linux_DnsServiceRepositoryInstance& original);
-  	   
-       Linux_DnsServiceRepositoryInstance
-        (const CmpiInstance& inst, const char* instanceNamespace);
-  	 
-       ~Linux_DnsServiceRepositoryInstance();
        
-       Linux_DnsServiceRepositoryInstance& operator=
-  	    (const Linux_DnsServiceRepositoryInstance& original);
+    private:
+    void init();
+    void init(const Linux_DnsServiceRepositoryInstance& anInstance);
+    void reset();
        
-       CmpiInstance getCmpiInstance(const char** properties=0) const;
+    Linux_DnsServiceInstanceName m_instanceName;
        
-       unsigned int isInstanceNameSet() const;
-       void setInstanceName(
-        const Linux_DnsServiceInstanceName& val);        
-       const Linux_DnsServiceInstanceName&
-        getInstanceName() const;
+    struct isSetType{
+      unsigned int instanceName:1;
+
+    } isSet;
+    
+    public:
+    Linux_DnsServiceRepositoryInstance();
+    Linux_DnsServiceRepositoryInstance(
+      const Linux_DnsServiceRepositoryInstance& anInstance);
+    Linux_DnsServiceRepositoryInstance(
+      const CmpiInstance& aCmpiInstance, 
+      const char* anInstanceNamespaceP);
+    ~Linux_DnsServiceRepositoryInstance();
        
-  private:
-       void init();
-       void init(const Linux_DnsServiceRepositoryInstance& original);
-       void reset();
+    Linux_DnsServiceRepositoryInstance& operator=(
+      const Linux_DnsServiceRepositoryInstance& anInstance);
        
-       Linux_DnsServiceInstanceName m_instanceName;
-       
-       struct isSetType{
-       	 unsigned int instanceName:1;
-       } isSet;
+    CmpiInstance getCmpiInstance(const char** aPropertiesPP = 0) const;
+    unsigned int isInstanceNameSet() const;
+    void setInstanceName(const Linux_DnsServiceInstanceName& anInstanceName);        
+    const Linux_DnsServiceInstanceName& getInstanceName() const;
+
+
   };
   
-  
-  struct Linux_DnsServiceRepositoryInstanceEnumerationElement{
-  	Linux_DnsServiceRepositoryInstance* m_elementP;
-  	Linux_DnsServiceRepositoryInstanceEnumerationElement* m_nextP;
-  	
-  	Linux_DnsServiceRepositoryInstanceEnumerationElement();
-  	~Linux_DnsServiceRepositoryInstanceEnumerationElement();  	
+  struct Linux_DnsServiceRepositoryInstanceEnumerationElement {
+
+    Linux_DnsServiceRepositoryInstance* m_elementP;
+    Linux_DnsServiceRepositoryInstanceEnumerationElement* m_nextP;
+
+    Linux_DnsServiceRepositoryInstanceEnumerationElement();
+    ~Linux_DnsServiceRepositoryInstanceEnumerationElement();  
+
   };
   
 
   class Linux_DnsServiceRepositoryInstanceEnumeration {
-  	private:
-  	  Linux_DnsServiceRepositoryInstanceEnumerationElement* firstElementP;
-  	  Linux_DnsServiceRepositoryInstanceEnumerationElement* currentElementP;
-  	  Linux_DnsServiceRepositoryInstanceEnumerationElement* endElementP;
-  	
-  	public:
-  	  Linux_DnsServiceRepositoryInstanceEnumeration();
-  	  
-  	  Linux_DnsServiceRepositoryInstanceEnumeration(
-  	   const Linux_DnsServiceRepositoryInstanceEnumeration& original);
-  	  
-  	  ~Linux_DnsServiceRepositoryInstanceEnumeration();
-  	  
-  	  void reset();
-  	  
-  	  bool hasNext() const;
-  	  
-  	  const Linux_DnsServiceRepositoryInstance& getNext();
-  	  
-  	  int getSize() const;
-  	  
-  	  const Linux_DnsServiceRepositoryInstance& getElement(int pos) const;  	  
-  	  
-  	 void addElement(const Linux_DnsServiceRepositoryInstance& elementP);
-  };
-}
-#endif
 
+    private:
+    Linux_DnsServiceRepositoryInstanceEnumerationElement* m_firstElementP;
+    Linux_DnsServiceRepositoryInstanceEnumerationElement* m_currentElementP;
+    Linux_DnsServiceRepositoryInstanceEnumerationElement* m_endElementP;
+
+    public:
+    Linux_DnsServiceRepositoryInstanceEnumeration();
+    Linux_DnsServiceRepositoryInstanceEnumeration(
+      const Linux_DnsServiceRepositoryInstanceEnumeration& anInstanceEnumeration);
+    ~Linux_DnsServiceRepositoryInstanceEnumeration();
+
+    void reset();
+    bool hasNext() const;
+    const Linux_DnsServiceRepositoryInstance& getNext();
+    int getSize() const;
+    const Linux_DnsServiceRepositoryInstance& getElement(int anIndex) const;  	  
+    void addElement(const Linux_DnsServiceRepositoryInstance& anInstance);
+
+  };
+
+}
+
+#endif

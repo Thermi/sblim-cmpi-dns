@@ -1,20 +1,25 @@
- /**
- * Linux_DnsSettingContextRepositoryExternal.h
- *
- * (C) Copyright IBM Corp. 2005
- *
- * THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
- * ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE
- * CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
- *
- * You can obtain a current copy of the Common Public License from
- * http://www.opensource.org/licenses/cpl1.0.php
- *
- * author:     Murillo Bernardes <bernarde@br.ibm.com>
- *
- * Contributors:
- *
- */
+// =======================================================================
+// Linux_DnsSettingContextRepositoryExternal.h
+//     created on Fri, 3 Mar 2006 using ECUTE
+// 
+// Copyright (c) 2006, International Business Machines
+//
+// THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
+// ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE 
+// CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
+//
+// You can obtain a current copy of the Common Public License from
+// http://oss.software.ibm.com/developerworks/opensource/license-cpl.html
+//
+// Author:        generated
+//
+// Contributors:
+//                Murillo Bernardes <bernarde@br.ibm.com>
+//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//
+// =======================================================================
+//
+// 
 #ifndef Linux_DnsSettingContextRepositoryExternal_h
 #define Linux_DnsSettingContextRepositoryExternal_h
 
@@ -25,38 +30,40 @@
 namespace genProvider {
 
   class Linux_DnsSettingContextRepositoryExternal {
+     
+    private:
+    CmpiBroker  m_broker;
+    CmpiContext m_context;
+    const static char *s_shadowNameSpaceP;
   	
     public:
     Linux_DnsSettingContextRepositoryExternal(
-     const CmpiBroker& brkr,
-     const CmpiContext& ctx);
+      const CmpiBroker& aBroker,
+      const CmpiContext& aContext);
     virtual ~Linux_DnsSettingContextRepositoryExternal();
     
     virtual void enumInstanceNames(
-     Linux_DnsSettingContextInstanceNameEnumeration&);
+      Linux_DnsSettingContextInstanceNameEnumeration& anInstanceNameEnumeration);
      
     virtual void enumInstances(
-     const char* *properties,
-     Linux_DnsSettingContextRepositoryInstanceEnumeration&);
+      const char** aPropertiesPP,
+      Linux_DnsSettingContextRepositoryInstanceEnumeration& aRepositoryInstanceEnumeration);
      
     virtual Linux_DnsSettingContextRepositoryInstance getInstance(
-     const char* *properties,
-     const Linux_DnsSettingContextInstanceName&);
+      const char** aPropertiesPP,
+      const Linux_DnsSettingContextInstanceName& anInstanceName);
      
     virtual void setInstance(
-     const char* *properties,
-     const Linux_DnsSettingContextRepositoryInstance&);
+      const char** aPropertiesPP,
+      const Linux_DnsSettingContextRepositoryInstance& aRepositoryInstance);
      
-    virtual void createInstance(
-     const Linux_DnsSettingContextRepositoryInstance&);
+    virtual Linux_DnsSettingContextInstanceName createInstance(
+      const Linux_DnsSettingContextRepositoryInstance& aRepositoryInstance);
      
     virtual void deleteInstance(
-     const Linux_DnsSettingContextInstanceName&);
-     
-    private:
-    CmpiBroker  broker;
-    CmpiContext context;
-    const static char *nsp;
+      const Linux_DnsSettingContextInstanceName& anInstanceName);
+  
   };
+
 }
 #endif

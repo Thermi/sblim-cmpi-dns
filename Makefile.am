@@ -1,4 +1,4 @@
-# $Id: Makefile.am,v 1.1 2005/10/18 12:13:43 taphorn Exp $
+# $Id: Makefile.am,v 1.2 2006/05/16 16:57:51 taphorn Exp $
 # ==================================================================
 # (C) Copyright IBM Corp. 2005
 #
@@ -46,19 +46,9 @@ CLEANFILES =
 # Start from an empty extra distribution file list
 EXTRA_DIST =
 
-# Pre Build requirements need to be compiled prior anything else
-BUILT_SOURCES = 
-
 # Subdirectories to recognize during build process
 SUBDIRS = resource-access provider
 
-######################################################################################
-# sed scriptlets for replacing values in .in files
-do_substDir    = sed -e 's,[@]SYSCONFDIR[@],$(sysconfdir),g' \
-                     -e 's,[@]SCRIPTDIR[@],$(pkgdatadir),g'
-
-
-######################################################################################
 # Automake instructions for documentation
 doc_DATA = README AUTHORS COPYING 
 

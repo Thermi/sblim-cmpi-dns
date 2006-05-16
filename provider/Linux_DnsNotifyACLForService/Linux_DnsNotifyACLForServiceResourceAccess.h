@@ -1,20 +1,25 @@
- /**
- * Linux_DnsNotifyACLForServiceResourceAccess.h
- *
- * (C) Copyright IBM Corp. 2005
- *
- * THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
- * ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE
- * CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
- *
- * You can obtain a current copy of the Common Public License from
- * http://www.opensource.org/licenses/cpl1.0.php
- *
- * author:     Murillo Bernardes <bernarde@br.ibm.com>
- *
- * Contributors:
- *
- */
+// =======================================================================
+// Linux_DnsNotifyACLForServiceResourceAccess.h
+//     created on Fri, 3 Mar 2006 using ECUTE
+// 
+// Copyright (c) 2006, International Business Machines
+//
+// THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
+// ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE 
+// CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
+//
+// You can obtain a current copy of the Common Public License from
+// http://oss.software.ibm.com/developerworks/opensource/license-cpl.html
+//
+// Author:        generated
+//
+// Contributors:
+//                Murillo Bernardes <bernarde@br.ibm.com>
+//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//
+// =======================================================================
+//
+// 
 #ifndef Linux_DnsNotifyACLForServiceResourceAccess_h
 #define Linux_DnsNotifyACLForServiceResourceAccess_h
 
@@ -24,21 +29,12 @@
 #include "CmpiInstance.h"
 #include "CmpiDateTime.h"
 #include "CmpiBroker.h"
-#include "Linux_DnsServiceInstance.h"
 #include "Linux_DnsAddressMatchListInstance.h"
-#include "Linux_DnsServiceExternal.h"
+#include "Linux_DnsServiceInstance.h"
 #include "Linux_DnsAddressMatchListExternal.h"
+#include "Linux_DnsServiceExternal.h"
 #include "Linux_DnsNotifyACLForServiceDefaultImplementation.h"
 
-#include <string>
-#include <list>
-
-using namespace std;
-
-#include "smt_dns_ra_support.h"
-#include "smt_dns_defaultvalues.h"
-#include "smt_dns_array.h"
-#include "smt_dns_valuemap.h"
 
 namespace genProvider {
 
@@ -46,84 +42,108 @@ namespace genProvider {
    public Linux_DnsNotifyACLForServiceDefaultImplementation {
   	
     public:
-    /*Linux_DnsNotifyACLForServiceResourceAccess(); */
+    /*
+    Linux_DnsNotifyACLForServiceResourceAccess();
+    */    
     virtual ~Linux_DnsNotifyACLForServiceResourceAccess() ;
     
     /* intrinsic methods */
+
     virtual void enumInstanceNames(
-     const CmpiContext& ctx,
-     const CmpiBroker &mbp,
-     const char *nsp,
-     Linux_DnsNotifyACLForServiceInstanceNameEnumeration& instnames);
+      const CmpiContext& aContext,
+      const CmpiBroker& aBroker,
+      const char* aNameSpaceP,
+      Linux_DnsNotifyACLForServiceInstanceNameEnumeration& anInstanceNameEnumeration);
+
   	
+
     virtual void enumInstances(
-     const CmpiContext& ctx,
-     const CmpiBroker &mbp,
-     const char *nsp,
-     const char* *properties,
-  	 Linux_DnsNotifyACLForServiceManualInstanceEnumeration& instances);
+      const CmpiContext& aContext,
+      const CmpiBroker& aBroker,
+      const char* aNameSpaceP,
+      const char** aPropertiesPP,
+  	  Linux_DnsNotifyACLForServiceManualInstanceEnumeration& aManualInstanceEnumeration);
+
   	
+
     virtual Linux_DnsNotifyACLForServiceManualInstance getInstance(
-     const CmpiContext& ctx,
-     const CmpiBroker &mbp,
-     const char* *properties,
-     const Linux_DnsNotifyACLForServiceInstanceName&);
+      const CmpiContext& aContext,
+      const CmpiBroker& aBroker,
+      const char** aPropertiesPP,
+      const Linux_DnsNotifyACLForServiceInstanceName& anInstanceName);
+
   	
-    /* virtual void setInstance(
-     const CmpiContext& ctx,
-     const CmpiBroker &mbp,
-     const char* *properties,
-     const Linux_DnsNotifyACLForServiceManualInstance&); */
+    /*
+    virtual void setInstance(
+      const CmpiContext& aContext,
+      const CmpiBroker& aBroker,
+      const char** aPropertiesPP,
+      const Linux_DnsNotifyACLForServiceManualInstance& aManualInstance);
+    */
   	
-    virtual void createInstance(
-     const CmpiContext& ctx,
-     const CmpiBroker &mbp,
-     const Linux_DnsNotifyACLForServiceManualInstance&);
+
+    virtual Linux_DnsNotifyACLForServiceInstanceName createInstance(
+      const CmpiContext& aContext,
+      const CmpiBroker& aBroker,
+      const Linux_DnsNotifyACLForServiceManualInstance& aManualInstance);
+
   	
+
     virtual void deleteInstance(
-     const CmpiContext& ctx,
-     const CmpiBroker &mbp,
-     const Linux_DnsNotifyACLForServiceInstanceName&);
+      const CmpiContext& aContext,
+      const CmpiBroker& aBroker,
+      const Linux_DnsNotifyACLForServiceInstanceName& anInstanceName);
+
 	
     
     /* Association Interface */
 
-    virtual void referencesElement( 
-     const CmpiContext& ctx,  
-     const CmpiBroker &mbp,
-     const char *nsp,
-     const char** properties,
-     const Linux_DnsAddressMatchListInstanceName& sourceInst,
-     Linux_DnsNotifyACLForServiceManualInstanceEnumeration& instances);
 
     virtual void referencesSetting( 
-     const CmpiContext& ctx,  
-     const CmpiBroker &mbp,
-     const char *nsp,
-     const char** properties,
-     const Linux_DnsServiceInstanceName& sourceInst,
-     Linux_DnsNotifyACLForServiceManualInstanceEnumeration& instances);
+      const CmpiContext& aContext,  
+      const CmpiBroker& aBroker,
+      const char* aNameSpaceP,
+      const char** aPropertiesPP,
+      const Linux_DnsServiceInstanceName& aSourceInstanceName,
+      Linux_DnsNotifyACLForServiceManualInstanceEnumeration& aManualInstanceEnumeration);
 
-    virtual void associatorsElement( 
-     const CmpiContext& ctx,  
-     const CmpiBroker &mbp,
-     const char *nsp,
-     const char** properties,
-     const Linux_DnsAddressMatchListInstanceName& sourceInst,
-     Linux_DnsServiceInstanceEnumeration& instances);
+
+
+    virtual void referencesElement( 
+      const CmpiContext& aContext,  
+      const CmpiBroker& aBroker,
+      const char* aNameSpaceP,
+      const char** aPropertiesPP,
+      const Linux_DnsAddressMatchListInstanceName& aSourceInstanceName,
+      Linux_DnsNotifyACLForServiceManualInstanceEnumeration& aManualInstanceEnumeration);
+
+
 
     virtual void associatorsSetting( 
-     const CmpiContext& ctx,  
-     const CmpiBroker &mbp,
-     const char *nsp,
-     const char** properties,
-     const Linux_DnsServiceInstanceName& sourceInst,
-     Linux_DnsAddressMatchListInstanceEnumeration& instances);
+      const CmpiContext& aContext,  
+      const CmpiBroker& aBroker,
+      const char* aNameSpaceP,
+      const char** aPropertiesPP,
+      const Linux_DnsServiceInstanceName& aSourceInstanceName,
+      Linux_DnsAddressMatchListInstanceEnumeration& anInstanceEnumeration);
+
+
+
+    virtual void associatorsElement( 
+      const CmpiContext& aContext,  
+      const CmpiBroker& aBroker,
+      const char* aNameSpaceP,
+      const char** aPropertiesPP,
+      const Linux_DnsAddressMatchListInstanceName& aSourceInstanceName,
+      Linux_DnsServiceInstanceEnumeration& anInstanceEnumeration);
+
 
    
+    
     /* extrinsic methods */
+    
 	
   };
+  
 }
 #endif
-

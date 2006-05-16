@@ -1,20 +1,25 @@
- /**
- * Linux_DnsAllowNotifyACLForZoneManualInstance.cpp
- *
- * (C) Copyright IBM Corp. 2005
- *
- * THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
- * ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE
- * CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
- *
- * You can obtain a current copy of the Common Public License from
- * http://www.opensource.org/licenses/cpl1.0.php
- *
- * author:     Murillo Bernardes <bernarde@br.ibm.com>
- *
- * Contributors:
- *
- */
+// =======================================================================
+// Linux_DnsAllowNotifyACLForZoneManualInstance.cpp
+//     created on Fri, 3 Mar 2006 using ECUTE
+// 
+// Copyright (c) 2006, International Business Machines
+//
+// THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
+// ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE 
+// CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
+//
+// You can obtain a current copy of the Common Public License from
+// http://oss.software.ibm.com/developerworks/opensource/license-cpl.html
+//
+// Author:        generated
+//
+// Contributors:
+//                Murillo Bernardes <bernarde@br.ibm.com>
+//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//
+// =======================================================================
+//
+// 
 #include "Linux_DnsAllowNotifyACLForZoneManualInstance.h"
 #include "CmpiData.h"
 #include "CmpiString.h"
@@ -23,244 +28,283 @@
 
 namespace genProvider {
 
-  //*********************************************************
+  //****************************************************************************
   //Linux_DnsAllowNotifyACLForZoneManualInstance
-  //*********************************************************
-
+  //----------------------------------------------------------------------------
   //empty constructor
-  Linux_DnsAllowNotifyACLForZoneManualInstance::
-   Linux_DnsAllowNotifyACLForZoneManualInstance(){   	
+  Linux_DnsAllowNotifyACLForZoneManualInstance::Linux_DnsAllowNotifyACLForZoneManualInstance() {   	
    	init();  	   	
-  };
+  }
   
-  
+  //----------------------------------------------------------------------------
   //copy constructor	
-  Linux_DnsAllowNotifyACLForZoneManualInstance::
-   Linux_DnsAllowNotifyACLForZoneManualInstance
-   (const Linux_DnsAllowNotifyACLForZoneManualInstance& original){   	
-   	init(original);  	   	
-  };
+  //----------------------------------------------------------------------------
+  Linux_DnsAllowNotifyACLForZoneManualInstance::Linux_DnsAllowNotifyACLForZoneManualInstance(
+    const Linux_DnsAllowNotifyACLForZoneManualInstance& anInstance) {   	
+   	init(anInstance);  	   	
+  }
   
-  
+  //----------------------------------------------------------------------------
   //constructor using CmpiInstance
-  Linux_DnsAllowNotifyACLForZoneManualInstance::
-   Linux_DnsAllowNotifyACLForZoneManualInstance (const CmpiInstance& inst, const char* instanceNamespace){
+  //----------------------------------------------------------------------------
+  Linux_DnsAllowNotifyACLForZoneManualInstance::Linux_DnsAllowNotifyACLForZoneManualInstance(
+    const CmpiInstance& aCmpiInstance,
+    const char* anInstanceNamespaceP) {
+
     CmpiData cmpiData;
+
     init(); 
     
-    CmpiObjectPath cop=inst.getObjectPath();
-    cop.setNameSpace(instanceNamespace);
+    CmpiObjectPath cop = aCmpiInstance.getObjectPath();
+    cop.setNameSpace(anInstanceNamespaceP);
     setInstanceName(Linux_DnsAllowNotifyACLForZoneInstanceName(cop));
+
     
   }
   
-  
+  //----------------------------------------------------------------------------
   //Destructor
+  //----------------------------------------------------------------------------
   Linux_DnsAllowNotifyACLForZoneManualInstance::
    ~Linux_DnsAllowNotifyACLForZoneManualInstance(){
    	reset();  	  
-  };
+  }
   
   
+  //----------------------------------------------------------------------------
   //copy operator
+  //----------------------------------------------------------------------------
   Linux_DnsAllowNotifyACLForZoneManualInstance&
-   Linux_DnsAllowNotifyACLForZoneManualInstance::operator=
-   (const Linux_DnsAllowNotifyACLForZoneManualInstance& original){   	
-   	init(original);
+  Linux_DnsAllowNotifyACLForZoneManualInstance::operator=(
+    const Linux_DnsAllowNotifyACLForZoneManualInstance& anInstance) {   	
+   	
+   	init(anInstance);
    	return *this;
-  };
+  
+  }
   
   
+  //----------------------------------------------------------------------------
   //converts to CmpiInstance
-  CmpiInstance Linux_DnsAllowNotifyACLForZoneManualInstance::
-   getCmpiInstance(const char** properties) const{
+  //----------------------------------------------------------------------------
+  CmpiInstance
+  Linux_DnsAllowNotifyACLForZoneManualInstance::getCmpiInstance(
+    const char** aPropertiesPP) const {
    	
    	CmpiObjectPath objectPath=getInstanceName().getObjectPath();      
     CmpiInstance cmpiInstance(objectPath);    
     getInstanceName().fillKeys(cmpiInstance);
     
-    if (properties) {
-	  cmpiInstance.setPropertyFilter(properties,0);
+    if (aPropertiesPP) {
+	    cmpiInstance.setPropertyFilter(aPropertiesPP,0);
     }
+
   	
   	return cmpiInstance;
   	
   }
   
-  
-  //InstanceName related methods
-  unsigned int Linux_DnsAllowNotifyACLForZoneManualInstance::
-   isInstanceNameSet() const{
+  //----------------------------------------------------------------------------
+  // InstanceName related methods
+  //----------------------------------------------------------------------------
+  unsigned int 
+  Linux_DnsAllowNotifyACLForZoneManualInstance::isInstanceNameSet() const {
   	return isSet.instanceName;
   }
   
+  //----------------------------------------------------------------------------
   const Linux_DnsAllowNotifyACLForZoneInstanceName&
-    Linux_DnsAllowNotifyACLForZoneManualInstance::getInstanceName() const{
+  Linux_DnsAllowNotifyACLForZoneManualInstance::getInstanceName() const {
 
-    if(!isSet.instanceName)
+    if( ! isSet.instanceName) {
    	  throw CmpiErrorFormater::getErrorException(
-   	   CmpiErrorFormater::NOT_SET,
-   	   "InstanceName not set in Linux_DnsAllowNotifyACLForZone instance");
+        CmpiErrorFormater::NOT_SET,
+        "InstanceName (CIM Key Attributes)",
+        "Linux_DnsAllowNotifyACLForZone");
+   	}
   		
    	return m_instanceName;
+  
   }
 
-  void Linux_DnsAllowNotifyACLForZoneManualInstance::setInstanceName(
-   const Linux_DnsAllowNotifyACLForZoneInstanceName& val){
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsAllowNotifyACLForZoneManualInstance::setInstanceName(
+    const Linux_DnsAllowNotifyACLForZoneInstanceName& val) {
+
     m_instanceName = val;
-    isSet.instanceName=1;
+    isSet.instanceName = 1;
+
   }
 
-
   
+  //----------------------------------------------------------------------------
   //set isSet attributes to FALSE
-  void Linux_DnsAllowNotifyACLForZoneManualInstance::init(){
-   	isSet.instanceName=0;
-   	  	
-  };
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsAllowNotifyACLForZoneManualInstance::init() {
+   	isSet.instanceName = 0;
+  	
+  }
   
-  
+  //----------------------------------------------------------------------------
   //copies another instance properties in this
-  void Linux_DnsAllowNotifyACLForZoneManualInstance::init
-   (const Linux_DnsAllowNotifyACLForZoneManualInstance& original){   	
+  //----------------------------------------------------------------------------
+  void 
+  Linux_DnsAllowNotifyACLForZoneManualInstance::init(
+    const Linux_DnsAllowNotifyACLForZoneManualInstance& anOriginal) {   	
+
    	init();
    	   	
-    if(original.isInstanceNameSet()){
-      setInstanceName(original.getInstanceName());
-    }    
-   }
+    if(anOriginal.isInstanceNameSet()) {
+      setInstanceName(anOriginal.getInstanceName());
+    }
+        
+  }
   
-  
+  //----------------------------------------------------------------------------
   //reset the instance data
-  void Linux_DnsAllowNotifyACLForZoneManualInstance::reset(){
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsAllowNotifyACLForZoneManualInstance::reset() {
    	
-  	  
-  };
+  }
   
-  
-  //*********************************************************
+  //----------------------------------------------------------------------------
   //Linux_DnsAllowNotifyACLForZoneManualInstanceEnumerationElement	
-  //*********************************************************
-  
-  Linux_DnsAllowNotifyACLForZoneManualInstanceEnumerationElement::
-   Linux_DnsAllowNotifyACLForZoneManualInstanceEnumerationElement(){
+  //----------------------------------------------------------------------------
+  Linux_DnsAllowNotifyACLForZoneManualInstanceEnumerationElement::Linux_DnsAllowNotifyACLForZoneManualInstanceEnumerationElement() {
    	
-  	m_elementP=0;
-  	m_nextP=0;
+  	m_elementP = 0;
+  	m_nextP = 0;
   	  
-  };
+  }
   
-  
-  Linux_DnsAllowNotifyACLForZoneManualInstanceEnumerationElement::
-   ~Linux_DnsAllowNotifyACLForZoneManualInstanceEnumerationElement(){
+  //----------------------------------------------------------------------------
+  Linux_DnsAllowNotifyACLForZoneManualInstanceEnumerationElement::~Linux_DnsAllowNotifyACLForZoneManualInstanceEnumerationElement() {
    	
-  	if (m_elementP!=0)
+  	if (m_elementP) {
   	  delete(m_elementP);
-  	if (m_nextP!=0)
+  	}
+  	
+  	if (m_nextP) {
   	  delete(m_nextP);
+  	}
   	  
-  };
+  }
 
-  
-  //*********************************************************
+  //----------------------------------------------------------------------------
   //Linux_DnsAllowNotifyACLForZoneManualInstanceNameEnumeration
-  //*********************************************************
-
-  Linux_DnsAllowNotifyACLForZoneManualInstanceEnumeration::
-   Linux_DnsAllowNotifyACLForZoneManualInstanceEnumeration(){
+  //----------------------------------------------------------------------------
+  Linux_DnsAllowNotifyACLForZoneManualInstanceEnumeration::Linux_DnsAllowNotifyACLForZoneManualInstanceEnumeration() {
    	
-  	 firstElementP=0;
-     currentElementP=0;
-     endElementP=0;
-  };
+    m_firstElementP = 0;
+    m_currentElementP = 0;
+    m_endElementP = 0;
   
-  Linux_DnsAllowNotifyACLForZoneManualInstanceEnumeration::
-   Linux_DnsAllowNotifyACLForZoneManualInstanceEnumeration(
-   const Linux_DnsAllowNotifyACLForZoneManualInstanceEnumeration& original){
+  }
+  
+  //----------------------------------------------------------------------------
+  Linux_DnsAllowNotifyACLForZoneManualInstanceEnumeration::Linux_DnsAllowNotifyACLForZoneManualInstanceEnumeration(
+    const Linux_DnsAllowNotifyACLForZoneManualInstanceEnumeration& anInstanceEnumeration) {
    	
-     firstElementP=0;
-     currentElementP=0;
-     endElementP=0;
+    m_firstElementP = 0;
+    m_currentElementP = 0;
+    m_endElementP = 0;
   	 
-     int size=original.getSize();
-     for(int i=0;i<size;i++)
-       addElement(original.getElement(i));           
-  };
+    int size = anInstanceEnumeration.getSize();
+    for (int x=0; x < size;++x) {
+      addElement(anInstanceEnumeration.getElement(x));
+    }           
+
+  }
   
-  	  
-  Linux_DnsAllowNotifyACLForZoneManualInstanceEnumeration::
-   ~Linux_DnsAllowNotifyACLForZoneManualInstanceEnumeration(){
+  //----------------------------------------------------------------------------
+  Linux_DnsAllowNotifyACLForZoneManualInstanceEnumeration::~Linux_DnsAllowNotifyACLForZoneManualInstanceEnumeration() {
    	
-  	if (firstElementP!=0)
-  	  delete(firstElementP);
+  	if (m_firstElementP) {
+  	  delete(m_firstElementP);
+  	}
   	  	
-  };
+  }
   
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsAllowNotifyACLForZoneManualInstanceEnumeration::reset() {
+  	
+  	m_currentElementP = m_firstElementP;
+  	
+  }
   	  
-  void Linux_DnsAllowNotifyACLForZoneManualInstanceEnumeration::reset(){
+  //----------------------------------------------------------------------------
+  bool
+  Linux_DnsAllowNotifyACLForZoneManualInstanceEnumeration::hasNext() const {
   	
-  	currentElementP=firstElementP;
-  };
+  	return (m_currentElementP != 0);
   
-  	  
-  bool Linux_DnsAllowNotifyACLForZoneManualInstanceEnumeration::hasNext() const{
-  	
-  	return (currentElementP!=0);
+  }
   
-  };
-  
-  int Linux_DnsAllowNotifyACLForZoneManualInstanceEnumeration::getSize() const{
+  //----------------------------------------------------------------------------
+  int
+  Linux_DnsAllowNotifyACLForZoneManualInstanceEnumeration::getSize() const {
   	
-    int size=0;
-    Linux_DnsAllowNotifyACLForZoneManualInstanceEnumerationElement* followingP=firstElementP;
+    int size = 0;
+    Linux_DnsAllowNotifyACLForZoneManualInstanceEnumerationElement* followingP = m_firstElementP;
   	
-  	while(followingP!=0){
-        followingP=followingP->m_nextP;
-        size++;
+  	while (followingP) {
+      followingP = followingP->m_nextP;
+      ++size;
     }
   	
     return size;
     
-  };
+  }
   
+  //----------------------------------------------------------------------------
   const Linux_DnsAllowNotifyACLForZoneManualInstance&  
-   Linux_DnsAllowNotifyACLForZoneManualInstanceEnumeration::getElement(int pos) const{
+  Linux_DnsAllowNotifyACLForZoneManualInstanceEnumeration::getElement(int anIndex) const {
    
-    Linux_DnsAllowNotifyACLForZoneManualInstanceEnumerationElement* followingP=firstElementP;
+    Linux_DnsAllowNotifyACLForZoneManualInstanceEnumerationElement* followingP = m_firstElementP;
    
-    int i=0;
-    while((followingP!=0)&&(i<pos)){
-        followingP=followingP->m_nextP;
-        i++;
+    int x = 0;
+    while (followingP && (x < anIndex)) {
+      followingP = followingP->m_nextP;
+      ++x;
     }
     
     return *(followingP->m_elementP);
-  };
+
+  }
   
-  	  
+  //----------------------------------------------------------------------------
   const Linux_DnsAllowNotifyACLForZoneManualInstance&
-   Linux_DnsAllowNotifyACLForZoneManualInstanceEnumeration::getNext() {
+  Linux_DnsAllowNotifyACLForZoneManualInstanceEnumeration::getNext() {
    	
-  	 Linux_DnsAllowNotifyACLForZoneManualInstanceEnumerationElement* currentP=
-  	  currentElementP;
-  	 currentElementP=currentElementP->m_nextP;
+    Linux_DnsAllowNotifyACLForZoneManualInstanceEnumerationElement* currentElementP =
+  	  m_currentElementP;
+
+    m_currentElementP = m_currentElementP->m_nextP;
   	 
-  	 return *(currentP->m_elementP);
-  };
+    return *(currentElementP->m_elementP);
+
+  }
   	  
-  void Linux_DnsAllowNotifyACLForZoneManualInstanceEnumeration::addElement
-   (const Linux_DnsAllowNotifyACLForZoneManualInstance& elementP){
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsAllowNotifyACLForZoneManualInstanceEnumeration::addElement(
+    const Linux_DnsAllowNotifyACLForZoneManualInstance& anInstance) {
    	
-  	if(firstElementP==0){
-  	  firstElementP=new Linux_DnsAllowNotifyACLForZoneManualInstanceEnumerationElement();
-  	  firstElementP->m_elementP=new Linux_DnsAllowNotifyACLForZoneManualInstance(elementP);
-  	  endElementP=firstElementP;
-  	  currentElementP=firstElementP;
-  	}else{
-  	  endElementP->m_nextP=new Linux_DnsAllowNotifyACLForZoneManualInstanceEnumerationElement();
-  	  endElementP=endElementP->m_nextP;
-  	  endElementP->m_elementP=new Linux_DnsAllowNotifyACLForZoneManualInstance(elementP);
+  	if (m_firstElementP == 0) {
+  	  m_firstElementP = new Linux_DnsAllowNotifyACLForZoneManualInstanceEnumerationElement();
+  	  m_firstElementP->m_elementP = new Linux_DnsAllowNotifyACLForZoneManualInstance(anInstance);
+  	  m_endElementP = m_firstElementP;
+  	  m_currentElementP = m_firstElementP;
+  	} else {
+  	  m_endElementP->m_nextP = new Linux_DnsAllowNotifyACLForZoneManualInstanceEnumerationElement();
+  	  m_endElementP = m_endElementP->m_nextP;
+  	  m_endElementP->m_elementP = new Linux_DnsAllowNotifyACLForZoneManualInstance(anInstance);
   	}
-  };  
+
+  }
+  
 }
- 

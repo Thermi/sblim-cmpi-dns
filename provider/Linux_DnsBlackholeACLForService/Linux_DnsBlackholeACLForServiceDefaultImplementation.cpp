@@ -1,201 +1,308 @@
- /**
- * Linux_DnsBlackholeACLForServiceDefaultImplementation.cpp
- *
- * (C) Copyright IBM Corp. 2005
- *
- * THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
- * ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE
- * CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
- *
- * You can obtain a current copy of the Common Public License from
- * http://www.opensource.org/licenses/cpl1.0.php
- *
- * author:     Murillo Bernardes <bernarde@br.ibm.com>
- *
- * Contributors:
- *
- */
-#include "Linux_DnsBlackholeACLForServiceDefaultImplementation.h"
-#include <iostream>
+// =======================================================================
+// Linux_DnsBlackholeACLForServiceDefaultImplementation.cpp
+//     created on Fri, 3 Mar 2006 using ECUTE
+// 
+// Copyright (c) 2006, International Business Machines
+//
+// THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
+// ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE 
+// CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
+//
+// You can obtain a current copy of the Common Public License from
+// http://oss.software.ibm.com/developerworks/opensource/license-cpl.html
+//
+// Author:        generated
+//
+// Contributors:
+//                Murillo Bernardes <bernarde@br.ibm.com>
+//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//
+// =======================================================================
+//
+// 
 
-using namespace std;
+#include "Linux_DnsBlackholeACLForServiceDefaultImplementation.h"
+#include "Linux_DnsBlackholeACLForServiceRepositoryInstance.h"
+#include <iostream>
 
 namespace genProvider {
 
   /* intrinsic methods */
-  void Linux_DnsBlackholeACLForServiceDefaultImplementation::enumInstanceNames(
-   const CmpiContext& ctx, const CmpiBroker &mbp, const char *nsp,
-   Linux_DnsBlackholeACLForServiceInstanceNameEnumeration& instnames){
-   	cout<<"enumInstances not supported for Linux_DnsBlackholeACLForService"<<endl;
+  //----------------------------------------------------------------------------	
+  void
+  Linux_DnsBlackholeACLForServiceDefaultImplementation::enumInstanceNames(
+    const CmpiContext& aContext,
+    const CmpiBroker& aBroker,
+    const char* aNameSpaceP,
+    Linux_DnsBlackholeACLForServiceInstanceNameEnumeration& anInstanceNameEnumeration) {
+
+#ifdef DEBUG
+   	std::cout << "enumInstanceNames not supported for Linux_DnsBlackholeACLForService" << std::endl;
+#endif   	
+
    	throw CmpiErrorFormater::getErrorException(
-   	 CmpiErrorFormater::NOT_IMPLEMENTED,
-   	 "enumInstances not implemented for Linux_DnsBlackholeACLForService");   
+   	  CmpiErrorFormater::METHOD_NOT_FOUND,
+   	  "enumInstanceEnumeration",
+   	  "Linux_DnsBlackholeACLForService");   
+
   }
-  	
-  void Linux_DnsBlackholeACLForServiceDefaultImplementation::enumInstances(
-   const CmpiContext& ctx,
-   const CmpiBroker &mbp,
-   const char *nsp,
-   const char* *properties,
-   Linux_DnsBlackholeACLForServiceManualInstanceEnumeration& instances){
-    
-    cout<<"Using default enumInstances implementation for Linux_DnsBlackholeACLForService"<<endl;
-    cout<<"LetŽs get the instanceNames"<<endl;
+
+  //----------------------------------------------------------------------------	
+  void 
+  Linux_DnsBlackholeACLForServiceDefaultImplementation::enumInstances(
+    const CmpiContext& aContext,
+    const CmpiBroker& aBroker,
+    const char* aNameSpaceP,
+    const char** aPropertiesPP,
+    Linux_DnsBlackholeACLForServiceManualInstanceEnumeration& anInstanceEnumeration) {
+
+#ifdef DEBUG
+    std::cout << "Using default enumInstances implementation for Linux_DnsBlackholeACLForService" << std::endl;
+    std::cout << "Let's get the instanceNames" << std::endl;
+#endif    
+
     Linux_DnsBlackholeACLForServiceInstanceNameEnumeration namesEnumeration;
-    enumInstanceNames(ctx, mbp,nsp,namesEnumeration);
-    cout<<"Getting each instance"<<endl;
-    while(namesEnumeration.hasNext()){
-      Linux_DnsBlackholeACLForServiceInstanceName name=
-    	  namesEnumeration.getNext();
-    	cout<<"Getting an instance for instanceName"<<endl;
-    	Linux_DnsBlackholeACLForServiceManualInstance instance=
-    	  getInstance(ctx, mbp, properties, name);
-    	cout<<"adding instance to enum"<<endl;
-    	instances.addElement(instance);
-    	cout<<"Added!"<<endl;
-    };
+    enumInstanceNames(aContext,aBroker,aNameSpaceP,namesEnumeration);
+
+#ifdef DEBUG
+    std::cout << "Getting each instance" << std::endl;
+#endif    
+    
+    while (namesEnumeration.hasNext()) {
+    
+      Linux_DnsBlackholeACLForServiceInstanceName instanceName = namesEnumeration.getNext();
+    
+      Linux_DnsBlackholeACLForServiceRepositoryInstance repositoryInstance;
+
+      // try to fetch repository instance
+      try {
+        Linux_DnsBlackholeACLForServiceInstanceName repositoryInstanceName(instanceName);
+        repositoryInstanceName.setNamespace("IBMShadow/cimv2");
+        CmpiObjectPath repositoryCmpiObjectPath = repositoryInstanceName.getObjectPath();
+        CmpiBroker cmpiBroker(aBroker);
+        CmpiInstance repositoryCmpiInstance = cmpiBroker.getInstance(
+            aContext,
+            repositoryCmpiObjectPath,
+            aPropertiesPP);
+        Linux_DnsBlackholeACLForServiceRepositoryInstance localRepositoryInstance(
+      	  repositoryCmpiInstance,
+          "IBMShadow/cimv2");
+        repositoryInstance = localRepositoryInstance;
+      } catch (const CmpiStatus& rc) { }                             
+    
+#ifdef DEBUG
+    	std::cout << "Getting an instance for instanceName" << std::endl;
+#endif
+    	
+    	Linux_DnsBlackholeACLForServiceManualInstance instance = getInstance(
+    	  aContext,
+    	  aBroker,
+    	  aPropertiesPP,
+    	  instanceName);
+
+      // add the static data
+
+
+#ifdef DEBUG
+    	std::cout << "adding instance to enum" << std::endl;
+#endif
+    	
+    	anInstanceEnumeration.addElement(instance);
+
+#ifdef DEBUG
+    	std::cout << "Added!" << std::endl;
+#endif
+    	
+    }
+
   }
-  	
+
+  //----------------------------------------------------------------------------	
   Linux_DnsBlackholeACLForServiceManualInstance 
-   Linux_DnsBlackholeACLForServiceDefaultImplementation::getInstance(
-   const CmpiContext& ctx,
-   const CmpiBroker &mbp,
-   const char* *properties,
-   const Linux_DnsBlackholeACLForServiceInstanceName&){
-    cout<<"getInstance not supported for Linux_DnsBlackholeACLForService"<<endl;
+  Linux_DnsBlackholeACLForServiceDefaultImplementation::getInstance(
+    const CmpiContext& aContext,
+    const CmpiBroker& aBroker,
+    const char** aPropertiesPP,
+    const Linux_DnsBlackholeACLForServiceInstanceName& anInstanceName) {
+
+#ifdef DEBUG
+    std::cout << "getInstance not supported for Linux_DnsBlackholeACLForService" << std::endl;
+#endif
+    	
+
     throw CmpiErrorFormater::getErrorException(
-   	 CmpiErrorFormater::NOT_IMPLEMENTED,
-   	 "getInstance not implemented for Linux_DnsBlackholeACLForService");
+   	  CmpiErrorFormater::METHOD_NOT_FOUND,
+   	  "getInstance",
+   	  "Linux_DnsBlackholeACLForService");
+
   }
   	
-  void Linux_DnsBlackholeACLForServiceDefaultImplementation::setInstance(
-   const CmpiContext& ctx,
-   const CmpiBroker &mbp,
-   const char* *properties,
-   const Linux_DnsBlackholeACLForServiceManualInstance&){
-   	cout<<"setInstance not supported for Linux_DnsBlackholeACLForService"<<endl;
-     throw CmpiErrorFormater::getErrorException(
-   	 CmpiErrorFormater::NOT_IMPLEMENTED,
-   	 "setInstance not implemented for Linux_DnsBlackholeACLForService");
-  }
-  	
-  void Linux_DnsBlackholeACLForServiceDefaultImplementation::
-   createInstance(const CmpiContext& ctx, const CmpiBroker &mbp,
-   const Linux_DnsBlackholeACLForServiceManualInstance&){
-   	cout<<"createInstance not supported for Linux_DnsBlackholeACLForService"<<endl;
-    throw CmpiErrorFormater::getErrorException(
-   	 CmpiErrorFormater::NOT_IMPLEMENTED,
-   	 "createInstance not implemented for Linux_DnsBlackholeACLForService");
-  }
-  	
-  void Linux_DnsBlackholeACLForServiceDefaultImplementation::
-   deleteInstance(const CmpiContext& ctx, const CmpiBroker &mbp,
-   const Linux_DnsBlackholeACLForServiceInstanceName&){
-   	cout<<"deleteInstance not supported for Linux_DnsBlackholeACLForService"<<endl;
-    throw CmpiErrorFormater::getErrorException(
-   	 CmpiErrorFormater::NOT_IMPLEMENTED,
-   	 "deleteInstance not implemented for Linux_DnsBlackholeACLForService");
-  }
-	
+  //----------------------------------------------------------------------------	
+  void 
+  Linux_DnsBlackholeACLForServiceDefaultImplementation::setInstance(
+    const CmpiContext& aContext,
+    const CmpiBroker& aBroker,
+    const char** aPropertiesPP,
+    const Linux_DnsBlackholeACLForServiceManualInstance& aManualInstance) {
   
-    /* Association Interface */
-
-    void Linux_DnsBlackholeACLForServiceDefaultImplementation::
-     referencesElement( 
-     const CmpiContext& ctx,  
-     const CmpiBroker &mbp,
-     const char *nsp,
-     const char** properties,
-     const Linux_DnsAddressMatchListInstanceName& sourceInst,
-     Linux_DnsBlackholeACLForServiceManualInstanceEnumeration& instances){
-      throw CmpiErrorFormater::getErrorException(
-   	   CmpiErrorFormater::NOT_IMPLEMENTED,
-   	   "getElementReferences between Linux_DnsService and Linux_DnsAddressMatchList not implemented for Linux_DnsBlackholeACLForService");
-    }
-
-    void Linux_DnsBlackholeACLForServiceDefaultImplementation::
-     referencesSetting( 
-     const CmpiContext& ctx,  
-     const CmpiBroker &mbp,
-     const char *nsp,
-     const char** properties,
-     const Linux_DnsServiceInstanceName& sourceInst,
-     Linux_DnsBlackholeACLForServiceManualInstanceEnumeration& instances){
-      throw CmpiErrorFormater::getErrorException(
-   	   CmpiErrorFormater::NOT_IMPLEMENTED,
-   	   "getSettingReferences between Linux_DnsService and Linux_DnsAddressMatchList not implemented for Linux_DnsBlackholeACLForService");
-    }
-
-    void Linux_DnsBlackholeACLForServiceDefaultImplementation::
-     associatorsElement( 
-     const CmpiContext& ctx,  
-     const CmpiBroker &mbp,
-     const char *nsp,
-     const char** properties,
-     const Linux_DnsAddressMatchListInstanceName& sourceInst,
-     Linux_DnsServiceInstanceEnumeration& instances){
-      
-      std::cout<<"Linux_DnsBlackholeACLForService : associatorsLinux_DnsService() ... returns one instance"<<std::endl;
-      
-      Linux_DnsBlackholeACLForServiceManualInstanceEnumeration enumeration;
-      
-      referencesElement(ctx, mbp, sourceInst.getNamespace(), 
-       properties, sourceInst, enumeration);
-
-      Linux_DnsServiceExternal external(mbp, ctx);
-
-      while(enumeration.hasNext()) {
-        const Linux_DnsBlackholeACLForServiceManualInstance instance =
-	     enumeration.getNext();
-	     
-        const Linux_DnsBlackholeACLForServiceInstanceName instanceName = 
-         instance.getInstanceName();
-         
-        const Linux_DnsServiceInstanceName Element = 
-         instanceName.getElement();
-         
-        Linux_DnsServiceInstance inst = external.getInstance(properties,Element);
-        
-        instances.addElement(inst);
-      }
-    }
-
-    void Linux_DnsBlackholeACLForServiceDefaultImplementation::
-     associatorsSetting( 
-     const CmpiContext& ctx,  
-     const CmpiBroker &mbp,
-     const char *nsp,
-     const char** properties,
-     const Linux_DnsServiceInstanceName& sourceInst,
-     Linux_DnsAddressMatchListInstanceEnumeration& instances){
-     
-      std::cout<<"Linux_DnsBlackholeACLForService : associatorsLinux_DnsAddressMatchList() ... returns one instance"<<std::endl;
-      
-      Linux_DnsBlackholeACLForServiceManualInstanceEnumeration enumeration;
-      
-      referencesSetting(ctx, mbp, sourceInst.getNamespace(), 
-       properties, sourceInst, enumeration);
-
-      Linux_DnsAddressMatchListExternal external(mbp, ctx);
-
-      while(enumeration.hasNext()) {
-        const Linux_DnsBlackholeACLForServiceManualInstance instance =
-	     enumeration.getNext();
-	     
-        const Linux_DnsBlackholeACLForServiceInstanceName instanceName = 
-         instance.getInstanceName();
-         
-        const Linux_DnsAddressMatchListInstanceName Setting = 
-         instanceName.getSetting();
-         
-        Linux_DnsAddressMatchListInstance inst = external.getInstance(properties,Setting);
-        
-        instances.addElement(inst);
-      }
-    }
-
+#ifdef DEBUG
+    std::cout << "setInstance not supported for Linux_DnsBlackholeACLForService" << std::endl;
+#endif
+    	
    
-  /* extrinsic methods */
-	
-}
+    throw CmpiErrorFormater::getErrorException(
+   	  CmpiErrorFormater::METHOD_NOT_FOUND,
+   	  "setInstance",
+   	  "Linux_DnsBlackholeACLForService");
+   	 
+  }
+  	
+  //----------------------------------------------------------------------------	
+  Linux_DnsBlackholeACLForServiceInstanceName  
+  Linux_DnsBlackholeACLForServiceDefaultImplementation::createInstance(
+    const CmpiContext& aContext, 
+    const CmpiBroker& aBroker,
+    const Linux_DnsBlackholeACLForServiceManualInstance& aManualInstance) {
 
+#ifdef DEBUG
+   	std::cout << "createInstance not supported for Linux_DnsBlackholeACLForService" << std::endl;
+#endif
+
+    throw CmpiErrorFormater::getErrorException(
+   	 CmpiErrorFormater::METHOD_NOT_FOUND,
+   	 "createInstance",
+   	 "Linux_DnsBlackholeACLForService");
+
+  }
+
+  //----------------------------------------------------------------------------	
+  void 
+  Linux_DnsBlackholeACLForServiceDefaultImplementation::deleteInstance(
+    const CmpiContext& aContext, 
+    const CmpiBroker& aBroker,
+    const Linux_DnsBlackholeACLForServiceInstanceName& anInstanceName) {
+
+#ifdef DEBUG
+   	std::cout << "deleteInstance not supported for Linux_DnsBlackholeACLForService" << std::endl;
+#endif
+
+    throw CmpiErrorFormater::getErrorException(
+      CmpiErrorFormater::METHOD_NOT_FOUND,
+      "deleteInstance",
+      "Linux_DnsBlackholeACLForService");
+
+  }
+
+  
+  // Association Interface
+
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsBlackholeACLForServiceDefaultImplementation::referencesSetting( 
+    const CmpiContext& aContext,  
+    const CmpiBroker& aBroker,
+    const char* aNameSpaceP,
+    const char** aPropertiesPP,
+    const Linux_DnsServiceInstanceName& aSourceInstance,
+    Linux_DnsBlackholeACLForServiceManualInstanceEnumeration& aManualInstanceEnumeration) {
+    
+    throw CmpiErrorFormater::getErrorException(
+      CmpiErrorFormater::METHOD_NOT_FOUND,
+      "References(Setting)",
+      "Linux_DnsBlackholeACLForService");
+
+  }
+
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsBlackholeACLForServiceDefaultImplementation::referencesElement( 
+    const CmpiContext& aContext,  
+    const CmpiBroker& aBroker,
+    const char* aNameSpaceP,
+    const char** aPropertiesPP,
+    const Linux_DnsAddressMatchListInstanceName& aSourceInstance,
+    Linux_DnsBlackholeACLForServiceManualInstanceEnumeration& aManualInstanceEnumeration) {
+    
+    throw CmpiErrorFormater::getErrorException(
+      CmpiErrorFormater::METHOD_NOT_FOUND,
+      "References(Element)",
+      "Linux_DnsBlackholeACLForService");
+
+  }
+
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsBlackholeACLForServiceDefaultImplementation::associatorsSetting(
+    const CmpiContext& aContext,  
+    const CmpiBroker& aBroker,
+    const char* aNameSpaceP,
+    const char** aPropertiesPP,
+    const Linux_DnsServiceInstanceName& aSourceInstance,
+    Linux_DnsAddressMatchListInstanceEnumeration& anInstanceEnumeration) {
+      
+#ifdef DEBUG
+    std::cout<<"Linux_DnsBlackholeACLForService : associatorsLinux_DnsAddressMatchList() ... returns one instance"<<std::endl;
+#endif    
+      
+    Linux_DnsBlackholeACLForServiceManualInstanceEnumeration manualInstanceEnumeration;
+      
+    referencesSetting(
+      aContext,
+      aBroker,
+      aSourceInstance.getNamespace(), 
+      aPropertiesPP,
+      aSourceInstance,
+      manualInstanceEnumeration);
+
+    Linux_DnsAddressMatchListExternal external(aBroker,aContext);
+
+    while (manualInstanceEnumeration.hasNext()) {
+      const Linux_DnsBlackholeACLForServiceManualInstance manualInstance = manualInstanceEnumeration.getNext();
+      const Linux_DnsBlackholeACLForServiceInstanceName instanceName = manualInstance.getInstanceName();
+      const Linux_DnsAddressMatchListInstanceName Setting = instanceName.getSetting();
+      Linux_DnsAddressMatchListInstance instance = external.getInstance(aPropertiesPP,Setting);
+      anInstanceEnumeration.addElement(instance);
+    }
+  
+  }
+
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsBlackholeACLForServiceDefaultImplementation::associatorsElement( 
+    const CmpiContext& aContext,  
+    const CmpiBroker& aBroker,
+    const char* aNameSpaceP,
+    const char** aPropertiesPP,
+    const Linux_DnsAddressMatchListInstanceName& aSourceInstance,
+    Linux_DnsServiceInstanceEnumeration& anInstanceEnumeration) {
+     
+#ifdef DEBUG
+    std::cout << "Linux_DnsBlackholeACLForService : associatorsLinux_DnsService() ... returns one instance" << std::endl;
+#endif    
+      
+    Linux_DnsBlackholeACLForServiceManualInstanceEnumeration manualInstanceEnumeration;
+      
+    referencesElement(
+      aContext,
+      aBroker,
+      aSourceInstance.getNamespace(), 
+      aPropertiesPP,
+      aSourceInstance,
+      manualInstanceEnumeration);
+
+    Linux_DnsServiceExternal external(aBroker,aContext);
+
+    while(manualInstanceEnumeration.hasNext()) {
+      const Linux_DnsBlackholeACLForServiceManualInstance manualInstance = manualInstanceEnumeration.getNext();
+      const Linux_DnsBlackholeACLForServiceInstanceName instanceName = manualInstance.getInstanceName();
+      const Linux_DnsServiceInstanceName Element = instanceName.getElement();
+      Linux_DnsServiceInstance instance = external.getInstance(aPropertiesPP,Element);
+      anInstanceEnumeration.addElement(instance);
+    }
+
+  }
+
+  /* extrinsic methods */
+  
+
+}

@@ -1,20 +1,25 @@
- /**
- * Linux_DnsManagedSystemElementForSettingInstanceName.cpp
- *
- * (C) Copyright IBM Corp. 2005
- *
- * THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
- * ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE
- * CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
- *
- * You can obtain a current copy of the Common Public License from
- * http://www.opensource.org/licenses/cpl1.0.php
- *
- * author:     Murillo Bernardes <bernarde@br.ibm.com>
- *
- * Contributors:
- *
- */
+// =======================================================================
+// Linux_DnsManagedSystemElementForSettingInstanceName.cpp
+//     created on Fri, 3 Mar 2006 using ECUTE
+// 
+// Copyright (c) 2006, International Business Machines
+//
+// THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
+// ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE 
+// CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
+//
+// You can obtain a current copy of the Common Public License from
+// http://oss.software.ibm.com/developerworks/opensource/license-cpl.html
+//
+// Author:        generated
+//
+// Contributors:
+//                Murillo Bernardes <bernarde@br.ibm.com>
+//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//
+// =======================================================================
+//
+// 
 #include "Linux_DnsManagedSystemElementForSettingInstanceName.h"
 #include "CmpiData.h"
 #include "CmpiString.h"
@@ -23,344 +28,411 @@
 
 namespace genProvider {
 	
-  //*********************************************************
+  //****************************************************************************
   //Linux_DnsManagedSystemElementForSettingInstanceName
-  //*********************************************************
-  
-  //empty constructor
-  Linux_DnsManagedSystemElementForSettingInstanceName::
-   Linux_DnsManagedSystemElementForSettingInstanceName(){
+  //---------------------------------------------------------------------------- 
+  // empty constructor
+  //---------------------------------------------------------------------------- 
+  Linux_DnsManagedSystemElementForSettingInstanceName::Linux_DnsManagedSystemElementForSettingInstanceName() {
    	init();  	
-  };
+  }
   
+  //---------------------------------------------------------------------------- 
+  // copy constructor	
+  //---------------------------------------------------------------------------- 
+  Linux_DnsManagedSystemElementForSettingInstanceName::Linux_DnsManagedSystemElementForSettingInstanceName(
+    const Linux_DnsManagedSystemElementForSettingInstanceName& anInstanceName) {
+   	init(anInstanceName);  	
+  }
   
-  //copy constructor	
-  Linux_DnsManagedSystemElementForSettingInstanceName::
-   Linux_DnsManagedSystemElementForSettingInstanceName
-   (const Linux_DnsManagedSystemElementForSettingInstanceName& original){
-   	init(original);  	
-  };
-  
-  
-  //contructor using CmpiObjectPath
-  Linux_DnsManagedSystemElementForSettingInstanceName::
-   Linux_DnsManagedSystemElementForSettingInstanceName (const CmpiObjectPath& path){
+  //---------------------------------------------------------------------------- 
+  // constructor using CmpiObjectPath
+  //---------------------------------------------------------------------------- 
+  Linux_DnsManagedSystemElementForSettingInstanceName::Linux_DnsManagedSystemElementForSettingInstanceName(
+    const CmpiObjectPath& path) {
     
     init();
     
-    m_CIMClassNameP=path.getClassName().charPtr();
+    m_CIMClassNameP = path.getClassName().charPtr();
     
-    CmpiString namespaceOP;
-    namespaceOP=path.getNameSpace();
-    setNamespace(namespaceOP.charPtr(),1);
-    
-    CmpiObjectPath Element = path.getKey("Element");
-    setElement(Linux_DnsZoneInstanceName(Element));
-    
+    CmpiString namespaceP;
+    namespaceP = path.getNameSpace();
+    setNamespace(namespaceP.charPtr(),1);
+        
     CmpiObjectPath Setting = path.getKey("Setting");
     setSetting(Linux_DnsAddressMatchListInstanceName(Setting));
     
+    CmpiObjectPath Element = path.getKey("Element");
+    setElement(Linux_DnsZoneInstanceName(Element));
+
+    
   }
   
-  
-  //destructor
-  Linux_DnsManagedSystemElementForSettingInstanceName::
-   ~Linux_DnsManagedSystemElementForSettingInstanceName(){
+  //---------------------------------------------------------------------------- 
+  // destructor
+  //---------------------------------------------------------------------------- 
+  Linux_DnsManagedSystemElementForSettingInstanceName::~Linux_DnsManagedSystemElementForSettingInstanceName() {
    	reset();  	  
-  };
-  
-  
-  //copy operator
-  Linux_DnsManagedSystemElementForSettingInstanceName&
-   Linux_DnsManagedSystemElementForSettingInstanceName::operator=
-   (const Linux_DnsManagedSystemElementForSettingInstanceName& original){    
-    init(original);
-   	return *this;    
   }
   
+  //---------------------------------------------------------------------------- 
+  //copy operator
+  //---------------------------------------------------------------------------- 
+  Linux_DnsManagedSystemElementForSettingInstanceName&
+  Linux_DnsManagedSystemElementForSettingInstanceName::operator=(
+    const Linux_DnsManagedSystemElementForSettingInstanceName& anInstanceName) {    
+    
+    init(anInstanceName);
+   	return *this;    
   
+  }
+  
+  //---------------------------------------------------------------------------- 
   //returns the related CmpiObjectPath
-  CmpiObjectPath Linux_DnsManagedSystemElementForSettingInstanceName::
-   getObjectPath() const{
+  //---------------------------------------------------------------------------- 
+  CmpiObjectPath 
+  Linux_DnsManagedSystemElementForSettingInstanceName::getObjectPath() const {
    	
-   	CmpiObjectPath objectPath(m_namespace, m_CIMClassNameP);
+   	CmpiObjectPath objectPath(m_nameSpaceP, m_CIMClassNameP);
+   	  	objectPath.setKey(
+  	  "Setting",
+  	  CmpiData(m_Setting.getObjectPath()));
+  	objectPath.setKey(
+  	  "Element",
+  	  CmpiData(m_Element.getObjectPath()));
 
-  	objectPath.setKey("Element",CmpiData(m_Element.getObjectPath()));
-
-  	objectPath.setKey("Setting",CmpiData(m_Setting.getObjectPath()));
   	
   	return objectPath;
   	
   }
   
-  
-  //adds the related CmpiObjectPath to an existing cmpiInstance
-  void Linux_DnsManagedSystemElementForSettingInstanceName::fillKeys(CmpiInstance& cmpiInstance) const{
+  //---------------------------------------------------------------------------- 
+  // adds the related CmpiObjectPath to an existing cmpiInstance
+  //---------------------------------------------------------------------------- 
+  void 
+  Linux_DnsManagedSystemElementForSettingInstanceName::fillKeys(CmpiInstance& cmpiInstance) const {
   	
-
-  	if(isSet.Element){
-  	  cmpiInstance.setProperty("Element",CmpiData(m_Element.getObjectPath()));
+  	if (isSet.Setting) {
+  	  
+  	  cmpiInstance.setProperty(
+  	    "Setting",
+  	    CmpiData(m_Setting.getObjectPath()));
   	}
 
-  	if(isSet.Setting){
-  	  cmpiInstance.setProperty("Setting",CmpiData(m_Setting.getObjectPath()));
+  	if (isSet.Element) {
+  	  
+  	  cmpiInstance.setProperty(
+  	    "Element",
+  	    CmpiData(m_Element.getObjectPath()));
   	}
+
   }
   
   
-  //NameSpace related methods
-  unsigned int Linux_DnsManagedSystemElementForSettingInstanceName::
-   isNameSpaceSet() const{
-  	return isSet.m_namespace;
+  //---------------------------------------------------------------------------- 
+  // NameSpace related methods
+  //---------------------------------------------------------------------------- 
+  unsigned int 
+  Linux_DnsManagedSystemElementForSettingInstanceName::isNameSpaceSet() const {
+  	return isSet.m_nameSpaceP;
   }
   
-  const char * Linux_DnsManagedSystemElementForSettingInstanceName::
-   getNamespace() const {
-    if(!isSet.m_namespace)
+  //---------------------------------------------------------------------------- 
+  const char* 
+  Linux_DnsManagedSystemElementForSettingInstanceName::getNamespace() const {
+    if ( ! isSet.m_nameSpaceP) {
    	  throw CmpiErrorFormater::getErrorException(
    	   CmpiErrorFormater::NOT_SET,
-   	   "NameSpace not set in Linux_DnsManagedSystemElementForSetting instanceName");
-  	return m_namespace;
+   	   "NameSpace",
+   	   "Linux_DnsManagedSystemElementForSetting");
+   	}
+  	return m_nameSpaceP;
   }
 
-  void Linux_DnsManagedSystemElementForSettingInstanceName::
-   setNamespace(const char* val, int makeCopy){
-    if (isSet.m_namespace) {
-      delete m_namespace;
+  //---------------------------------------------------------------------------- 
+  void
+  Linux_DnsManagedSystemElementForSettingInstanceName::setNamespace(
+    const char* aNameSpaceP,
+    int aCopyFlag) {
+  
+    if (isSet.m_nameSpaceP) {
+      delete m_nameSpaceP;
     }
-    if (makeCopy&&val) {
-      char* tmpval = new char[strlen(val)+1];
-      strcpy(tmpval,val);
-      m_namespace = tmpval;
-    } else {
-      m_namespace = val;
-    }
-    isSet.m_namespace=1;
-  }
-       
-  //Element related methods
-  unsigned int Linux_DnsManagedSystemElementForSettingInstanceName::isElementSet() const{
-    return isSet.Element;
-  }
-  void Linux_DnsManagedSystemElementForSettingInstanceName::
-   setElement(const Linux_DnsZoneInstanceName& val){
-    m_Element = val;
-    isSet.Element=1;
-  }       
-  const Linux_DnsZoneInstanceName& Linux_DnsManagedSystemElementForSettingInstanceName::
-   getElement() const{
     
-    if(!isSet.Element)
-   	  throw CmpiErrorFormater::getErrorException(
-   	   CmpiErrorFormater::NOT_SET,
-   	   "Element not set");
-   	   	
-    return m_Element;
+    if (aCopyFlag && aNameSpaceP) {
+      char* nameSpaceP = new char[strlen(aNameSpaceP) + 1];
+      strcpy(nameSpaceP,aNameSpaceP);
+      m_nameSpaceP = nameSpaceP;
+    } else {
+      m_nameSpaceP = aNameSpaceP;
+    }
+    
+    isSet.m_nameSpaceP = 1;
   }
-       
-  //Setting related methods
-  unsigned int Linux_DnsManagedSystemElementForSettingInstanceName::isSettingSet() const{
+         
+  //----------------------------------------------------------------------------
+  // Setting related methods
+  //----------------------------------------------------------------------------
+  unsigned int
+  Linux_DnsManagedSystemElementForSettingInstanceName::isSettingSet() const {
     return isSet.Setting;
   }
-  void Linux_DnsManagedSystemElementForSettingInstanceName::
-   setSetting(const Linux_DnsAddressMatchListInstanceName& val){
-    m_Setting = val;
-    isSet.Setting=1;
+
+  //----------------------------------------------------------------------------
+  void Linux_DnsManagedSystemElementForSettingInstanceName::setSetting(
+    const Linux_DnsAddressMatchListInstanceName& aValue) {
+  
+    m_Setting = aValue;
+    isSet.Setting = 1;
+  
   }       
-  const Linux_DnsAddressMatchListInstanceName& Linux_DnsManagedSystemElementForSettingInstanceName::
-   getSetting() const{
+
+  //----------------------------------------------------------------------------
+  const Linux_DnsAddressMatchListInstanceName&
+  Linux_DnsManagedSystemElementForSettingInstanceName::getSetting() const {
     
-    if(!isSet.Setting)
+    if ( ! isSet.Setting) {
    	  throw CmpiErrorFormater::getErrorException(
-   	   CmpiErrorFormater::NOT_SET,
-   	   "Setting not set");
-   	   	
+   	    CmpiErrorFormater::NOT_SET,
+        "Setting",
+        "Linux_DnsManagedSystemElementForSetting");
+   	}
+
+
     return m_Setting;
+
+  }
+       
+  //----------------------------------------------------------------------------
+  // Element related methods
+  //----------------------------------------------------------------------------
+  unsigned int
+  Linux_DnsManagedSystemElementForSettingInstanceName::isElementSet() const {
+    return isSet.Element;
   }
 
+  //----------------------------------------------------------------------------
+  void Linux_DnsManagedSystemElementForSettingInstanceName::setElement(
+    const Linux_DnsZoneInstanceName& aValue) {
   
-  //set isSet variables to FALSE
-  void Linux_DnsManagedSystemElementForSettingInstanceName::init(){
+    m_Element = aValue;
+    isSet.Element = 1;
+  
+  }       
+
+  //----------------------------------------------------------------------------
+  const Linux_DnsZoneInstanceName&
+  Linux_DnsManagedSystemElementForSettingInstanceName::getElement() const {
+    
+    if ( ! isSet.Element) {
+   	  throw CmpiErrorFormater::getErrorException(
+   	    CmpiErrorFormater::NOT_SET,
+        "Element",
+        "Linux_DnsManagedSystemElementForSetting");
+   	}
+
+
+    return m_Element;
+
+  }
+
+
+  //---------------------------------------------------------------------------- 
+  void 
+  Linux_DnsManagedSystemElementForSettingInstanceName::init() {
   	
-  	m_CIMClassNameP="Linux_DnsManagedSystemElementForSetting";
-  	isSet.m_namespace=0;    	
-    isSet.Element=0;   	
-    isSet.Setting=0;
+  	m_CIMClassNameP = "Linux_DnsManagedSystemElementForSetting";
+  	isSet.m_nameSpaceP = 0; 
+  	    isSet.Setting = 0;
+    isSet.Element = 0;
+
+  	
   }
   
-  
+  //---------------------------------------------------------------------------- 
   //copies another instance properties in this
-  void Linux_DnsManagedSystemElementForSettingInstanceName::init
-   (const Linux_DnsManagedSystemElementForSettingInstanceName& original){
+  //---------------------------------------------------------------------------- 
+  void 
+  Linux_DnsManagedSystemElementForSettingInstanceName::init(
+    const Linux_DnsManagedSystemElementForSettingInstanceName& anOriginal) {
+   	
    	init();
    	   	
-    m_CIMClassNameP=original.m_CIMClassNameP;
-    if(original.isNameSpaceSet()){
-      setNamespace(original.getNamespace(),1);
-    }   	
-    if(original.isElementSet()){
-      const Linux_DnsZoneInstanceName& ElementOriginal=original.getElement();
-      setElement(ElementOriginal);
-    }   	
-    if(original.isSettingSet()){
-      const Linux_DnsAddressMatchListInstanceName& SettingOriginal=original.getSetting();
-      setSetting(SettingOriginal);
-    }    
-  }
-  
-  //reset the instanceName data
-  void Linux_DnsManagedSystemElementForSettingInstanceName::reset(){   	
-  	if (isSet.m_namespace)
-  	  delete(m_namespace);  	  
-  };
-  
-  
-  
-  
-  //*********************************************************
-  //Linux_DnsManagedSystemElementForSettingInstanceNameEnumerationElement	
-  //*********************************************************
-  
-  Linux_DnsManagedSystemElementForSettingInstanceNameEnumerationElement::
-   Linux_DnsManagedSystemElementForSettingInstanceNameEnumerationElement(){
-   	
-  	m_elementP=0;
-  	m_nextP=0;
-  	  
-  };
-  
-  
-  Linux_DnsManagedSystemElementForSettingInstanceNameEnumerationElement::
-   ~Linux_DnsManagedSystemElementForSettingInstanceNameEnumerationElement(){
-   	
-  	if (m_elementP!=0)
-  	  delete(m_elementP);
-  	if (m_nextP!=0)
-  	  delete(m_nextP);
-  	  
-  };
-
-  
-  //*********************************************************
-  //Linux_DnsManagedSystemElementForSettingInstanceNameEnumeration
-  //*********************************************************
-  
-  Linux_DnsManagedSystemElementForSettingInstanceNameEnumeration::
-   Linux_DnsManagedSystemElementForSettingInstanceNameEnumeration(){
-   	
-  	 firstElementP=0;
-     currentElementP=0;
-     endElementP=0;
-  };
-  
-  Linux_DnsManagedSystemElementForSettingInstanceNameEnumeration::
-   Linux_DnsManagedSystemElementForSettingInstanceNameEnumeration(const CmpiArray& arr){
-  	
-  	firstElementP=0;
-    currentElementP=0;
-    endElementP=0;
-    
-    int size = arr.size();
-    for (int i=0; i < size; i++) {
-     addElement(Linux_DnsManagedSystemElementForSettingInstanceName(arr[i]));
+    m_CIMClassNameP = anOriginal.m_CIMClassNameP;
+    if (anOriginal.isNameSpaceSet()){
+      setNamespace(anOriginal.getNamespace(),1);
     }
+       	
+    if (anOriginal.isSettingSet()) {
+      const Linux_DnsAddressMatchListInstanceName& SettingOriginal = anOriginal.getSetting();
+      setSetting(SettingOriginal);
+    }
+   	
+    if (anOriginal.isElementSet()) {
+      const Linux_DnsZoneInstanceName& ElementOriginal = anOriginal.getElement();
+      setElement(ElementOriginal);
+    }
+    
+  
   }
   
-  Linux_DnsManagedSystemElementForSettingInstanceNameEnumeration::
-   Linux_DnsManagedSystemElementForSettingInstanceNameEnumeration(
-   const Linux_DnsManagedSystemElementForSettingInstanceNameEnumeration& original){
+  //---------------------------------------------------------------------------- 
+  void
+  Linux_DnsManagedSystemElementForSettingInstanceName::reset() {
+  	if (isSet.m_nameSpaceP) {
+  	  delete(m_nameSpaceP);
+  	}
+  	  	  
+  }
+  
+  //---------------------------------------------------------------------------- 
+  Linux_DnsManagedSystemElementForSettingInstanceNameEnumerationElement::Linux_DnsManagedSystemElementForSettingInstanceNameEnumerationElement() {
+  	m_elementP = 0;
+  	m_nextP = 0; 
+  }
+  
+  //---------------------------------------------------------------------------- 
+  Linux_DnsManagedSystemElementForSettingInstanceNameEnumerationElement::~Linux_DnsManagedSystemElementForSettingInstanceNameEnumerationElement() {
    	
-     firstElementP=0;
-     currentElementP=0;
-     endElementP=0;
+  	if (m_elementP) {
+  	  delete(m_elementP);
+  	}
+  	if (m_nextP) {
+  	  delete(m_nextP);
+  	}
+  	  
+  }
+  
+  //---------------------------------------------------------------------------- 
+  Linux_DnsManagedSystemElementForSettingInstanceNameEnumeration::Linux_DnsManagedSystemElementForSettingInstanceNameEnumeration() {
+  	 m_firstElementP = 0;
+     m_currentElementP = 0;
+     m_endElementP = 0;
+  }
+  
+  //---------------------------------------------------------------------------- 
+  Linux_DnsManagedSystemElementForSettingInstanceNameEnumeration::Linux_DnsManagedSystemElementForSettingInstanceNameEnumeration(
+    const CmpiArray& aCmpiArray) {
+  	
+  	m_firstElementP = 0;
+    m_currentElementP = 0;
+    m_endElementP = 0;
+    
+    int size = aCmpiArray.size();
+    for (int x=0; x < size; ++x) {
+      addElement(Linux_DnsManagedSystemElementForSettingInstanceName(aCmpiArray[x]));
+    }
+    
+  }
+  
+  //---------------------------------------------------------------------------- 
+  Linux_DnsManagedSystemElementForSettingInstanceNameEnumeration::Linux_DnsManagedSystemElementForSettingInstanceNameEnumeration(
+    const Linux_DnsManagedSystemElementForSettingInstanceNameEnumeration& anInstanceNameEnumeration) {
+   	
+    m_firstElementP = 0;
+    m_currentElementP = 0;
+    m_endElementP = 0;
   	 
-     int size=original.getSize();
-     for(int i=0;i<size;i++)
-       addElement(original.getElement(i));           
-  };
-  
+    int size = anInstanceNameEnumeration.getSize();
+    for (int x=0; x < size; ++x) {
+      addElement(anInstanceNameEnumeration.getElement(x));
+    }
+
+  }
   	  
-  Linux_DnsManagedSystemElementForSettingInstanceNameEnumeration::
-   ~Linux_DnsManagedSystemElementForSettingInstanceNameEnumeration(){
+  //---------------------------------------------------------------------------- 
+  Linux_DnsManagedSystemElementForSettingInstanceNameEnumeration::~Linux_DnsManagedSystemElementForSettingInstanceNameEnumeration() {
    	
-  	if (firstElementP!=0)
-  	  delete(firstElementP);
+  	if (m_firstElementP) {
+  	  delete(m_firstElementP);
+  	}
   	  	
-  };
-  
-  	  
-  void Linux_DnsManagedSystemElementForSettingInstanceNameEnumeration::reset(){
+  }
+
+  //---------------------------------------------------------------------------- 
+  void 
+  Linux_DnsManagedSystemElementForSettingInstanceNameEnumeration::reset() {
   	
-  	currentElementP=firstElementP;
-  };
+  	m_currentElementP = m_firstElementP;
   
-  	  
-  bool Linux_DnsManagedSystemElementForSettingInstanceNameEnumeration::hasNext() const{
+  }
+
+  //---------------------------------------------------------------------------- 
+  bool 
+  Linux_DnsManagedSystemElementForSettingInstanceNameEnumeration::hasNext() const {
   	
-  	return (currentElementP!=0);
+  	return (m_currentElementP != 0);
   
-  };
+  }
   
-  int Linux_DnsManagedSystemElementForSettingInstanceNameEnumeration::getSize() const{
+  //---------------------------------------------------------------------------- 
+  int
+  Linux_DnsManagedSystemElementForSettingInstanceNameEnumeration::getSize() const {
   	
-    int size=0;
-    Linux_DnsManagedSystemElementForSettingInstanceNameEnumerationElement* followingP=firstElementP;
+    int size = 0;
+    Linux_DnsManagedSystemElementForSettingInstanceNameEnumerationElement* followingP = m_firstElementP;
   	
-  	while(followingP!=0){
-        followingP=followingP->m_nextP;
-        size++;
+  	while (followingP) {
+      followingP = followingP->m_nextP;
+      ++size;
     }
   	
     return size;
-  };
   
+  }
+  
+  //---------------------------------------------------------------------------- 
   const Linux_DnsManagedSystemElementForSettingInstanceName&  
-   Linux_DnsManagedSystemElementForSettingInstanceNameEnumeration::getElement(int pos) const{
+   Linux_DnsManagedSystemElementForSettingInstanceNameEnumeration::getElement(int anIndex) const {
    
-    Linux_DnsManagedSystemElementForSettingInstanceNameEnumerationElement* followingP=firstElementP;
+    Linux_DnsManagedSystemElementForSettingInstanceNameEnumerationElement* followingP = m_firstElementP;
    
-    int i=0;
-    while((followingP!=0)&&(i<pos)){
-        followingP=followingP->m_nextP;
-        i++;
+    int x=0;
+    while (followingP && (x < anIndex) ) {
+      followingP = followingP->m_nextP;
+      ++x;
     }
     
     return *(followingP->m_elementP);
-  };
   
-  	  
+  }
+  
+  //---------------------------------------------------------------------------- 
   const Linux_DnsManagedSystemElementForSettingInstanceName&
-   Linux_DnsManagedSystemElementForSettingInstanceNameEnumeration::getNext() {
+  Linux_DnsManagedSystemElementForSettingInstanceNameEnumeration::getNext() {
    	
-  	 Linux_DnsManagedSystemElementForSettingInstanceNameEnumerationElement* currentP=
-  	  currentElementP;
-  	 currentElementP=currentElementP->m_nextP;
+  	 Linux_DnsManagedSystemElementForSettingInstanceNameEnumerationElement* currentP = m_currentElementP;
+  	 m_currentElementP = m_currentElementP->m_nextP;
   	 
   	 return *(currentP->m_elementP);
-  };
-  	  
-  void Linux_DnsManagedSystemElementForSettingInstanceNameEnumeration::addElement
-   (const Linux_DnsManagedSystemElementForSettingInstanceName& elementP){
-   	
-  	if(firstElementP==0){
-  	  firstElementP=new Linux_DnsManagedSystemElementForSettingInstanceNameEnumerationElement();
-  	  firstElementP->m_elementP=new Linux_DnsManagedSystemElementForSettingInstanceName(elementP);
-  	  endElementP=firstElementP;
-  	  currentElementP=firstElementP;
-  	}else{
-  	  endElementP->m_nextP=new Linux_DnsManagedSystemElementForSettingInstanceNameEnumerationElement();
-  	  endElementP=endElementP->m_nextP;
-  	  endElementP->m_elementP=new Linux_DnsManagedSystemElementForSettingInstanceName(elementP);
-  	}
-  };
   
-  Linux_DnsManagedSystemElementForSettingInstanceNameEnumeration::operator CmpiArray() const{
-  	int size=getSize();
-   	CmpiArray arr=CmpiArray(size,CMPI_instance);
-   	for(int i=0;i<size;i++){
-   	  arr[i]=getElement(i).getObjectPath();
+  }
+  	  
+  //---------------------------------------------------------------------------- 
+  void Linux_DnsManagedSystemElementForSettingInstanceNameEnumeration::addElement
+   (const Linux_DnsManagedSystemElementForSettingInstanceName& anElementP){
+   	
+  	if (m_firstElementP==0) {
+  	  m_firstElementP = new Linux_DnsManagedSystemElementForSettingInstanceNameEnumerationElement();
+  	  m_firstElementP->m_elementP = new Linux_DnsManagedSystemElementForSettingInstanceName(anElementP);
+  	  m_endElementP = m_firstElementP;
+  	  m_currentElementP = m_firstElementP;
+  	} else {
+  	  m_endElementP->m_nextP = new Linux_DnsManagedSystemElementForSettingInstanceNameEnumerationElement();
+  	  m_endElementP = m_endElementP->m_nextP;
+  	  m_endElementP->m_elementP=new Linux_DnsManagedSystemElementForSettingInstanceName(anElementP);
+  	}
+
+  }
+  
+  //---------------------------------------------------------------------------- 
+  Linux_DnsManagedSystemElementForSettingInstanceNameEnumeration::operator CmpiArray() const {
+  	int size = getSize();
+   	CmpiArray cmpiArray = CmpiArray(size,CMPI_instance);
+   	for (int x=0; x < size; ++x) {
+   	  cmpiArray[x]=getElement(x).getObjectPath();
    	}
-   	return arr;
-  };  
+   	return cmpiArray;
+  }
+  
 }
- 

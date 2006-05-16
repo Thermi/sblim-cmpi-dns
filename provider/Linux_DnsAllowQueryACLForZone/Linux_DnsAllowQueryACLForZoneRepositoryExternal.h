@@ -1,20 +1,25 @@
- /**
- * Linux_DnsAllowQueryACLForZoneRepositoryExternal.h
- *
- * (C) Copyright IBM Corp. 2005
- *
- * THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
- * ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE
- * CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
- *
- * You can obtain a current copy of the Common Public License from
- * http://www.opensource.org/licenses/cpl1.0.php
- *
- * author:     Murillo Bernardes <bernarde@br.ibm.com>
- *
- * Contributors:
- *
- */
+// =======================================================================
+// Linux_DnsAllowQueryACLForZoneRepositoryExternal.h
+//     created on Fri, 3 Mar 2006 using ECUTE
+// 
+// Copyright (c) 2006, International Business Machines
+//
+// THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
+// ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE 
+// CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
+//
+// You can obtain a current copy of the Common Public License from
+// http://oss.software.ibm.com/developerworks/opensource/license-cpl.html
+//
+// Author:        generated
+//
+// Contributors:
+//                Murillo Bernardes <bernarde@br.ibm.com>
+//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//
+// =======================================================================
+//
+// 
 #ifndef Linux_DnsAllowQueryACLForZoneRepositoryExternal_h
 #define Linux_DnsAllowQueryACLForZoneRepositoryExternal_h
 
@@ -25,38 +30,40 @@
 namespace genProvider {
 
   class Linux_DnsAllowQueryACLForZoneRepositoryExternal {
+     
+    private:
+    CmpiBroker  m_broker;
+    CmpiContext m_context;
+    const static char *s_shadowNameSpaceP;
   	
     public:
     Linux_DnsAllowQueryACLForZoneRepositoryExternal(
-     const CmpiBroker& brkr,
-     const CmpiContext& ctx);
+      const CmpiBroker& aBroker,
+      const CmpiContext& aContext);
     virtual ~Linux_DnsAllowQueryACLForZoneRepositoryExternal();
     
     virtual void enumInstanceNames(
-     Linux_DnsAllowQueryACLForZoneInstanceNameEnumeration&);
+      Linux_DnsAllowQueryACLForZoneInstanceNameEnumeration& anInstanceNameEnumeration);
      
     virtual void enumInstances(
-     const char* *properties,
-     Linux_DnsAllowQueryACLForZoneRepositoryInstanceEnumeration&);
+      const char** aPropertiesPP,
+      Linux_DnsAllowQueryACLForZoneRepositoryInstanceEnumeration& aRepositoryInstanceEnumeration);
      
     virtual Linux_DnsAllowQueryACLForZoneRepositoryInstance getInstance(
-     const char* *properties,
-     const Linux_DnsAllowQueryACLForZoneInstanceName&);
+      const char** aPropertiesPP,
+      const Linux_DnsAllowQueryACLForZoneInstanceName& anInstanceName);
      
     virtual void setInstance(
-     const char* *properties,
-     const Linux_DnsAllowQueryACLForZoneRepositoryInstance&);
+      const char** aPropertiesPP,
+      const Linux_DnsAllowQueryACLForZoneRepositoryInstance& aRepositoryInstance);
      
-    virtual void createInstance(
-     const Linux_DnsAllowQueryACLForZoneRepositoryInstance&);
+    virtual Linux_DnsAllowQueryACLForZoneInstanceName createInstance(
+      const Linux_DnsAllowQueryACLForZoneRepositoryInstance& aRepositoryInstance);
      
     virtual void deleteInstance(
-     const Linux_DnsAllowQueryACLForZoneInstanceName&);
-     
-    private:
-    CmpiBroker  broker;
-    CmpiContext context;
-    const static char *nsp;
+      const Linux_DnsAllowQueryACLForZoneInstanceName& anInstanceName);
+  
   };
+
 }
 #endif

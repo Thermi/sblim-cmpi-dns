@@ -1,201 +1,308 @@
- /**
- * Linux_DnsAddressMatchListOfServiceDefaultImplementation.cpp
- *
- * (C) Copyright IBM Corp. 2005
- *
- * THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
- * ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE
- * CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
- *
- * You can obtain a current copy of the Common Public License from
- * http://www.opensource.org/licenses/cpl1.0.php
- *
- * author:     Murillo Bernardes <bernarde@br.ibm.com>
- *
- * Contributors:
- *
- */
-#include "Linux_DnsAddressMatchListOfServiceDefaultImplementation.h"
-#include <iostream>
+// =======================================================================
+// Linux_DnsAddressMatchListOfServiceDefaultImplementation.cpp
+//     created on Fri, 3 Mar 2006 using ECUTE
+// 
+// Copyright (c) 2006, International Business Machines
+//
+// THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
+// ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE 
+// CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
+//
+// You can obtain a current copy of the Common Public License from
+// http://oss.software.ibm.com/developerworks/opensource/license-cpl.html
+//
+// Author:        generated
+//
+// Contributors:
+//                Murillo Bernardes <bernarde@br.ibm.com>
+//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//
+// =======================================================================
+//
+// 
 
-using namespace std;
+#include "Linux_DnsAddressMatchListOfServiceDefaultImplementation.h"
+#include "Linux_DnsAddressMatchListOfServiceRepositoryInstance.h"
+#include <iostream>
 
 namespace genProvider {
 
   /* intrinsic methods */
-  void Linux_DnsAddressMatchListOfServiceDefaultImplementation::enumInstanceNames(
-   const CmpiContext& ctx, const CmpiBroker &mbp, const char *nsp,
-   Linux_DnsAddressMatchListOfServiceInstanceNameEnumeration& instnames){
-   	cout<<"enumInstances not supported for Linux_DnsAddressMatchListOfService"<<endl;
+  //----------------------------------------------------------------------------	
+  void
+  Linux_DnsAddressMatchListOfServiceDefaultImplementation::enumInstanceNames(
+    const CmpiContext& aContext,
+    const CmpiBroker& aBroker,
+    const char* aNameSpaceP,
+    Linux_DnsAddressMatchListOfServiceInstanceNameEnumeration& anInstanceNameEnumeration) {
+
+#ifdef DEBUG
+   	std::cout << "enumInstanceNames not supported for Linux_DnsAddressMatchListOfService" << std::endl;
+#endif   	
+
    	throw CmpiErrorFormater::getErrorException(
-   	 CmpiErrorFormater::NOT_IMPLEMENTED,
-   	 "enumInstances not implemented for Linux_DnsAddressMatchListOfService");   
+   	  CmpiErrorFormater::METHOD_NOT_FOUND,
+   	  "enumInstanceEnumeration",
+   	  "Linux_DnsAddressMatchListOfService");   
+
   }
-  	
-  void Linux_DnsAddressMatchListOfServiceDefaultImplementation::enumInstances(
-   const CmpiContext& ctx,
-   const CmpiBroker &mbp,
-   const char *nsp,
-   const char* *properties,
-   Linux_DnsAddressMatchListOfServiceManualInstanceEnumeration& instances){
-    
-    cout<<"Using default enumInstances implementation for Linux_DnsAddressMatchListOfService"<<endl;
-    cout<<"LetŽs get the instanceNames"<<endl;
+
+  //----------------------------------------------------------------------------	
+  void 
+  Linux_DnsAddressMatchListOfServiceDefaultImplementation::enumInstances(
+    const CmpiContext& aContext,
+    const CmpiBroker& aBroker,
+    const char* aNameSpaceP,
+    const char** aPropertiesPP,
+    Linux_DnsAddressMatchListOfServiceManualInstanceEnumeration& anInstanceEnumeration) {
+
+#ifdef DEBUG
+    std::cout << "Using default enumInstances implementation for Linux_DnsAddressMatchListOfService" << std::endl;
+    std::cout << "Let's get the instanceNames" << std::endl;
+#endif    
+
     Linux_DnsAddressMatchListOfServiceInstanceNameEnumeration namesEnumeration;
-    enumInstanceNames(ctx, mbp,nsp,namesEnumeration);
-    cout<<"Getting each instance"<<endl;
-    while(namesEnumeration.hasNext()){
-      Linux_DnsAddressMatchListOfServiceInstanceName name=
-    	  namesEnumeration.getNext();
-    	cout<<"Getting an instance for instanceName"<<endl;
-    	Linux_DnsAddressMatchListOfServiceManualInstance instance=
-    	  getInstance(ctx, mbp, properties, name);
-    	cout<<"adding instance to enum"<<endl;
-    	instances.addElement(instance);
-    	cout<<"Added!"<<endl;
-    };
+    enumInstanceNames(aContext,aBroker,aNameSpaceP,namesEnumeration);
+
+#ifdef DEBUG
+    std::cout << "Getting each instance" << std::endl;
+#endif    
+    
+    while (namesEnumeration.hasNext()) {
+    
+      Linux_DnsAddressMatchListOfServiceInstanceName instanceName = namesEnumeration.getNext();
+    
+      Linux_DnsAddressMatchListOfServiceRepositoryInstance repositoryInstance;
+
+      // try to fetch repository instance
+      try {
+        Linux_DnsAddressMatchListOfServiceInstanceName repositoryInstanceName(instanceName);
+        repositoryInstanceName.setNamespace("IBMShadow/cimv2");
+        CmpiObjectPath repositoryCmpiObjectPath = repositoryInstanceName.getObjectPath();
+        CmpiBroker cmpiBroker(aBroker);
+        CmpiInstance repositoryCmpiInstance = cmpiBroker.getInstance(
+            aContext,
+            repositoryCmpiObjectPath,
+            aPropertiesPP);
+        Linux_DnsAddressMatchListOfServiceRepositoryInstance localRepositoryInstance(
+      	  repositoryCmpiInstance,
+          "IBMShadow/cimv2");
+        repositoryInstance = localRepositoryInstance;
+      } catch (const CmpiStatus& rc) { }                             
+    
+#ifdef DEBUG
+    	std::cout << "Getting an instance for instanceName" << std::endl;
+#endif
+    	
+    	Linux_DnsAddressMatchListOfServiceManualInstance instance = getInstance(
+    	  aContext,
+    	  aBroker,
+    	  aPropertiesPP,
+    	  instanceName);
+
+      // add the static data
+
+
+#ifdef DEBUG
+    	std::cout << "adding instance to enum" << std::endl;
+#endif
+    	
+    	anInstanceEnumeration.addElement(instance);
+
+#ifdef DEBUG
+    	std::cout << "Added!" << std::endl;
+#endif
+    	
+    }
+
   }
-  	
+
+  //----------------------------------------------------------------------------	
   Linux_DnsAddressMatchListOfServiceManualInstance 
-   Linux_DnsAddressMatchListOfServiceDefaultImplementation::getInstance(
-   const CmpiContext& ctx,
-   const CmpiBroker &mbp,
-   const char* *properties,
-   const Linux_DnsAddressMatchListOfServiceInstanceName&){
-    cout<<"getInstance not supported for Linux_DnsAddressMatchListOfService"<<endl;
+  Linux_DnsAddressMatchListOfServiceDefaultImplementation::getInstance(
+    const CmpiContext& aContext,
+    const CmpiBroker& aBroker,
+    const char** aPropertiesPP,
+    const Linux_DnsAddressMatchListOfServiceInstanceName& anInstanceName) {
+
+#ifdef DEBUG
+    std::cout << "getInstance not supported for Linux_DnsAddressMatchListOfService" << std::endl;
+#endif
+    	
+
     throw CmpiErrorFormater::getErrorException(
-   	 CmpiErrorFormater::NOT_IMPLEMENTED,
-   	 "getInstance not implemented for Linux_DnsAddressMatchListOfService");
+   	  CmpiErrorFormater::METHOD_NOT_FOUND,
+   	  "getInstance",
+   	  "Linux_DnsAddressMatchListOfService");
+
   }
   	
-  void Linux_DnsAddressMatchListOfServiceDefaultImplementation::setInstance(
-   const CmpiContext& ctx,
-   const CmpiBroker &mbp,
-   const char* *properties,
-   const Linux_DnsAddressMatchListOfServiceManualInstance&){
-   	cout<<"setInstance not supported for Linux_DnsAddressMatchListOfService"<<endl;
-     throw CmpiErrorFormater::getErrorException(
-   	 CmpiErrorFormater::NOT_IMPLEMENTED,
-   	 "setInstance not implemented for Linux_DnsAddressMatchListOfService");
-  }
-  	
-  void Linux_DnsAddressMatchListOfServiceDefaultImplementation::
-   createInstance(const CmpiContext& ctx, const CmpiBroker &mbp,
-   const Linux_DnsAddressMatchListOfServiceManualInstance&){
-   	cout<<"createInstance not supported for Linux_DnsAddressMatchListOfService"<<endl;
-    throw CmpiErrorFormater::getErrorException(
-   	 CmpiErrorFormater::NOT_IMPLEMENTED,
-   	 "createInstance not implemented for Linux_DnsAddressMatchListOfService");
-  }
-  	
-  void Linux_DnsAddressMatchListOfServiceDefaultImplementation::
-   deleteInstance(const CmpiContext& ctx, const CmpiBroker &mbp,
-   const Linux_DnsAddressMatchListOfServiceInstanceName&){
-   	cout<<"deleteInstance not supported for Linux_DnsAddressMatchListOfService"<<endl;
-    throw CmpiErrorFormater::getErrorException(
-   	 CmpiErrorFormater::NOT_IMPLEMENTED,
-   	 "deleteInstance not implemented for Linux_DnsAddressMatchListOfService");
-  }
-	
+  //----------------------------------------------------------------------------	
+  void 
+  Linux_DnsAddressMatchListOfServiceDefaultImplementation::setInstance(
+    const CmpiContext& aContext,
+    const CmpiBroker& aBroker,
+    const char** aPropertiesPP,
+    const Linux_DnsAddressMatchListOfServiceManualInstance& aManualInstance) {
   
-    /* Association Interface */
-
-    void Linux_DnsAddressMatchListOfServiceDefaultImplementation::
-     referencesAntecedent( 
-     const CmpiContext& ctx,  
-     const CmpiBroker &mbp,
-     const char *nsp,
-     const char** properties,
-     const Linux_DnsAddressMatchListInstanceName& sourceInst,
-     Linux_DnsAddressMatchListOfServiceManualInstanceEnumeration& instances){
-      throw CmpiErrorFormater::getErrorException(
-   	   CmpiErrorFormater::NOT_IMPLEMENTED,
-   	   "getAntecedentReferences between Linux_DnsService and Linux_DnsAddressMatchList not implemented for Linux_DnsAddressMatchListOfService");
-    }
-
-    void Linux_DnsAddressMatchListOfServiceDefaultImplementation::
-     referencesDependent( 
-     const CmpiContext& ctx,  
-     const CmpiBroker &mbp,
-     const char *nsp,
-     const char** properties,
-     const Linux_DnsServiceInstanceName& sourceInst,
-     Linux_DnsAddressMatchListOfServiceManualInstanceEnumeration& instances){
-      throw CmpiErrorFormater::getErrorException(
-   	   CmpiErrorFormater::NOT_IMPLEMENTED,
-   	   "getDependentReferences between Linux_DnsService and Linux_DnsAddressMatchList not implemented for Linux_DnsAddressMatchListOfService");
-    }
-
-    void Linux_DnsAddressMatchListOfServiceDefaultImplementation::
-     associatorsAntecedent( 
-     const CmpiContext& ctx,  
-     const CmpiBroker &mbp,
-     const char *nsp,
-     const char** properties,
-     const Linux_DnsAddressMatchListInstanceName& sourceInst,
-     Linux_DnsServiceInstanceEnumeration& instances){
-      
-      std::cout<<"Linux_DnsAddressMatchListOfService : associatorsLinux_DnsService() ... returns one instance"<<std::endl;
-      
-      Linux_DnsAddressMatchListOfServiceManualInstanceEnumeration enumeration;
-      
-      referencesAntecedent(ctx, mbp, sourceInst.getNamespace(), 
-       properties, sourceInst, enumeration);
-
-      Linux_DnsServiceExternal external(mbp, ctx);
-
-      while(enumeration.hasNext()) {
-        const Linux_DnsAddressMatchListOfServiceManualInstance instance =
-	     enumeration.getNext();
-	     
-        const Linux_DnsAddressMatchListOfServiceInstanceName instanceName = 
-         instance.getInstanceName();
-         
-        const Linux_DnsServiceInstanceName Antecedent = 
-         instanceName.getAntecedent();
-         
-        Linux_DnsServiceInstance inst = external.getInstance(properties,Antecedent);
-        
-        instances.addElement(inst);
-      }
-    }
-
-    void Linux_DnsAddressMatchListOfServiceDefaultImplementation::
-     associatorsDependent( 
-     const CmpiContext& ctx,  
-     const CmpiBroker &mbp,
-     const char *nsp,
-     const char** properties,
-     const Linux_DnsServiceInstanceName& sourceInst,
-     Linux_DnsAddressMatchListInstanceEnumeration& instances){
-     
-      std::cout<<"Linux_DnsAddressMatchListOfService : associatorsLinux_DnsAddressMatchList() ... returns one instance"<<std::endl;
-      
-      Linux_DnsAddressMatchListOfServiceManualInstanceEnumeration enumeration;
-      
-      referencesDependent(ctx, mbp, sourceInst.getNamespace(), 
-       properties, sourceInst, enumeration);
-
-      Linux_DnsAddressMatchListExternal external(mbp, ctx);
-
-      while(enumeration.hasNext()) {
-        const Linux_DnsAddressMatchListOfServiceManualInstance instance =
-	     enumeration.getNext();
-	     
-        const Linux_DnsAddressMatchListOfServiceInstanceName instanceName = 
-         instance.getInstanceName();
-         
-        const Linux_DnsAddressMatchListInstanceName Dependent = 
-         instanceName.getDependent();
-         
-        Linux_DnsAddressMatchListInstance inst = external.getInstance(properties,Dependent);
-        
-        instances.addElement(inst);
-      }
-    }
-
+#ifdef DEBUG
+    std::cout << "setInstance not supported for Linux_DnsAddressMatchListOfService" << std::endl;
+#endif
+    	
    
-  /* extrinsic methods */
-	
-}
+    throw CmpiErrorFormater::getErrorException(
+   	  CmpiErrorFormater::METHOD_NOT_FOUND,
+   	  "setInstance",
+   	  "Linux_DnsAddressMatchListOfService");
+   	 
+  }
+  	
+  //----------------------------------------------------------------------------	
+  Linux_DnsAddressMatchListOfServiceInstanceName  
+  Linux_DnsAddressMatchListOfServiceDefaultImplementation::createInstance(
+    const CmpiContext& aContext, 
+    const CmpiBroker& aBroker,
+    const Linux_DnsAddressMatchListOfServiceManualInstance& aManualInstance) {
 
+#ifdef DEBUG
+   	std::cout << "createInstance not supported for Linux_DnsAddressMatchListOfService" << std::endl;
+#endif
+
+    throw CmpiErrorFormater::getErrorException(
+   	 CmpiErrorFormater::METHOD_NOT_FOUND,
+   	 "createInstance",
+   	 "Linux_DnsAddressMatchListOfService");
+
+  }
+
+  //----------------------------------------------------------------------------	
+  void 
+  Linux_DnsAddressMatchListOfServiceDefaultImplementation::deleteInstance(
+    const CmpiContext& aContext, 
+    const CmpiBroker& aBroker,
+    const Linux_DnsAddressMatchListOfServiceInstanceName& anInstanceName) {
+
+#ifdef DEBUG
+   	std::cout << "deleteInstance not supported for Linux_DnsAddressMatchListOfService" << std::endl;
+#endif
+
+    throw CmpiErrorFormater::getErrorException(
+      CmpiErrorFormater::METHOD_NOT_FOUND,
+      "deleteInstance",
+      "Linux_DnsAddressMatchListOfService");
+
+  }
+
+  
+  // Association Interface
+
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsAddressMatchListOfServiceDefaultImplementation::referencesDependent( 
+    const CmpiContext& aContext,  
+    const CmpiBroker& aBroker,
+    const char* aNameSpaceP,
+    const char** aPropertiesPP,
+    const Linux_DnsServiceInstanceName& aSourceInstance,
+    Linux_DnsAddressMatchListOfServiceManualInstanceEnumeration& aManualInstanceEnumeration) {
+    
+    throw CmpiErrorFormater::getErrorException(
+      CmpiErrorFormater::METHOD_NOT_FOUND,
+      "References(Dependent)",
+      "Linux_DnsAddressMatchListOfService");
+
+  }
+
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsAddressMatchListOfServiceDefaultImplementation::referencesAntecedent( 
+    const CmpiContext& aContext,  
+    const CmpiBroker& aBroker,
+    const char* aNameSpaceP,
+    const char** aPropertiesPP,
+    const Linux_DnsAddressMatchListInstanceName& aSourceInstance,
+    Linux_DnsAddressMatchListOfServiceManualInstanceEnumeration& aManualInstanceEnumeration) {
+    
+    throw CmpiErrorFormater::getErrorException(
+      CmpiErrorFormater::METHOD_NOT_FOUND,
+      "References(Antecedent)",
+      "Linux_DnsAddressMatchListOfService");
+
+  }
+
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsAddressMatchListOfServiceDefaultImplementation::associatorsDependent(
+    const CmpiContext& aContext,  
+    const CmpiBroker& aBroker,
+    const char* aNameSpaceP,
+    const char** aPropertiesPP,
+    const Linux_DnsServiceInstanceName& aSourceInstance,
+    Linux_DnsAddressMatchListInstanceEnumeration& anInstanceEnumeration) {
+      
+#ifdef DEBUG
+    std::cout<<"Linux_DnsAddressMatchListOfService : associatorsLinux_DnsAddressMatchList() ... returns one instance"<<std::endl;
+#endif    
+      
+    Linux_DnsAddressMatchListOfServiceManualInstanceEnumeration manualInstanceEnumeration;
+      
+    referencesDependent(
+      aContext,
+      aBroker,
+      aSourceInstance.getNamespace(), 
+      aPropertiesPP,
+      aSourceInstance,
+      manualInstanceEnumeration);
+
+    Linux_DnsAddressMatchListExternal external(aBroker,aContext);
+
+    while (manualInstanceEnumeration.hasNext()) {
+      const Linux_DnsAddressMatchListOfServiceManualInstance manualInstance = manualInstanceEnumeration.getNext();
+      const Linux_DnsAddressMatchListOfServiceInstanceName instanceName = manualInstance.getInstanceName();
+      const Linux_DnsAddressMatchListInstanceName Dependent = instanceName.getDependent();
+      Linux_DnsAddressMatchListInstance instance = external.getInstance(aPropertiesPP,Dependent);
+      anInstanceEnumeration.addElement(instance);
+    }
+  
+  }
+
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsAddressMatchListOfServiceDefaultImplementation::associatorsAntecedent( 
+    const CmpiContext& aContext,  
+    const CmpiBroker& aBroker,
+    const char* aNameSpaceP,
+    const char** aPropertiesPP,
+    const Linux_DnsAddressMatchListInstanceName& aSourceInstance,
+    Linux_DnsServiceInstanceEnumeration& anInstanceEnumeration) {
+     
+#ifdef DEBUG
+    std::cout << "Linux_DnsAddressMatchListOfService : associatorsLinux_DnsService() ... returns one instance" << std::endl;
+#endif    
+      
+    Linux_DnsAddressMatchListOfServiceManualInstanceEnumeration manualInstanceEnumeration;
+      
+    referencesAntecedent(
+      aContext,
+      aBroker,
+      aSourceInstance.getNamespace(), 
+      aPropertiesPP,
+      aSourceInstance,
+      manualInstanceEnumeration);
+
+    Linux_DnsServiceExternal external(aBroker,aContext);
+
+    while(manualInstanceEnumeration.hasNext()) {
+      const Linux_DnsAddressMatchListOfServiceManualInstance manualInstance = manualInstanceEnumeration.getNext();
+      const Linux_DnsAddressMatchListOfServiceInstanceName instanceName = manualInstance.getInstanceName();
+      const Linux_DnsServiceInstanceName Antecedent = instanceName.getAntecedent();
+      Linux_DnsServiceInstance instance = external.getInstance(aPropertiesPP,Antecedent);
+      anInstanceEnumeration.addElement(instance);
+    }
+
+  }
+
+  /* extrinsic methods */
+  
+
+}

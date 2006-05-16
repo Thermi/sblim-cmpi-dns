@@ -1,5 +1,5 @@
 dnl
-dnl $Id: acinclude.m4,v 1.1 2005/10/18 12:13:43 taphorn Exp $
+dnl $Id: acinclude.m4,v 1.2 2006/05/16 16:57:51 taphorn Exp $
 dnl
  dnl 
  dnl (C) Copyright IBM Corp. 2004, 2005
@@ -213,7 +213,7 @@ AC_DEFUN([CHECK_CMPI_LIB],
         LIBS=$_libs
 
         if test "$have_CMPI_LIB" == "yes"; then
-          AC_MSG_RESULT(yes)
+dnl          AC_MSG_RESULT(yes)
           CMPI_LDFLAGS="$LDFLAGS"
           break
         fi
@@ -322,34 +322,57 @@ dnl Sets the CIMSERVER variable.
 dnl
 
 AC_DEFUN([CHECK_CIMSERVER],
-	[
-	AC_MSG_CHECKING(for CIM servers)
-	_SERVERS="sfcbd cimserver owcimomd"
-	_SAVE_PATH=$PATH
-	PATH=/usr/sbin:/usr/local/sbin:$PATH
-	for _name in $_SERVERS
-	do
-	 	AC_MSG_CHECKING( $_name )
-	        which $_name > /dev/null 2>&1
-		if test $? == 0 ; then
-		  dnl Found it
-		  AC_MSG_RESULT(yes)
-		  if test x"$CIMSERVER" == x ; then
-			case $_name in
-			   sfcbd) CIMSERVER=sfcb;;
-			   cimserver) CIMSERVER=pegasus;;
-			   owcimomd) CIMSERVER=openwbem;;
-			esac
-		  fi
-		  break;
-		fi
-        done
-	PATH=$_SAVE_PATH
-	if test x"$CIMSERVER" == x ; then
-		CIMSERVER=sfcb
-		AC_MSG_RESULT(implied: $CIMSERVER)
-	fi
-	]
+        [
+        AC_MSG_CHECKING(for CIM servers)
+        if test x"$CIMSERVER" = x
+        then
+           _SERVERS="sfcbd cimserver owcimomd"
+           _SAVE_PATH=$PATH
+           PATH=/usr/sbin:/usr/local/sbin:$PATH
+           for _name in $_SERVERS
+           do
+                AC_MSG_CHECKING( $_name )
+                for _path in `echo $PATH | sed "s/:/ /g"`
+                do
+                  if test -f $_path/$_name ; then
+                  dnl Found it
+                    AC_MSG_RESULT(yes)
+                    if test x"$CIMSERVER" == x ; then
+                        case $_name in
+                           sfcbd) CIMSERVER=sfcb;;
+                           cimserver) CIMSERVER=pegasus;;
+                           owcimomd) CIMSERVER=openwbem;;
+                        esac
+                    fi
+                  break;
+                  fi
+                done
+                if test x"$CIMSERVER" != x; then
+                  break;
+                fi
+           done
+           PATH=$_SAVE_PATH
+           if test x"$CIMSERVER" == x ; then
+                CIMSERVER=sfcb
+                AC_MSG_RESULT(implied: $CIMSERVER)
+           fi
+        fi
+        # Cross platform only needed for sfcb currently
+        if test $CIMSERVER = sfcb
+        then
+                AC_REQUIRE([AC_CANONICAL_HOST])
+                AC_CHECK_SIZEOF(int)
+                case "$build_cpu" in
+                        i*86) case "$host_cpu" in
+                                powerpc*) if test $ac_cv_sizeof_int == 4
+                                          then
+                                                REGISTER_FLAGS="-X P32"
+                                          fi ;;
+                              esac ;;
+                esac
+                AC_SUBST(REGISTER_FLAGS)
+        fi
+        ]
 )
 
 dnl

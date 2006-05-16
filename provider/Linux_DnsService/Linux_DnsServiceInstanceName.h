@@ -1,20 +1,25 @@
- /**
- * Linux_DnsServiceInstanceName.h
- *
- * (C) Copyright IBM Corp. 2005
- *
- * THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
- * ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE
- * CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
- *
- * You can obtain a current copy of the Common Public License from
- * http://www.opensource.org/licenses/cpl1.0.php
- *
- * author:     Murillo Bernardes <bernarde@br.ibm.com>
- *
- * Contributors:
- *
- */
+// =======================================================================
+// Linux_DnsServiceInstanceName.h
+//     created on Fri, 3 Mar 2006 using ECUTE
+// 
+// Copyright (c) 2006, International Business Machines
+//
+// THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
+// ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE 
+// CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
+//
+// You can obtain a current copy of the Common Public License from
+// http://oss.software.ibm.com/developerworks/opensource/license-cpl.html
+//
+// Author:        generated
+//
+// Contributors:
+//                Murillo Bernardes <bernarde@br.ibm.com>
+//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//
+// =======================================================================
+//
+// 
 #ifndef Linux_DnsServiceInstanceName_h
 #define Linux_DnsServiceInstanceName_h
 
@@ -27,70 +32,73 @@
 #include "ArrayConverter.h"
 #include "CmpiErrorFormater.h"
 
+
 namespace genProvider {
 
   class Linux_DnsServiceInstanceName {
-  public:
-       Linux_DnsServiceInstanceName();
+       
+    private:
+    void init();
+    void init(const Linux_DnsServiceInstanceName& anInstanceName);
+    void reset();
+       
+    const char* m_CIMClassNameP;
+    const char* m_nameSpaceP;
+    
+    const char* m_CreationClassName;
+    const char* m_Name;
+    const char* m_SystemCreationClassName;
+    const char* m_SystemName;
+       
+    struct isSetType{
+      unsigned int m_nameSpaceP:1;
+      unsigned int CreationClassName:1;
+      unsigned int Name:1;
+      unsigned int SystemCreationClassName:1;
+      unsigned int SystemName:1;
+
+    } isSet;
+  
+    public:
+    Linux_DnsServiceInstanceName();
   	
-       Linux_DnsServiceInstanceName
-  	    (const Linux_DnsServiceInstanceName& original);
+    Linux_DnsServiceInstanceName(const Linux_DnsServiceInstanceName& anInstanceName);
   	   
-       Linux_DnsServiceInstanceName
-        (const CmpiObjectPath& path);
+    Linux_DnsServiceInstanceName(const CmpiObjectPath& path);
   	 
-       ~Linux_DnsServiceInstanceName();
+    ~Linux_DnsServiceInstanceName();
        
-       Linux_DnsServiceInstanceName& operator=
-  	    (const Linux_DnsServiceInstanceName& original);
+    Linux_DnsServiceInstanceName& operator=(const Linux_DnsServiceInstanceName& anInstanceName);
        
-       CmpiObjectPath getObjectPath() const;
+    CmpiObjectPath getObjectPath() const;
        
-       void fillKeys(CmpiInstance& cmpiInstance) const;
+    void fillKeys(CmpiInstance& cmpiInstance) const;
        
-       unsigned int isNameSpaceSet() const;
-       void setNamespace(const char * val, int makeCopy = 1);
-       const char * getNamespace() const;
+    unsigned int isNameSpaceSet() const;
+    void setNamespace(const char* aNameSpaceP, int aCopyFlag = 1);
+    const char* getNamespace() const;
+    
+    unsigned int isCreationClassNameSet() const;
+    void setCreationClassName(const char* aValue, int aCopyFlag = 1);
+    const char* getCreationClassName() const;
 
-       unsigned int isCreationClassNameSet() const;
-       void setCreationClassName(const char* val, int makeCopy = 1);
-       const char* getCreationClassName() const;
+    unsigned int isNameSet() const;
+    void setName(const char* aValue, int aCopyFlag = 1);
+    const char* getName() const;
 
-       unsigned int isNameSet() const;
-       void setName(const char* val, int makeCopy = 1);
-       const char* getName() const;
+    unsigned int isSystemCreationClassNameSet() const;
+    void setSystemCreationClassName(const char* aValue, int aCopyFlag = 1);
+    const char* getSystemCreationClassName() const;
 
-       unsigned int isSystemCreationClassNameSet() const;
-       void setSystemCreationClassName(const char* val, int makeCopy = 1);
-       const char* getSystemCreationClassName() const;
+    unsigned int isSystemNameSet() const;
+    void setSystemName(const char* aValue, int aCopyFlag = 1);
+    const char* getSystemName() const;
 
-       unsigned int isSystemNameSet() const;
-       void setSystemName(const char* val, int makeCopy = 1);
-       const char* getSystemName() const;
-       
-  private:
-       void init();
-       void init(const Linux_DnsServiceInstanceName& original);
-       void reset();
-       
-       const char* m_CIMClassNameP;
-       const char* m_namespace;
-       const char* m_CreationClassName;
-       const char* m_Name;
-       const char* m_SystemCreationClassName;
-       const char* m_SystemName;
-       
-       struct isSetType{
-       	 unsigned int m_namespace:1;
-         unsigned int CreationClassName:1;
-         unsigned int Name:1;
-         unsigned int SystemCreationClassName:1;
-         unsigned int SystemName:1;
-       } isSet;
+
   };
   
-  
-  struct Linux_DnsServiceInstanceNameEnumerationElement{
+  //****************************************************************************
+  struct Linux_DnsServiceInstanceNameEnumerationElement {
   	Linux_DnsServiceInstanceName* m_elementP;
   	Linux_DnsServiceInstanceNameEnumerationElement* m_nextP;
   	
@@ -98,38 +106,40 @@ namespace genProvider {
   	~Linux_DnsServiceInstanceNameEnumerationElement();  	
   };
   
-
+  //****************************************************************************
   class Linux_DnsServiceInstanceNameEnumeration {
+  
   	private:
-  	  Linux_DnsServiceInstanceNameEnumerationElement* firstElementP;
-  	  Linux_DnsServiceInstanceNameEnumerationElement* currentElementP;
-  	  Linux_DnsServiceInstanceNameEnumerationElement* endElementP;
+    Linux_DnsServiceInstanceNameEnumerationElement* m_firstElementP;
+  	Linux_DnsServiceInstanceNameEnumerationElement* m_currentElementP;
+  	Linux_DnsServiceInstanceNameEnumerationElement* m_endElementP;
   	
   	public:
-  	  Linux_DnsServiceInstanceNameEnumeration();
+    Linux_DnsServiceInstanceNameEnumeration();
   	  
-  	  Linux_DnsServiceInstanceNameEnumeration(const CmpiArray& arr);
+    Linux_DnsServiceInstanceNameEnumeration(const CmpiArray& arr);
   	  
-  	  Linux_DnsServiceInstanceNameEnumeration(
-  	   const Linux_DnsServiceInstanceNameEnumeration& original);
+    Linux_DnsServiceInstanceNameEnumeration(const Linux_DnsServiceInstanceNameEnumeration& anInstanceNameEnumeration);
+  	   
+    ~Linux_DnsServiceInstanceNameEnumeration();
   	  
-  	  ~Linux_DnsServiceInstanceNameEnumeration();
+    void reset();
   	  
-  	  void reset();
+    bool hasNext() const;
   	  
-  	  bool hasNext() const;
+    const Linux_DnsServiceInstanceName& getNext();
   	  
-  	  const Linux_DnsServiceInstanceName& getNext();
+    int getSize() const;
   	  
-  	  int getSize() const;
+    const Linux_DnsServiceInstanceName& getElement(int anIndex) const;  	  
   	  
-  	  const Linux_DnsServiceInstanceName& getElement(int pos) const;  	  
+    //no copy of the element is done
+    void addElement(const Linux_DnsServiceInstanceName& anInstanceName);
   	  
-  	  //no copy of the element is done
-  	  void addElement(const Linux_DnsServiceInstanceName& elementP);
-  	  
-  	  operator CmpiArray() const;
+    operator CmpiArray() const;
+
   };
+
 }
 #endif
 

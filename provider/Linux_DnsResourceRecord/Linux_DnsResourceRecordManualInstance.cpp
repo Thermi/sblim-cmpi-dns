@@ -1,20 +1,25 @@
- /**
- * Linux_DnsResourceRecordManualInstance.cpp
- *
- * (C) Copyright IBM Corp. 2005
- *
- * THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
- * ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE
- * CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
- *
- * You can obtain a current copy of the Common Public License from
- * http://www.opensource.org/licenses/cpl1.0.php
- *
- * author:     Murillo Bernardes <bernarde@br.ibm.com>
- *
- * Contributors:
- *
- */
+// =======================================================================
+// Linux_DnsResourceRecordManualInstance.cpp
+//     created on Fri, 3 Mar 2006 using ECUTE
+// 
+// Copyright (c) 2006, International Business Machines
+//
+// THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
+// ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE 
+// CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
+//
+// You can obtain a current copy of the Common Public License from
+// http://oss.software.ibm.com/developerworks/opensource/license-cpl.html
+//
+// Author:        generated
+//
+// Contributors:
+//                Murillo Bernardes <bernarde@br.ibm.com>
+//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//
+// =======================================================================
+//
+// 
 #include "Linux_DnsResourceRecordManualInstance.h"
 #include "CmpiData.h"
 #include "CmpiString.h"
@@ -23,322 +28,398 @@
 
 namespace genProvider {
 
-  //*********************************************************
+  //****************************************************************************
   //Linux_DnsResourceRecordManualInstance
-  //*********************************************************
-
+  //----------------------------------------------------------------------------
   //empty constructor
-  Linux_DnsResourceRecordManualInstance::
-   Linux_DnsResourceRecordManualInstance(){   	
+  Linux_DnsResourceRecordManualInstance::Linux_DnsResourceRecordManualInstance() {   	
    	init();  	   	
-  };
+  }
   
-  
+  //----------------------------------------------------------------------------
   //copy constructor	
-  Linux_DnsResourceRecordManualInstance::
-   Linux_DnsResourceRecordManualInstance
-   (const Linux_DnsResourceRecordManualInstance& original){   	
-   	init(original);  	   	
-  };
+  //----------------------------------------------------------------------------
+  Linux_DnsResourceRecordManualInstance::Linux_DnsResourceRecordManualInstance(
+    const Linux_DnsResourceRecordManualInstance& anInstance) {   	
+   	init(anInstance);  	   	
+  }
   
-  
+  //----------------------------------------------------------------------------
   //constructor using CmpiInstance
-  Linux_DnsResourceRecordManualInstance::
-   Linux_DnsResourceRecordManualInstance (const CmpiInstance& inst, const char* instanceNamespace){
-    CmpiData cmpiData;
-    init(); 
-   /* 
-    CmpiObjectPath cop=inst.getObjectPath();
-    cop.setNameSpace(instanceNamespace);
-    setInstanceName(Linux_DnsResourceRecordInstanceName(cop));
-    */
-    Linux_DnsResourceRecordInstanceName instanceName;
-    instanceName.setNamespace(instanceNamespace);
-    instanceName.setName( inst.getProperty("Name") );
-    instanceName.setZoneName ( inst.getProperty("ZoneName") );
-    instanceName.setType( inst.getProperty("Type") );
-    instanceName.setValue( inst.getProperty("Value") );
-    setInstanceName( instanceName );
+  //----------------------------------------------------------------------------
+  Linux_DnsResourceRecordManualInstance::Linux_DnsResourceRecordManualInstance(
+    const CmpiInstance& aCmpiInstance,
+    const char* anInstanceNamespaceP) {
 
-    cmpiData = inst.getProperty("Family");
-    if(!cmpiData.isNullValue()){
+    CmpiData cmpiData;
+
+    init(); 
+
+//Fix started  
+// Removed for numeric key property problem.
+//WT    CmpiObjectPath cop = aCmpiInstance.getObjectPath();
+//WT    cop.setNameSpace(anInstanceNamespaceP);
+//WT    setInstanceName(Linux_DnsResourceRecordInstanceName(cop));
+
+    Linux_DnsResourceRecordInstanceName instanceName;
+    instanceName.setNamespace(anInstanceNamespaceP);
+    instanceName.setName( aCmpiInstance.getProperty("Name") );
+    instanceName.setZoneName ( aCmpiInstance.getProperty("ZoneName") );
+    instanceName.setType( aCmpiInstance.getProperty("Type") );
+    instanceName.setValue( aCmpiInstance.getProperty("Value") );
+    setInstanceName( instanceName );
+// FIX end
+
+    cmpiData = aCmpiInstance.getProperty("Family");
+    if ( ! cmpiData.isNullValue()){
       CMPIUint16 Family = cmpiData;
       setFamily(Family);
     }
-    
-    cmpiData = inst.getProperty("TTL");
-    if(!cmpiData.isNullValue()){
+
+    cmpiData = aCmpiInstance.getProperty("TTL");
+    if ( ! cmpiData.isNullValue()){
       CMPIUint32 TTL = cmpiData;
       setTTL(TTL);
     }
+
     
   }
   
-  
+  //----------------------------------------------------------------------------
   //Destructor
+  //----------------------------------------------------------------------------
   Linux_DnsResourceRecordManualInstance::
    ~Linux_DnsResourceRecordManualInstance(){
    	reset();  	  
-  };
+  }
   
   
+  //----------------------------------------------------------------------------
   //copy operator
+  //----------------------------------------------------------------------------
   Linux_DnsResourceRecordManualInstance&
-   Linux_DnsResourceRecordManualInstance::operator=
-   (const Linux_DnsResourceRecordManualInstance& original){   	
-   	init(original);
+  Linux_DnsResourceRecordManualInstance::operator=(
+    const Linux_DnsResourceRecordManualInstance& anInstance) {   	
+   	
+   	init(anInstance);
    	return *this;
-  };
+  
+  }
   
   
+  //----------------------------------------------------------------------------
   //converts to CmpiInstance
-  CmpiInstance Linux_DnsResourceRecordManualInstance::
-   getCmpiInstance(const char** properties) const{
+  //----------------------------------------------------------------------------
+  CmpiInstance
+  Linux_DnsResourceRecordManualInstance::getCmpiInstance(
+    const char** aPropertiesPP) const {
    	
    	CmpiObjectPath objectPath=getInstanceName().getObjectPath();      
     CmpiInstance cmpiInstance(objectPath);    
     getInstanceName().fillKeys(cmpiInstance);
     
-    if (properties) {
-	  cmpiInstance.setPropertyFilter(properties,0);
+    if (aPropertiesPP) {
+	    cmpiInstance.setPropertyFilter(aPropertiesPP,0);
     }
 
-  	if(isSet.Family){
-  	  cmpiInstance.setProperty("Family",CmpiData(m_Family));
+  	if (isSet.Family) {
+  	  
+  	  cmpiInstance.setProperty(
+  	    "Family",
+  	    CmpiData(m_Family));
   	}
 
-  	if(isSet.TTL){
-  	  cmpiInstance.setProperty("TTL",CmpiData(m_TTL));
+  	if (isSet.TTL) {
+  	  
+  	  cmpiInstance.setProperty(
+  	    "TTL",
+  	    CmpiData(m_TTL));
   	}
+
   	
   	return cmpiInstance;
   	
   }
   
-  
-  //InstanceName related methods
-  unsigned int Linux_DnsResourceRecordManualInstance::
-   isInstanceNameSet() const{
+  //----------------------------------------------------------------------------
+  // InstanceName related methods
+  //----------------------------------------------------------------------------
+  unsigned int 
+  Linux_DnsResourceRecordManualInstance::isInstanceNameSet() const {
   	return isSet.instanceName;
   }
   
+  //----------------------------------------------------------------------------
   const Linux_DnsResourceRecordInstanceName&
-    Linux_DnsResourceRecordManualInstance::getInstanceName() const{
+  Linux_DnsResourceRecordManualInstance::getInstanceName() const {
 
-    if(!isSet.instanceName)
+    if( ! isSet.instanceName) {
    	  throw CmpiErrorFormater::getErrorException(
-   	   CmpiErrorFormater::NOT_SET,
-   	   "InstanceName not set in Linux_DnsResourceRecord instance");
+        CmpiErrorFormater::NOT_SET,
+        "InstanceName (CIM Key Attributes)",
+        "Linux_DnsResourceRecord");
+   	}
   		
    	return m_instanceName;
+  
   }
 
-  void Linux_DnsResourceRecordManualInstance::setInstanceName(
-   const Linux_DnsResourceRecordInstanceName& val){
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsResourceRecordManualInstance::setInstanceName(
+    const Linux_DnsResourceRecordInstanceName& val) {
+
     m_instanceName = val;
-    isSet.instanceName=1;
+    isSet.instanceName = 1;
+
   }
        
-  //Family related methods
-  unsigned int Linux_DnsResourceRecordManualInstance::isFamilySet() const{
+  //----------------------------------------------------------------------------
+  // Family related methods
+  //----------------------------------------------------------------------------
+  unsigned int
+  Linux_DnsResourceRecordManualInstance::isFamilySet() const {
     return isSet.Family;
   }
-  void Linux_DnsResourceRecordManualInstance::
-   setFamily(const CMPIUint16 val){
-    m_Family = val;
-    isSet.Family=1;
+
+  //----------------------------------------------------------------------------
+  void Linux_DnsResourceRecordManualInstance::setFamily(
+    const CMPIUint16 aValue) {
+  
+    m_Family = aValue;
+    isSet.Family = 1;
+  
   }       
-  const CMPIUint16 Linux_DnsResourceRecordManualInstance::
-   getFamily() const{
+
+  //----------------------------------------------------------------------------
+  const CMPIUint16
+  Linux_DnsResourceRecordManualInstance::getFamily() const {
     
-    if(!isSet.Family)
+    if ( ! isSet.Family) {
    	  throw CmpiErrorFormater::getErrorException(
-   	   CmpiErrorFormater::NOT_SET,
-   	   "Family not set");
-   	   	
+   	    CmpiErrorFormater::NOT_SET,
+        "Family",
+        "Linux_DnsResourceRecord");
+   	}
+
+
     return m_Family;
+
   }
        
-  //TTL related methods
-  unsigned int Linux_DnsResourceRecordManualInstance::isTTLSet() const{
+  //----------------------------------------------------------------------------
+  // TTL related methods
+  //----------------------------------------------------------------------------
+  unsigned int
+  Linux_DnsResourceRecordManualInstance::isTTLSet() const {
     return isSet.TTL;
   }
-  void Linux_DnsResourceRecordManualInstance::
-   setTTL(const CMPIUint32 val){
-    m_TTL = val;
-    isSet.TTL=1;
+
+  //----------------------------------------------------------------------------
+  void Linux_DnsResourceRecordManualInstance::setTTL(
+    const CMPIUint32 aValue) {
+  
+    m_TTL = aValue;
+    isSet.TTL = 1;
+  
   }       
-  const CMPIUint32 Linux_DnsResourceRecordManualInstance::
-   getTTL() const{
+
+  //----------------------------------------------------------------------------
+  const CMPIUint32
+  Linux_DnsResourceRecordManualInstance::getTTL() const {
     
-    if(!isSet.TTL)
+    if ( ! isSet.TTL) {
    	  throw CmpiErrorFormater::getErrorException(
-   	   CmpiErrorFormater::NOT_SET,
-   	   "TTL not set");
-   	   	
+   	    CmpiErrorFormater::NOT_SET,
+        "TTL",
+        "Linux_DnsResourceRecord");
+   	}
+
+
     return m_TTL;
+
   }
 
-
   
+  //----------------------------------------------------------------------------
   //set isSet attributes to FALSE
-  void Linux_DnsResourceRecordManualInstance::init(){
-   	isSet.instanceName=0;
-   	   	
-    isSet.Family=0;   	
-    isSet.TTL=0;  	
-  };
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsResourceRecordManualInstance::init() {
+   	isSet.instanceName = 0;
+    isSet.Family = 0;
+    isSet.TTL = 0;
+  	
+  }
   
-  
+  //----------------------------------------------------------------------------
   //copies another instance properties in this
-  void Linux_DnsResourceRecordManualInstance::init
-   (const Linux_DnsResourceRecordManualInstance& original){   	
+  //----------------------------------------------------------------------------
+  void 
+  Linux_DnsResourceRecordManualInstance::init(
+    const Linux_DnsResourceRecordManualInstance& anOriginal) {   	
+
    	init();
    	   	
-    if(original.isInstanceNameSet()){
-      setInstanceName(original.getInstanceName());
-    }   	
-    if(original.isFamilySet()){
-      const CMPIUint16 FamilyOriginal=original.getFamily();
+    if(anOriginal.isInstanceNameSet()) {
+      setInstanceName(anOriginal.getInstanceName());
+    }
+       	
+    if (anOriginal.isFamilySet()) {
+      const CMPIUint16 FamilyOriginal = anOriginal.getFamily();
       setFamily(FamilyOriginal);
-    }   	
-    if(original.isTTLSet()){
-      const CMPIUint32 TTLOriginal=original.getTTL();
+    }
+   	
+    if (anOriginal.isTTLSet()) {
+      const CMPIUint32 TTLOriginal = anOriginal.getTTL();
       setTTL(TTLOriginal);
-    }    
-   }
+    }
+    
+  }
   
-  
+  //----------------------------------------------------------------------------
   //reset the instance data
-  void Linux_DnsResourceRecordManualInstance::reset(){
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsResourceRecordManualInstance::reset() {
    	
-  	  
-  };
+  }
   
-  
-  //*********************************************************
+  //----------------------------------------------------------------------------
   //Linux_DnsResourceRecordManualInstanceEnumerationElement	
-  //*********************************************************
-  
-  Linux_DnsResourceRecordManualInstanceEnumerationElement::
-   Linux_DnsResourceRecordManualInstanceEnumerationElement(){
+  //----------------------------------------------------------------------------
+  Linux_DnsResourceRecordManualInstanceEnumerationElement::Linux_DnsResourceRecordManualInstanceEnumerationElement() {
    	
-  	m_elementP=0;
-  	m_nextP=0;
+  	m_elementP = 0;
+  	m_nextP = 0;
   	  
-  };
+  }
   
-  
-  Linux_DnsResourceRecordManualInstanceEnumerationElement::
-   ~Linux_DnsResourceRecordManualInstanceEnumerationElement(){
+  //----------------------------------------------------------------------------
+  Linux_DnsResourceRecordManualInstanceEnumerationElement::~Linux_DnsResourceRecordManualInstanceEnumerationElement() {
    	
-  	if (m_elementP!=0)
+  	if (m_elementP) {
   	  delete(m_elementP);
-  	if (m_nextP!=0)
+  	}
+  	
+  	if (m_nextP) {
   	  delete(m_nextP);
+  	}
   	  
-  };
+  }
 
-  
-  //*********************************************************
+  //----------------------------------------------------------------------------
   //Linux_DnsResourceRecordManualInstanceNameEnumeration
-  //*********************************************************
-
-  Linux_DnsResourceRecordManualInstanceEnumeration::
-   Linux_DnsResourceRecordManualInstanceEnumeration(){
+  //----------------------------------------------------------------------------
+  Linux_DnsResourceRecordManualInstanceEnumeration::Linux_DnsResourceRecordManualInstanceEnumeration() {
    	
-  	 firstElementP=0;
-     currentElementP=0;
-     endElementP=0;
-  };
+    m_firstElementP = 0;
+    m_currentElementP = 0;
+    m_endElementP = 0;
   
-  Linux_DnsResourceRecordManualInstanceEnumeration::
-   Linux_DnsResourceRecordManualInstanceEnumeration(
-   const Linux_DnsResourceRecordManualInstanceEnumeration& original){
+  }
+  
+  //----------------------------------------------------------------------------
+  Linux_DnsResourceRecordManualInstanceEnumeration::Linux_DnsResourceRecordManualInstanceEnumeration(
+    const Linux_DnsResourceRecordManualInstanceEnumeration& anInstanceEnumeration) {
    	
-     firstElementP=0;
-     currentElementP=0;
-     endElementP=0;
+    m_firstElementP = 0;
+    m_currentElementP = 0;
+    m_endElementP = 0;
   	 
-     int size=original.getSize();
-     for(int i=0;i<size;i++)
-       addElement(original.getElement(i));           
-  };
+    int size = anInstanceEnumeration.getSize();
+    for (int x=0; x < size;++x) {
+      addElement(anInstanceEnumeration.getElement(x));
+    }           
+
+  }
   
-  	  
-  Linux_DnsResourceRecordManualInstanceEnumeration::
-   ~Linux_DnsResourceRecordManualInstanceEnumeration(){
+  //----------------------------------------------------------------------------
+  Linux_DnsResourceRecordManualInstanceEnumeration::~Linux_DnsResourceRecordManualInstanceEnumeration() {
    	
-  	if (firstElementP!=0)
-  	  delete(firstElementP);
+  	if (m_firstElementP) {
+  	  delete(m_firstElementP);
+  	}
   	  	
-  };
+  }
   
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsResourceRecordManualInstanceEnumeration::reset() {
+  	
+  	m_currentElementP = m_firstElementP;
+  	
+  }
   	  
-  void Linux_DnsResourceRecordManualInstanceEnumeration::reset(){
+  //----------------------------------------------------------------------------
+  bool
+  Linux_DnsResourceRecordManualInstanceEnumeration::hasNext() const {
   	
-  	currentElementP=firstElementP;
-  };
+  	return (m_currentElementP != 0);
   
-  	  
-  bool Linux_DnsResourceRecordManualInstanceEnumeration::hasNext() const{
-  	
-  	return (currentElementP!=0);
+  }
   
-  };
-  
-  int Linux_DnsResourceRecordManualInstanceEnumeration::getSize() const{
+  //----------------------------------------------------------------------------
+  int
+  Linux_DnsResourceRecordManualInstanceEnumeration::getSize() const {
   	
-    int size=0;
-    Linux_DnsResourceRecordManualInstanceEnumerationElement* followingP=firstElementP;
+    int size = 0;
+    Linux_DnsResourceRecordManualInstanceEnumerationElement* followingP = m_firstElementP;
   	
-  	while(followingP!=0){
-        followingP=followingP->m_nextP;
-        size++;
+  	while (followingP) {
+      followingP = followingP->m_nextP;
+      ++size;
     }
   	
     return size;
     
-  };
+  }
   
+  //----------------------------------------------------------------------------
   const Linux_DnsResourceRecordManualInstance&  
-   Linux_DnsResourceRecordManualInstanceEnumeration::getElement(int pos) const{
+  Linux_DnsResourceRecordManualInstanceEnumeration::getElement(int anIndex) const {
    
-    Linux_DnsResourceRecordManualInstanceEnumerationElement* followingP=firstElementP;
+    Linux_DnsResourceRecordManualInstanceEnumerationElement* followingP = m_firstElementP;
    
-    int i=0;
-    while((followingP!=0)&&(i<pos)){
-        followingP=followingP->m_nextP;
-        i++;
+    int x = 0;
+    while (followingP && (x < anIndex)) {
+      followingP = followingP->m_nextP;
+      ++x;
     }
     
     return *(followingP->m_elementP);
-  };
+
+  }
   
-  	  
+  //----------------------------------------------------------------------------
   const Linux_DnsResourceRecordManualInstance&
-   Linux_DnsResourceRecordManualInstanceEnumeration::getNext() {
+  Linux_DnsResourceRecordManualInstanceEnumeration::getNext() {
    	
-  	 Linux_DnsResourceRecordManualInstanceEnumerationElement* currentP=
-  	  currentElementP;
-  	 currentElementP=currentElementP->m_nextP;
+    Linux_DnsResourceRecordManualInstanceEnumerationElement* currentElementP =
+  	  m_currentElementP;
+
+    m_currentElementP = m_currentElementP->m_nextP;
   	 
-  	 return *(currentP->m_elementP);
-  };
+    return *(currentElementP->m_elementP);
+
+  }
   	  
-  void Linux_DnsResourceRecordManualInstanceEnumeration::addElement
-   (const Linux_DnsResourceRecordManualInstance& elementP){
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsResourceRecordManualInstanceEnumeration::addElement(
+    const Linux_DnsResourceRecordManualInstance& anInstance) {
    	
-  	if(firstElementP==0){
-  	  firstElementP=new Linux_DnsResourceRecordManualInstanceEnumerationElement();
-  	  firstElementP->m_elementP=new Linux_DnsResourceRecordManualInstance(elementP);
-  	  endElementP=firstElementP;
-  	  currentElementP=firstElementP;
-  	}else{
-  	  endElementP->m_nextP=new Linux_DnsResourceRecordManualInstanceEnumerationElement();
-  	  endElementP=endElementP->m_nextP;
-  	  endElementP->m_elementP=new Linux_DnsResourceRecordManualInstance(elementP);
+  	if (m_firstElementP == 0) {
+  	  m_firstElementP = new Linux_DnsResourceRecordManualInstanceEnumerationElement();
+  	  m_firstElementP->m_elementP = new Linux_DnsResourceRecordManualInstance(anInstance);
+  	  m_endElementP = m_firstElementP;
+  	  m_currentElementP = m_firstElementP;
+  	} else {
+  	  m_endElementP->m_nextP = new Linux_DnsResourceRecordManualInstanceEnumerationElement();
+  	  m_endElementP = m_endElementP->m_nextP;
+  	  m_endElementP->m_elementP = new Linux_DnsResourceRecordManualInstance(anInstance);
   	}
-  };  
+
+  }
+  
 }
- 

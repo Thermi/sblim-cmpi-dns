@@ -1,61 +1,74 @@
- /**
- * Linux_DnsResourceRecordExternal.h
- *
- * (C) Copyright IBM Corp. 2005
- *
- * THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
- * ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE
- * CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
- *
- * You can obtain a current copy of the Common Public License from
- * http://www.opensource.org/licenses/cpl1.0.php
- *
- * author:     Murillo Bernardes <bernarde@br.ibm.com>
- *
- * Contributors:
- *
- */
+// =======================================================================
+// Linux_DnsResourceRecordExternal.h
+//     created on Fri, 3 Mar 2006 using ECUTE
+// 
+// Copyright (c) 2006, International Business Machines
+//
+// THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
+// ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE 
+// CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
+//
+// You can obtain a current copy of the Common Public License from
+// http://oss.software.ibm.com/developerworks/opensource/license-cpl.html
+//
+// Author:        generated
+//
+// Contributors:
+//                Murillo Bernardes <bernarde@br.ibm.com>
+//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//
+// =======================================================================
+//
+// 
 #ifndef Linux_DnsResourceRecordExternal_h
 #define Linux_DnsResourceRecordExternal_h
 
+
 #include "Linux_DnsResourceRecordInstance.h"
+
 #include "CmpiBroker.h"
 
 namespace genProvider {
 
   class Linux_DnsResourceRecordExternal {
+    
+    private:
+    CmpiBroker m_broker;
+    CmpiContext m_context;
   	
     public:
     Linux_DnsResourceRecordExternal(
-     const CmpiBroker& brkr, const CmpiContext& ctx);
+      const CmpiBroker& aBroker,
+      const CmpiContext& aContext);
     virtual ~Linux_DnsResourceRecordExternal();
     
     virtual void enumInstanceNames(
-     const char *nsp,
-     Linux_DnsResourceRecordInstanceNameEnumeration&);
+      const char *aNameSpaceP,
+      Linux_DnsResourceRecordInstanceNameEnumeration& anInstanceNameEnumeration);
      
     virtual void enumInstances(
-     const char *nsp,
-     const char* *properties,
-     Linux_DnsResourceRecordInstanceEnumeration&);
+      const char *anNameSpaceP,
+      const char** aPropertiesPP,
+      Linux_DnsResourceRecordInstanceEnumeration& anInstanceEnumeration);
      
     virtual Linux_DnsResourceRecordInstance getInstance(
-     const char* *properties,
-     const Linux_DnsResourceRecordInstanceName&);
+      const char** aPropertiesPP,
+      const Linux_DnsResourceRecordInstanceName& anInstanceName);
      
     virtual void setInstance(
-     const char* *properties,
-     const Linux_DnsResourceRecordInstance&);
+      const char** aPropertiesPP,
+      const Linux_DnsResourceRecordInstance& anInstance);
      
-    virtual void createInstance(
-     const Linux_DnsResourceRecordInstance&);
+    virtual Linux_DnsResourceRecordInstanceName createInstance(
+      const Linux_DnsResourceRecordInstance& anInstance);
      
     virtual void deleteInstance(
-     const Linux_DnsResourceRecordInstanceName&);
-     
-    private:
-    CmpiBroker  broker;
-    CmpiContext context;
+      const Linux_DnsResourceRecordInstanceName& anInstanceName);
+
+ 
+  
   };
+
 }
+
 #endif

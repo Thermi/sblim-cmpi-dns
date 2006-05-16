@@ -1,20 +1,25 @@
- /**
- * Linux_DnsTransferACLForServiceRepositoryExternal.h
- *
- * (C) Copyright IBM Corp. 2005
- *
- * THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
- * ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE
- * CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
- *
- * You can obtain a current copy of the Common Public License from
- * http://www.opensource.org/licenses/cpl1.0.php
- *
- * author:     Murillo Bernardes <bernarde@br.ibm.com>
- *
- * Contributors:
- *
- */
+// =======================================================================
+// Linux_DnsTransferACLForServiceRepositoryExternal.h
+//     created on Fri, 3 Mar 2006 using ECUTE
+// 
+// Copyright (c) 2006, International Business Machines
+//
+// THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
+// ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE 
+// CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
+//
+// You can obtain a current copy of the Common Public License from
+// http://oss.software.ibm.com/developerworks/opensource/license-cpl.html
+//
+// Author:        generated
+//
+// Contributors:
+//                Murillo Bernardes <bernarde@br.ibm.com>
+//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//
+// =======================================================================
+//
+// 
 #ifndef Linux_DnsTransferACLForServiceRepositoryExternal_h
 #define Linux_DnsTransferACLForServiceRepositoryExternal_h
 
@@ -25,38 +30,40 @@
 namespace genProvider {
 
   class Linux_DnsTransferACLForServiceRepositoryExternal {
+     
+    private:
+    CmpiBroker  m_broker;
+    CmpiContext m_context;
+    const static char *s_shadowNameSpaceP;
   	
     public:
     Linux_DnsTransferACLForServiceRepositoryExternal(
-     const CmpiBroker& brkr,
-     const CmpiContext& ctx);
+      const CmpiBroker& aBroker,
+      const CmpiContext& aContext);
     virtual ~Linux_DnsTransferACLForServiceRepositoryExternal();
     
     virtual void enumInstanceNames(
-     Linux_DnsTransferACLForServiceInstanceNameEnumeration&);
+      Linux_DnsTransferACLForServiceInstanceNameEnumeration& anInstanceNameEnumeration);
      
     virtual void enumInstances(
-     const char* *properties,
-     Linux_DnsTransferACLForServiceRepositoryInstanceEnumeration&);
+      const char** aPropertiesPP,
+      Linux_DnsTransferACLForServiceRepositoryInstanceEnumeration& aRepositoryInstanceEnumeration);
      
     virtual Linux_DnsTransferACLForServiceRepositoryInstance getInstance(
-     const char* *properties,
-     const Linux_DnsTransferACLForServiceInstanceName&);
+      const char** aPropertiesPP,
+      const Linux_DnsTransferACLForServiceInstanceName& anInstanceName);
      
     virtual void setInstance(
-     const char* *properties,
-     const Linux_DnsTransferACLForServiceRepositoryInstance&);
+      const char** aPropertiesPP,
+      const Linux_DnsTransferACLForServiceRepositoryInstance& aRepositoryInstance);
      
-    virtual void createInstance(
-     const Linux_DnsTransferACLForServiceRepositoryInstance&);
+    virtual Linux_DnsTransferACLForServiceInstanceName createInstance(
+      const Linux_DnsTransferACLForServiceRepositoryInstance& aRepositoryInstance);
      
     virtual void deleteInstance(
-     const Linux_DnsTransferACLForServiceInstanceName&);
-     
-    private:
-    CmpiBroker  broker;
-    CmpiContext context;
-    const static char *nsp;
+      const Linux_DnsTransferACLForServiceInstanceName& anInstanceName);
+  
   };
+
 }
 #endif

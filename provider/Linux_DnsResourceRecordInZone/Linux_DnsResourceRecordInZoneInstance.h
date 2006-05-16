@@ -1,22 +1,28 @@
- /**
- * Linux_DnsResourceRecordInZoneInstance.h
- *
- * (C) Copyright IBM Corp. 2005
- *
- * THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
- * ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE
- * CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
- *
- * You can obtain a current copy of the Common Public License from
- * http://www.opensource.org/licenses/cpl1.0.php
- *
- * author:     Murillo Bernardes <bernarde@br.ibm.com>
- *
- * Contributors:
- *
- */
+// =======================================================================
+// Linux_DnsResourceRecordInZoneInstance.h
+//     created on Fri, 3 Mar 2006 using ECUTE
+// 
+// Copyright (c) 2006, International Business Machines
+//
+// THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
+// ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE 
+// CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
+//
+// You can obtain a current copy of the Common Public License from
+// http://oss.software.ibm.com/developerworks/opensource/license-cpl.html
+//
+// Author:        generated
+//
+// Contributors:
+//                Murillo Bernardes <bernarde@br.ibm.com>
+//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//
+// =======================================================================
+//
+// 
 #ifndef Linux_DnsResourceRecordInZoneInstance_h
 #define Linux_DnsResourceRecordInZoneInstance_h
+
 
 #include "cmpidt.h"
 #include "CmpiObjectPath.h"
@@ -27,79 +33,76 @@
 
 #include "Linux_DnsResourceRecordInZoneInstanceName.h"
 
+
 namespace genProvider {
 
   class Linux_DnsResourceRecordInZoneInstance {
-  public:
-       Linux_DnsResourceRecordInZoneInstance();
-  	
-       Linux_DnsResourceRecordInZoneInstance
-  	    (const Linux_DnsResourceRecordInZoneInstance& original);
-  	   
-       Linux_DnsResourceRecordInZoneInstance
-        (const CmpiInstance& inst, const char* instanceNamespace);
-  	 
-       ~Linux_DnsResourceRecordInZoneInstance();
        
-       Linux_DnsResourceRecordInZoneInstance& operator=
-  	    (const Linux_DnsResourceRecordInZoneInstance& original);
+    private:
+    void init();
+    void init(const Linux_DnsResourceRecordInZoneInstance& anInstance);
+    void reset();
        
-       CmpiInstance getCmpiInstance(const char** properties=0) const;
+    Linux_DnsResourceRecordInZoneInstanceName m_instanceName;
        
-       unsigned int isInstanceNameSet() const;
-       void setInstanceName(
-        const Linux_DnsResourceRecordInZoneInstanceName& val);        
-       const Linux_DnsResourceRecordInZoneInstanceName&
-        getInstanceName() const;
+    struct isSetType{
+      unsigned int instanceName:1;
+
+    } isSet;
+    
+    public:
+    Linux_DnsResourceRecordInZoneInstance();
+    Linux_DnsResourceRecordInZoneInstance(
+      const Linux_DnsResourceRecordInZoneInstance& anInstance);
+    Linux_DnsResourceRecordInZoneInstance(
+      const CmpiInstance& aCmpiInstance, 
+      const char* anInstanceNamespaceP);
+    ~Linux_DnsResourceRecordInZoneInstance();
        
-  private:
-       void init();
-       void init(const Linux_DnsResourceRecordInZoneInstance& original);
-       void reset();
+    Linux_DnsResourceRecordInZoneInstance& operator=(
+      const Linux_DnsResourceRecordInZoneInstance& anInstance);
        
-       Linux_DnsResourceRecordInZoneInstanceName m_instanceName;
-       
-       struct isSetType{
-       	 unsigned int instanceName:1;
-       } isSet;
+    CmpiInstance getCmpiInstance(const char** aPropertiesPP = 0) const;
+    unsigned int isInstanceNameSet() const;
+    void setInstanceName(const Linux_DnsResourceRecordInZoneInstanceName& anInstanceName);        
+    const Linux_DnsResourceRecordInZoneInstanceName& getInstanceName() const;
+
+
   };
   
-  
-  struct Linux_DnsResourceRecordInZoneInstanceEnumerationElement{
-  	Linux_DnsResourceRecordInZoneInstance* m_elementP;
-  	Linux_DnsResourceRecordInZoneInstanceEnumerationElement* m_nextP;
-  	
-  	Linux_DnsResourceRecordInZoneInstanceEnumerationElement();
-  	~Linux_DnsResourceRecordInZoneInstanceEnumerationElement();  	
+  struct Linux_DnsResourceRecordInZoneInstanceEnumerationElement {
+
+    Linux_DnsResourceRecordInZoneInstance* m_elementP;
+    Linux_DnsResourceRecordInZoneInstanceEnumerationElement* m_nextP;
+
+    Linux_DnsResourceRecordInZoneInstanceEnumerationElement();
+    ~Linux_DnsResourceRecordInZoneInstanceEnumerationElement();  
+
   };
   
 
   class Linux_DnsResourceRecordInZoneInstanceEnumeration {
-  	private:
-  	  Linux_DnsResourceRecordInZoneInstanceEnumerationElement* firstElementP;
-  	  Linux_DnsResourceRecordInZoneInstanceEnumerationElement* currentElementP;
-  	  Linux_DnsResourceRecordInZoneInstanceEnumerationElement* endElementP;
-  	
-  	public:
-  	  Linux_DnsResourceRecordInZoneInstanceEnumeration();
-  	  
-  	  Linux_DnsResourceRecordInZoneInstanceEnumeration(
-  	   const Linux_DnsResourceRecordInZoneInstanceEnumeration& original);
-  	  
-  	  ~Linux_DnsResourceRecordInZoneInstanceEnumeration();
-  	  
-  	  void reset();
-  	  
-  	  bool hasNext() const;
-  	  
-  	  const Linux_DnsResourceRecordInZoneInstance& getNext();
-  	  
-  	  int getSize() const;
-  	  
-  	  const Linux_DnsResourceRecordInZoneInstance& getElement(int pos) const;  	  
-  	  
-  	 void addElement(const Linux_DnsResourceRecordInZoneInstance& elementP);
-  };
-}
-#endif
 
+    private:
+    Linux_DnsResourceRecordInZoneInstanceEnumerationElement* m_firstElementP;
+    Linux_DnsResourceRecordInZoneInstanceEnumerationElement* m_currentElementP;
+    Linux_DnsResourceRecordInZoneInstanceEnumerationElement* m_endElementP;
+
+    public:
+    Linux_DnsResourceRecordInZoneInstanceEnumeration();
+    Linux_DnsResourceRecordInZoneInstanceEnumeration(
+      const Linux_DnsResourceRecordInZoneInstanceEnumeration& anInstanceEnumeration);
+    ~Linux_DnsResourceRecordInZoneInstanceEnumeration();
+
+    void reset();
+    bool hasNext() const;
+    const Linux_DnsResourceRecordInZoneInstance& getNext();
+    int getSize() const;
+    const Linux_DnsResourceRecordInZoneInstance& getElement(int anIndex) const;  	  
+    void addElement(const Linux_DnsResourceRecordInZoneInstance& anInstance);
+
+  };
+
+}
+
+#endif
