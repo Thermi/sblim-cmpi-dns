@@ -1,6 +1,6 @@
 // =======================================================================
 // Linux_DnsMasterZoneManualInstance.h
-//     created on Fri, 3 Mar 2006 using ECUTE
+//     created on Thu, 23 Nov 2006 using ECUTE 2.2
 // 
 // Copyright (c) 2006, International Business Machines
 //
@@ -14,8 +14,10 @@
 // Author:        generated
 //
 // Contributors:
-//                Murillo Bernardes <bernarde@br.ibm.com>
-//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//                Wolfgang Taphorn   <taphorn at de.ibm.com>
+//                Murillo Bernardes  <bernarde(at)br.ibm.com>
+//                Mukunda Chowdaiah  <cmukunda(at)in.ibm.com>
+//                Ashoka S Rao       <ashoka.rao(at)in.ibm.com>
 //
 // =======================================================================
 //
@@ -46,30 +48,29 @@ namespace genProvider {
     Linux_DnsMasterZoneInstanceName m_instanceName;
     const char* m_Contact;
     CMPIUint32 m_Expire;
-    CMPIUint16 m_Forward;
-    const char** m_Forwarders;
-    unsigned int m_ForwardersSize;
+    CMPIUint8 m_Forward;
     CMPIUint32 m_NegativeCachingTTL;
     CMPIUint32 m_Refresh;
-    const char* m_ResourceRecordFile;
     CMPIUint32 m_Retry;
     const char* m_SerialNumber;
     const char* m_Server;
-    CMPIUint16 m_Type;
+    CMPISint32 m_TTL;
+    CMPIUint8 m_Type;
+    const char* m_ZoneFile;
        
     struct isSetType{
       unsigned int instanceName:1;
       unsigned int Contact:1;
       unsigned int Expire:1;
       unsigned int Forward:1;
-      unsigned int Forwarders:1;
       unsigned int NegativeCachingTTL:1;
       unsigned int Refresh:1;
-      unsigned int ResourceRecordFile:1;
       unsigned int Retry:1;
       unsigned int SerialNumber:1;
       unsigned int Server:1;
+      unsigned int TTL:1;
       unsigned int Type:1;
+      unsigned int ZoneFile:1;
 
     } isSet;
     
@@ -99,12 +100,8 @@ namespace genProvider {
     const CMPIUint32 getExpire() const;
 
     unsigned int isForwardSet() const;
-    void setForward(const CMPIUint16 aValue);
-    const CMPIUint16 getForward() const;
-
-    unsigned int isForwardersSet() const;
-    void setForwarders(const char** aValue, unsigned const int aSize, int aCopyFlag = 1);
-    const char** getForwarders(unsigned int& aSize) const;
+    void setForward(const CMPIUint8 aValue);
+    const CMPIUint8 getForward() const;
 
     unsigned int isNegativeCachingTTLSet() const;
     void setNegativeCachingTTL(const CMPIUint32 aValue);
@@ -113,10 +110,6 @@ namespace genProvider {
     unsigned int isRefreshSet() const;
     void setRefresh(const CMPIUint32 aValue);
     const CMPIUint32 getRefresh() const;
-
-    unsigned int isResourceRecordFileSet() const;
-    void setResourceRecordFile(const char* aValue, int aCopyFlag = 1);
-    const char* getResourceRecordFile() const;
 
     unsigned int isRetrySet() const;
     void setRetry(const CMPIUint32 aValue);
@@ -130,9 +123,17 @@ namespace genProvider {
     void setServer(const char* aValue, int aCopyFlag = 1);
     const char* getServer() const;
 
+    unsigned int isTTLSet() const;
+    void setTTL(const CMPISint32 aValue);
+    const CMPISint32 getTTL() const;
+
     unsigned int isTypeSet() const;
-    void setType(const CMPIUint16 aValue);
-    const CMPIUint16 getType() const;
+    void setType(const CMPIUint8 aValue);
+    const CMPIUint8 getType() const;
+
+    unsigned int isZoneFileSet() const;
+    void setZoneFile(const char* aValue, int aCopyFlag = 1);
+    const char* getZoneFile() const;
 
 
   };

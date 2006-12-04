@@ -1,6 +1,6 @@
 // =======================================================================
 // Linux_DnsForwardZoneInstance.h
-//     created on Fri, 3 Mar 2006 using ECUTE
+//     created on Wed, 29 Nov 2006 using ECUTE 2.2
 // 
 // Copyright (c) 2006, International Business Machines
 //
@@ -14,8 +14,10 @@
 // Author:        generated
 //
 // Contributors:
-//                Murillo Bernardes <bernarde@br.ibm.com>
-//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//                Wolfgang Taphorn   <taphorn at de.ibm.com>
+//                Murillo Bernardes  <bernarde(at)br.ibm.com>
+//                Mukunda Chowdaiah  <cmukunda(at)in.ibm.com>
+//                Ashoka S Rao       <ashoka.rao(at)in.ibm.com>
 //
 // =======================================================================
 //
@@ -47,12 +49,8 @@ namespace genProvider {
     const char* m_Caption;
     const char* m_Description;
     const char* m_ElementName;
-    CMPIUint16 m_Forward;
-    const char** m_Forwarders;
-    unsigned int m_ForwardersSize;
-    const char* m_ResourceRecordFile;
-    const char* m_SettingID;
-    CMPIUint16 m_Type;
+    CMPIUint8 m_Forward;
+    CMPIUint8 m_Type;
        
     struct isSetType{
       unsigned int instanceName:1;
@@ -60,9 +58,6 @@ namespace genProvider {
       unsigned int Description:1;
       unsigned int ElementName:1;
       unsigned int Forward:1;
-      unsigned int Forwarders:1;
-      unsigned int ResourceRecordFile:1;
-      unsigned int SettingID:1;
       unsigned int Type:1;
 
     } isSet;
@@ -97,24 +92,12 @@ namespace genProvider {
     const char* getElementName() const;
 
     unsigned int isForwardSet() const;
-    void setForward(const CMPIUint16 aValue);
-    const CMPIUint16 getForward() const;
-
-    unsigned int isForwardersSet() const;
-    void setForwarders(const char** aValue, unsigned const int aSize, int aCopyFlag = 1);
-    const char** getForwarders(unsigned int& aSize) const;
-
-    unsigned int isResourceRecordFileSet() const;
-    void setResourceRecordFile(const char* aValue, int aCopyFlag = 1);
-    const char* getResourceRecordFile() const;
-
-    unsigned int isSettingIDSet() const;
-    void setSettingID(const char* aValue, int aCopyFlag = 1);
-    const char* getSettingID() const;
+    void setForward(const CMPIUint8 aValue);
+    const CMPIUint8 getForward() const;
 
     unsigned int isTypeSet() const;
-    void setType(const CMPIUint16 aValue);
-    const CMPIUint16 getType() const;
+    void setType(const CMPIUint8 aValue);
+    const CMPIUint8 getType() const;
 
 
   };

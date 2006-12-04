@@ -1,6 +1,6 @@
 // =======================================================================
 // Linux_DnsHintZoneManualInstance.h
-//     created on Fri, 3 Mar 2006 using ECUTE
+//     created on Thu, 23 Nov 2006 using ECUTE 2.2
 // 
 // Copyright (c) 2006, International Business Machines
 //
@@ -14,8 +14,10 @@
 // Author:        generated
 //
 // Contributors:
-//                Murillo Bernardes <bernarde@br.ibm.com>
-//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//                Wolfgang Taphorn   <taphorn at de.ibm.com>
+//                Murillo Bernardes  <bernarde(at)br.ibm.com>
+//                Mukunda Chowdaiah  <cmukunda(at)in.ibm.com>
+//                Ashoka S Rao       <ashoka.rao(at)in.ibm.com>
 //
 // =======================================================================
 //
@@ -44,13 +46,15 @@ namespace genProvider {
     void reset();
        
     Linux_DnsHintZoneInstanceName m_instanceName;
-    const char* m_ResourceRecordFile;
-    CMPIUint16 m_Type;
+    CMPISint32 m_TTL;
+    CMPIUint8 m_Type;
+    const char* m_ZoneFile;
        
     struct isSetType{
       unsigned int instanceName:1;
-      unsigned int ResourceRecordFile:1;
+      unsigned int TTL:1;
       unsigned int Type:1;
+      unsigned int ZoneFile:1;
 
     } isSet;
     
@@ -71,13 +75,17 @@ namespace genProvider {
     void setInstanceName(const Linux_DnsHintZoneInstanceName& anInstanceName);        
     const Linux_DnsHintZoneInstanceName& getInstanceName() const;
 
-    unsigned int isResourceRecordFileSet() const;
-    void setResourceRecordFile(const char* aValue, int aCopyFlag = 1);
-    const char* getResourceRecordFile() const;
+    unsigned int isTTLSet() const;
+    void setTTL(const CMPISint32 aValue);
+    const CMPISint32 getTTL() const;
 
     unsigned int isTypeSet() const;
-    void setType(const CMPIUint16 aValue);
-    const CMPIUint16 getType() const;
+    void setType(const CMPIUint8 aValue);
+    const CMPIUint8 getType() const;
+
+    unsigned int isZoneFileSet() const;
+    void setZoneFile(const char* aValue, int aCopyFlag = 1);
+    const char* getZoneFile() const;
 
 
   };

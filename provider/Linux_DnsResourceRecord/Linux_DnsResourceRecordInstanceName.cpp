@@ -1,6 +1,6 @@
 // =======================================================================
 // Linux_DnsResourceRecordInstanceName.cpp
-//     created on Fri, 3 Mar 2006 using ECUTE
+//     created on Fri, 1 Dec 2006 using ECUTE 2.2
 // 
 // Copyright (c) 2006, International Business Machines
 //
@@ -14,8 +14,10 @@
 // Author:        generated
 //
 // Contributors:
-//                Murillo Bernardes <bernarde@br.ibm.com>
-//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//                Wolfgang Taphorn   <taphorn at de.ibm.com>
+//                Murillo Bernardes  <bernarde(at)br.ibm.com>
+//                Mukunda Chowdaiah  <cmukunda(at)in.ibm.com>
+//                Ashoka S Rao       <ashoka.rao(at)in.ibm.com>
 //
 // =======================================================================
 //
@@ -54,20 +56,19 @@ namespace genProvider {
     init();
     
     m_CIMClassNameP = path.getClassName().charPtr();
-    CmpiInstance aCmpiInstance = CmpiInstance( path );
     
     CmpiString namespaceP;
     namespaceP = path.getNameSpace();
     setNamespace(namespaceP.charPtr(),1);
         
+    CmpiString InstanceID = path.getKey("InstanceID");
+    setInstanceID(InstanceID.charPtr());
+    
     CmpiString Name = path.getKey("Name");
     setName(Name.charPtr());
     
-    CMPIUint16 Type = aCmpiInstance.getProperty("Type");
-//#ifdef DEBUG
-    std::cout << ("\tReceived type for %s of %d", Name, Type) << std::endl;
-//#endif
-    setType(Type);
+    CmpiString Type = path.getKey("Type");
+    setType(Type.charPtr());
     
     CmpiString Value = path.getKey("Value");
     setValue(Value.charPtr());
@@ -105,6 +106,9 @@ namespace genProvider {
    	
    	CmpiObjectPath objectPath(m_nameSpaceP, m_CIMClassNameP);
    	  	objectPath.setKey(
+  	  "InstanceID",
+  	  CmpiData(m_InstanceID));
+  	objectPath.setKey(
   	  "Name",
   	  CmpiData(m_Name));
   	objectPath.setKey(
@@ -128,6 +132,13 @@ namespace genProvider {
   void 
   Linux_DnsResourceRecordInstanceName::fillKeys(CmpiInstance& cmpiInstance) const {
   	
+  	if (isSet.InstanceID) {
+  	  
+  	  cmpiInstance.setProperty(
+  	    "InstanceID",
+  	    CmpiData(m_InstanceID));
+  	}
+
   	if (isSet.Name) {
   	  
   	  cmpiInstance.setProperty(
@@ -201,6 +212,52 @@ namespace genProvider {
   }
          
   //----------------------------------------------------------------------------
+  // InstanceID related methods
+  //----------------------------------------------------------------------------
+  unsigned int
+  Linux_DnsResourceRecordInstanceName::isInstanceIDSet() const {
+    return isSet.InstanceID;
+  }
+
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsResourceRecordInstanceName::setInstanceID(
+    const char* aValueP,
+    int aCopyFlag) {
+    
+    if (isSet.InstanceID) {
+      delete [] m_InstanceID;
+    }
+    
+    if (aCopyFlag && aValueP) {
+      char* valueP = new char[strlen(aValueP) + 1];
+      strcpy(valueP,aValueP);
+      m_InstanceID = valueP;
+    } else {
+      m_InstanceID = aValueP;
+    }
+    
+    isSet.InstanceID = 1;
+
+  }       
+
+  //----------------------------------------------------------------------------
+  const char*
+  Linux_DnsResourceRecordInstanceName::getInstanceID() const {
+    
+    if ( ! isSet.InstanceID) {
+   	  throw CmpiErrorFormater::getErrorException(
+   	    CmpiErrorFormater::NOT_SET,
+        "InstanceID",
+        "Linux_DnsResourceRecord");
+   	}
+
+
+    return m_InstanceID;
+
+  }
+       
+  //----------------------------------------------------------------------------
   // Name related methods
   //----------------------------------------------------------------------------
   unsigned int
@@ -255,20 +312,29 @@ namespace genProvider {
   }
 
   //----------------------------------------------------------------------------
-  void Linux_DnsResourceRecordInstanceName::setType(
-    const CMPIUint16 aValue) {
-  
-#ifdef DEBUG
-    std::cout << "\tsetting type to " << aValue << std::endl;
-#endif
-
-    m_Type = aValue;
+  void
+  Linux_DnsResourceRecordInstanceName::setType(
+    const char* aValueP,
+    int aCopyFlag) {
+    
+    if (isSet.Type) {
+      delete [] m_Type;
+    }
+    
+    if (aCopyFlag && aValueP) {
+      char* valueP = new char[strlen(aValueP) + 1];
+      strcpy(valueP,aValueP);
+      m_Type = valueP;
+    } else {
+      m_Type = aValueP;
+    }
+    
     isSet.Type = 1;
-  
+
   }       
 
   //----------------------------------------------------------------------------
-  const CMPIUint16
+  const char*
   Linux_DnsResourceRecordInstanceName::getType() const {
     
     if ( ! isSet.Type) {
@@ -278,10 +344,6 @@ namespace genProvider {
         "Linux_DnsResourceRecord");
    	}
 
-
-#ifdef DEBUG
-    std::cout << "\tgetting type " << m_Type << std::endl;
-#endif
 
     return m_Type;
 
@@ -386,7 +448,8 @@ namespace genProvider {
   	
   	m_CIMClassNameP = "Linux_DnsResourceRecord";
   	isSet.m_nameSpaceP = 0; 
-  	    isSet.Name = 0;
+  	    isSet.InstanceID = 0;
+    isSet.Name = 0;
     isSet.Type = 0;
     isSet.Value = 0;
     isSet.ZoneName = 0;
@@ -408,14 +471,19 @@ namespace genProvider {
       setNamespace(anOriginal.getNamespace(),1);
     }
        	
+    if (anOriginal.isInstanceIDSet()) {
+      const char* InstanceIDOriginal = anOriginal.getInstanceID();
+      setInstanceID(InstanceIDOriginal,1);
+    }
+   	
     if (anOriginal.isNameSet()) {
       const char* NameOriginal = anOriginal.getName();
       setName(NameOriginal,1);
     }
    	
     if (anOriginal.isTypeSet()) {
-      const CMPIUint16 TypeOriginal = anOriginal.getType();
-      setType(TypeOriginal);
+      const char* TypeOriginal = anOriginal.getType();
+      setType(TypeOriginal,1);
     }
    	
     if (anOriginal.isValueSet()) {
@@ -438,8 +506,16 @@ namespace genProvider {
   	  delete(m_nameSpaceP);
   	}
   	
+  	if (isSet.InstanceID) {
+  	  delete(m_InstanceID);
+  	}
+
   	if (isSet.Name) {
   	  delete(m_Name);
+  	}
+
+  	if (isSet.Type) {
+  	  delete(m_Type);
   	}
 
   	if (isSet.Value) {

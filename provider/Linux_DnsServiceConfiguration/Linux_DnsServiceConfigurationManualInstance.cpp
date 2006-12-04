@@ -1,6 +1,6 @@
 // =======================================================================
 // Linux_DnsServiceConfigurationManualInstance.cpp
-//     created on Fri, 3 Mar 2006 using ECUTE
+//     created on Thu, 23 Nov 2006 using ECUTE 2.2
 // 
 // Copyright (c) 2006, International Business Machines
 //
@@ -14,8 +14,10 @@
 // Author:        generated
 //
 // Contributors:
-//                Murillo Bernardes <bernarde@br.ibm.com>
-//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//                Wolfgang Taphorn   <taphorn at de.ibm.com>
+//                Murillo Bernardes  <bernarde(at)br.ibm.com>
+//                Mukunda Chowdaiah  <cmukunda(at)in.ibm.com>
+//                Ashoka S Rao       <ashoka.rao(at)in.ibm.com>
 //
 // =======================================================================
 //
@@ -59,6 +61,12 @@ namespace genProvider {
     cop.setNameSpace(anInstanceNamespaceP);
     setInstanceName(Linux_DnsServiceConfigurationInstanceName(cop));
 
+    cmpiData = aCmpiInstance.getProperty("ConfigurationFile");
+    if ( ! cmpiData.isNullValue()){
+      CmpiString ConfigurationFile = cmpiData;
+      setConfigurationFile(ConfigurationFile.charPtr());
+    }
+
     
   }
   
@@ -99,6 +107,13 @@ namespace genProvider {
 	    cmpiInstance.setPropertyFilter(aPropertiesPP,0);
     }
 
+  	if (isSet.ConfigurationFile) {
+  	  
+  	  cmpiInstance.setProperty(
+  	    "ConfigurationFile",
+  	    CmpiData(m_ConfigurationFile));
+  	}
+
   	
   	return cmpiInstance;
   	
@@ -136,6 +151,52 @@ namespace genProvider {
     isSet.instanceName = 1;
 
   }
+       
+  //----------------------------------------------------------------------------
+  // ConfigurationFile related methods
+  //----------------------------------------------------------------------------
+  unsigned int
+  Linux_DnsServiceConfigurationManualInstance::isConfigurationFileSet() const {
+    return isSet.ConfigurationFile;
+  }
+
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsServiceConfigurationManualInstance::setConfigurationFile(
+    const char* aValueP,
+    int aCopyFlag) {
+    
+    if (isSet.ConfigurationFile) {
+      delete [] m_ConfigurationFile;
+    }
+    
+    if (aCopyFlag && aValueP) {
+      char* valueP = new char[strlen(aValueP) + 1];
+      strcpy(valueP,aValueP);
+      m_ConfigurationFile = valueP;
+    } else {
+      m_ConfigurationFile = aValueP;
+    }
+    
+    isSet.ConfigurationFile = 1;
+
+  }       
+
+  //----------------------------------------------------------------------------
+  const char*
+  Linux_DnsServiceConfigurationManualInstance::getConfigurationFile() const {
+    
+    if ( ! isSet.ConfigurationFile) {
+   	  throw CmpiErrorFormater::getErrorException(
+   	    CmpiErrorFormater::NOT_SET,
+        "ConfigurationFile",
+        "Linux_DnsServiceConfiguration");
+   	}
+
+
+    return m_ConfigurationFile;
+
+  }
 
   
   //----------------------------------------------------------------------------
@@ -144,6 +205,7 @@ namespace genProvider {
   void
   Linux_DnsServiceConfigurationManualInstance::init() {
    	isSet.instanceName = 0;
+    isSet.ConfigurationFile = 0;
   	
   }
   
@@ -159,7 +221,12 @@ namespace genProvider {
     if(anOriginal.isInstanceNameSet()) {
       setInstanceName(anOriginal.getInstanceName());
     }
-        
+       	
+    if (anOriginal.isConfigurationFileSet()) {
+      const char* ConfigurationFileOriginal = anOriginal.getConfigurationFile();
+      setConfigurationFile(ConfigurationFileOriginal,1);
+    }
+    
   }
   
   //----------------------------------------------------------------------------
@@ -168,6 +235,10 @@ namespace genProvider {
   void
   Linux_DnsServiceConfigurationManualInstance::reset() {
    	
+  	if (isSet.ConfigurationFile) {
+  	  delete(m_ConfigurationFile);
+  	}
+
   }
   
   //----------------------------------------------------------------------------

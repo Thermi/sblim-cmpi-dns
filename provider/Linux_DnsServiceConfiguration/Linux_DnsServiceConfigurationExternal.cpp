@@ -1,6 +1,6 @@
 // =======================================================================
 // Linux_DnsServiceConfigurationExternal.cpp
-//     created on Fri, 3 Mar 2006 using ECUTE
+//     created on Thu, 23 Nov 2006 using ECUTE 2.2
 // 
 // Copyright (c) 2006, International Business Machines
 //
@@ -14,8 +14,10 @@
 // Author:        generated
 //
 // Contributors:
-//                Murillo Bernardes <bernarde@br.ibm.com>
-//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//                Wolfgang Taphorn   <taphorn at de.ibm.com>
+//                Murillo Bernardes  <bernarde(at)br.ibm.com>
+//                Mukunda Chowdaiah  <cmukunda(at)in.ibm.com>
+//                Ashoka S Rao       <ashoka.rao(at)in.ibm.com>
 //
 // =======================================================================
 //
@@ -117,205 +119,5 @@ namespace genProvider {
     m_broker.deleteInstance(m_context,cmpiObjectPath);
   
   }
-  // Reference calls
-
-  //----------------------------------------------------------------------------
-  void
-  Linux_DnsServiceConfigurationExternal::referencesConfiguration( 
-    const char* aNameSpaceP,
-    const char** aPropertiesPP,
-    const Linux_DnsServiceInstanceName& aSourceInstanceName,
-    Linux_DnsServiceConfigurationInstanceEnumeration& anInstanceEnumeration) {
-      
-    CmpiObjectPath cmpiObjectPath = aSourceInstanceName.getObjectPath();
-
-    CmpiEnumeration cmpiEnumeration = m_broker.references(
-      m_context,
-      cmpiObjectPath,
-      "Linux_DnsService",
-      "Configuration",
-      aPropertiesPP);
-
-    while (cmpiEnumeration.hasNext()) {
-      CmpiInstance cmpiInstance = cmpiEnumeration.getNext();
-      Linux_DnsServiceConfigurationInstance instance(cmpiInstance,aNameSpaceP);
-      anInstanceEnumeration.addElement(instance);
-    }      
-
-  }
-
-  //----------------------------------------------------------------------------
-  void
-  Linux_DnsServiceConfigurationExternal::referenceNamesConfiguration( 
-    const char* aNameSpaceP,
-    const Linux_DnsServiceInstanceName& aSourceInstanceName,
-    Linux_DnsServiceConfigurationInstanceNameEnumeration& anInstanceNameEnumeration) {
-      
-    CmpiObjectPath cmpiObjectPath = aSourceInstanceName.getObjectPath();
-
-    CmpiEnumeration cmpiEnumeration = m_broker.referenceNames(
-      m_context,
-      cmpiObjectPath,
-      "Linux_DnsService",
-      "Configuration");
-
-    while (cmpiEnumeration.hasNext()) {
-      CmpiObjectPath cmpiInstanceName = cmpiEnumeration.getNext();
-      Linux_DnsServiceConfigurationInstanceName instanceName(cmpiInstanceName);
-      anInstanceNameEnumeration.addElement(instanceName);
-    }      
-
-  }
-
-  //----------------------------------------------------------------------------
-  void
-  Linux_DnsServiceConfigurationExternal::referencesElement( 
-    const char* aNameSpaceP,
-    const char** aPropertiesPP,
-    const Linux_DnsConfigurationInstanceName& aSourceInstanceName,
-    Linux_DnsServiceConfigurationInstanceEnumeration& anInstanceEnumeration){
-      
-    CmpiObjectPath cmpiObjectPath = aSourceInstanceName.getObjectPath();
   
-    CmpiEnumeration cmpiEnumeration = m_broker.references(
-      m_context,
-      cmpiObjectPath,
-      "Linux_DnsConfiguration",
-      "Element",
-      aPropertiesPP);
-
-    while(cmpiEnumeration.hasNext()) {
-      CmpiInstance cmpiInstance = cmpiEnumeration.getNext();
-      Linux_DnsServiceConfigurationInstance instance(cmpiInstance,aNameSpaceP);
-      anInstanceEnumeration.addElement(instance);
-    }      
-
-  }
-
-  //----------------------------------------------------------------------------
-  void
-  Linux_DnsServiceConfigurationExternal::referenceNamesElement( 
-    const char* aNameSpaceP,
-    const Linux_DnsConfigurationInstanceName& aSourceInstanceName,
-    Linux_DnsServiceConfigurationInstanceNameEnumeration& anInstanceNameEnumeration) {
-      
-    CmpiObjectPath cmpiObjectPath = aSourceInstanceName.getObjectPath();
-    CmpiEnumeration cmpiEnumeration = m_broker.referenceNames(
-      m_context,
-      cmpiObjectPath,
-      "Linux_DnsConfiguration",
-      "Element");
-   
-    while (cmpiEnumeration.hasNext()) {
-      CmpiObjectPath cmpiInstanceName = cmpiEnumeration.getNext();
-      Linux_DnsServiceConfigurationInstanceName instanceName(cmpiInstanceName);
-      anInstanceNameEnumeration.addElement(instanceName);
-    }      
-
-  }
-     
-  //Associator calls
-  //----------------------------------------------------------------------------
-  void
-  Linux_DnsServiceConfigurationExternal::associatorsConfiguration( 
-    const char* aNameSpaceP,
-    const char** aPropertiesPP,
-    const Linux_DnsServiceInstanceName& aSourceInstanceName,
-    Linux_DnsConfigurationInstanceEnumeration& anInstanceEnumeration) {
-      
-    CmpiObjectPath cmpiObjectPath = aSourceInstanceName.getObjectPath();
-
-    CmpiEnumeration cmpiEnumeration = m_broker.associators(
-      m_context,
-      cmpiObjectPath,
-      0,
-      0,
-      0,
-      0,
-      aPropertiesPP);
-
-    while (cmpiEnumeration.hasNext()) {
-      CmpiInstance cmpiInstance = cmpiEnumeration.getNext();
-      Linux_DnsConfigurationInstance instance(cmpiInstance,aNameSpaceP);
-      anInstanceEnumeration.addElement(instance);
-    }
-
-  }
-
-  //----------------------------------------------------------------------------
-  void Linux_DnsServiceConfigurationExternal::associatorNamesConfiguration( 
-    const char* aNameSpaceP,
-    const Linux_DnsServiceInstanceName& aSourceInstanceName,
-    Linux_DnsConfigurationInstanceNameEnumeration& anInstanceNameEnumeration) {
-      
-    CmpiObjectPath cmpiObjectPath = aSourceInstanceName.getObjectPath();
-
-    CmpiEnumeration cmpiEnumeration = m_broker.associatorNames(
-     m_context,
-     cmpiObjectPath,
-     0,
-     0,
-     0,
-     0);
-
-    while(cmpiEnumeration.hasNext()) {
-      CmpiObjectPath cmpiInstanceName = cmpiEnumeration.getNext();
-      Linux_DnsConfigurationInstanceName instanceName(cmpiInstanceName);
-      anInstanceNameEnumeration.addElement(instanceName);
-    }
-
-  }
-
-  //----------------------------------------------------------------------------
-  void
-  Linux_DnsServiceConfigurationExternal::associatorsElement( 
-    const char* aNameSpaceP,
-    const char** aPropertiesPP,
-    const Linux_DnsConfigurationInstanceName& aSourceInstanceName,
-    Linux_DnsServiceInstanceEnumeration& anInstanceEnumeration) {
-      
-    CmpiObjectPath cmpiObjectPath = aSourceInstanceName.getObjectPath();
-
-    CmpiEnumeration cmpiEnumeration = m_broker.associators(
-      m_context,
-      cmpiObjectPath,
-      0,
-      0,
-      0,
-      0,
-      aPropertiesPP);
-
-    while (cmpiEnumeration.hasNext()) {
-      CmpiInstance cmpiInstance = cmpiEnumeration.getNext();
-      Linux_DnsServiceInstance instance(cmpiInstance,aNameSpaceP);
-      anInstanceEnumeration.addElement(instance);
-    }      
-
-  }
-
-  //----------------------------------------------------------------------------
-  void
-  Linux_DnsServiceConfigurationExternal::associatorNamesElement( 
-    const char* aNameSpaceP,
-    const Linux_DnsConfigurationInstanceName& aSourceInstanceName,
-    Linux_DnsServiceInstanceNameEnumeration& anInstanceNameEnumeration) {
-      
-    CmpiObjectPath cmpiObjectPath = aSourceInstanceName.getObjectPath();
-
-    CmpiEnumeration cmpiEnumeration = m_broker.associatorNames(
-      m_context,
-      cmpiObjectPath,
-      0,
-      0,
-      0,
-      0);
-
-    while (cmpiEnumeration.hasNext()) {
-      CmpiObjectPath cmpiInstanceName = cmpiEnumeration.getNext();
-      Linux_DnsServiceInstanceName instanceName(cmpiInstanceName);
-      anInstanceNameEnumeration.addElement(instanceName);
-    }
-
-  }
-      
 }

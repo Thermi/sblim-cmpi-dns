@@ -1,6 +1,6 @@
 // =======================================================================
 // Linux_DnsSlaveZoneManualInstance.cpp
-//     created on Fri, 3 Mar 2006 using ECUTE
+//     created on Thu, 23 Nov 2006 using ECUTE 2.2
 // 
 // Copyright (c) 2006, International Business Machines
 //
@@ -14,8 +14,10 @@
 // Author:        generated
 //
 // Contributors:
-//                Murillo Bernardes <bernarde@br.ibm.com>
-//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//                Wolfgang Taphorn   <taphorn at de.ibm.com>
+//                Murillo Bernardes  <bernarde(at)br.ibm.com>
+//                Mukunda Chowdaiah  <cmukunda(at)in.ibm.com>
+//                Ashoka S Rao       <ashoka.rao(at)in.ibm.com>
 //
 // =======================================================================
 //
@@ -61,32 +63,26 @@ namespace genProvider {
 
     cmpiData = aCmpiInstance.getProperty("Forward");
     if ( ! cmpiData.isNullValue()){
-      CMPIUint16 Forward = cmpiData;
+      CMPIUint8 Forward = cmpiData;
       setForward(Forward);
     }
 
-    cmpiData = aCmpiInstance.getProperty("Forwarders");
+    cmpiData = aCmpiInstance.getProperty("TTL");
     if ( ! cmpiData.isNullValue()){
-      CmpiArray Forwarders = cmpiData;
-    unsigned int ForwardersSize;
-    const char** ForwardersArray;
-    ArrayConverter::makeArray(
-      Forwarders, 
-      (char***)&ForwardersArray, 
-      ForwardersSize);
-      setForwarders(ForwardersArray, ForwardersSize, 0);
-    }
-
-    cmpiData = aCmpiInstance.getProperty("ResourceRecordFile");
-    if ( ! cmpiData.isNullValue()){
-      CmpiString ResourceRecordFile = cmpiData;
-      setResourceRecordFile(ResourceRecordFile.charPtr());
+      CMPISint32 TTL = cmpiData;
+      setTTL(TTL);
     }
 
     cmpiData = aCmpiInstance.getProperty("Type");
     if ( ! cmpiData.isNullValue()){
-      CMPIUint16 Type = cmpiData;
+      CMPIUint8 Type = cmpiData;
       setType(Type);
+    }
+
+    cmpiData = aCmpiInstance.getProperty("ZoneFile");
+    if ( ! cmpiData.isNullValue()){
+      CmpiString ZoneFile = cmpiData;
+      setZoneFile(ZoneFile.charPtr());
     }
 
     
@@ -136,26 +132,11 @@ namespace genProvider {
   	    CmpiData(m_Forward));
   	}
 
-  	if (isSet.Forwarders) {
-  	  
-      unsigned int ForwardersSize;
-      const char** arrayForwarders = getForwarders(ForwardersSize);
-      CmpiArray cmpiArrayForwarders = CmpiArray(
-        ForwardersSize,
-        CMPI_chars);
-      for (unsigned int x=0; x < ForwardersSize; ++x) {
-        cmpiArrayForwarders[x] = CmpiData(arrayForwarders[x]);
-      }
-  	  cmpiInstance.setProperty(
-  	    "Forwarders",
-  	    CmpiData(cmpiArrayForwarders));
-  	}
-
-  	if (isSet.ResourceRecordFile) {
+  	if (isSet.TTL) {
   	  
   	  cmpiInstance.setProperty(
-  	    "ResourceRecordFile",
-  	    CmpiData(m_ResourceRecordFile));
+  	    "TTL",
+  	    CmpiData(m_TTL));
   	}
 
   	if (isSet.Type) {
@@ -163,6 +144,13 @@ namespace genProvider {
   	  cmpiInstance.setProperty(
   	    "Type",
   	    CmpiData(m_Type));
+  	}
+
+  	if (isSet.ZoneFile) {
+  	  
+  	  cmpiInstance.setProperty(
+  	    "ZoneFile",
+  	    CmpiData(m_ZoneFile));
   	}
 
   	
@@ -213,7 +201,7 @@ namespace genProvider {
 
   //----------------------------------------------------------------------------
   void Linux_DnsSlaveZoneManualInstance::setForward(
-    const CMPIUint16 aValue) {
+    const CMPIUint8 aValue) {
   
     m_Forward = aValue;
     isSet.Forward = 1;
@@ -221,7 +209,7 @@ namespace genProvider {
   }       
 
   //----------------------------------------------------------------------------
-  const CMPIUint16
+  const CMPIUint8
   Linux_DnsSlaveZoneManualInstance::getForward() const {
     
     if ( ! isSet.Forward) {
@@ -237,100 +225,35 @@ namespace genProvider {
   }
        
   //----------------------------------------------------------------------------
-  // Forwarders related methods
+  // TTL related methods
   //----------------------------------------------------------------------------
   unsigned int
-  Linux_DnsSlaveZoneManualInstance::isForwardersSet() const {
-    return isSet.Forwarders;
+  Linux_DnsSlaveZoneManualInstance::isTTLSet() const {
+    return isSet.TTL;
   }
 
   //----------------------------------------------------------------------------
-  void  
-  Linux_DnsSlaveZoneManualInstance::setForwarders(
-    const char** aValuePP, 
-    const unsigned int aSize,
-    int aCopyFlag) {
-    
-    if (isSet.Forwarders) {
-      delete m_Forwarders;
-    }
-    
-    if (aCopyFlag && aValuePP) {
-      m_Forwarders = new const char*[aSize];
-      for (unsigned int x=0; x < aSize; ++x) {
-        char* stringP = new char[strlen(aValuePP[x])+1];
-        strcpy(stringP,aValuePP[x]);
-        m_Forwarders[x] = stringP;
-      }      
-    } else {
-      m_Forwarders = aValuePP;
-    }
-    
-    m_ForwardersSize = aSize;
-    
-    isSet.Forwarders = 1;
-    
+  void Linux_DnsSlaveZoneManualInstance::setTTL(
+    const CMPISint32 aValue) {
+  
+    m_TTL = aValue;
+    isSet.TTL = 1;
+  
   }       
 
   //----------------------------------------------------------------------------
-  const char**
-  Linux_DnsSlaveZoneManualInstance::getForwarders(unsigned int& aSize) const {
+  const CMPISint32
+  Linux_DnsSlaveZoneManualInstance::getTTL() const {
     
-    if ( ! isSet.Forwarders) {
+    if ( ! isSet.TTL) {
    	  throw CmpiErrorFormater::getErrorException(
    	    CmpiErrorFormater::NOT_SET,
-        "Forwarders",
-        "Linux_DnsSlaveZone");
-   	}
-
-    aSize = m_ForwardersSize;
-    return m_Forwarders;
-
-  }
-       
-  //----------------------------------------------------------------------------
-  // ResourceRecordFile related methods
-  //----------------------------------------------------------------------------
-  unsigned int
-  Linux_DnsSlaveZoneManualInstance::isResourceRecordFileSet() const {
-    return isSet.ResourceRecordFile;
-  }
-
-  //----------------------------------------------------------------------------
-  void
-  Linux_DnsSlaveZoneManualInstance::setResourceRecordFile(
-    const char* aValueP,
-    int aCopyFlag) {
-    
-    if (isSet.ResourceRecordFile) {
-      delete [] m_ResourceRecordFile;
-    }
-    
-    if (aCopyFlag && aValueP) {
-      char* valueP = new char[strlen(aValueP) + 1];
-      strcpy(valueP,aValueP);
-      m_ResourceRecordFile = valueP;
-    } else {
-      m_ResourceRecordFile = aValueP;
-    }
-    
-    isSet.ResourceRecordFile = 1;
-
-  }       
-
-  //----------------------------------------------------------------------------
-  const char*
-  Linux_DnsSlaveZoneManualInstance::getResourceRecordFile() const {
-    
-    if ( ! isSet.ResourceRecordFile) {
-   	  throw CmpiErrorFormater::getErrorException(
-   	    CmpiErrorFormater::NOT_SET,
-        "ResourceRecordFile",
+        "TTL",
         "Linux_DnsSlaveZone");
    	}
 
 
-    return m_ResourceRecordFile;
+    return m_TTL;
 
   }
        
@@ -344,7 +267,7 @@ namespace genProvider {
 
   //----------------------------------------------------------------------------
   void Linux_DnsSlaveZoneManualInstance::setType(
-    const CMPIUint16 aValue) {
+    const CMPIUint8 aValue) {
   
     m_Type = aValue;
     isSet.Type = 1;
@@ -352,7 +275,7 @@ namespace genProvider {
   }       
 
   //----------------------------------------------------------------------------
-  const CMPIUint16
+  const CMPIUint8
   Linux_DnsSlaveZoneManualInstance::getType() const {
     
     if ( ! isSet.Type) {
@@ -366,6 +289,52 @@ namespace genProvider {
     return m_Type;
 
   }
+       
+  //----------------------------------------------------------------------------
+  // ZoneFile related methods
+  //----------------------------------------------------------------------------
+  unsigned int
+  Linux_DnsSlaveZoneManualInstance::isZoneFileSet() const {
+    return isSet.ZoneFile;
+  }
+
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsSlaveZoneManualInstance::setZoneFile(
+    const char* aValueP,
+    int aCopyFlag) {
+    
+    if (isSet.ZoneFile) {
+      delete [] m_ZoneFile;
+    }
+    
+    if (aCopyFlag && aValueP) {
+      char* valueP = new char[strlen(aValueP) + 1];
+      strcpy(valueP,aValueP);
+      m_ZoneFile = valueP;
+    } else {
+      m_ZoneFile = aValueP;
+    }
+    
+    isSet.ZoneFile = 1;
+
+  }       
+
+  //----------------------------------------------------------------------------
+  const char*
+  Linux_DnsSlaveZoneManualInstance::getZoneFile() const {
+    
+    if ( ! isSet.ZoneFile) {
+   	  throw CmpiErrorFormater::getErrorException(
+   	    CmpiErrorFormater::NOT_SET,
+        "ZoneFile",
+        "Linux_DnsSlaveZone");
+   	}
+
+
+    return m_ZoneFile;
+
+  }
 
   
   //----------------------------------------------------------------------------
@@ -375,10 +344,9 @@ namespace genProvider {
   Linux_DnsSlaveZoneManualInstance::init() {
    	isSet.instanceName = 0;
     isSet.Forward = 0;
-    isSet.Forwarders = 0;
-    m_ForwardersSize = 0;
-    isSet.ResourceRecordFile = 0;
+    isSet.TTL = 0;
     isSet.Type = 0;
+    isSet.ZoneFile = 0;
   	
   }
   
@@ -396,24 +364,23 @@ namespace genProvider {
     }
        	
     if (anOriginal.isForwardSet()) {
-      const CMPIUint16 ForwardOriginal = anOriginal.getForward();
+      const CMPIUint8 ForwardOriginal = anOriginal.getForward();
       setForward(ForwardOriginal);
     }
    	
-    if (anOriginal.isForwardersSet()) {
-      unsigned int sizeForwarders;
-      const char** ForwardersOriginal = anOriginal.getForwarders(sizeForwarders);
-      setForwarders(ForwardersOriginal, sizeForwarders,1);
-    }
-   	
-    if (anOriginal.isResourceRecordFileSet()) {
-      const char* ResourceRecordFileOriginal = anOriginal.getResourceRecordFile();
-      setResourceRecordFile(ResourceRecordFileOriginal,1);
+    if (anOriginal.isTTLSet()) {
+      const CMPISint32 TTLOriginal = anOriginal.getTTL();
+      setTTL(TTLOriginal);
     }
    	
     if (anOriginal.isTypeSet()) {
-      const CMPIUint16 TypeOriginal = anOriginal.getType();
+      const CMPIUint8 TypeOriginal = anOriginal.getType();
       setType(TypeOriginal);
+    }
+   	
+    if (anOriginal.isZoneFileSet()) {
+      const char* ZoneFileOriginal = anOriginal.getZoneFile();
+      setZoneFile(ZoneFileOriginal,1);
     }
     
   }
@@ -424,12 +391,8 @@ namespace genProvider {
   void
   Linux_DnsSlaveZoneManualInstance::reset() {
    	
-  	if (isSet.Forwarders) {
-  	  ArrayConverter::destructArray((char**)m_Forwarders,m_ForwardersSize);
-  	}
-
-  	if (isSet.ResourceRecordFile) {
-  	  delete(m_ResourceRecordFile);
+  	if (isSet.ZoneFile) {
+  	  delete(m_ZoneFile);
   	}
 
   }

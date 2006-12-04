@@ -1,6 +1,6 @@
 // =======================================================================
 // Linux_DnsServiceConfigurationDefaultImplementation.cpp
-//     created on Fri, 3 Mar 2006 using ECUTE
+//     created on Thu, 23 Nov 2006 using ECUTE 2.2
 // 
 // Copyright (c) 2006, International Business Machines
 //
@@ -14,8 +14,10 @@
 // Author:        generated
 //
 // Contributors:
-//                Murillo Bernardes <bernarde@br.ibm.com>
-//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//                Wolfgang Taphorn   <taphorn at de.ibm.com>
+//                Murillo Bernardes  <bernarde(at)br.ibm.com>
+//                Mukunda Chowdaiah  <cmukunda(at)in.ibm.com>
+//                Ashoka S Rao       <ashoka.rao(at)in.ibm.com>
 //
 // =======================================================================
 //
@@ -41,7 +43,7 @@ namespace genProvider {
 #endif   	
 
    	throw CmpiErrorFormater::getErrorException(
-   	  CmpiErrorFormater::METHOD_NOT_FOUND,
+   	  CmpiErrorFormater::NOT_IMPLEMENTED,
    	  "enumInstanceEnumeration",
    	  "Linux_DnsServiceConfiguration");   
 
@@ -131,7 +133,7 @@ namespace genProvider {
     	
 
     throw CmpiErrorFormater::getErrorException(
-   	  CmpiErrorFormater::METHOD_NOT_FOUND,
+   	  CmpiErrorFormater::NOT_IMPLEMENTED,
    	  "getInstance",
    	  "Linux_DnsServiceConfiguration");
 
@@ -151,7 +153,7 @@ namespace genProvider {
     	
    
     throw CmpiErrorFormater::getErrorException(
-   	  CmpiErrorFormater::METHOD_NOT_FOUND,
+   	  CmpiErrorFormater::NOT_IMPLEMENTED,
    	  "setInstance",
    	  "Linux_DnsServiceConfiguration");
    	 
@@ -169,7 +171,7 @@ namespace genProvider {
 #endif
 
     throw CmpiErrorFormater::getErrorException(
-   	 CmpiErrorFormater::METHOD_NOT_FOUND,
+   	 CmpiErrorFormater::NOT_IMPLEMENTED,
    	 "createInstance",
    	 "Linux_DnsServiceConfiguration");
 
@@ -187,120 +189,13 @@ namespace genProvider {
 #endif
 
     throw CmpiErrorFormater::getErrorException(
-      CmpiErrorFormater::METHOD_NOT_FOUND,
+      CmpiErrorFormater::NOT_IMPLEMENTED,
       "deleteInstance",
       "Linux_DnsServiceConfiguration");
 
   }
 
   
-  // Association Interface
-
-  //----------------------------------------------------------------------------
-  void
-  Linux_DnsServiceConfigurationDefaultImplementation::referencesConfiguration( 
-    const CmpiContext& aContext,  
-    const CmpiBroker& aBroker,
-    const char* aNameSpaceP,
-    const char** aPropertiesPP,
-    const Linux_DnsServiceInstanceName& aSourceInstance,
-    Linux_DnsServiceConfigurationManualInstanceEnumeration& aManualInstanceEnumeration) {
-    
-    throw CmpiErrorFormater::getErrorException(
-      CmpiErrorFormater::METHOD_NOT_FOUND,
-      "References(Configuration)",
-      "Linux_DnsServiceConfiguration");
-
-  }
-
-  //----------------------------------------------------------------------------
-  void
-  Linux_DnsServiceConfigurationDefaultImplementation::referencesElement( 
-    const CmpiContext& aContext,  
-    const CmpiBroker& aBroker,
-    const char* aNameSpaceP,
-    const char** aPropertiesPP,
-    const Linux_DnsConfigurationInstanceName& aSourceInstance,
-    Linux_DnsServiceConfigurationManualInstanceEnumeration& aManualInstanceEnumeration) {
-    
-    throw CmpiErrorFormater::getErrorException(
-      CmpiErrorFormater::METHOD_NOT_FOUND,
-      "References(Element)",
-      "Linux_DnsServiceConfiguration");
-
-  }
-
-  //----------------------------------------------------------------------------
-  void
-  Linux_DnsServiceConfigurationDefaultImplementation::associatorsConfiguration(
-    const CmpiContext& aContext,  
-    const CmpiBroker& aBroker,
-    const char* aNameSpaceP,
-    const char** aPropertiesPP,
-    const Linux_DnsServiceInstanceName& aSourceInstance,
-    Linux_DnsConfigurationInstanceEnumeration& anInstanceEnumeration) {
-      
-#ifdef DEBUG
-    std::cout<<"Linux_DnsServiceConfiguration : associatorsLinux_DnsConfiguration() ... returns one instance"<<std::endl;
-#endif    
-      
-    Linux_DnsServiceConfigurationManualInstanceEnumeration manualInstanceEnumeration;
-      
-    referencesConfiguration(
-      aContext,
-      aBroker,
-      aSourceInstance.getNamespace(), 
-      aPropertiesPP,
-      aSourceInstance,
-      manualInstanceEnumeration);
-
-    Linux_DnsConfigurationExternal external(aBroker,aContext);
-
-    while (manualInstanceEnumeration.hasNext()) {
-      const Linux_DnsServiceConfigurationManualInstance manualInstance = manualInstanceEnumeration.getNext();
-      const Linux_DnsServiceConfigurationInstanceName instanceName = manualInstance.getInstanceName();
-      const Linux_DnsConfigurationInstanceName Configuration = instanceName.getConfiguration();
-      Linux_DnsConfigurationInstance instance = external.getInstance(aPropertiesPP,Configuration);
-      anInstanceEnumeration.addElement(instance);
-    }
-  
-  }
-
-  //----------------------------------------------------------------------------
-  void
-  Linux_DnsServiceConfigurationDefaultImplementation::associatorsElement( 
-    const CmpiContext& aContext,  
-    const CmpiBroker& aBroker,
-    const char* aNameSpaceP,
-    const char** aPropertiesPP,
-    const Linux_DnsConfigurationInstanceName& aSourceInstance,
-    Linux_DnsServiceInstanceEnumeration& anInstanceEnumeration) {
-     
-#ifdef DEBUG
-    std::cout << "Linux_DnsServiceConfiguration : associatorsLinux_DnsService() ... returns one instance" << std::endl;
-#endif    
-      
-    Linux_DnsServiceConfigurationManualInstanceEnumeration manualInstanceEnumeration;
-      
-    referencesElement(
-      aContext,
-      aBroker,
-      aSourceInstance.getNamespace(), 
-      aPropertiesPP,
-      aSourceInstance,
-      manualInstanceEnumeration);
-
-    Linux_DnsServiceExternal external(aBroker,aContext);
-
-    while(manualInstanceEnumeration.hasNext()) {
-      const Linux_DnsServiceConfigurationManualInstance manualInstance = manualInstanceEnumeration.getNext();
-      const Linux_DnsServiceConfigurationInstanceName instanceName = manualInstance.getInstanceName();
-      const Linux_DnsServiceInstanceName Element = instanceName.getElement();
-      Linux_DnsServiceInstance instance = external.getInstance(aPropertiesPP,Element);
-      anInstanceEnumeration.addElement(instance);
-    }
-
-  }
 
   /* extrinsic methods */
   

@@ -1,6 +1,6 @@
 // =======================================================================
 // Linux_DnsForwardZoneResourceAccess.cpp
-//     created on Fri, 3 Mar 2006 using ECUTE
+//     created on Thu, 26 Oct 2006 using ECUTE 2.2
 // 
 // Copyright (c) 2006, International Business Machines
 //
@@ -14,30 +14,30 @@
 // Author:        generated
 //
 // Contributors:
-//                Murillo Bernardes <bernarde@br.ibm.com>
-//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//                Wolfgang Taphorn   <taphorn at de.ibm.com>
+//                Murillo Bernardes  <bernarde(at)br.ibm.com>
+//                Mukunda Chowdaiah  <cmukunda(at)in.ibm.com>
+//                Ashoka S Rao       <ashoka.rao(at)in.ibm.com>
 //
 // =======================================================================
 //
 // 
 #include "Linux_DnsForwardZoneResourceAccess.h"
 
-#include <string>
-#include <list>
 #include <iostream>
 
 using namespace std;
 
 #include "smt_dns_ra_support.h"
 #include "smt_dns_valuemap.h"
-#include "smt_dns_array.h"
+#include "smt_dns_defaultvalues.h"
 
 namespace genProvider {
 
+
   //----------------------------------------------------------------------------
   // manual written methods
-  
-  
+
   static void setInstanceNameProperties(
       const CmpiContext& aContext,
       const CmpiBroker& aBroker,
@@ -47,11 +47,11 @@ namespace genProvider {
 
     anInstanceName.setNamespace(aNameSpaceP);
     anInstanceName.setName(zone->zoneName);
+    anInstanceName.setInstanceID(DEFAULT_INSTANCE_ID);
+
   }
-  
 
   //----------------------------------------------------------------------------
-
 
   static void setInstanceProperties(
       const CmpiContext& aContext,
@@ -61,31 +61,41 @@ namespace genProvider {
       Linux_DnsForwardZoneManualInstance& aManualInstance) {
 
     aManualInstance.setInstanceName(anInstanceName);
-    aManualInstance.setType(DNS_ZONETYPE_FORWARD);
-    //	aManualInstance.setResourceRecordFile(zone->zoneFileName);   
+
+    //ZONEOPTS* zoneOpts;
     ZONEOPTS * forward = findOptsInZone( zone, "forward" );
     if ( forward ) {
-      if ( strcmp( forward->value, "first" ) )
-	aManualInstance.setForward( DNS_FORWARD_FIRST );
-      
-      if ( strcmp( forward->value, "only" ) )
-	aManualInstance.setForward( DNS_FORWARD_ONLY );
+      if ( strcmp( forward->value, "first" )==0 )
+        aManualInstance.setForward( DNS_FORWARD_FIRST );
+      else
+      if ( strcmp( forward->value, "only" )==0 )
+        aManualInstance.setForward( DNS_FORWARD_ONLY );
+      else
+        aManualInstance.setForward( DNS_FORWARD_UNKNOWN );
     }
-    
-    ZONEOPTS * forwarders = findOptsInZone( zone, "forwarders" );
-    DnsArray da;
-    
-    if ( forwarders && forwarders->value ) {
-      da.populate( forwarders->value );
-      aManualInstance.setForwarders( da.toArray(), da.size() );
-    }
-    
-  }  
-  
+
+    aManualInstance.setType(DNS_ZONETYPE_FORWARD);
+
+//    aManualInstance.setZoneFile(zone->zoneFileName);
+
+/*    aManualInstance.setContact(zone->soaContact);
+
+    char *val = (char *) malloc( 12*sizeof(char) );
+    sprintf(val,"%lld", zone->soaSerialNumber );
+    aManualInstance.setSerialNumber( val );
+    free(val);
+
+    aManualInstance.setRefresh( zone->soaRefresh );
+    aManualInstance.setRetry( zone->soaRetry );
+    aManualInstance.setExpire( zone->soaExpire );
+    aManualInstance.setServer( zone->soaServer );
+    aManualInstance.setNegativeCachingTTL( zone->soaNegativeCachingTTL ); */
+  }
+
 
   //----------------------------------------------------------------------------
 
-
+  
   //----------------------------------------------------------------------------
   //Linux_DnsForwardZoneResourceAccess::Linux_DnsForwardZoneResourceAccess();
 
@@ -93,7 +103,7 @@ namespace genProvider {
   Linux_DnsForwardZoneResourceAccess::~Linux_DnsForwardZoneResourceAccess() { }
     
   // intrinsic methods
-
+  
   //----------------------------------------------------------------------------
   void
   Linux_DnsForwardZoneResourceAccess::enumInstanceNames(
@@ -103,63 +113,64 @@ namespace genProvider {
      Linux_DnsForwardZoneInstanceNameEnumeration& anInstanceNameEnumeration) {
       
 #ifdef DEBUG
-    cout << "entering Linux_DnsForwardZone::enumInstanceNames" << endl;
+     cout << "entering Linux_DnsForwardZone::enumInstanceNames" << endl;
 #endif
 
-    DNSZONE * zones, *all_zones;
-    
-    zones = getZones();	//getZonesByType("forward");
-    all_zones = zones;
-    
-    if (zones) {
-      for (; zones->zoneName; zones++) {
-	if ( strcmp(zones->zoneType, "forward") )
-	  continue;
-	
-	Linux_DnsForwardZoneInstanceName instanceName;
-	setInstanceNameProperties(aContext, aBroker, aNameSpaceP, zones, instanceName);
-	anInstanceNameEnumeration.addElement(instanceName);
-	
-      }
-      freeZones( all_zones );
-    }
+     DNSZONE *zones = NULL, *all_zones = NULL;
+
+     zones = getZones();
+     all_zones = zones;
+
+     if (zones) {
+       for ( ;zones->zoneName != NULL; zones++) {
+          if ( strcmp(zones->zoneType,"forward")!=0 )
+            continue;
+
+          Linux_DnsForwardZoneInstanceName instanceName;
+
+          setInstanceNameProperties(aContext, aBroker, aNameSpaceP, zones, instanceName);
+          anInstanceNameEnumeration.addElement(instanceName);
+       }
+       free(all_zones);
+     }
+
 #ifdef DEBUG
     cout << "exiting Linux_DnsForwardZone::enumInstanceNames" << endl;
 #endif
+  
   }
-
+ 
   
   //----------------------------------------------------------------------------
-
+  
   void
   Linux_DnsForwardZoneResourceAccess::enumInstances(
     const CmpiContext& aContext,
     const CmpiBroker& aBroker,
-    const char* aNameSpaceP,
-    const char** aPropertiesPP,
-    Linux_DnsForwardZoneManualInstanceEnumeration& aManualInstanceEnumeration) {
-    
+     const char* aNameSpaceP,
+     const char** aPropertiesPP,
+  	 Linux_DnsForwardZoneManualInstanceEnumeration& aManualInstanceEnumeration) {
+
 #ifdef DEBUG
     cout << "entering Linux_DnsForwardZone::enumInstances" << endl;
 #endif
 
-    DNSZONE * zones = NULL, *all_zones;
-    
-    zones = getZones(); 	//getZonesByType("forward");
+    DNSZONE * zones = NULL, *all_zones = NULL;
+
+    zones = getZones();         //getZonesByType("forward");
     all_zones = zones;
-    
+
     if (zones) {
-      for (; zones->zoneName != NULL ; zones++) {   
-	if ( strcmp(zones->zoneType, "forward") )
-	  continue;
-	
-	Linux_DnsForwardZoneManualInstance instance;
-	Linux_DnsForwardZoneInstanceName instanceName;
-	
-	setInstanceNameProperties(aContext, aBroker, aNameSpaceP, zones, instanceName);
-	setInstanceProperties(aContext, aBroker, zones, instanceName, instance);
-	aManualInstanceEnumeration.addElement(instance);
-        
+      for (; zones->zoneName != NULL ; zones++) {
+        if ( strcmp(zones->zoneType, "forward")!=0 )
+          continue;
+
+        Linux_DnsForwardZoneManualInstance instance;
+        Linux_DnsForwardZoneInstanceName instanceName;
+
+        setInstanceNameProperties(aContext, aBroker, aNameSpaceP, zones, instanceName);
+        setInstanceProperties(aContext, aBroker, zones, instanceName, instance);
+        aManualInstanceEnumeration.addElement(instance);
       }
       freeZones( all_zones );
     }
@@ -167,347 +178,355 @@ namespace genProvider {
 #ifdef DEBUG
     cout << "exiting Linux_DnsForwardZone::enumInstances" << endl;
 #endif
-  }
 
+  }
+  
   
   //----------------------------------------------------------------------------
-
+  
   Linux_DnsForwardZoneManualInstance 
   Linux_DnsForwardZoneResourceAccess::getInstance(
     const CmpiContext& aContext,
     const CmpiBroker& aBroker,
     const char** aPropertiesPP,
     const Linux_DnsForwardZoneInstanceName& anInstanceName) {
-
-    
 #ifdef DEBUG
     cout << "entering Linux_DnsForwardZone::getInstance" << endl;
 #endif
 
-    DNSZONE *zones, *myZone;
-    
+    DNSZONE *zones = NULL, *myZone = NULL;
+
     Linux_DnsForwardZoneManualInstance instance;
-    
-    zones = getZones();	//getZonesByType("forward");
+
+    zones = getZones();
+    if ( !zones ) {
+      throw CmpiStatus(CMPI_RC_ERR_NOT_FOUND,"There are no zones.");
+    }
+
     myZone = findZone(zones,anInstanceName.getName());
-    
+
+    if ( ! myZone ) {
+      freeZones(zones);
+      throw CmpiStatus(CMPI_RC_ERR_NOT_FOUND,"Zone does not exist");
+    }
+
+    if ( strcmp(myZone->zoneType,"forward")!= 0) {
+      freeZones(zones);
+      throw CmpiStatus(CMPI_RC_ERR_NOT_FOUND,"The specified ZoneType is not a forward");
+    }
+
     setInstanceProperties(aContext, aBroker, myZone, anInstanceName, instance);
+
     freeZones( zones );
-    
+
 #ifdef DEBUG
     cout << "exiting Linux_DnsForwardZone::getInstance" << endl;
 #endif
     return instance;
+  
   }
-
+  
   //----------------------------------------------------------------------------
-
+  
   void
   Linux_DnsForwardZoneResourceAccess::setInstance(
      const CmpiContext& aContext,
      const CmpiBroker& aBroker,
      const char** aPropertiesPP,
      const Linux_DnsForwardZoneManualInstance& aManualInstance) {
-    
+
 #ifdef DEBUG
     cout << "entering Linux_DnsForwardZone::setInstance" << endl;
 #endif
-    DNSZONE *zones, *myZone;
-    
+
+    DNSZONE *zones = NULL,  *myZone = NULL;
+
     zones = getZones();
+    if ( ! zones ) {
+      throw CmpiStatus(CMPI_RC_ERR_NOT_FOUND,"There are no Zones.");
+    }
+
     myZone = findZone(zones, aManualInstance.getInstanceName().getName());
-    
+
     if ( ! myZone )
-      throw CmpiStatus(CMPI_RC_ERR_NOT_FOUND,"Zone does not exist");
-    
-    if ( strcmp(myZone->zoneType,"forward") != 0 )
-      throw CmpiStatus(CMPI_RC_ERR_NOT_FOUND,"Zone does not exist");
-    
-    if ( aManualInstance.isForwardSet() ) {
-      ZONEOPTS *zopts = findOptsInZone( myZone, "forward" );
-      
-      if ( zopts ) {
-	free( zopts->value );
-	if ( aManualInstance.getForward() == DNS_FORWARD_ONLY )
-	  zopts->value = strdup( "only" );
-	
-	if ( aManualInstance.getForward() == DNS_FORWARD_FIRST )
-	  zopts->value = strdup( "first" );
-	
-      } else {
-	if ( aManualInstance.getForward() == DNS_FORWARD_ONLY )
-	  addOptsToZone( myZone, "forward", "only" );
-	
-	if ( aManualInstance.getForward() == DNS_FORWARD_FIRST )
-	  addOptsToZone( myZone, "forward", "first" );
-      }
+    {
+      freeZones(zones);
+      throw CmpiStatus(CMPI_RC_ERR_NOT_FOUND,"The specified Zone does not exist");
     }
-    unsigned int size = 0;
-    if ( aManualInstance.isForwardersSet() ) {
-      ZONEOPTS *zopts = findOptsInZone( myZone, "forwarders" );
-      
-      const char **forwardersList = aManualInstance.getForwarders( size );
-      DnsArray value_list;
-      
-      for (unsigned int i = 0; i < size; i++)
-	if (! value_list.isPresent( string( forwardersList[i]) ) )
-	  value_list.add( forwardersList[i] );
-      
-      if ( zopts ) {
-	free( zopts->value );
-	zopts->value = strdup ( value_list.toString().c_str() );
-	
-      } else
-	addOptsToZone( myZone,"forwarders", strdup( value_list.toString().c_str() ) );
+
+    if ( strcmp(myZone->zoneType,"forward") != 0 ) {
+      freeZones(zones);
+      throw CmpiStatus(CMPI_RC_ERR_INVALID_PARAMETER,"The specified ZoneType is not a forward");
     }
-    
-    // option 'file' is not allowed in 'forward' zone
-    if ( aManualInstance.isResourceRecordFileSet() ) {
+
+/*    if ( aManualInstance.isZoneFileSet() ) {
       free(myZone->zoneFileName);
-      myZone->zoneFileName = strdup(aManualInstance.getResourceRecordFile());
-    } 
-    updateZones( zones );
+      myZone->zoneFileName = strdup(aManualInstance.getZoneFile());
+
+      ZONEOPTS *zopts = findOptsInZone( myZone, "file" );
+
+        char * buffer = NULL;
+        buffer = (char *)calloc((strlen(myZone->zoneFileName)+3),sizeof(char));
+        strcat(buffer,"\"");
+        strcat(buffer,myZone->zoneFileName);
+        strcat(buffer,"\"");
+
+      if ( zopts ) {
+        free( zopts->value );
+        zopts->value =  strdup(buffer) ;
+      }
+      else {
+        addOptsToZone(myZone, "file", buffer);
+      }
+      free(buffer);
+    }
+    if (aManualInstance.isContactSet()) {
+      free(myZone->soaContact);
+      myZone->soaContact = strdup( aManualInstance.getContact() );
+    }
+
+    if (aManualInstance.isServerSet()) {
+      free(myZone->soaServer);
+      myZone->soaServer = strdup( aManualInstance.getServer() );
+    }
+*/
+    ZONEOPTS *zopts = findOptsInZone( myZone, "forward" );
+    if ( aManualInstance.isForwardSet() && !CmpiData(aManualInstance.getForward()).isNullValue() && aManualInstance.getForward()!=0 ) {
+      if ( zopts ) {
+        free( zopts->value );
+        if ( aManualInstance.getForward() == DNS_FORWARD_ONLY )
+          zopts->value = strdup( "only" );
+
+        else if ( aManualInstance.getForward() == DNS_FORWARD_FIRST )
+          zopts->value = strdup( "first" );
+
+      } else {
+        if ( aManualInstance.getForward() == DNS_FORWARD_ONLY )
+          addOptsToZone( myZone, "forward", "only" );
+
+        else if ( aManualInstance.getForward() == DNS_FORWARD_FIRST )
+          addOptsToZone( myZone, "forward", "first" );
+      }
+    } else {
+        if(zopts) {
+            delOptsFromZone(myZone, "forward");
+        }
+    }
+/*
+    // SerialNumber
+    if (aManualInstance.isSerialNumberSet())
+      myZone->soaSerialNumber = atoi(aManualInstance.getSerialNumber());
+
+    // Refresh
+    if (aManualInstance.isRefreshSet())
+      myZone->soaRetry = aManualInstance.getRetry();
+
+    // Expire
+    if (aManualInstance.isExpireSet())
+      myZone->soaExpire = aManualInstance.getExpire();
+
+    // NegativeCachingTTL
+    if (aManualInstance.isNegativeCachingTTLSet())
+      myZone->soaNegativeCachingTTL = aManualInstance.getNegativeCachingTTL();
+*/
+    updateZones(zones);
+
     freeZones( zones );
-      
+
 #ifdef DEBUG
     cout << "exiting Linux_DnsForwardZone::setInstance" << endl;
 #endif
-  }
 
+ }
+  
   
   //----------------------------------------------------------------------------
-
+  
   Linux_DnsForwardZoneInstanceName
   Linux_DnsForwardZoneResourceAccess::createInstance(
     const CmpiContext& aContext,
     const CmpiBroker& aBroker,
     const Linux_DnsForwardZoneManualInstance& aManualInstance) {
-    
+
 #ifdef DEBUG
     cout << "entering Linux_DnsForwardZone::createInstance" << endl;
 #endif
-    
+
     DNSZONE * newZone = NULL;
     Linux_DnsForwardZoneInstanceName anInstanceName = aManualInstance.getInstanceName();
-    
-    if (((anInstanceName.getName()) == NULL) || ((anInstanceName.getName()) == "" ) || ((anInstanceName.getName()) =="") ) {
+
+    if (((anInstanceName.getName()) == NULL) || ((anInstanceName.getName()) == "" ) || ((anInstanceName.getName()) == " " ) ) {
       throw CmpiStatus(CMPI_RC_ERR_INVALID_PARAMETER,"Zonename is invalid");
-      
     }
-    
+
+    if (aManualInstance.isTypeSet() && aManualInstance.getType() != DNS_ZONETYPE_FORWARD) {
+      throw CmpiStatus(CMPI_RC_ERR_INVALID_PARAMETER,"Zone Type is invalid");
+    }
+
     DNSZONE * all_zones = getZones();
-    if ( findZone(all_zones,anInstanceName.getName()) ) {
+
+    if (all_zones) {
+      if ( findZone(all_zones,anInstanceName.getName()) ) {
+        freeZones(all_zones);
+        throw CmpiStatus(CMPI_RC_ERR_ALREADY_EXISTS,"The zone already exist");
+      }
       freeZones(all_zones);
-      throw CmpiStatus(CMPI_RC_ERR_INVALID_PARAMETER,"The zone already exist");
     }
-    freeZones(all_zones);
-    
+
     newZone = (DNSZONE *)calloc(1+1,sizeof(DNSZONE));
+
     if (newZone) {
-      newZone->zoneName = (char *)anInstanceName.getName();
-      
-      newZone->zoneType = "forward";
-      
-      if ( aManualInstance.isForwardSet() ) {
-	if ( aManualInstance.getForward() == DNS_FORWARD_ONLY )
-	  addOptsToZone( newZone, "forward", "only" );
-	
-	if ( aManualInstance.getForward() == DNS_FORWARD_FIRST )
-	  addOptsToZone( newZone, "forward", "first" );
-      }
-      
-      unsigned int size = 0;
-      if ( aManualInstance.isForwardersSet() ) {
-	const char **forwardersList = aManualInstance.getForwarders( size );
-	DnsArray value_list;
-	for (unsigned int i = 0; i < size; i++)
-	  if (! value_list.isPresent( string( forwardersList[i]) ) )
-	    value_list.add( forwardersList[i] );
-	
-	addOptsToZone( newZone,"forwarders", strdup( value_list.toString().c_str() ) );
-      }
-      
-      //option 'file' is not allowed in 'forward' zone
-      if (aManualInstance.isResourceRecordFileSet()) {
-	newZone->zoneFileName = strdup(aManualInstance.getResourceRecordFile());
-	
+      // Take in value specified only at Dialog ??//
+
+      newZone->zoneName = strdup((char *)anInstanceName.getName());
+
+      newZone->zoneType = strdup("forward");
+      addOptsToZone( newZone, "type", "forward" );
+
+/*      if (aManualInstance.isZoneFileSet()) {
+        newZone->zoneFileName = strdup(aManualInstance.getZoneFile());
       } else {
-	char * buffer;
-	buffer = (char *)calloc((strlen(newZone->zoneType)+strlen(newZone->zoneName)+2),sizeof(char));
-	strcat(buffer, newZone->zoneType);
-	strcat(buffer, "/");
-	strcat(buffer, newZone->zoneName);
-	newZone->zoneFileName = buffer;
+        char * buffer;
+        buffer = (char *)calloc((strlen(newZone->zoneType)+strlen(newZone->zoneName)+2),sizeof(char));
+        strcat(buffer, newZone->zoneType);
+        strcat(buffer, "/");
+        strcat(buffer, newZone->zoneName);
+        newZone->zoneFileName = buffer;
       }
-      
+      if (newZone->zoneFileName) {
+        char * buffer = NULL ;
+        buffer = (char *)calloc((strlen(newZone->zoneFileName)+3),sizeof(char));
+        strcat(buffer,"\"");
+        strcat(buffer,newZone->zoneFileName);
+        strcat(buffer,"\"");
+        addOptsToZone( newZone, "file", buffer );
+        free(buffer);
+      }
+      // Contact
+      if (aManualInstance.isContactSet())
+        newZone->soaContact = strdup((char *)aManualInstance.getContact());
+      else
+        newZone->soaContact = strdup("root");
+
+      // if not at dialog then use following default required values (smt_dns_ra_support.h) for a Zone
+      // may need to get them from default section in Service
+
+      // SerialNumber
+      if (aManualInstance.isSerialNumberSet())
+        newZone->soaSerialNumber = atoi(aManualInstance.getSerialNumber());
+      else
+        newZone->soaSerialNumber = 2005040000;
+
+      // Refresh
+      if (aManualInstance.isRefreshSet())
+        newZone->soaRefresh = aManualInstance.getRefresh();
+      else
+        newZone->soaRefresh = 60*60;
+
+      // Retry
+      if (aManualInstance.isRetrySet())
+        newZone->soaRetry = aManualInstance.getRetry();
+      else
+        newZone->soaRetry = 3*60*60;
+
+      // Expire
+      if (aManualInstance.isExpireSet())
+        newZone->soaExpire = aManualInstance.getExpire();
+      else
+        newZone->soaExpire = 2*60*60;
+*/
+      if ( aManualInstance.isForwardSet() ) {
+        if ( aManualInstance.getForward() == DNS_FORWARD_ONLY )
+          addOptsToZone( newZone, "forward", "only" );
+
+        else if ( aManualInstance.getForward() == DNS_FORWARD_FIRST )
+          addOptsToZone( newZone, "forward", "first" );
+      }
+/*
+      // NegativeCachingTTL
+      if (aManualInstance.isNegativeCachingTTLSet())
+        newZone->soaNegativeCachingTTL = aManualInstance.getNegativeCachingTTL();
+      else
+        newZone->soaNegativeCachingTTL = 0;
+
+      if (aManualInstance.isServerSet())
+        newZone->soaServer = strdup( aManualInstance.getServer() );
+      else
+        newZone->soaServer = strdup("@");
+*/
       newZone->records = NULL;
-      
+
       DNSZONE * returnedZones = NULL;
-      
+
       returnedZones = addZone(newZone, NULL);
+
       if (!returnedZones) {
-	throw CmpiStatus(CMPI_RC_ERROR,"addZone() failed");
+        freeZones(newZone);
+        throw CmpiStatus(CMPI_RC_ERROR,"addZone() failed");
       }
+
       freeZones( returnedZones );
+      freeZones(newZone);
+    }
+    else {
+       throw CmpiStatus(CMPI_RC_ERR_FAILED,"Failed to create the specified zone.");
     }
 
 #ifdef DEBUG
     cout << "exiting Linux_DnsForwardZone::createInstance" << endl;
 #endif
-  }
+    return aManualInstance.getInstanceName();
 
+  }
+  
   
   //----------------------------------------------------------------------------
-
+  
   void
   Linux_DnsForwardZoneResourceAccess::deleteInstance(
     const CmpiContext& aContext,
     const CmpiBroker& aBroker,
     const Linux_DnsForwardZoneInstanceName& anInstanceName) {
-    
 #ifdef DEBUG
     cout << "entering Linux_DnsForwardZone::deleteInstance" << endl;
 #endif
 
-    deleteZone( anInstanceName.getName() );
+    DNSZONE * all_zones = NULL, * zone = NULL ;
+
+    all_zones = getZones();
+    if ( !all_zones )  {
+      throw CmpiStatus(CMPI_RC_ERR_FAILED,"There are no zones.");
+    }
+
+    zone = findZone(all_zones,anInstanceName.getName());
+
+    if ( ! zone ) {
+      freeZones(all_zones);
+      throw CmpiStatus(CMPI_RC_ERR_NOT_FOUND,"Zone does not exist");
+    }
+
+    if ( strcmp(zone->zoneType,"forward")==0 ) {
+      if (deleteZone( anInstanceName.getName() )) {
+        freeZones(all_zones);
+        throw CmpiStatus(CMPI_RC_ERR_FAILED,"An error occured while trying to delete the zone");
+      }
+      freeZones(all_zones);
+    }
+    else {
+      freeZones(all_zones);
+      throw CmpiStatus(CMPI_RC_ERR_NOT_FOUND,"The specified ZoneType is not a forward");
+    }
 
 #ifdef DEBUG
     cout << "exiting Linux_DnsForwardZone::deleteInstance" << endl;
 #endif
+
   }
 
 	
 
   
   // extrinsic methods
-
-  /*
-  CMPIUint32 Linux_DnsForwardZoneResourceAccess::ApplyIncrementalChangeToCollection(
-    const CmpiContext& aContext,
-    const CmpiBroker& aBroker,
-    const Linux_DnsForwardZoneInstanceName& anInstanceName,
-      const CIM_CollectionOfMSEsInstanceName& Collection,
-      int isCollectionPresent,
-      const CmpiDateTime& TimeToApply,
-      int isTimeToApplyPresent,
-      const CMPIBoolean& ContinueOnError,
-      int isContinueOnErrorPresent,
-      const CmpiDateTime& MustBeCompletedBy,
-      int isMustBeCompletedByPresent,
-      const char** PropertiesToApply,
-      const CMPICount PropertiesToApplySize,
-      int isPropertiesToApplyPresent,
-      char**& CanNotApply,
-      CMPICount& CanNotApplySize) { }
-  */
-
-  /*
-  CMPIUint32 Linux_DnsForwardZoneResourceAccess::ApplyIncrementalChangeToMSE(
-    const CmpiContext& aContext,
-    const CmpiBroker& aBroker,
-    const Linux_DnsForwardZoneInstanceName& anInstanceName,
-      const CIM_ManagedSystemElementInstanceName& MSE,
-      int isMSEPresent,
-      const CmpiDateTime& TimeToApply,
-      int isTimeToApplyPresent,
-      const CmpiDateTime& MustBeCompletedBy,
-      int isMustBeCompletedByPresent,
-      const char** PropertiesToApply,
-      const CMPICount PropertiesToApplySize,
-      int isPropertiesToApplyPresent) { }
-  */
-
-  /*
-  CMPIUint32 Linux_DnsForwardZoneResourceAccess::ApplyToCollection(
-    const CmpiContext& aContext,
-    const CmpiBroker& aBroker,
-    const Linux_DnsForwardZoneInstanceName& anInstanceName,
-      const CIM_CollectionOfMSEsInstanceName& Collection,
-      int isCollectionPresent,
-      const CmpiDateTime& TimeToApply,
-      int isTimeToApplyPresent,
-      const CMPIBoolean& ContinueOnError,
-      int isContinueOnErrorPresent,
-      const CmpiDateTime& MustBeCompletedBy,
-      int isMustBeCompletedByPresent,
-      char**& CanNotApply,
-      CMPICount& CanNotApplySize) { }
-  */
-
-  /*
-  CMPIUint32 Linux_DnsForwardZoneResourceAccess::ApplyToMSE(
-    const CmpiContext& aContext,
-    const CmpiBroker& aBroker,
-    const Linux_DnsForwardZoneInstanceName& anInstanceName,
-      const CIM_ManagedSystemElementInstanceName& MSE,
-      int isMSEPresent,
-      const CmpiDateTime& TimeToApply,
-      int isTimeToApplyPresent,
-      const CmpiDateTime& MustBeCompletedBy,
-      int isMustBeCompletedByPresent) { }
-  */
-
-  /*
-  CMPIUint32 Linux_DnsForwardZoneResourceAccess::VerifyOKToApplyIncrementalChangeToCollection(
-    const CmpiContext& aContext,
-    const CmpiBroker& aBroker,
-    const Linux_DnsForwardZoneInstanceName& anInstanceName,
-      const CIM_CollectionOfMSEsInstanceName& Collection,
-      int isCollectionPresent,
-      const CmpiDateTime& TimeToApply,
-      int isTimeToApplyPresent,
-      const CmpiDateTime& MustBeCompletedBy,
-      int isMustBeCompletedByPresent,
-      const char** PropertiesToApply,
-      const CMPICount PropertiesToApplySize,
-      int isPropertiesToApplyPresent,
-      char**& CanNotApply,
-      CMPICount& CanNotApplySize) { }
-  */
-
-  /*
-  CMPIUint32 Linux_DnsForwardZoneResourceAccess::VerifyOKToApplyIncrementalChangeToMSE(
-    const CmpiContext& aContext,
-    const CmpiBroker& aBroker,
-    const Linux_DnsForwardZoneInstanceName& anInstanceName,
-      const CIM_ManagedSystemElementInstanceName& MSE,
-      int isMSEPresent,
-      const CmpiDateTime& TimeToApply,
-      int isTimeToApplyPresent,
-      const CmpiDateTime& MustBeCompletedBy,
-      int isMustBeCompletedByPresent,
-      const char** PropertiesToApply,
-      const CMPICount PropertiesToApplySize,
-      int isPropertiesToApplyPresent) { }
-  */
-
-  /*
-  CMPIUint32 Linux_DnsForwardZoneResourceAccess::VerifyOKToApplyToCollection(
-    const CmpiContext& aContext,
-    const CmpiBroker& aBroker,
-    const Linux_DnsForwardZoneInstanceName& anInstanceName,
-      const CIM_CollectionOfMSEsInstanceName& Collection,
-      int isCollectionPresent,
-      const CmpiDateTime& TimeToApply,
-      int isTimeToApplyPresent,
-      const CmpiDateTime& MustBeCompletedBy,
-      int isMustBeCompletedByPresent,
-      char**& CanNotApply,
-      CMPICount& CanNotApplySize) { }
-  */
-
-  /*
-  CMPIUint32 Linux_DnsForwardZoneResourceAccess::VerifyOKToApplyToMSE(
-    const CmpiContext& aContext,
-    const CmpiBroker& aBroker,
-    const Linux_DnsForwardZoneInstanceName& anInstanceName,
-      const CIM_ManagedSystemElementInstanceName& MSE,
-      int isMSEPresent,
-      const CmpiDateTime& TimeToApply,
-      int isTimeToApplyPresent,
-      const CmpiDateTime& MustBeCompletedBy,
-      int isMustBeCompletedByPresent) { }
-  */
 
 	
 }

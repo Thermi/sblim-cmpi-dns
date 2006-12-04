@@ -1,0 +1,36 @@
+********************************************************************************
+association : Linux_DnsAllowQueryForZone
+objectPath : Linux_DnsAllowQueryForZone.GroupComponent=Linux_DnsZone.Name="elephant.example2.com",PartComponent=Linux_DnsAddressMatchList.ServiceName="named",Name=""someips""
+sourceRole : GroupComponent
+targetRole : PartComponent
+sourceClass : Linux_DnsZone
+targetClass : Linux_DnsAddressMatchList
+
+--------------------------------------------------------------------------------
+Instance                                                       enumInstanceNames
+
+--------------------------------------------------------------------------------
+Instance                                                           enumInstances
+
+--------------------------------------------------------------------------------
+Instance                                                                     get
+
+--------------------------------------------------------------------------------
+Instance                                                                     set
+Expected Exception : NOT_SUPPORTED
+
+--------------------------------------------------------------------------------
+Instance                                                                  delete
+
+--------------------------------------------------------------------------------
+Association                                                          associators
+
+--------------------------------------------------------------------------------
+Association                                                      associatorNames
+
+--------------------------------------------------------------------------------
+Association                                                           references
+
+--------------------------------------------------------------------------------
+Association                                                       referenceNames
+

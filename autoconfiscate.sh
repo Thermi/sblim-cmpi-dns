@@ -2,7 +2,7 @@
 #
 # Script to setup autoconf/automake build environment.
 # Run this first to create the configure script
-aclocal --force &&
+aclocal --force -I m4 &&
 autoheader --force &&
 libtoolize --force && 
 automake --add-missing --force-missing &&

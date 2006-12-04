@@ -1,5 +1,4 @@
 #!/bin/sh
-# $Id: provider-register.sh,v 1.1 2005/10/18 12:13:43 taphorn Exp $
 # ==================================================================
 # (C) Copyright IBM Corp. 2005
 #

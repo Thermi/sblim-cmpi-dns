@@ -1,6 +1,6 @@
 // =======================================================================
 // CmpiLinux_DnsForwardZoneProvider.cpp
-//     created on Fri, 3 Mar 2006 using ECUTE
+//     created on Wed, 29 Nov 2006 using ECUTE 2.2
 // 
 // Copyright (c) 2006, International Business Machines
 //
@@ -14,8 +14,10 @@
 // Author:        generated
 //
 // Contributors:
-//                Murillo Bernardes <bernarde@br.ibm.com>
-//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//                Wolfgang Taphorn   <taphorn at de.ibm.com>
+//                Murillo Bernardes  <bernarde(at)br.ibm.com>
+//                Mukunda Chowdaiah  <cmukunda(at)in.ibm.com>
+//                Ashoka S Rao       <ashoka.rao(at)in.ibm.com>
 //
 // =======================================================================
 //
@@ -244,19 +246,19 @@ namespace genProvider {
     // convert to instanceName
     Linux_DnsForwardZoneInstanceName instanceName(aCop);
     
-    CmpiInstance* repositoryCmpiInstanceP = 0;
-    
-    // try to fetch repository instance
-    try {
-      Linux_DnsForwardZoneInstanceName repositoryInstanceName(instanceName);
-      repositoryInstanceName.setNamespace("IBMShadow/cimv2");
-      CmpiObjectPath repositoryCmpiObjectPath = repositoryInstanceName.getObjectPath();
-      repositoryCmpiInstanceP = new CmpiInstance(
-        m_cmpiBroker.getInstance(
-          aContext, 
-          repositoryCmpiObjectPath,
-          aPropertiesPP));
-    } catch (const CmpiStatus& rc) { }                             
+//    CmpiInstance* repositoryCmpiInstanceP = 0;
+//    
+//    // try to fetch repository instance
+//    try {
+//      Linux_DnsForwardZoneInstanceName repositoryInstanceName(instanceName);
+//      repositoryInstanceName.setNamespace("IBMShadow/cimv2");
+//      CmpiObjectPath repositoryCmpiObjectPath = repositoryInstanceName.getObjectPath();
+//      repositoryCmpiInstanceP = new CmpiInstance(
+//        m_cmpiBroker.getInstance(
+//          aContext, 
+//          repositoryCmpiObjectPath,
+//          aPropertiesPP));
+//    } catch (const CmpiStatus& rc) { }                             
       
     // get instance for instanceName
     Linux_DnsForwardZoneManualInstance instance;
@@ -269,12 +271,12 @@ namespace genProvider {
     // convert the instance in a cmpiInstance
     CmpiInstance cmpiInstance = instance.getCmpiInstance(aPropertiesPP);
       
-    // add the static data 
-    copyShadowData(repositoryCmpiInstanceP,&cmpiInstance);
-      
-    if (repositoryCmpiInstanceP) {
-      delete repositoryCmpiInstanceP;
-    }
+//    // add the static data 
+//    copyShadowData(repositoryCmpiInstanceP,&cmpiInstance);
+//      
+//    if (repositoryCmpiInstanceP) {
+//      delete repositoryCmpiInstanceP;
+//    }
 
     aResult.returnData(cmpiInstance);
     aResult.returnDone();
@@ -294,7 +296,7 @@ namespace genProvider {
       aCmpiInstance,
       aCop.getNameSpace().charPtr());
     
-    //REPOSITORY DATA    
+//    //REPOSITORY DATA    
 //    CmpiInstance* backupShadowInstanceP = 0;
 //   	CmpiInstance shadowInstance = 
 //   	  Linux_DnsForwardZoneRepositoryInstance(aCmpiInstance,"IBMShadow/cimv2").getCmpiInstance(0);     
@@ -309,13 +311,13 @@ namespace genProvider {
 //   	  m_cmpiBroker.deleteInstance(aContext,shadowOp);   	    
 //   	} catch (CmpiStatus& rc) {}   	
 //    m_cmpiBroker.createInstance(aContext,shadowOp,shadowInstance);     
-//    
-//    // resource access data (manual instance)   
+    
+    // resource access data (manual instance)   
     try { 
-        aResult.returnData(m_interfaceP->createInstance(aContext, m_cmpiBroker, manualInstance).
+			aResult.returnData(m_interfaceP->createInstance(aContext, m_cmpiBroker, manualInstance).
 			getObjectPath());
     } catch (CmpiStatus& rc) {
-//      //If something went wrong we recover the previous state
+      //If something went wrong we recover the previous state
 //      m_cmpiBroker.deleteInstance(aContext,shadowOp);
 //      if (backupShadowInstanceP) {
 //        m_cmpiBroker.createInstance(aContext,shadowOp,*backupShadowInstanceP);
@@ -370,7 +372,7 @@ namespace genProvider {
     try {
       m_interfaceP->setInstance(aContext,m_cmpiBroker,aPropertiesPP,manualInstance);
     } catch (CmpiStatus& rc) {
-      //If something went wrong we recover the previous state
+//      //If something went wrong we recover the previous state
 //      m_cmpiBroker.deleteInstance(aContext,shadowOp);
 //      if (backupShadowInstanceP) {
 //        m_cmpiBroker.createInstance(aContext,shadowOp,*backupShadowInstanceP);
@@ -398,11 +400,11 @@ namespace genProvider {
     m_interfaceP->deleteInstance(aContext,m_cmpiBroker,instanceName);
 
     instanceName.setNamespace("IBMShadow/cimv2");
-    CmpiObjectPath op = instanceName.getObjectPath();
-      
-    try { // The instance could not have static data
-      m_cmpiBroker.deleteInstance(aContext,op);
-    } catch (CmpiStatus& rc) {}
+//    CmpiObjectPath op = instanceName.getObjectPath();
+//      
+//    try { // The instance could not have static data
+//      m_cmpiBroker.deleteInstance(aContext,op);
+//    } catch (CmpiStatus& rc) {}
       
     aResult.returnDone();
     return CmpiStatus(CMPI_RC_OK);
@@ -421,715 +423,7 @@ namespace genProvider {
      	
     Linux_DnsForwardZoneInstanceName instanceName = Linux_DnsForwardZoneInstanceName(aCop);
      
-    if (0 == strcasecmp(aMethodNameP,"ApplyIncrementalChangeToCollection")) {
-
-#ifdef DEBUG
-      std::cout << "executing method ApplyIncrementalChangeToCollection" << std::endl;
-#endif      
-
-      int isCollectionPresent = 0;
-      CIM_CollectionOfMSEsInstanceName  Collection;
-      try {
-        CmpiData CollectionCmpiData = in.getArg("Collection");
-        isCollectionPresent = ! CollectionCmpiData.isNullValue();
-        if (isCollectionPresent) {
-          CmpiObjectPath CollectionCmpi = CollectionCmpiData;
-          Collection = CIM_CollectionOfMSEsInstanceName(CollectionCmpi);
-        }
-      } catch (const CmpiStatus& rc) {
-        // parameter not present
-        
-      }
-
-      int isTimeToApplyPresent = 0;
-      CmpiDateTime TimeToApply;
-      try {
-        CmpiData TimeToApplyCmpiData = in.getArg("TimeToApply");
-        isTimeToApplyPresent = ! TimeToApplyCmpiData.isNullValue();
-        if (isTimeToApplyPresent) {
-           TimeToApply = TimeToApplyCmpiData;
-
-        }
-      } catch (const CmpiStatus& rc) {
-        // parameter not present
-        
-      }
-
-      int isContinueOnErrorPresent = 0;
-      CMPIBoolean ContinueOnError;
-      try {
-        CmpiData ContinueOnErrorCmpiData = in.getArg("ContinueOnError");
-        isContinueOnErrorPresent = ! ContinueOnErrorCmpiData.isNullValue();
-        if (isContinueOnErrorPresent) {
-           ContinueOnError = ContinueOnErrorCmpiData;
-
-        }
-      } catch (const CmpiStatus& rc) {
-        // parameter not present
-        
-      }
-
-      int isMustBeCompletedByPresent = 0;
-      CmpiDateTime MustBeCompletedBy;
-      try {
-        CmpiData MustBeCompletedByCmpiData = in.getArg("MustBeCompletedBy");
-        isMustBeCompletedByPresent = ! MustBeCompletedByCmpiData.isNullValue();
-        if (isMustBeCompletedByPresent) {
-           MustBeCompletedBy = MustBeCompletedByCmpiData;
-
-        }
-      } catch (const CmpiStatus& rc) {
-        // parameter not present
-        
-      }
-
-      int isPropertiesToApplyPresent = 0;
-      char** PropertiesToApply=0;
-      CMPICount PropertiesToApplySize = 0;
-      try {
-        CmpiData PropertiesToApplyCmpiData = in.getArg("PropertiesToApply");
-        isPropertiesToApplyPresent = ! PropertiesToApplyCmpiData.isNullValue();
-        if (isPropertiesToApplyPresent) {
-          CmpiArray PropertiesToApplyCmpi = PropertiesToApplyCmpiData;
-          PropertiesToApplySize = PropertiesToApplyCmpi.size();
-          ArrayConverter::makeArray(
-            PropertiesToApplyCmpi,
-            &PropertiesToApply,
-            PropertiesToApplySize);
-        }
-      } catch (const CmpiStatus& rc) {
-        // parameter not present
-        
-      }
-
-      char** CanNotApply;
-
-      CMPICount CanNotApplySize;
-        
-      aResult.returnData(CmpiData(m_interfaceP->ApplyIncrementalChangeToCollection(
-        aContext,
-        m_cmpiBroker,
-        instanceName,
-        Collection,
-        isCollectionPresent,
-        TimeToApply,
-        isTimeToApplyPresent,
-        ContinueOnError,
-        isContinueOnErrorPresent,
-        MustBeCompletedBy,
-        isMustBeCompletedByPresent,
-        (const char**) PropertiesToApply,
-        PropertiesToApplySize,
-        isPropertiesToApplyPresent,
-        CanNotApply,
-        CanNotApplySize)));
-
-      out.setArg("CanNotApply",CmpiData(ArrayConverter::makeCmpiArray((const char**) CanNotApply, CanNotApplySize)));
-
-      if (PropertiesToApply) {
-        ArrayConverter::destructArray(
-          PropertiesToApply,
-          PropertiesToApplySize);
-      }
-      if (CanNotApply) {
-        ArrayConverter::destructArray(
-          CanNotApply,
-          CanNotApplySize);
-      }
-
-#ifdef DEBUG
-      std::cout << "end of method ApplyIncrementalChangeToCollection" << std::endl;
-#endif      
-           
-    } else if (0 == strcasecmp(aMethodNameP,"ApplyIncrementalChangeToMSE")) {
-
-#ifdef DEBUG
-      std::cout << "executing method ApplyIncrementalChangeToMSE" << std::endl;
-#endif      
-
-      int isMSEPresent = 0;
-      CIM_ManagedSystemElementInstanceName  MSE;
-      try {
-        CmpiData MSECmpiData = in.getArg("MSE");
-        isMSEPresent = ! MSECmpiData.isNullValue();
-        if (isMSEPresent) {
-          CmpiObjectPath MSECmpi = MSECmpiData;
-          MSE = CIM_ManagedSystemElementInstanceName(MSECmpi);
-        }
-      } catch (const CmpiStatus& rc) {
-        // parameter not present
-        
-      }
-
-      int isTimeToApplyPresent = 0;
-      CmpiDateTime TimeToApply;
-      try {
-        CmpiData TimeToApplyCmpiData = in.getArg("TimeToApply");
-        isTimeToApplyPresent = ! TimeToApplyCmpiData.isNullValue();
-        if (isTimeToApplyPresent) {
-           TimeToApply = TimeToApplyCmpiData;
-
-        }
-      } catch (const CmpiStatus& rc) {
-        // parameter not present
-        
-      }
-
-      int isMustBeCompletedByPresent = 0;
-      CmpiDateTime MustBeCompletedBy;
-      try {
-        CmpiData MustBeCompletedByCmpiData = in.getArg("MustBeCompletedBy");
-        isMustBeCompletedByPresent = ! MustBeCompletedByCmpiData.isNullValue();
-        if (isMustBeCompletedByPresent) {
-           MustBeCompletedBy = MustBeCompletedByCmpiData;
-
-        }
-      } catch (const CmpiStatus& rc) {
-        // parameter not present
-        
-      }
-
-      int isPropertiesToApplyPresent = 0;
-      char** PropertiesToApply=0;
-      CMPICount PropertiesToApplySize = 0;
-      try {
-        CmpiData PropertiesToApplyCmpiData = in.getArg("PropertiesToApply");
-        isPropertiesToApplyPresent = ! PropertiesToApplyCmpiData.isNullValue();
-        if (isPropertiesToApplyPresent) {
-          CmpiArray PropertiesToApplyCmpi = PropertiesToApplyCmpiData;
-          PropertiesToApplySize = PropertiesToApplyCmpi.size();
-          ArrayConverter::makeArray(
-            PropertiesToApplyCmpi,
-            &PropertiesToApply,
-            PropertiesToApplySize);
-        }
-      } catch (const CmpiStatus& rc) {
-        // parameter not present
-        
-      }
-        
-      aResult.returnData(CmpiData(m_interfaceP->ApplyIncrementalChangeToMSE(
-        aContext,
-        m_cmpiBroker,
-        instanceName,
-        MSE,
-        isMSEPresent,
-        TimeToApply,
-        isTimeToApplyPresent,
-        MustBeCompletedBy,
-        isMustBeCompletedByPresent,
-        (const char**) PropertiesToApply,
-        PropertiesToApplySize,
-        isPropertiesToApplyPresent)));
-
-
-      if (PropertiesToApply) {
-        ArrayConverter::destructArray(
-          PropertiesToApply,
-          PropertiesToApplySize);
-      }
-
-#ifdef DEBUG
-      std::cout << "end of method ApplyIncrementalChangeToMSE" << std::endl;
-#endif      
-           
-    } else if (0 == strcasecmp(aMethodNameP,"ApplyToCollection")) {
-
-#ifdef DEBUG
-      std::cout << "executing method ApplyToCollection" << std::endl;
-#endif      
-
-      int isCollectionPresent = 0;
-      CIM_CollectionOfMSEsInstanceName  Collection;
-      try {
-        CmpiData CollectionCmpiData = in.getArg("Collection");
-        isCollectionPresent = ! CollectionCmpiData.isNullValue();
-        if (isCollectionPresent) {
-          CmpiObjectPath CollectionCmpi = CollectionCmpiData;
-          Collection = CIM_CollectionOfMSEsInstanceName(CollectionCmpi);
-        }
-      } catch (const CmpiStatus& rc) {
-        // parameter not present
-        
-      }
-
-      int isTimeToApplyPresent = 0;
-      CmpiDateTime TimeToApply;
-      try {
-        CmpiData TimeToApplyCmpiData = in.getArg("TimeToApply");
-        isTimeToApplyPresent = ! TimeToApplyCmpiData.isNullValue();
-        if (isTimeToApplyPresent) {
-           TimeToApply = TimeToApplyCmpiData;
-
-        }
-      } catch (const CmpiStatus& rc) {
-        // parameter not present
-        
-      }
-
-      int isContinueOnErrorPresent = 0;
-      CMPIBoolean ContinueOnError;
-      try {
-        CmpiData ContinueOnErrorCmpiData = in.getArg("ContinueOnError");
-        isContinueOnErrorPresent = ! ContinueOnErrorCmpiData.isNullValue();
-        if (isContinueOnErrorPresent) {
-           ContinueOnError = ContinueOnErrorCmpiData;
-
-        }
-      } catch (const CmpiStatus& rc) {
-        // parameter not present
-        
-      }
-
-      int isMustBeCompletedByPresent = 0;
-      CmpiDateTime MustBeCompletedBy;
-      try {
-        CmpiData MustBeCompletedByCmpiData = in.getArg("MustBeCompletedBy");
-        isMustBeCompletedByPresent = ! MustBeCompletedByCmpiData.isNullValue();
-        if (isMustBeCompletedByPresent) {
-           MustBeCompletedBy = MustBeCompletedByCmpiData;
-
-        }
-      } catch (const CmpiStatus& rc) {
-        // parameter not present
-        
-      }
-
-      char** CanNotApply;
-
-      CMPICount CanNotApplySize;
-        
-      aResult.returnData(CmpiData(m_interfaceP->ApplyToCollection(
-        aContext,
-        m_cmpiBroker,
-        instanceName,
-        Collection,
-        isCollectionPresent,
-        TimeToApply,
-        isTimeToApplyPresent,
-        ContinueOnError,
-        isContinueOnErrorPresent,
-        MustBeCompletedBy,
-        isMustBeCompletedByPresent,
-        CanNotApply,
-        CanNotApplySize)));
-
-      out.setArg("CanNotApply",CmpiData(ArrayConverter::makeCmpiArray((const char**) CanNotApply, CanNotApplySize)));
-
-      if (CanNotApply) {
-        ArrayConverter::destructArray(
-          CanNotApply,
-          CanNotApplySize);
-      }
-
-#ifdef DEBUG
-      std::cout << "end of method ApplyToCollection" << std::endl;
-#endif      
-           
-    } else if (0 == strcasecmp(aMethodNameP,"ApplyToMSE")) {
-
-#ifdef DEBUG
-      std::cout << "executing method ApplyToMSE" << std::endl;
-#endif      
-
-      int isMSEPresent = 0;
-      CIM_ManagedSystemElementInstanceName  MSE;
-      try {
-        CmpiData MSECmpiData = in.getArg("MSE");
-        isMSEPresent = ! MSECmpiData.isNullValue();
-        if (isMSEPresent) {
-          CmpiObjectPath MSECmpi = MSECmpiData;
-          MSE = CIM_ManagedSystemElementInstanceName(MSECmpi);
-        }
-      } catch (const CmpiStatus& rc) {
-        // parameter not present
-        
-      }
-
-      int isTimeToApplyPresent = 0;
-      CmpiDateTime TimeToApply;
-      try {
-        CmpiData TimeToApplyCmpiData = in.getArg("TimeToApply");
-        isTimeToApplyPresent = ! TimeToApplyCmpiData.isNullValue();
-        if (isTimeToApplyPresent) {
-           TimeToApply = TimeToApplyCmpiData;
-
-        }
-      } catch (const CmpiStatus& rc) {
-        // parameter not present
-        
-      }
-
-      int isMustBeCompletedByPresent = 0;
-      CmpiDateTime MustBeCompletedBy;
-      try {
-        CmpiData MustBeCompletedByCmpiData = in.getArg("MustBeCompletedBy");
-        isMustBeCompletedByPresent = ! MustBeCompletedByCmpiData.isNullValue();
-        if (isMustBeCompletedByPresent) {
-           MustBeCompletedBy = MustBeCompletedByCmpiData;
-
-        }
-      } catch (const CmpiStatus& rc) {
-        // parameter not present
-        
-      }
-        
-      aResult.returnData(CmpiData(m_interfaceP->ApplyToMSE(
-        aContext,
-        m_cmpiBroker,
-        instanceName,
-        MSE,
-        isMSEPresent,
-        TimeToApply,
-        isTimeToApplyPresent,
-        MustBeCompletedBy,
-        isMustBeCompletedByPresent)));
-
-
-
-#ifdef DEBUG
-      std::cout << "end of method ApplyToMSE" << std::endl;
-#endif      
-           
-    } else if (0 == strcasecmp(aMethodNameP,"VerifyOKToApplyIncrementalChangeToCollection")) {
-
-#ifdef DEBUG
-      std::cout << "executing method VerifyOKToApplyIncrementalChangeToCollection" << std::endl;
-#endif      
-
-      int isCollectionPresent = 0;
-      CIM_CollectionOfMSEsInstanceName  Collection;
-      try {
-        CmpiData CollectionCmpiData = in.getArg("Collection");
-        isCollectionPresent = ! CollectionCmpiData.isNullValue();
-        if (isCollectionPresent) {
-          CmpiObjectPath CollectionCmpi = CollectionCmpiData;
-          Collection = CIM_CollectionOfMSEsInstanceName(CollectionCmpi);
-        }
-      } catch (const CmpiStatus& rc) {
-        // parameter not present
-        
-      }
-
-      int isTimeToApplyPresent = 0;
-      CmpiDateTime TimeToApply;
-      try {
-        CmpiData TimeToApplyCmpiData = in.getArg("TimeToApply");
-        isTimeToApplyPresent = ! TimeToApplyCmpiData.isNullValue();
-        if (isTimeToApplyPresent) {
-           TimeToApply = TimeToApplyCmpiData;
-
-        }
-      } catch (const CmpiStatus& rc) {
-        // parameter not present
-        
-      }
-
-      int isMustBeCompletedByPresent = 0;
-      CmpiDateTime MustBeCompletedBy;
-      try {
-        CmpiData MustBeCompletedByCmpiData = in.getArg("MustBeCompletedBy");
-        isMustBeCompletedByPresent = ! MustBeCompletedByCmpiData.isNullValue();
-        if (isMustBeCompletedByPresent) {
-           MustBeCompletedBy = MustBeCompletedByCmpiData;
-
-        }
-      } catch (const CmpiStatus& rc) {
-        // parameter not present
-        
-      }
-
-      int isPropertiesToApplyPresent = 0;
-      char** PropertiesToApply=0;
-      CMPICount PropertiesToApplySize = 0;
-      try {
-        CmpiData PropertiesToApplyCmpiData = in.getArg("PropertiesToApply");
-        isPropertiesToApplyPresent = ! PropertiesToApplyCmpiData.isNullValue();
-        if (isPropertiesToApplyPresent) {
-          CmpiArray PropertiesToApplyCmpi = PropertiesToApplyCmpiData;
-          PropertiesToApplySize = PropertiesToApplyCmpi.size();
-          ArrayConverter::makeArray(
-            PropertiesToApplyCmpi,
-            &PropertiesToApply,
-            PropertiesToApplySize);
-        }
-      } catch (const CmpiStatus& rc) {
-        // parameter not present
-        
-      }
-
-      char** CanNotApply;
-
-      CMPICount CanNotApplySize;
-        
-      aResult.returnData(CmpiData(m_interfaceP->VerifyOKToApplyIncrementalChangeToCollection(
-        aContext,
-        m_cmpiBroker,
-        instanceName,
-        Collection,
-        isCollectionPresent,
-        TimeToApply,
-        isTimeToApplyPresent,
-        MustBeCompletedBy,
-        isMustBeCompletedByPresent,
-        (const char**) PropertiesToApply,
-        PropertiesToApplySize,
-        isPropertiesToApplyPresent,
-        CanNotApply,
-        CanNotApplySize)));
-
-      out.setArg("CanNotApply",CmpiData(ArrayConverter::makeCmpiArray((const char**) CanNotApply, CanNotApplySize)));
-
-      if (PropertiesToApply) {
-        ArrayConverter::destructArray(
-          PropertiesToApply,
-          PropertiesToApplySize);
-      }
-      if (CanNotApply) {
-        ArrayConverter::destructArray(
-          CanNotApply,
-          CanNotApplySize);
-      }
-
-#ifdef DEBUG
-      std::cout << "end of method VerifyOKToApplyIncrementalChangeToCollection" << std::endl;
-#endif      
-           
-    } else if (0 == strcasecmp(aMethodNameP,"VerifyOKToApplyIncrementalChangeToMSE")) {
-
-#ifdef DEBUG
-      std::cout << "executing method VerifyOKToApplyIncrementalChangeToMSE" << std::endl;
-#endif      
-
-      int isMSEPresent = 0;
-      CIM_ManagedSystemElementInstanceName  MSE;
-      try {
-        CmpiData MSECmpiData = in.getArg("MSE");
-        isMSEPresent = ! MSECmpiData.isNullValue();
-        if (isMSEPresent) {
-          CmpiObjectPath MSECmpi = MSECmpiData;
-          MSE = CIM_ManagedSystemElementInstanceName(MSECmpi);
-        }
-      } catch (const CmpiStatus& rc) {
-        // parameter not present
-        
-      }
-
-      int isTimeToApplyPresent = 0;
-      CmpiDateTime TimeToApply;
-      try {
-        CmpiData TimeToApplyCmpiData = in.getArg("TimeToApply");
-        isTimeToApplyPresent = ! TimeToApplyCmpiData.isNullValue();
-        if (isTimeToApplyPresent) {
-           TimeToApply = TimeToApplyCmpiData;
-
-        }
-      } catch (const CmpiStatus& rc) {
-        // parameter not present
-        
-      }
-
-      int isMustBeCompletedByPresent = 0;
-      CmpiDateTime MustBeCompletedBy;
-      try {
-        CmpiData MustBeCompletedByCmpiData = in.getArg("MustBeCompletedBy");
-        isMustBeCompletedByPresent = ! MustBeCompletedByCmpiData.isNullValue();
-        if (isMustBeCompletedByPresent) {
-           MustBeCompletedBy = MustBeCompletedByCmpiData;
-
-        }
-      } catch (const CmpiStatus& rc) {
-        // parameter not present
-        
-      }
-
-      int isPropertiesToApplyPresent = 0;
-      char** PropertiesToApply=0;
-      CMPICount PropertiesToApplySize = 0;
-      try {
-        CmpiData PropertiesToApplyCmpiData = in.getArg("PropertiesToApply");
-        isPropertiesToApplyPresent = ! PropertiesToApplyCmpiData.isNullValue();
-        if (isPropertiesToApplyPresent) {
-          CmpiArray PropertiesToApplyCmpi = PropertiesToApplyCmpiData;
-          PropertiesToApplySize = PropertiesToApplyCmpi.size();
-          ArrayConverter::makeArray(
-            PropertiesToApplyCmpi,
-            &PropertiesToApply,
-            PropertiesToApplySize);
-        }
-      } catch (const CmpiStatus& rc) {
-        // parameter not present
-        
-      }
-        
-      aResult.returnData(CmpiData(m_interfaceP->VerifyOKToApplyIncrementalChangeToMSE(
-        aContext,
-        m_cmpiBroker,
-        instanceName,
-        MSE,
-        isMSEPresent,
-        TimeToApply,
-        isTimeToApplyPresent,
-        MustBeCompletedBy,
-        isMustBeCompletedByPresent,
-        (const char**) PropertiesToApply,
-        PropertiesToApplySize,
-        isPropertiesToApplyPresent)));
-
-
-      if (PropertiesToApply) {
-        ArrayConverter::destructArray(
-          PropertiesToApply,
-          PropertiesToApplySize);
-      }
-
-#ifdef DEBUG
-      std::cout << "end of method VerifyOKToApplyIncrementalChangeToMSE" << std::endl;
-#endif      
-           
-    } else if (0 == strcasecmp(aMethodNameP,"VerifyOKToApplyToCollection")) {
-
-#ifdef DEBUG
-      std::cout << "executing method VerifyOKToApplyToCollection" << std::endl;
-#endif      
-
-      int isCollectionPresent = 0;
-      CIM_CollectionOfMSEsInstanceName  Collection;
-      try {
-        CmpiData CollectionCmpiData = in.getArg("Collection");
-        isCollectionPresent = ! CollectionCmpiData.isNullValue();
-        if (isCollectionPresent) {
-          CmpiObjectPath CollectionCmpi = CollectionCmpiData;
-          Collection = CIM_CollectionOfMSEsInstanceName(CollectionCmpi);
-        }
-      } catch (const CmpiStatus& rc) {
-        // parameter not present
-        
-      }
-
-      int isTimeToApplyPresent = 0;
-      CmpiDateTime TimeToApply;
-      try {
-        CmpiData TimeToApplyCmpiData = in.getArg("TimeToApply");
-        isTimeToApplyPresent = ! TimeToApplyCmpiData.isNullValue();
-        if (isTimeToApplyPresent) {
-           TimeToApply = TimeToApplyCmpiData;
-
-        }
-      } catch (const CmpiStatus& rc) {
-        // parameter not present
-        
-      }
-
-      int isMustBeCompletedByPresent = 0;
-      CmpiDateTime MustBeCompletedBy;
-      try {
-        CmpiData MustBeCompletedByCmpiData = in.getArg("MustBeCompletedBy");
-        isMustBeCompletedByPresent = ! MustBeCompletedByCmpiData.isNullValue();
-        if (isMustBeCompletedByPresent) {
-           MustBeCompletedBy = MustBeCompletedByCmpiData;
-
-        }
-      } catch (const CmpiStatus& rc) {
-        // parameter not present
-        
-      }
-
-      char** CanNotApply;
-
-      CMPICount CanNotApplySize;
-        
-      aResult.returnData(CmpiData(m_interfaceP->VerifyOKToApplyToCollection(
-        aContext,
-        m_cmpiBroker,
-        instanceName,
-        Collection,
-        isCollectionPresent,
-        TimeToApply,
-        isTimeToApplyPresent,
-        MustBeCompletedBy,
-        isMustBeCompletedByPresent,
-        CanNotApply,
-        CanNotApplySize)));
-
-      out.setArg("CanNotApply",CmpiData(ArrayConverter::makeCmpiArray((const char**) CanNotApply, CanNotApplySize)));
-
-      if (CanNotApply) {
-        ArrayConverter::destructArray(
-          CanNotApply,
-          CanNotApplySize);
-      }
-
-#ifdef DEBUG
-      std::cout << "end of method VerifyOKToApplyToCollection" << std::endl;
-#endif      
-           
-    } else if (0 == strcasecmp(aMethodNameP,"VerifyOKToApplyToMSE")) {
-
-#ifdef DEBUG
-      std::cout << "executing method VerifyOKToApplyToMSE" << std::endl;
-#endif      
-
-      int isMSEPresent = 0;
-      CIM_ManagedSystemElementInstanceName  MSE;
-      try {
-        CmpiData MSECmpiData = in.getArg("MSE");
-        isMSEPresent = ! MSECmpiData.isNullValue();
-        if (isMSEPresent) {
-          CmpiObjectPath MSECmpi = MSECmpiData;
-          MSE = CIM_ManagedSystemElementInstanceName(MSECmpi);
-        }
-      } catch (const CmpiStatus& rc) {
-        // parameter not present
-        
-      }
-
-      int isTimeToApplyPresent = 0;
-      CmpiDateTime TimeToApply;
-      try {
-        CmpiData TimeToApplyCmpiData = in.getArg("TimeToApply");
-        isTimeToApplyPresent = ! TimeToApplyCmpiData.isNullValue();
-        if (isTimeToApplyPresent) {
-           TimeToApply = TimeToApplyCmpiData;
-
-        }
-      } catch (const CmpiStatus& rc) {
-        // parameter not present
-        
-      }
-
-      int isMustBeCompletedByPresent = 0;
-      CmpiDateTime MustBeCompletedBy;
-      try {
-        CmpiData MustBeCompletedByCmpiData = in.getArg("MustBeCompletedBy");
-        isMustBeCompletedByPresent = ! MustBeCompletedByCmpiData.isNullValue();
-        if (isMustBeCompletedByPresent) {
-           MustBeCompletedBy = MustBeCompletedByCmpiData;
-
-        }
-      } catch (const CmpiStatus& rc) {
-        // parameter not present
-        
-      }
-        
-      aResult.returnData(CmpiData(m_interfaceP->VerifyOKToApplyToMSE(
-        aContext,
-        m_cmpiBroker,
-        instanceName,
-        MSE,
-        isMSEPresent,
-        TimeToApply,
-        isTimeToApplyPresent,
-        MustBeCompletedBy,
-        isMustBeCompletedByPresent)));
-
-
-
-#ifdef DEBUG
-      std::cout << "end of method VerifyOKToApplyToMSE" << std::endl;
-#endif      
-           
-    } else  {
+     {
 
       aResult.returnDone();
       return CmpiErrorFormater::getErrorException(

@@ -1,6 +1,6 @@
 // =======================================================================
 // CmpiLinux_DnsServiceProvider.cpp
-//     created on Fri, 3 Mar 2006 using ECUTE
+//     created on Thu, 23 Nov 2006 using ECUTE 2.2
 // 
 // Copyright (c) 2006, International Business Machines
 //
@@ -14,8 +14,10 @@
 // Author:        generated
 //
 // Contributors:
-//                Murillo Bernardes <bernarde@br.ibm.com>
-//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//                Wolfgang Taphorn   <taphorn at de.ibm.com>
+//                Murillo Bernardes  <bernarde(at)br.ibm.com>
+//                Mukunda Chowdaiah  <cmukunda(at)in.ibm.com>
+//                Ashoka S Rao       <ashoka.rao(at)in.ibm.com>
 //
 // =======================================================================
 //
@@ -244,19 +246,19 @@ namespace genProvider {
     // convert to instanceName
     Linux_DnsServiceInstanceName instanceName(aCop);
     
-    CmpiInstance* repositoryCmpiInstanceP = 0;
-    
-    // try to fetch repository instance
-    try {
-      Linux_DnsServiceInstanceName repositoryInstanceName(instanceName);
-      repositoryInstanceName.setNamespace("IBMShadow/cimv2");
-      CmpiObjectPath repositoryCmpiObjectPath = repositoryInstanceName.getObjectPath();
-      repositoryCmpiInstanceP = new CmpiInstance(
-        m_cmpiBroker.getInstance(
-          aContext, 
-          repositoryCmpiObjectPath,
-          aPropertiesPP));
-    } catch (const CmpiStatus& rc) { }                             
+//    CmpiInstance* repositoryCmpiInstanceP = 0;
+//    
+//    // try to fetch repository instance
+//    try {
+//      Linux_DnsServiceInstanceName repositoryInstanceName(instanceName);
+//      repositoryInstanceName.setNamespace("IBMShadow/cimv2");
+//      CmpiObjectPath repositoryCmpiObjectPath = repositoryInstanceName.getObjectPath();
+//      repositoryCmpiInstanceP = new CmpiInstance(
+//        m_cmpiBroker.getInstance(
+//          aContext, 
+//          repositoryCmpiObjectPath,
+//          aPropertiesPP));
+//    } catch (const CmpiStatus& rc) { }                             
       
     // get instance for instanceName
     Linux_DnsServiceManualInstance instance;
@@ -269,12 +271,12 @@ namespace genProvider {
     // convert the instance in a cmpiInstance
     CmpiInstance cmpiInstance = instance.getCmpiInstance(aPropertiesPP);
       
-    // add the static data 
-    copyShadowData(repositoryCmpiInstanceP,&cmpiInstance);
-      
-    if (repositoryCmpiInstanceP) {
-      delete repositoryCmpiInstanceP;
-    }
+//    // add the static data 
+//    copyShadowData(repositoryCmpiInstanceP,&cmpiInstance);
+//      
+//    if (repositoryCmpiInstanceP) {
+//      delete repositoryCmpiInstanceP;
+//    }
 
     aResult.returnData(cmpiInstance);
     aResult.returnDone();
@@ -294,7 +296,7 @@ namespace genProvider {
       aCmpiInstance,
       aCop.getNameSpace().charPtr());
     
-    //REPOSITORY DATA    
+//    //REPOSITORY DATA    
 //    CmpiInstance* backupShadowInstanceP = 0;
 //   	CmpiInstance shadowInstance = 
 //   	  Linux_DnsServiceRepositoryInstance(aCmpiInstance,"IBMShadow/cimv2").getCmpiInstance(0);     
@@ -309,13 +311,13 @@ namespace genProvider {
 //   	  m_cmpiBroker.deleteInstance(aContext,shadowOp);   	    
 //   	} catch (CmpiStatus& rc) {}   	
 //    m_cmpiBroker.createInstance(aContext,shadowOp,shadowInstance);     
-//    
-//    // resource access data (manual instance)   
+    
+    // resource access data (manual instance)   
     try { 
-        aResult.returnData(m_interfaceP->createInstance(aContext, m_cmpiBroker, manualInstance).
+			aResult.returnData(m_interfaceP->createInstance(aContext, m_cmpiBroker, manualInstance).
 			getObjectPath());
     } catch (CmpiStatus& rc) {
-//      //If something went wrong we recover the previous state
+      //If something went wrong we recover the previous state
 //      m_cmpiBroker.deleteInstance(aContext,shadowOp);
 //      if (backupShadowInstanceP) {
 //        m_cmpiBroker.createInstance(aContext,shadowOp,*backupShadowInstanceP);
@@ -370,7 +372,7 @@ namespace genProvider {
     try {
       m_interfaceP->setInstance(aContext,m_cmpiBroker,aPropertiesPP,manualInstance);
     } catch (CmpiStatus& rc) {
-      //If something went wrong we recover the previous state
+//      //If something went wrong we recover the previous state
 //      m_cmpiBroker.deleteInstance(aContext,shadowOp);
 //      if (backupShadowInstanceP) {
 //        m_cmpiBroker.createInstance(aContext,shadowOp,*backupShadowInstanceP);
@@ -398,11 +400,11 @@ namespace genProvider {
     m_interfaceP->deleteInstance(aContext,m_cmpiBroker,instanceName);
 
     instanceName.setNamespace("IBMShadow/cimv2");
-    CmpiObjectPath op = instanceName.getObjectPath();
-      
-    try { // The instance could not have static data
-      m_cmpiBroker.deleteInstance(aContext,op);
-    } catch (CmpiStatus& rc) {}
+//    CmpiObjectPath op = instanceName.getObjectPath();
+//      
+//    try { // The instance could not have static data
+//      m_cmpiBroker.deleteInstance(aContext,op);
+//    } catch (CmpiStatus& rc) {}
       
     aResult.returnDone();
     return CmpiStatus(CMPI_RC_OK);
@@ -419,7 +421,7 @@ namespace genProvider {
     const CmpiArgs& in,
     CmpiArgs& out) {
      	
-    Linux_DnsServiceInstanceName instanceName = Linux_DnsServiceInstanceName(aCop);
+    Linux_DnsServiceInstanceName instanceName = Linux_DnsServiceInstanceName();
      
     if (0 == strcasecmp(aMethodNameP,"RequestStateChange")) {
 

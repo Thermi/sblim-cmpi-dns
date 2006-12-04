@@ -1,6 +1,6 @@
 // =======================================================================
 // CmpiLinux_DnsServiceConfigurationProvider.cpp
-//     created on Fri, 3 Mar 2006 using ECUTE
+//     created on Thu, 23 Nov 2006 using ECUTE 2.2
 // 
 // Copyright (c) 2006, International Business Machines
 //
@@ -14,8 +14,10 @@
 // Author:        generated
 //
 // Contributors:
-//                Murillo Bernardes <bernarde@br.ibm.com>
-//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//                Wolfgang Taphorn   <taphorn at de.ibm.com>
+//                Murillo Bernardes  <bernarde(at)br.ibm.com>
+//                Mukunda Chowdaiah  <cmukunda(at)in.ibm.com>
+//                Ashoka S Rao       <ashoka.rao(at)in.ibm.com>
 //
 // =======================================================================
 //
@@ -24,8 +26,6 @@
 #include "ArrayConverter.h"
 #include "Linux_DnsServiceConfigurationManualInstance.h"
 #include "Linux_DnsServiceConfigurationRepositoryInstance.h"
-#include "Linux_DnsConfigurationInstance.h"
-#include "Linux_DnsServiceInstance.h"
 
 
 #include <iostream>
@@ -40,7 +40,7 @@ namespace genProvider {
     : CmpiBaseMI(aBroker,aContext), 
     CmpiInstanceMI(aBroker,aContext),
     CmpiMethodMI(aBroker,aContext),
-     CmpiAssociationMI(aBroker,aContext),m_cmpiBroker(aBroker) {
+    m_cmpiBroker(aBroker) {
       
     m_interfaceP = Linux_DnsServiceConfigurationFactory::getImplementation();           
 
@@ -140,9 +140,7 @@ namespace genProvider {
 
   CMMethodMIFactory(
     CmpiLinux_DnsServiceConfigurationProvider, 
-    CmpiLinux_DnsServiceConfigurationProvider);    CMAssociationMIFactory(
-      CmpiLinux_DnsServiceConfigurationProvider,
-      CmpiLinux_DnsServiceConfigurationProvider);
+    CmpiLinux_DnsServiceConfigurationProvider);
 	
 	
   //----------------------------------------------------------------------------
@@ -248,19 +246,19 @@ namespace genProvider {
     // convert to instanceName
     Linux_DnsServiceConfigurationInstanceName instanceName(aCop);
     
-    CmpiInstance* repositoryCmpiInstanceP = 0;
-    
-    // try to fetch repository instance
-    try {
-      Linux_DnsServiceConfigurationInstanceName repositoryInstanceName(instanceName);
-      repositoryInstanceName.setNamespace("IBMShadow/cimv2");
-      CmpiObjectPath repositoryCmpiObjectPath = repositoryInstanceName.getObjectPath();
-      repositoryCmpiInstanceP = new CmpiInstance(
-        m_cmpiBroker.getInstance(
-          aContext, 
-          repositoryCmpiObjectPath,
-          aPropertiesPP));
-    } catch (const CmpiStatus& rc) { }                             
+//    CmpiInstance* repositoryCmpiInstanceP = 0;
+//    
+//    // try to fetch repository instance
+//    try {
+//      Linux_DnsServiceConfigurationInstanceName repositoryInstanceName(instanceName);
+//      repositoryInstanceName.setNamespace("IBMShadow/cimv2");
+//      CmpiObjectPath repositoryCmpiObjectPath = repositoryInstanceName.getObjectPath();
+//      repositoryCmpiInstanceP = new CmpiInstance(
+//        m_cmpiBroker.getInstance(
+//          aContext, 
+//          repositoryCmpiObjectPath,
+//          aPropertiesPP));
+//    } catch (const CmpiStatus& rc) { }                             
       
     // get instance for instanceName
     Linux_DnsServiceConfigurationManualInstance instance;
@@ -273,12 +271,12 @@ namespace genProvider {
     // convert the instance in a cmpiInstance
     CmpiInstance cmpiInstance = instance.getCmpiInstance(aPropertiesPP);
       
-    // add the static data 
-    copyShadowData(repositoryCmpiInstanceP,&cmpiInstance);
-      
-    if (repositoryCmpiInstanceP) {
-      delete repositoryCmpiInstanceP;
-    }
+//    // add the static data 
+//    copyShadowData(repositoryCmpiInstanceP,&cmpiInstance);
+//      
+//    if (repositoryCmpiInstanceP) {
+//      delete repositoryCmpiInstanceP;
+//    }
 
     aResult.returnData(cmpiInstance);
     aResult.returnDone();
@@ -298,7 +296,7 @@ namespace genProvider {
       aCmpiInstance,
       aCop.getNameSpace().charPtr());
     
-    //REPOSITORY DATA    
+//    //REPOSITORY DATA    
 //    CmpiInstance* backupShadowInstanceP = 0;
 //   	CmpiInstance shadowInstance = 
 //   	  Linux_DnsServiceConfigurationRepositoryInstance(aCmpiInstance,"IBMShadow/cimv2").getCmpiInstance(0);     
@@ -313,13 +311,13 @@ namespace genProvider {
 //   	  m_cmpiBroker.deleteInstance(aContext,shadowOp);   	    
 //   	} catch (CmpiStatus& rc) {}   	
 //    m_cmpiBroker.createInstance(aContext,shadowOp,shadowInstance);     
-//    
-//    // resource access data (manual instance)   
+    
+    // resource access data (manual instance)   
     try { 
-        aResult.returnData(m_interfaceP->createInstance(aContext, m_cmpiBroker, manualInstance).
+			aResult.returnData(m_interfaceP->createInstance(aContext, m_cmpiBroker, manualInstance).
 			getObjectPath());
     } catch (CmpiStatus& rc) {
-//      //If something went wrong we recover the previous state
+      //If something went wrong we recover the previous state
 //      m_cmpiBroker.deleteInstance(aContext,shadowOp);
 //      if (backupShadowInstanceP) {
 //        m_cmpiBroker.createInstance(aContext,shadowOp,*backupShadowInstanceP);
@@ -374,7 +372,7 @@ namespace genProvider {
     try {
       m_interfaceP->setInstance(aContext,m_cmpiBroker,aPropertiesPP,manualInstance);
     } catch (CmpiStatus& rc) {
-      //If something went wrong we recover the previous state
+//      //If something went wrong we recover the previous state
 //      m_cmpiBroker.deleteInstance(aContext,shadowOp);
 //      if (backupShadowInstanceP) {
 //        m_cmpiBroker.createInstance(aContext,shadowOp,*backupShadowInstanceP);
@@ -402,11 +400,11 @@ namespace genProvider {
     m_interfaceP->deleteInstance(aContext,m_cmpiBroker,instanceName);
 
     instanceName.setNamespace("IBMShadow/cimv2");
-    CmpiObjectPath op = instanceName.getObjectPath();
-      
-    try { // The instance could not have static data
-      m_cmpiBroker.deleteInstance(aContext,op);
-    } catch (CmpiStatus& rc) {}
+//    CmpiObjectPath op = instanceName.getObjectPath();
+//      
+//    try { // The instance could not have static data
+//      m_cmpiBroker.deleteInstance(aContext,op);
+//    } catch (CmpiStatus& rc) {}
       
     aResult.returnDone();
     return CmpiStatus(CMPI_RC_OK);
@@ -440,217 +438,6 @@ namespace genProvider {
 
   }
 
-  //----------------------------------------------------------------------------
-  //                          Association Logic                             
-  //----------------------------------------------------------------------------
-  CmpiStatus 
-  CmpiLinux_DnsServiceConfigurationProvider::associationLogic( 
-    const CmpiContext& aContext, 
-    CmpiResult& aResult,
-    const CmpiObjectPath& aCop,
-    const int anInstanceFlag,
-    const int aReferenceFlag,
-    const char** aPropertiesPP) {
-
-    /* TODO : check if source instance aCop exists */
-
-    const char* namespaceP = aCop.getNameSpace().charPtr();
-
-    if( aReferenceFlag == 0 && anInstanceFlag == 1 ) {
-      /* associators() */
-
-      if (aCop.classPathIsA("Linux_DnsConfiguration")) {
-        
-        Linux_DnsServiceInstanceEnumeration enumeration;
-        Linux_DnsConfigurationInstanceName Configuration(aCop);
-        m_interfaceP->associatorsElement(
-	        aContext, 
-	        m_cmpiBroker, 
-	        namespaceP, 
-	        aPropertiesPP,
-	        Configuration,
-	        enumeration);
-
-        while(enumeration.hasNext()) {
-	        const Linux_DnsServiceInstance instance = enumeration.getNext();
-          CmpiInstance cmpiInstance = instance.getCmpiInstance(aPropertiesPP);
-          aResult.returnData(cmpiInstance);
-	      }
-	      
-      } else if(aCop.classPathIsA("Linux_DnsService")) {
-        
-        Linux_DnsConfigurationInstanceEnumeration enumeration;
-        Linux_DnsServiceInstanceName Element(aCop);
-        m_interfaceP->associatorsConfiguration(
-          aContext,
-          m_cmpiBroker,
-          namespaceP,
-          aPropertiesPP,
-          Element,
-          enumeration);
-	
-        while(enumeration.hasNext()) {
-          const Linux_DnsConfigurationInstance instance = enumeration.getNext();
-          CmpiInstance cmpiInstance = instance.getCmpiInstance(aPropertiesPP);
-          aResult.returnData(cmpiInstance);
-        }
-      }   
-         
-    } else { /* end of associators() */
-    
-      /* associatorNames() || aReferenceFlag() || referenceNames() */
-
-      Linux_DnsServiceConfigurationManualInstanceEnumeration enumeration;
-
-      if(aCop.classPathIsA("Linux_DnsConfiguration")) {
-        Linux_DnsConfigurationInstanceName Configuration(aCop);
-        m_interfaceP->referencesElement(
-          aContext, 
-          m_cmpiBroker,
-          namespaceP,
-          aPropertiesPP,
-          Configuration,
-          enumeration);
-      }
-      
-      if(aCop.classPathIsA("Linux_DnsService")) {
-        Linux_DnsServiceInstanceName Element(aCop);
-        m_interfaceP->referencesConfiguration(
-	        aContext,
-	        m_cmpiBroker,
-	        namespaceP,
-	        aPropertiesPP,
-	        Element,
-	        enumeration);
-      }
-
-      while(enumeration.hasNext()) {
-
-        const Linux_DnsServiceConfigurationManualInstance manualInstance = enumeration.getNext();
-
-        const Linux_DnsServiceConfigurationInstanceName instanceName = manualInstance.getInstanceName();
-
-        if( aReferenceFlag == 1 ) {
-          // referenceNames() : aReferenceFlag == 1 && anInstanceFlag == 0
-          
-          if(anInstanceFlag == 0 ) {
-            CmpiObjectPath cmpiObjectPath = instanceName.getObjectPath();
-            aResult.returnData(cmpiObjectPath);
-          } else { /* aReferenceFlag() : aReferenceFlag == 1 && anInstanceFlag == 1 */
-            CmpiInstance cmpiInstance = manualInstance.getCmpiInstance(aPropertiesPP);
-            /* todo: complete the Instance */
-            aResult.returnData(cmpiInstance);
-          }
-
-        } else { // associatorNames() : aReferenceFlag == 0 && anInstanceFlag == 0 
-      
-          if(aCop.classPathIsA("Linux_DnsConfiguration")) {
-            const Linux_DnsServiceInstanceName Element = instanceName.getElement();
-            CmpiObjectPath cmpiObjectPath = Element.getObjectPath();
-            aResult.returnData(cmpiObjectPath);
-          }
-        
-          if(aCop.classPathIsA("Linux_DnsService")) {
-            const Linux_DnsConfigurationInstanceName Configuration = 
-            instanceName.getConfiguration();
-            CmpiObjectPath cmpiObjectPath = Configuration.getObjectPath();
-            aResult.returnData(cmpiObjectPath);
-          }
-          
-        }
-        
-      }
-      
-    } // end of associatorNames() || aReferenceFlag() || referenceNames()
-    
-    aResult.returnDone();
-  
-    return CmpiStatus(CMPI_RC_OK);
-  
-  }
-  
-  //----------------------------------------------------------------------------
-  //                     Association Provider Interface
-  //----------------------------------------------------------------------------
-  CmpiStatus 
-  CmpiLinux_DnsServiceConfigurationProvider::associators(
-    const CmpiContext& aContext, 
-    CmpiResult& aResult,
-    const CmpiObjectPath& aCop, 
-    const char* anAssociationClassnameP,
-    const char* aResultClassnameP,
-    const char* aRolenameP, 
-    const char* aResultRolenameP, 
-    const char** aPropertiesPP) {
-     
-#ifdef DEBUG
-    std::cout << "calling associators() of class Linux_DnsServiceConfiguration" << std::endl;
-#endif    
-      
-    CmpiStatus rc = associationLogic(aContext,aResult,aCop,1,0,aPropertiesPP);
-  
-    return CmpiStatus(rc);
-      
-  }
-
-  //----------------------------------------------------------------------------
-  CmpiStatus 
-  CmpiLinux_DnsServiceConfigurationProvider::associatorNames(
-    const CmpiContext& aContext,
-    CmpiResult& aResult,
-    const CmpiObjectPath& aCop,
-    const char* anAssociationClassnameP,
-    const char* aResultClassnameP,
-    const char* aRolenameP, 
-    const char* aResultRolenameP) {
-   
-#ifdef DEBUG
-    std::cout << "calling associatorNames() of class Linux_DnsServiceConfiguration" << std::endl;
-#endif    
-    
-    CmpiStatus rc = associationLogic(aContext,aResult,aCop,0,0);
-  
-    return CmpiStatus(rc);
-  
-  }
-
-  //----------------------------------------------------------------------------
-  CmpiStatus
-  CmpiLinux_DnsServiceConfigurationProvider::references( 
-    const CmpiContext& aContext,
-    CmpiResult& aResult,
-    const CmpiObjectPath& aCop,
-    const char* anAssociationClassnameP,
-    const char* aRolenameP,
-    const char** aPropertiesPP) {
-    
-#ifdef DEBUG
-    std::cout << "calling aReferenceFlag() of class Linux_DnsServiceConfiguration" << std::endl;
-#endif    
-    
-    CmpiStatus rc = associationLogic(aContext,aResult,aCop,1,1,aPropertiesPP);
-  
-    return CmpiStatus(rc);
-  
-  }
-    
-  //----------------------------------------------------------------------------
-  CmpiStatus
-  CmpiLinux_DnsServiceConfigurationProvider::referenceNames(
-    const CmpiContext& aContext,
-    CmpiResult& aResult,
-    const CmpiObjectPath& aCop,
-    const char* anAssociationClassnameP,
-    const char* aRolenameP) {
-   
-#ifdef DEBUG
-    std::cout << "calling referenceNames() of class Linux_DnsServiceConfiguration" << std::endl;
-#endif    
-    
-    CmpiStatus rc = associationLogic(aContext,aResult,aCop,0,1);
-  
-    return CmpiStatus(rc);
-  
-  } 
+ 
 }	
 

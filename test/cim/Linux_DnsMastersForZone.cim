@@ -1,0 +1,36 @@
+********************************************************************************
+association : Linux_DnsMastersForZone
+objectPath : Linux_DnsMastersForZone.GroupComponent=Linux_DnsZone.Name="rhino.example1.com",PartComponent=Linux_DnsMasters.ZoneName="rhino.example1.com",MasterElement={"192.168.23.15"},MasterElementType={1}
+sourceRole : GroupComponent
+targetRole : PartComponent
+sourceClass : Linux_DnsZone
+targetClass : Linux_DnsMasters
+
+--------------------------------------------------------------------------------
+Instance                                                       enumInstanceNames
+
+--------------------------------------------------------------------------------
+Instance                                                           enumInstances
+
+--------------------------------------------------------------------------------
+Instance                                                                     get
+
+--------------------------------------------------------------------------------
+Instance                                                                     set
+Expected Exception : NOT_SUPPORTED
+
+--------------------------------------------------------------------------------
+Instance                                                                  delete
+
+--------------------------------------------------------------------------------
+Association                                                          associators
+
+--------------------------------------------------------------------------------
+Association                                                      associatorNames
+
+--------------------------------------------------------------------------------
+Association                                                           references
+
+--------------------------------------------------------------------------------
+Association                                                       referenceNames
+

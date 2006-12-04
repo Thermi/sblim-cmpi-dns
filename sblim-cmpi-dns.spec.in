@@ -14,6 +14,7 @@ Group: Systems Management/Base
 URL: http://www.sblim.org
 License: CPL
 Requires: sblim-tools-libra
+Requires: bind 
 
 Provides: cmpi-dns
 
@@ -36,6 +37,15 @@ SBLIM WBEM-SMT Dns Development Package contains header files and
 link libraries for dependent provider packages
 
 ###############################################################################
+%Package test
+Summary: SBLIM WBEM-SMT Dns - Testcase Files
+Group: Systems Management/Base
+Requires: %{name} = %{version}-%{release}
+
+%Description test
+SBLIM WBEM-SMT DNS Provider Testcase Files for the SBLIM Testsuite
+
+###############################################################################
 %prep
 
 %setup -n %{name}-%{version}
@@ -47,8 +57,7 @@ export PATCH_GET=0
 %build
 
 %configure \
-   %{?tog_pegasus:CIMSERVER=pegasus PROVIDERDIR=/opt/tog-pegasus/providers/lib}\
-   --disable-debug
+   TESTSUITEDIR=%{_datadir}/sblim-testsuite
 make
 
 
@@ -136,7 +145,18 @@ fi
 %{_includedir}/sblim
 %{_libdir}/*.so
 
+%files test
+%defattr(-,root,root)
+%{_datadir}/sblim-testsuite
+
 ###############################################################################
 %changelog
+* Mon Dec 4 2006 Wolfgang Taphorn <taphorn@de.ibm.com> 0.2.3-1
+  - Inclusion of fixes for the following bug entries:
+    o 1608730  cmpi-dns: Build does not pass 'make distcheck'
+    o 1608764  cmpi-dns: Adding test cases
+    o 1608767  cmpi-dns: Model changes
+
 * Tue Sep 08 2005 Wolfgang Taphorn <taphorn@de.ibm.com>
   - initial support
+  

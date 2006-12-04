@@ -1,6 +1,6 @@
 // =======================================================================
 // Linux_DnsAddressMatchListInstance.h
-//     created on Fri, 3 Mar 2006 using ECUTE
+//     created on Thu, 23 Nov 2006 using ECUTE 2.2
 // 
 // Copyright (c) 2006, International Business Machines
 //
@@ -14,8 +14,10 @@
 // Author:        generated
 //
 // Contributors:
-//                Murillo Bernardes <bernarde@br.ibm.com>
-//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//                Wolfgang Taphorn   <taphorn at de.ibm.com>
+//                Murillo Bernardes  <bernarde(at)br.ibm.com>
+//                Mukunda Chowdaiah  <cmukunda(at)in.ibm.com>
+//                Ashoka S Rao       <ashoka.rao(at)in.ibm.com>
 //
 // =======================================================================
 //
@@ -44,22 +46,21 @@ namespace genProvider {
     void reset();
        
     Linux_DnsAddressMatchListInstanceName m_instanceName;
-    CMPIUint16 m_AddressListType;
-    const char** m_AddressList;
-    unsigned int m_AddressListSize;
+    const CMPIUint8* m_AddressMatchListElementType;
+    unsigned int m_AddressMatchListElementTypeSize;
+    const char** m_AddressMatchListElement;
+    unsigned int m_AddressMatchListElementSize;
     const char* m_Caption;
     const char* m_Description;
     const char* m_ElementName;
-    const char* m_SettingID;
        
     struct isSetType{
       unsigned int instanceName:1;
-      unsigned int AddressListType:1;
-      unsigned int AddressList:1;
+      unsigned int AddressMatchListElementType:1;
+      unsigned int AddressMatchListElement:1;
       unsigned int Caption:1;
       unsigned int Description:1;
       unsigned int ElementName:1;
-      unsigned int SettingID:1;
 
     } isSet;
     
@@ -80,13 +81,13 @@ namespace genProvider {
     void setInstanceName(const Linux_DnsAddressMatchListInstanceName& anInstanceName);        
     const Linux_DnsAddressMatchListInstanceName& getInstanceName() const;
 
-    unsigned int isAddressListTypeSet() const;
-    void setAddressListType(const CMPIUint16 aValue);
-    const CMPIUint16 getAddressListType() const;
+    unsigned int isAddressMatchListElementTypeSet() const;
+    void setAddressMatchListElementType(const CMPIUint8* aValue, unsigned const int aSize, int aCopyFlag = 1);
+    const CMPIUint8* getAddressMatchListElementType(unsigned int& aSize) const;
 
-    unsigned int isAddressListSet() const;
-    void setAddressList(const char** aValue, unsigned const int aSize, int aCopyFlag = 1);
-    const char** getAddressList(unsigned int& aSize) const;
+    unsigned int isAddressMatchListElementSet() const;
+    void setAddressMatchListElement(const char** aValue, unsigned const int aSize, int aCopyFlag = 1);
+    const char** getAddressMatchListElement(unsigned int& aSize) const;
 
     unsigned int isCaptionSet() const;
     void setCaption(const char* aValue, int aCopyFlag = 1);
@@ -99,10 +100,6 @@ namespace genProvider {
     unsigned int isElementNameSet() const;
     void setElementName(const char* aValue, int aCopyFlag = 1);
     const char* getElementName() const;
-
-    unsigned int isSettingIDSet() const;
-    void setSettingID(const char* aValue, int aCopyFlag = 1);
-    const char* getSettingID() const;
 
 
   };

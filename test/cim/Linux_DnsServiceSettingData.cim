@@ -1,0 +1,25 @@
+********************************************************************************
+class : Linux_DnsServiceSettingData
+objectPath : Linux_DnsServiceSettingData.InstanceID="InstanceID",Name="named"
+
+--------------------------------------------------------------------------------
+Instance                                                       enumInstanceNames
+
+--------------------------------------------------------------------------------
+Instance                                                           enumInstances
+
+--------------------------------------------------------------------------------
+Instance                                                                     get
+
+--------------------------------------------------------------------------------
+Instance                                                                     set
+Expected Exception : NOT_SUPPORTED
+
+--------------------------------------------------------------------------------
+Instance                                                                  create
+Expected Exception : NOT_SUPPORTED
+
+--------------------------------------------------------------------------------
+Instance                                                                  delete
+Expected Exception : NOT_SUPPORTED
+

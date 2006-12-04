@@ -1,6 +1,6 @@
 // =======================================================================
 // Linux_DnsSlaveZoneInstanceName.cpp
-//     created on Fri, 3 Mar 2006 using ECUTE
+//     created on Thu, 23 Nov 2006 using ECUTE 2.2
 // 
 // Copyright (c) 2006, International Business Machines
 //
@@ -14,8 +14,10 @@
 // Author:        generated
 //
 // Contributors:
-//                Murillo Bernardes <bernarde@br.ibm.com>
-//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//                Wolfgang Taphorn   <taphorn at de.ibm.com>
+//                Murillo Bernardes  <bernarde(at)br.ibm.com>
+//                Mukunda Chowdaiah  <cmukunda(at)in.ibm.com>
+//                Ashoka S Rao       <ashoka.rao(at)in.ibm.com>
 //
 // =======================================================================
 //
@@ -59,6 +61,9 @@ namespace genProvider {
     namespaceP = path.getNameSpace();
     setNamespace(namespaceP.charPtr(),1);
         
+    CmpiString InstanceID = path.getKey("InstanceID");
+    setInstanceID(InstanceID.charPtr());
+    
     CmpiString Name = path.getKey("Name");
     setName(Name.charPtr());
 
@@ -92,6 +97,9 @@ namespace genProvider {
    	
    	CmpiObjectPath objectPath(m_nameSpaceP, m_CIMClassNameP);
    	  	objectPath.setKey(
+  	  "InstanceID",
+  	  CmpiData(m_InstanceID));
+  	objectPath.setKey(
   	  "Name",
   	  CmpiData(m_Name));
 
@@ -106,6 +114,13 @@ namespace genProvider {
   void 
   Linux_DnsSlaveZoneInstanceName::fillKeys(CmpiInstance& cmpiInstance) const {
   	
+  	if (isSet.InstanceID) {
+  	  
+  	  cmpiInstance.setProperty(
+  	    "InstanceID",
+  	    CmpiData(m_InstanceID));
+  	}
+
   	if (isSet.Name) {
   	  
   	  cmpiInstance.setProperty(
@@ -157,6 +172,52 @@ namespace genProvider {
     isSet.m_nameSpaceP = 1;
   }
          
+  //----------------------------------------------------------------------------
+  // InstanceID related methods
+  //----------------------------------------------------------------------------
+  unsigned int
+  Linux_DnsSlaveZoneInstanceName::isInstanceIDSet() const {
+    return isSet.InstanceID;
+  }
+
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsSlaveZoneInstanceName::setInstanceID(
+    const char* aValueP,
+    int aCopyFlag) {
+    
+    if (isSet.InstanceID) {
+      delete [] m_InstanceID;
+    }
+    
+    if (aCopyFlag && aValueP) {
+      char* valueP = new char[strlen(aValueP) + 1];
+      strcpy(valueP,aValueP);
+      m_InstanceID = valueP;
+    } else {
+      m_InstanceID = aValueP;
+    }
+    
+    isSet.InstanceID = 1;
+
+  }       
+
+  //----------------------------------------------------------------------------
+  const char*
+  Linux_DnsSlaveZoneInstanceName::getInstanceID() const {
+    
+    if ( ! isSet.InstanceID) {
+   	  throw CmpiErrorFormater::getErrorException(
+   	    CmpiErrorFormater::NOT_SET,
+        "InstanceID",
+        "Linux_DnsSlaveZone");
+   	}
+
+
+    return m_InstanceID;
+
+  }
+       
   //----------------------------------------------------------------------------
   // Name related methods
   //----------------------------------------------------------------------------
@@ -210,7 +271,8 @@ namespace genProvider {
   	
   	m_CIMClassNameP = "Linux_DnsSlaveZone";
   	isSet.m_nameSpaceP = 0; 
-  	    isSet.Name = 0;
+  	    isSet.InstanceID = 0;
+    isSet.Name = 0;
 
   	
   }
@@ -229,6 +291,11 @@ namespace genProvider {
       setNamespace(anOriginal.getNamespace(),1);
     }
        	
+    if (anOriginal.isInstanceIDSet()) {
+      const char* InstanceIDOriginal = anOriginal.getInstanceID();
+      setInstanceID(InstanceIDOriginal,1);
+    }
+   	
     if (anOriginal.isNameSet()) {
       const char* NameOriginal = anOriginal.getName();
       setName(NameOriginal,1);
@@ -244,6 +311,10 @@ namespace genProvider {
   	  delete(m_nameSpaceP);
   	}
   	
+  	if (isSet.InstanceID) {
+  	  delete(m_InstanceID);
+  	}
+
   	if (isSet.Name) {
   	  delete(m_Name);
   	}

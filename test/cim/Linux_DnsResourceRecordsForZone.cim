@@ -1,0 +1,37 @@
+********************************************************************************
+association : Linux_DnsResourceRecordsForZone
+objectPath : Linux_DnsResourceRecordsForZone.GroupComponent=Linux_DnsZone.InstanceID="InstanceID",Name="elephant.example2.com",PartComponent=Linux_DnsResourceRecord.InstanceID="InstanceID",Name="one",Type="NS",Value="192.168.40.1",ZoneName="elephant.example2.com"
+sourceRole : PartComponent
+targetRole : GroupComponent
+sourceClass : Linux_DnsResourceRecord
+targetClass : Linux_DnsZone
+
+--------------------------------------------------------------------------------
+Instance                                                       enumInstanceNames
+
+--------------------------------------------------------------------------------
+Instance                                                           enumInstances
+
+--------------------------------------------------------------------------------
+Instance                                                                     get
+
+--------------------------------------------------------------------------------
+Instance                                                                     set
+Expected Exception : NOT_SUPPORTED
+
+--------------------------------------------------------------------------------
+Instance                                                                  delete
+Expected Exception : NOT_SUPPORTED
+
+--------------------------------------------------------------------------------
+Association                                                          associators
+
+--------------------------------------------------------------------------------
+Association                                                      associatorNames
+
+--------------------------------------------------------------------------------
+Association                                                           references
+
+--------------------------------------------------------------------------------
+Association                                                       referenceNames
+

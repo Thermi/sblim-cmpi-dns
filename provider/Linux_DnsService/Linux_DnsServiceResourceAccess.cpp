@@ -28,6 +28,7 @@
 using namespace std;
 
 #include "smt_dns_ra_support.h" 
+#include "smt_dns_ra_service.h"
 #include "smt_dns_defaultvalues.h"
 
 namespace genProvider {
@@ -66,9 +67,8 @@ namespace genProvider {
       cout << "exiting Linux_DnsService::enumInstanceNames" << endl;
 #endif
   }
-
   
-  //----------------------------------------------------------------------------
+//----------------------------------------------------------------------------
 
   void
   Linux_DnsServiceResourceAccess::enumInstances(
@@ -100,10 +100,9 @@ namespace genProvider {
 #ifdef DEBUG
       cout << "exiting Linux_DnsService::enumInstances" << endl;
 #endif
-  }
-
+}
   
-  //----------------------------------------------------------------------------
+//----------------------------------------------------------------------------
 
   Linux_DnsServiceManualInstance 
   Linux_DnsServiceResourceAccess::getInstance(
@@ -115,6 +114,11 @@ namespace genProvider {
 #ifdef DEBUG
       cout << "entering Linux_DnsService::getInstance" << endl;
 #endif
+
+    //check if the said service exists, if not throw exception. 
+    if (strcasecmp(anInstanceName.getName(),DEFAULT_SERVICE_NAME)!=0) {
+        throw CmpiStatus(CMPI_RC_ERR_NOT_FOUND,"Instance does not exist!");
+     }
 
     Linux_DnsServiceManualInstance inst;
     inst.setInstanceName(anInstanceName);
@@ -180,13 +184,22 @@ namespace genProvider {
 #ifdef DEBUG
     cout << "entering Linux_DnsService::StartService" << endl;
 #endif
-    
-    CMPIUint32 res_start = start_service();
-    
-#ifdef DEBUG
-    cout << "\tReturn value of start service: "<< res_start << endl;
-#endif
-    
+    CMPIUint32 res_start = 3;
+    CMPIUint32 res_status = 0;
+
+
+    res_status = status_service() ; 
+
+    if ( res_status == 0 ) { 
+      res_start = start_service(); 
+    }
+
+    if (res_status == 0 ) { 
+      if (res_start !=0) res_start = 3; 
+    } 
+    else 
+      res_start = 2; 
+
 #ifdef DEBUG
     cout << "exiting Linux_DnsService::StartService" << endl;
 #endif
@@ -203,12 +216,22 @@ namespace genProvider {
 #ifdef DEBUG
     cout << "entering Linux_DnsService::StopService" << endl;
 #endif
-    
-    CMPIUint32 res_stop = stop_service();
-    
-#ifdef DEBUG
-    cout << "\tReturn value of stop service: "<< res_stop << endl;
-#endif
+
+    CMPIUint32 res_stop = 3;
+    CMPIUint32 res_status = 0;
+
+
+    res_status = status_service() ;
+
+    if ( res_status != 0 ) {
+      res_stop = stop_service();
+    }
+
+    if (res_status != 0 ) {
+      if (res_stop !=0) res_stop = 3;
+    }
+    else
+      res_stop = 2;
     
 #ifdef DEBUG
       cout << "exiting Linux_DnsService::StopService" << endl;

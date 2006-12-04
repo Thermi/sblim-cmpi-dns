@@ -1,0 +1,25 @@
+********************************************************************************
+class : Linux_DnsService
+objectPath : Linux_DnsService.CreationClassName="Linux_DnsService",Name="named",SystemCreationClassName="Linux_DnsService",SystemName="localhost"
+
+--------------------------------------------------------------------------------
+Instance                                                       enumInstanceNames
+
+--------------------------------------------------------------------------------
+Instance                                                           enumInstances
+
+--------------------------------------------------------------------------------
+Instance                                                                     get
+
+--------------------------------------------------------------------------------
+Instance                                                                     set
+Expected Exception : NOT_SUPPORTED
+
+--------------------------------------------------------------------------------
+Instance                                                                  create
+Expected Exception : NOT_SUPPORTED
+
+--------------------------------------------------------------------------------
+Instance                                                                  delete
+Expected Exception : NOT_SUPPORTED
+

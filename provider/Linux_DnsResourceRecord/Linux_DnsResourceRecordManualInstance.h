@@ -1,6 +1,6 @@
 // =======================================================================
 // Linux_DnsResourceRecordManualInstance.h
-//     created on Fri, 3 Mar 2006 using ECUTE
+//     created on Fri, 1 Dec 2006 using ECUTE 2.2
 // 
 // Copyright (c) 2006, International Business Machines
 //
@@ -14,8 +14,10 @@
 // Author:        generated
 //
 // Contributors:
-//                Murillo Bernardes <bernarde@br.ibm.com>
-//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//                Wolfgang Taphorn   <taphorn at de.ibm.com>
+//                Murillo Bernardes  <bernarde(at)br.ibm.com>
+//                Mukunda Chowdaiah  <cmukunda(at)in.ibm.com>
+//                Ashoka S Rao       <ashoka.rao(at)in.ibm.com>
 //
 // =======================================================================
 //
@@ -44,8 +46,8 @@ namespace genProvider {
     void reset();
        
     Linux_DnsResourceRecordInstanceName m_instanceName;
-    CMPIUint16 m_Family;
-    CMPIUint32 m_TTL;
+    CMPIUint8 m_Family;
+    CMPISint32 m_TTL;
        
     struct isSetType{
       unsigned int instanceName:1;
@@ -72,12 +74,12 @@ namespace genProvider {
     const Linux_DnsResourceRecordInstanceName& getInstanceName() const;
 
     unsigned int isFamilySet() const;
-    void setFamily(const CMPIUint16 aValue);
-    const CMPIUint16 getFamily() const;
+    void setFamily(const CMPIUint8 aValue);
+    const CMPIUint8 getFamily() const;
 
     unsigned int isTTLSet() const;
-    void setTTL(const CMPIUint32 aValue);
-    const CMPIUint32 getTTL() const;
+    void setTTL(const CMPISint32 aValue);
+    const CMPISint32 getTTL() const;
 
 
   };

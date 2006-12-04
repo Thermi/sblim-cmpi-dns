@@ -1,0 +1,37 @@
+********************************************************************************
+association : Linux_DnsServiceConfigurationForService
+objectPath : Linux_DnsServiceConfigurationForService.Configuration=Linux_DnsServiceConfiguration.Name="named",Element=Linux_DnsService.CreationClassName="Linux_DnsService",Name="named",SystemCreationClassName="Linux_DnsService",SystemName="localhost"
+sourceRole : Element
+targetRole : Configuration
+sourceClass : Linux_DnsService
+targetClass : Linux_DnsServiceConfiguration
+
+--------------------------------------------------------------------------------
+Instance                                                       enumInstanceNames
+
+--------------------------------------------------------------------------------
+Instance                                                           enumInstances
+
+--------------------------------------------------------------------------------
+Instance                                                                     get
+
+--------------------------------------------------------------------------------
+Instance                                                                     set
+Expected Exception : NOT_SUPPORTED
+
+--------------------------------------------------------------------------------
+Instance                                                                  delete
+Expected Exception : NOT_SUPPORTED
+
+--------------------------------------------------------------------------------
+Association                                                          associators
+
+--------------------------------------------------------------------------------
+Association                                                      associatorNames
+
+--------------------------------------------------------------------------------
+Association                                                           references
+
+--------------------------------------------------------------------------------
+Association                                                       referenceNames
+

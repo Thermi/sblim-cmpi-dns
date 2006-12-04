@@ -1,6 +1,6 @@
 // =======================================================================
 // Linux_DnsResourceRecordInstance.cpp
-//     created on Fri, 3 Mar 2006 using ECUTE
+//     created on Fri, 1 Dec 2006 using ECUTE 2.2
 // 
 // Copyright (c) 2006, International Business Machines
 //
@@ -14,8 +14,10 @@
 // Author:        generated
 //
 // Contributors:
-//                Murillo Bernardes <bernarde@br.ibm.com>
-//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//                Wolfgang Taphorn   <taphorn at de.ibm.com>
+//                Murillo Bernardes  <bernarde(at)br.ibm.com>
+//                Mukunda Chowdaiah  <cmukunda(at)in.ibm.com>
+//                Ashoka S Rao       <ashoka.rao(at)in.ibm.com>
 //
 // =======================================================================
 //
@@ -79,19 +81,13 @@ namespace genProvider {
 
     cmpiData = aCmpiInstance.getProperty("Family");
     if ( ! cmpiData.isNullValue()){
-      CMPIUint16 Family = cmpiData;
+      CMPIUint8 Family = cmpiData;
       setFamily(Family);
-    }
-
-    cmpiData = aCmpiInstance.getProperty("SettingID");
-    if ( ! cmpiData.isNullValue()){
-      CmpiString SettingID = cmpiData;
-      setSettingID(SettingID.charPtr());
     }
 
     cmpiData = aCmpiInstance.getProperty("TTL");
     if ( ! cmpiData.isNullValue()){
-      CMPIUint32 TTL = cmpiData;
+      CMPISint32 TTL = cmpiData;
       setTTL(TTL);
     }
 
@@ -161,13 +157,6 @@ namespace genProvider {
   	  cmpiInstance.setProperty(
   	    "Family",
   	    CmpiData(m_Family));
-  	}
-
-  	if (isSet.SettingID) {
-  	  
-  	  cmpiInstance.setProperty(
-  	    "SettingID",
-  	    CmpiData(m_SettingID));
   	}
 
   	if (isSet.TTL) {
@@ -363,7 +352,7 @@ namespace genProvider {
 
   //----------------------------------------------------------------------------
   void Linux_DnsResourceRecordInstance::setFamily(
-    const CMPIUint16 aValue) {
+    const CMPIUint8 aValue) {
   
     m_Family = aValue;
     isSet.Family = 1;
@@ -371,7 +360,7 @@ namespace genProvider {
   }       
 
   //----------------------------------------------------------------------------
-  const CMPIUint16
+  const CMPIUint8
   Linux_DnsResourceRecordInstance::getFamily() const {
     
     if ( ! isSet.Family) {
@@ -387,52 +376,6 @@ namespace genProvider {
   }
        
   //----------------------------------------------------------------------------
-  // SettingID related methods
-  //----------------------------------------------------------------------------
-  unsigned int
-  Linux_DnsResourceRecordInstance::isSettingIDSet() const {
-    return isSet.SettingID;
-  }
-
-  //----------------------------------------------------------------------------
-  void
-  Linux_DnsResourceRecordInstance::setSettingID(
-    const char* aValueP,
-    int aCopyFlag) {
-    
-    if (isSet.SettingID) {
-      delete [] m_SettingID;
-    }
-    
-    if (aCopyFlag && aValueP) {
-      char* valueP = new char[strlen(aValueP) + 1];
-      strcpy(valueP,aValueP);
-      m_SettingID = valueP;
-    } else {
-      m_SettingID = aValueP;
-    }
-    
-    isSet.SettingID = 1;
-
-  }       
-
-  //----------------------------------------------------------------------------
-  const char*
-  Linux_DnsResourceRecordInstance::getSettingID() const {
-    
-    if ( ! isSet.SettingID) {
-   	  throw CmpiErrorFormater::getErrorException(
-   	    CmpiErrorFormater::NOT_SET,
-        "SettingID",
-        "Linux_DnsResourceRecord");
-   	}
-
-
-    return m_SettingID;
-
-  }
-       
-  //----------------------------------------------------------------------------
   // TTL related methods
   //----------------------------------------------------------------------------
   unsigned int
@@ -442,7 +385,7 @@ namespace genProvider {
 
   //----------------------------------------------------------------------------
   void Linux_DnsResourceRecordInstance::setTTL(
-    const CMPIUint32 aValue) {
+    const CMPISint32 aValue) {
   
     m_TTL = aValue;
     isSet.TTL = 1;
@@ -450,7 +393,7 @@ namespace genProvider {
   }       
 
   //----------------------------------------------------------------------------
-  const CMPIUint32
+  const CMPISint32
   Linux_DnsResourceRecordInstance::getTTL() const {
     
     if ( ! isSet.TTL) {
@@ -476,7 +419,6 @@ namespace genProvider {
     isSet.Description = 0;
     isSet.ElementName = 0;
     isSet.Family = 0;
-    isSet.SettingID = 0;
     isSet.TTL = 0;
   	
   }
@@ -510,17 +452,12 @@ namespace genProvider {
     }
    	
     if (anOriginal.isFamilySet()) {
-      const CMPIUint16 FamilyOriginal = anOriginal.getFamily();
+      const CMPIUint8 FamilyOriginal = anOriginal.getFamily();
       setFamily(FamilyOriginal);
     }
    	
-    if (anOriginal.isSettingIDSet()) {
-      const char* SettingIDOriginal = anOriginal.getSettingID();
-      setSettingID(SettingIDOriginal,1);
-    }
-   	
     if (anOriginal.isTTLSet()) {
-      const CMPIUint32 TTLOriginal = anOriginal.getTTL();
+      const CMPISint32 TTLOriginal = anOriginal.getTTL();
       setTTL(TTLOriginal);
     }
     
@@ -542,10 +479,6 @@ namespace genProvider {
 
   	if (isSet.ElementName) {
   	  delete(m_ElementName);
-  	}
-
-  	if (isSet.SettingID) {
-  	  delete(m_SettingID);
   	}
 
   }

@@ -1,6 +1,6 @@
 // =======================================================================
 // Linux_DnsMasterZoneManualInstance.cpp
-//     created on Fri, 3 Mar 2006 using ECUTE
+//     created on Thu, 23 Nov 2006 using ECUTE 2.2
 // 
 // Copyright (c) 2006, International Business Machines
 //
@@ -14,8 +14,10 @@
 // Author:        generated
 //
 // Contributors:
-//                Murillo Bernardes <bernarde@br.ibm.com>
-//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//                Wolfgang Taphorn   <taphorn at de.ibm.com>
+//                Murillo Bernardes  <bernarde(at)br.ibm.com>
+//                Mukunda Chowdaiah  <cmukunda(at)in.ibm.com>
+//                Ashoka S Rao       <ashoka.rao(at)in.ibm.com>
 //
 // =======================================================================
 //
@@ -73,20 +75,8 @@ namespace genProvider {
 
     cmpiData = aCmpiInstance.getProperty("Forward");
     if ( ! cmpiData.isNullValue()){
-      CMPIUint16 Forward = cmpiData;
+      CMPIUint8 Forward = cmpiData;
       setForward(Forward);
-    }
-
-    cmpiData = aCmpiInstance.getProperty("Forwarders");
-    if ( ! cmpiData.isNullValue()){
-      CmpiArray Forwarders = cmpiData;
-    unsigned int ForwardersSize;
-    const char** ForwardersArray;
-    ArrayConverter::makeArray(
-      Forwarders, 
-      (char***)&ForwardersArray, 
-      ForwardersSize);
-      setForwarders(ForwardersArray, ForwardersSize, 0);
     }
 
     cmpiData = aCmpiInstance.getProperty("NegativeCachingTTL");
@@ -99,12 +89,6 @@ namespace genProvider {
     if ( ! cmpiData.isNullValue()){
       CMPIUint32 Refresh = cmpiData;
       setRefresh(Refresh);
-    }
-
-    cmpiData = aCmpiInstance.getProperty("ResourceRecordFile");
-    if ( ! cmpiData.isNullValue()){
-      CmpiString ResourceRecordFile = cmpiData;
-      setResourceRecordFile(ResourceRecordFile.charPtr());
     }
 
     cmpiData = aCmpiInstance.getProperty("Retry");
@@ -125,10 +109,22 @@ namespace genProvider {
       setServer(Server.charPtr());
     }
 
+    cmpiData = aCmpiInstance.getProperty("TTL");
+    if ( ! cmpiData.isNullValue()){
+      CMPISint32 TTL = cmpiData;
+      setTTL(TTL);
+    }
+
     cmpiData = aCmpiInstance.getProperty("Type");
     if ( ! cmpiData.isNullValue()){
-      CMPIUint16 Type = cmpiData;
+      CMPIUint8 Type = cmpiData;
       setType(Type);
+    }
+
+    cmpiData = aCmpiInstance.getProperty("ZoneFile");
+    if ( ! cmpiData.isNullValue()){
+      CmpiString ZoneFile = cmpiData;
+      setZoneFile(ZoneFile.charPtr());
     }
 
     
@@ -192,21 +188,6 @@ namespace genProvider {
   	    CmpiData(m_Forward));
   	}
 
-  	if (isSet.Forwarders) {
-  	  
-      unsigned int ForwardersSize;
-      const char** arrayForwarders = getForwarders(ForwardersSize);
-      CmpiArray cmpiArrayForwarders = CmpiArray(
-        ForwardersSize,
-        CMPI_chars);
-      for (unsigned int x=0; x < ForwardersSize; ++x) {
-        cmpiArrayForwarders[x] = CmpiData(arrayForwarders[x]);
-      }
-  	  cmpiInstance.setProperty(
-  	    "Forwarders",
-  	    CmpiData(cmpiArrayForwarders));
-  	}
-
   	if (isSet.NegativeCachingTTL) {
   	  
   	  cmpiInstance.setProperty(
@@ -219,13 +200,6 @@ namespace genProvider {
   	  cmpiInstance.setProperty(
   	    "Refresh",
   	    CmpiData(m_Refresh));
-  	}
-
-  	if (isSet.ResourceRecordFile) {
-  	  
-  	  cmpiInstance.setProperty(
-  	    "ResourceRecordFile",
-  	    CmpiData(m_ResourceRecordFile));
   	}
 
   	if (isSet.Retry) {
@@ -249,11 +223,25 @@ namespace genProvider {
   	    CmpiData(m_Server));
   	}
 
+  	if (isSet.TTL) {
+  	  
+  	  cmpiInstance.setProperty(
+  	    "TTL",
+  	    CmpiData(m_TTL));
+  	}
+
   	if (isSet.Type) {
   	  
   	  cmpiInstance.setProperty(
   	    "Type",
   	    CmpiData(m_Type));
+  	}
+
+  	if (isSet.ZoneFile) {
+  	  
+  	  cmpiInstance.setProperty(
+  	    "ZoneFile",
+  	    CmpiData(m_ZoneFile));
   	}
 
   	
@@ -383,7 +371,7 @@ namespace genProvider {
 
   //----------------------------------------------------------------------------
   void Linux_DnsMasterZoneManualInstance::setForward(
-    const CMPIUint16 aValue) {
+    const CMPIUint8 aValue) {
   
     m_Forward = aValue;
     isSet.Forward = 1;
@@ -391,7 +379,7 @@ namespace genProvider {
   }       
 
   //----------------------------------------------------------------------------
-  const CMPIUint16
+  const CMPIUint8
   Linux_DnsMasterZoneManualInstance::getForward() const {
     
     if ( ! isSet.Forward) {
@@ -403,58 +391,6 @@ namespace genProvider {
 
 
     return m_Forward;
-
-  }
-       
-  //----------------------------------------------------------------------------
-  // Forwarders related methods
-  //----------------------------------------------------------------------------
-  unsigned int
-  Linux_DnsMasterZoneManualInstance::isForwardersSet() const {
-    return isSet.Forwarders;
-  }
-
-  //----------------------------------------------------------------------------
-  void  
-  Linux_DnsMasterZoneManualInstance::setForwarders(
-    const char** aValuePP, 
-    const unsigned int aSize,
-    int aCopyFlag) {
-    
-    if (isSet.Forwarders) {
-      delete m_Forwarders;
-    }
-    
-    if (aCopyFlag && aValuePP) {
-      m_Forwarders = new const char*[aSize];
-      for (unsigned int x=0; x < aSize; ++x) {
-        char* stringP = new char[strlen(aValuePP[x])+1];
-        strcpy(stringP,aValuePP[x]);
-        m_Forwarders[x] = stringP;
-      }      
-    } else {
-      m_Forwarders = aValuePP;
-    }
-    
-    m_ForwardersSize = aSize;
-    
-    isSet.Forwarders = 1;
-    
-  }       
-
-  //----------------------------------------------------------------------------
-  const char**
-  Linux_DnsMasterZoneManualInstance::getForwarders(unsigned int& aSize) const {
-    
-    if ( ! isSet.Forwarders) {
-   	  throw CmpiErrorFormater::getErrorException(
-   	    CmpiErrorFormater::NOT_SET,
-        "Forwarders",
-        "Linux_DnsMasterZone");
-   	}
-
-    aSize = m_ForwardersSize;
-    return m_Forwarders;
 
   }
        
@@ -521,52 +457,6 @@ namespace genProvider {
 
 
     return m_Refresh;
-
-  }
-       
-  //----------------------------------------------------------------------------
-  // ResourceRecordFile related methods
-  //----------------------------------------------------------------------------
-  unsigned int
-  Linux_DnsMasterZoneManualInstance::isResourceRecordFileSet() const {
-    return isSet.ResourceRecordFile;
-  }
-
-  //----------------------------------------------------------------------------
-  void
-  Linux_DnsMasterZoneManualInstance::setResourceRecordFile(
-    const char* aValueP,
-    int aCopyFlag) {
-    
-    if (isSet.ResourceRecordFile) {
-      delete [] m_ResourceRecordFile;
-    }
-    
-    if (aCopyFlag && aValueP) {
-      char* valueP = new char[strlen(aValueP) + 1];
-      strcpy(valueP,aValueP);
-      m_ResourceRecordFile = valueP;
-    } else {
-      m_ResourceRecordFile = aValueP;
-    }
-    
-    isSet.ResourceRecordFile = 1;
-
-  }       
-
-  //----------------------------------------------------------------------------
-  const char*
-  Linux_DnsMasterZoneManualInstance::getResourceRecordFile() const {
-    
-    if ( ! isSet.ResourceRecordFile) {
-   	  throw CmpiErrorFormater::getErrorException(
-   	    CmpiErrorFormater::NOT_SET,
-        "ResourceRecordFile",
-        "Linux_DnsMasterZone");
-   	}
-
-
-    return m_ResourceRecordFile;
 
   }
        
@@ -696,6 +586,39 @@ namespace genProvider {
   }
        
   //----------------------------------------------------------------------------
+  // TTL related methods
+  //----------------------------------------------------------------------------
+  unsigned int
+  Linux_DnsMasterZoneManualInstance::isTTLSet() const {
+    return isSet.TTL;
+  }
+
+  //----------------------------------------------------------------------------
+  void Linux_DnsMasterZoneManualInstance::setTTL(
+    const CMPISint32 aValue) {
+  
+    m_TTL = aValue;
+    isSet.TTL = 1;
+  
+  }       
+
+  //----------------------------------------------------------------------------
+  const CMPISint32
+  Linux_DnsMasterZoneManualInstance::getTTL() const {
+    
+    if ( ! isSet.TTL) {
+   	  throw CmpiErrorFormater::getErrorException(
+   	    CmpiErrorFormater::NOT_SET,
+        "TTL",
+        "Linux_DnsMasterZone");
+   	}
+
+
+    return m_TTL;
+
+  }
+       
+  //----------------------------------------------------------------------------
   // Type related methods
   //----------------------------------------------------------------------------
   unsigned int
@@ -705,7 +628,7 @@ namespace genProvider {
 
   //----------------------------------------------------------------------------
   void Linux_DnsMasterZoneManualInstance::setType(
-    const CMPIUint16 aValue) {
+    const CMPIUint8 aValue) {
   
     m_Type = aValue;
     isSet.Type = 1;
@@ -713,7 +636,7 @@ namespace genProvider {
   }       
 
   //----------------------------------------------------------------------------
-  const CMPIUint16
+  const CMPIUint8
   Linux_DnsMasterZoneManualInstance::getType() const {
     
     if ( ! isSet.Type) {
@@ -727,6 +650,52 @@ namespace genProvider {
     return m_Type;
 
   }
+       
+  //----------------------------------------------------------------------------
+  // ZoneFile related methods
+  //----------------------------------------------------------------------------
+  unsigned int
+  Linux_DnsMasterZoneManualInstance::isZoneFileSet() const {
+    return isSet.ZoneFile;
+  }
+
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsMasterZoneManualInstance::setZoneFile(
+    const char* aValueP,
+    int aCopyFlag) {
+    
+    if (isSet.ZoneFile) {
+      delete [] m_ZoneFile;
+    }
+    
+    if (aCopyFlag && aValueP) {
+      char* valueP = new char[strlen(aValueP) + 1];
+      strcpy(valueP,aValueP);
+      m_ZoneFile = valueP;
+    } else {
+      m_ZoneFile = aValueP;
+    }
+    
+    isSet.ZoneFile = 1;
+
+  }       
+
+  //----------------------------------------------------------------------------
+  const char*
+  Linux_DnsMasterZoneManualInstance::getZoneFile() const {
+    
+    if ( ! isSet.ZoneFile) {
+   	  throw CmpiErrorFormater::getErrorException(
+   	    CmpiErrorFormater::NOT_SET,
+        "ZoneFile",
+        "Linux_DnsMasterZone");
+   	}
+
+
+    return m_ZoneFile;
+
+  }
 
   
   //----------------------------------------------------------------------------
@@ -738,15 +707,14 @@ namespace genProvider {
     isSet.Contact = 0;
     isSet.Expire = 0;
     isSet.Forward = 0;
-    isSet.Forwarders = 0;
-    m_ForwardersSize = 0;
     isSet.NegativeCachingTTL = 0;
     isSet.Refresh = 0;
-    isSet.ResourceRecordFile = 0;
     isSet.Retry = 0;
     isSet.SerialNumber = 0;
     isSet.Server = 0;
+    isSet.TTL = 0;
     isSet.Type = 0;
+    isSet.ZoneFile = 0;
   	
   }
   
@@ -774,14 +742,8 @@ namespace genProvider {
     }
    	
     if (anOriginal.isForwardSet()) {
-      const CMPIUint16 ForwardOriginal = anOriginal.getForward();
+      const CMPIUint8 ForwardOriginal = anOriginal.getForward();
       setForward(ForwardOriginal);
-    }
-   	
-    if (anOriginal.isForwardersSet()) {
-      unsigned int sizeForwarders;
-      const char** ForwardersOriginal = anOriginal.getForwarders(sizeForwarders);
-      setForwarders(ForwardersOriginal, sizeForwarders,1);
     }
    	
     if (anOriginal.isNegativeCachingTTLSet()) {
@@ -792,11 +754,6 @@ namespace genProvider {
     if (anOriginal.isRefreshSet()) {
       const CMPIUint32 RefreshOriginal = anOriginal.getRefresh();
       setRefresh(RefreshOriginal);
-    }
-   	
-    if (anOriginal.isResourceRecordFileSet()) {
-      const char* ResourceRecordFileOriginal = anOriginal.getResourceRecordFile();
-      setResourceRecordFile(ResourceRecordFileOriginal,1);
     }
    	
     if (anOriginal.isRetrySet()) {
@@ -814,9 +771,19 @@ namespace genProvider {
       setServer(ServerOriginal,1);
     }
    	
+    if (anOriginal.isTTLSet()) {
+      const CMPISint32 TTLOriginal = anOriginal.getTTL();
+      setTTL(TTLOriginal);
+    }
+   	
     if (anOriginal.isTypeSet()) {
-      const CMPIUint16 TypeOriginal = anOriginal.getType();
+      const CMPIUint8 TypeOriginal = anOriginal.getType();
       setType(TypeOriginal);
+    }
+   	
+    if (anOriginal.isZoneFileSet()) {
+      const char* ZoneFileOriginal = anOriginal.getZoneFile();
+      setZoneFile(ZoneFileOriginal,1);
     }
     
   }
@@ -831,20 +798,16 @@ namespace genProvider {
   	  delete(m_Contact);
   	}
 
-  	if (isSet.Forwarders) {
-  	  ArrayConverter::destructArray((char**)m_Forwarders,m_ForwardersSize);
-  	}
-
-  	if (isSet.ResourceRecordFile) {
-  	  delete(m_ResourceRecordFile);
-  	}
-
   	if (isSet.SerialNumber) {
   	  delete(m_SerialNumber);
   	}
 
   	if (isSet.Server) {
   	  delete(m_Server);
+  	}
+
+  	if (isSet.ZoneFile) {
+  	  delete(m_ZoneFile);
   	}
 
   }

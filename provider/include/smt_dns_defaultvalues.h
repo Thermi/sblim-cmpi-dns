@@ -22,9 +22,9 @@
  
 #define DEFAULT_SERVICE_NAME               "named"
 #define	DEFAULT_SYSTEM_CREATION_CLASS_NAME "Linux_DnsService"
-#define DEFAULT_SYSTEM_NAME	               "localhost"
+#define DEFAULT_SYSTEM_NAME	           "localhost"
 #define DEFAULT_CREATION_CLASS_NAME        "Linux_DnsService"
-
+#define DEFAULT_INSTANCE_ID                "named"
 #define DEFAULT_CONFIGURATION_FILE         "/etc/named.conf"
 
 #endif

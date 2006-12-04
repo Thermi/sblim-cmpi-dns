@@ -1,0 +1,5 @@
+Changes in 0.2.3-1
+==============================================================================
+- 1608730  cmpi-dns: Build does not pass 'make distcheck'
+- 1608764  cmpi-dns: Adding test cases
+- 1608767  cmpi-dns: Model changes

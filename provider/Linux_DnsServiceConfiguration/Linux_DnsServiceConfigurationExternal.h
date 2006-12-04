@@ -1,6 +1,6 @@
 // =======================================================================
 // Linux_DnsServiceConfigurationExternal.h
-//     created on Fri, 3 Mar 2006 using ECUTE
+//     created on Thu, 23 Nov 2006 using ECUTE 2.2
 // 
 // Copyright (c) 2006, International Business Machines
 //
@@ -14,8 +14,10 @@
 // Author:        generated
 //
 // Contributors:
-//                Murillo Bernardes <bernarde@br.ibm.com>
-//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//                Wolfgang Taphorn   <taphorn at de.ibm.com>
+//                Murillo Bernardes  <bernarde(at)br.ibm.com>
+//                Mukunda Chowdaiah  <cmukunda(at)in.ibm.com>
+//                Ashoka S Rao       <ashoka.rao(at)in.ibm.com>
 //
 // =======================================================================
 //
@@ -25,8 +27,6 @@
 
 
 #include "Linux_DnsServiceConfigurationInstance.h"
-#include "Linux_DnsConfigurationInstance.h"
-#include "Linux_DnsServiceInstance.h"
 
 #include "CmpiBroker.h"
 
@@ -67,52 +67,7 @@ namespace genProvider {
     virtual void deleteInstance(
       const Linux_DnsServiceConfigurationInstanceName& anInstanceName);
 
-
-    //association calls
-
-    void referencesConfiguration( 
-      const char *aNameSpaceP,
-      const char** aPropertiesPP,
-      const Linux_DnsServiceInstanceName& aSourceInstanceName,
-      Linux_DnsServiceConfigurationInstanceEnumeration& anInstanceEnumeration);
-
-    void referenceNamesConfiguration( 
-      const char *aNameSpaceP,
-      const Linux_DnsServiceInstanceName& aSourceInstanceName,
-      Linux_DnsServiceConfigurationInstanceNameEnumeration& anInstanceNameEnumeration);
-
-    void referencesElement( 
-      const char *aNameSpaceP,
-      const char** aPropertiesPP,
-      const Linux_DnsConfigurationInstanceName& aSourceInstanceName,
-      Linux_DnsServiceConfigurationInstanceEnumeration& anInstanceEnumeration);
-
-    void referenceNamesElement( 
-      const char *aNameSpaceP,
-      const Linux_DnsConfigurationInstanceName& aSourceInstanceName,
-      Linux_DnsServiceConfigurationInstanceNameEnumeration& anInstanceNameEnumeration);
-
-    void associatorsConfiguration( 
-      const char *aNameSpaceP,
-      const char** aPropertiesPP,
-      const Linux_DnsServiceInstanceName& aSourceInstanceName,
-      Linux_DnsConfigurationInstanceEnumeration& anInstanceEnumeration);
-
-    void associatorNamesConfiguration( 
-      const char *aNameSpaceP,
-      const Linux_DnsServiceInstanceName& aSourceInstanceName,
-      Linux_DnsConfigurationInstanceNameEnumeration& anInstanceNameEnumeration);
-
-    void associatorsElement( 
-      const char *aNameSpaceP,
-      const char** aPropertiesPP,
-      const Linux_DnsConfigurationInstanceName& aSourceInstanceName,
-      Linux_DnsServiceInstanceEnumeration& anInstanceEnumeration);
-
-    void associatorNamesElement( 
-      const char *aNameSpaceP,
-      const Linux_DnsConfigurationInstanceName& aSourceInstanceName,
-      Linux_DnsServiceInstanceNameEnumeration& anInstanceNameEnumeration); 
+ 
   
   };
 

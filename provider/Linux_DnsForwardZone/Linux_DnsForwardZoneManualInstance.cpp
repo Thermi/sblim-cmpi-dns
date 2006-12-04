@@ -1,6 +1,6 @@
 // =======================================================================
 // Linux_DnsForwardZoneManualInstance.cpp
-//     created on Fri, 3 Mar 2006 using ECUTE
+//     created on Wed, 29 Nov 2006 using ECUTE 2.2
 // 
 // Copyright (c) 2006, International Business Machines
 //
@@ -14,8 +14,10 @@
 // Author:        generated
 //
 // Contributors:
-//                Murillo Bernardes <bernarde@br.ibm.com>
-//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//                Wolfgang Taphorn   <taphorn at de.ibm.com>
+//                Murillo Bernardes  <bernarde(at)br.ibm.com>
+//                Mukunda Chowdaiah  <cmukunda(at)in.ibm.com>
+//                Ashoka S Rao       <ashoka.rao(at)in.ibm.com>
 //
 // =======================================================================
 //
@@ -61,31 +63,13 @@ namespace genProvider {
 
     cmpiData = aCmpiInstance.getProperty("Forward");
     if ( ! cmpiData.isNullValue()){
-      CMPIUint16 Forward = cmpiData;
+      CMPIUint8 Forward = cmpiData;
       setForward(Forward);
-    }
-
-    cmpiData = aCmpiInstance.getProperty("Forwarders");
-    if ( ! cmpiData.isNullValue()){
-      CmpiArray Forwarders = cmpiData;
-    unsigned int ForwardersSize;
-    const char** ForwardersArray;
-    ArrayConverter::makeArray(
-      Forwarders, 
-      (char***)&ForwardersArray, 
-      ForwardersSize);
-      setForwarders(ForwardersArray, ForwardersSize, 0);
-    }
-
-    cmpiData = aCmpiInstance.getProperty("ResourceRecordFile");
-    if ( ! cmpiData.isNullValue()){
-      CmpiString ResourceRecordFile = cmpiData;
-      setResourceRecordFile(ResourceRecordFile.charPtr());
     }
 
     cmpiData = aCmpiInstance.getProperty("Type");
     if ( ! cmpiData.isNullValue()){
-      CMPIUint16 Type = cmpiData;
+      CMPIUint8 Type = cmpiData;
       setType(Type);
     }
 
@@ -134,28 +118,6 @@ namespace genProvider {
   	  cmpiInstance.setProperty(
   	    "Forward",
   	    CmpiData(m_Forward));
-  	}
-
-  	if (isSet.Forwarders) {
-  	  
-      unsigned int ForwardersSize;
-      const char** arrayForwarders = getForwarders(ForwardersSize);
-      CmpiArray cmpiArrayForwarders = CmpiArray(
-        ForwardersSize,
-        CMPI_chars);
-      for (unsigned int x=0; x < ForwardersSize; ++x) {
-        cmpiArrayForwarders[x] = CmpiData(arrayForwarders[x]);
-      }
-  	  cmpiInstance.setProperty(
-  	    "Forwarders",
-  	    CmpiData(cmpiArrayForwarders));
-  	}
-
-  	if (isSet.ResourceRecordFile) {
-  	  
-  	  cmpiInstance.setProperty(
-  	    "ResourceRecordFile",
-  	    CmpiData(m_ResourceRecordFile));
   	}
 
   	if (isSet.Type) {
@@ -213,7 +175,7 @@ namespace genProvider {
 
   //----------------------------------------------------------------------------
   void Linux_DnsForwardZoneManualInstance::setForward(
-    const CMPIUint16 aValue) {
+    const CMPIUint8 aValue) {
   
     m_Forward = aValue;
     isSet.Forward = 1;
@@ -221,7 +183,7 @@ namespace genProvider {
   }       
 
   //----------------------------------------------------------------------------
-  const CMPIUint16
+  const CMPIUint8
   Linux_DnsForwardZoneManualInstance::getForward() const {
     
     if ( ! isSet.Forward) {
@@ -237,104 +199,6 @@ namespace genProvider {
   }
        
   //----------------------------------------------------------------------------
-  // Forwarders related methods
-  //----------------------------------------------------------------------------
-  unsigned int
-  Linux_DnsForwardZoneManualInstance::isForwardersSet() const {
-    return isSet.Forwarders;
-  }
-
-  //----------------------------------------------------------------------------
-  void  
-  Linux_DnsForwardZoneManualInstance::setForwarders(
-    const char** aValuePP, 
-    const unsigned int aSize,
-    int aCopyFlag) {
-    
-    if (isSet.Forwarders) {
-      delete m_Forwarders;
-    }
-    
-    if (aCopyFlag && aValuePP) {
-      m_Forwarders = new const char*[aSize];
-      for (unsigned int x=0; x < aSize; ++x) {
-        char* stringP = new char[strlen(aValuePP[x])+1];
-        strcpy(stringP,aValuePP[x]);
-        m_Forwarders[x] = stringP;
-      }      
-    } else {
-      m_Forwarders = aValuePP;
-    }
-    
-    m_ForwardersSize = aSize;
-    
-    isSet.Forwarders = 1;
-    
-  }       
-
-  //----------------------------------------------------------------------------
-  const char**
-  Linux_DnsForwardZoneManualInstance::getForwarders(unsigned int& aSize) const {
-    
-    if ( ! isSet.Forwarders) {
-   	  throw CmpiErrorFormater::getErrorException(
-   	    CmpiErrorFormater::NOT_SET,
-        "Forwarders",
-        "Linux_DnsForwardZone");
-   	}
-
-    aSize = m_ForwardersSize;
-    return m_Forwarders;
-
-  }
-       
-  //----------------------------------------------------------------------------
-  // ResourceRecordFile related methods
-  //----------------------------------------------------------------------------
-  unsigned int
-  Linux_DnsForwardZoneManualInstance::isResourceRecordFileSet() const {
-    return isSet.ResourceRecordFile;
-  }
-
-  //----------------------------------------------------------------------------
-  void
-  Linux_DnsForwardZoneManualInstance::setResourceRecordFile(
-    const char* aValueP,
-    int aCopyFlag) {
-    
-    if (isSet.ResourceRecordFile) {
-      delete [] m_ResourceRecordFile;
-    }
-    
-    if (aCopyFlag && aValueP) {
-      char* valueP = new char[strlen(aValueP) + 1];
-      strcpy(valueP,aValueP);
-      m_ResourceRecordFile = valueP;
-    } else {
-      m_ResourceRecordFile = aValueP;
-    }
-    
-    isSet.ResourceRecordFile = 1;
-
-  }       
-
-  //----------------------------------------------------------------------------
-  const char*
-  Linux_DnsForwardZoneManualInstance::getResourceRecordFile() const {
-    
-    if ( ! isSet.ResourceRecordFile) {
-   	  throw CmpiErrorFormater::getErrorException(
-   	    CmpiErrorFormater::NOT_SET,
-        "ResourceRecordFile",
-        "Linux_DnsForwardZone");
-   	}
-
-
-    return m_ResourceRecordFile;
-
-  }
-       
-  //----------------------------------------------------------------------------
   // Type related methods
   //----------------------------------------------------------------------------
   unsigned int
@@ -344,7 +208,7 @@ namespace genProvider {
 
   //----------------------------------------------------------------------------
   void Linux_DnsForwardZoneManualInstance::setType(
-    const CMPIUint16 aValue) {
+    const CMPIUint8 aValue) {
   
     m_Type = aValue;
     isSet.Type = 1;
@@ -352,7 +216,7 @@ namespace genProvider {
   }       
 
   //----------------------------------------------------------------------------
-  const CMPIUint16
+  const CMPIUint8
   Linux_DnsForwardZoneManualInstance::getType() const {
     
     if ( ! isSet.Type) {
@@ -375,9 +239,6 @@ namespace genProvider {
   Linux_DnsForwardZoneManualInstance::init() {
    	isSet.instanceName = 0;
     isSet.Forward = 0;
-    isSet.Forwarders = 0;
-    m_ForwardersSize = 0;
-    isSet.ResourceRecordFile = 0;
     isSet.Type = 0;
   	
   }
@@ -396,23 +257,12 @@ namespace genProvider {
     }
        	
     if (anOriginal.isForwardSet()) {
-      const CMPIUint16 ForwardOriginal = anOriginal.getForward();
+      const CMPIUint8 ForwardOriginal = anOriginal.getForward();
       setForward(ForwardOriginal);
     }
    	
-    if (anOriginal.isForwardersSet()) {
-      unsigned int sizeForwarders;
-      const char** ForwardersOriginal = anOriginal.getForwarders(sizeForwarders);
-      setForwarders(ForwardersOriginal, sizeForwarders,1);
-    }
-   	
-    if (anOriginal.isResourceRecordFileSet()) {
-      const char* ResourceRecordFileOriginal = anOriginal.getResourceRecordFile();
-      setResourceRecordFile(ResourceRecordFileOriginal,1);
-    }
-   	
     if (anOriginal.isTypeSet()) {
-      const CMPIUint16 TypeOriginal = anOriginal.getType();
+      const CMPIUint8 TypeOriginal = anOriginal.getType();
       setType(TypeOriginal);
     }
     
@@ -424,14 +274,6 @@ namespace genProvider {
   void
   Linux_DnsForwardZoneManualInstance::reset() {
    	
-  	if (isSet.Forwarders) {
-  	  ArrayConverter::destructArray((char**)m_Forwarders,m_ForwardersSize);
-  	}
-
-  	if (isSet.ResourceRecordFile) {
-  	  delete(m_ResourceRecordFile);
-  	}
-
   }
   
   //----------------------------------------------------------------------------

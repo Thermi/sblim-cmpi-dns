@@ -1,6 +1,6 @@
 // =======================================================================
 // Linux_DnsServiceConfigurationResourceAccess.cpp
-//     created on Fri, 3 Mar 2006 using ECUTE
+//     created on Thu, 26 Oct 2006 using ECUTE 2.2
 // 
 // Copyright (c) 2006, International Business Machines
 //
@@ -14,8 +14,10 @@
 // Author:        generated
 //
 // Contributors:
-//                Murillo Bernardes <bernarde@br.ibm.com>
-//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//                Wolfgang Taphorn   <taphorn at de.ibm.com>
+//                Murillo Bernardes  <bernarde(at)br.ibm.com>
+//                Mukunda Chowdaiah  <cmukunda(at)in.ibm.com>
+//                Ashoka S Rao       <ashoka.rao(at)in.ibm.com>
 //
 // =======================================================================
 //
@@ -24,12 +26,11 @@
 
 #include <string>
 #include <list>
-#include <iostream>
 
 using namespace std;
 
-#include "smt_dns_ra_support.h"
 #include "smt_dns_defaultvalues.h"
+#include "smt_dns_ra_support.h"
 
 namespace genProvider {
   
@@ -40,8 +41,8 @@ namespace genProvider {
   Linux_DnsServiceConfigurationResourceAccess::~Linux_DnsServiceConfigurationResourceAccess() { }
     
   // intrinsic methods
-  /*
-  //----------------------------------------------------------------------------
+ //----------------------------------------------------------------------------
+
   void
   Linux_DnsServiceConfigurationResourceAccess::enumInstanceNames(
      const CmpiContext& aContext,
@@ -49,31 +50,52 @@ namespace genProvider {
      const char* aNameSpaceP,
      Linux_DnsServiceConfigurationInstanceNameEnumeration& anInstanceNameEnumeration) {
       
-    int instanceNameN = 1;
-    for (int x=0; x < instanceNameN; ++x) {
-      
-      //place here the code retrieving your instanceName
-      
-      Linux_DnsServiceConfigurationInstanceName instanceName;
-      
-    }      
+#ifdef DEBUG
+    cout << "entering Linux_DnsServiceConfiguration::enumInstanceNames" << endl;
+#endif
+    Linux_DnsServiceConfigurationInstanceName instanceName;
+
+    instanceName.setNamespace(aNameSpaceP);
+    instanceName.setName(DEFAULT_SERVICE_NAME);
+
+    anInstanceNameEnumeration.addElement(instanceName);
+
+#ifdef DEBUG
+    cout << "exiting Linux_DnsServiceConfiguration::enumInstanceNames" << endl;
+#endif
+  } 
+//----------------------------------------------------------------------------
   
-  }
-  */
-  
-  //----------------------------------------------------------------------------
-  /*
   void
   Linux_DnsServiceConfigurationResourceAccess::enumInstances(
     const CmpiContext& aContext,
     const CmpiBroker& aBroker,
-     const char* aNameSpaceP,
-     const char** aPropertiesPP,
-  	 Linux_DnsServiceConfigurationManualInstanceEnumeration& aManualInstanceEnumeration) { }
-  */
+    const char* aNameSpaceP,
+    const char** aPropertiesPP,
+    Linux_DnsServiceConfigurationManualInstanceEnumeration& aManualInstanceEnumeration) {
+
+#ifdef DEBUG
+    cout << "entering Linux_DnsServiceConfiguration::enumInstances" << endl;
+#endif
+
+    Linux_DnsServiceConfigurationInstanceName instanceName;
+    Linux_DnsServiceConfigurationManualInstance aManualInstance;
+
+    instanceName.setNamespace(aNameSpaceP);
+    instanceName.setName(DEFAULT_SERVICE_NAME);
+
+    aManualInstance.setInstanceName(instanceName);
+    aManualInstance.setConfigurationFile(get_bindconf());
+
+    aManualInstanceEnumeration.addElement(aManualInstance);
+
+#ifdef DEBUG
+    cout << "exiting Linux_DnsServiceConfiguration::enumInstances" << endl;
+#endif
+}
   
-  //----------------------------------------------------------------------------
-  /*
+//----------------------------------------------------------------------------
+  
   Linux_DnsServiceConfigurationManualInstance 
   Linux_DnsServiceConfigurationResourceAccess::getInstance(
     const CmpiContext& aContext,
@@ -81,22 +103,63 @@ namespace genProvider {
     const char** aPropertiesPP,
     const Linux_DnsServiceConfigurationInstanceName& anInstanceName) {
 
-    Linux_DnsServiceConfigurationManualInstance manualInstance;
+#ifdef DEBUG
+    cout << "entering Linux_DnsServiceConfiguration::getInstance" << endl;
+#endif
 
-  
-  }
-  */
+    //Check whether the said instanc exists, else throw exception.
+    if (strcasecmp(anInstanceName.getName(),DEFAULT_SERVICE_NAME)!=0) {
+        throw CmpiStatus(CMPI_RC_ERR_NOT_FOUND,"Instance does not exist!");
+     }
+
+    Linux_DnsServiceConfigurationManualInstance aManualInstance;
+
+    aManualInstance.setInstanceName(anInstanceName);
+    aManualInstance.setConfigurationFile(get_bindconf());
+
+#ifdef DEBUG
+    cout << "exiting Linux_DnsServiceConfiguration::getInstance" << endl;
+#endif
+    return aManualInstance;
+}
   //----------------------------------------------------------------------------
-  /*
+ 
   void
   Linux_DnsServiceConfigurationResourceAccess::setInstance(
      const CmpiContext& aContext,
      const CmpiBroker& aBroker,
      const char** aPropertiesPP,
-     const Linux_DnsServiceConfigurationManualInstance& aManualInstance) { }
-  */
+     const Linux_DnsServiceConfigurationManualInstance& aManualInstance) {
+
+#ifdef DEBUG
+    cout << "entering Linux_DnsServiceConfiguration::setInstance" << endl;
+#endif
+
+     if (strcasecmp(aManualInstance.getInstanceName().getName(),DEFAULT_SERVICE_NAME)!=0) {
+        throw CmpiStatus(CMPI_RC_ERR_NOT_FOUND,"Instance does not exist!");
+     }
   
-  //----------------------------------------------------------------------------
+     if (!aManualInstance.isConfigurationFileSet() || CmpiData(aManualInstance.getConfigurationFile()).isNullValue())
+      throw CmpiStatus(CMPI_RC_ERR_INVALID_PARAMETER,"The required parameter ConfigurationFile is not set properly!");     
+      
+
+    char* PrsntConfFile = get_bindconf();
+    const char* NewConfFile =  aManualInstance.getConfigurationFile();
+
+    //cout<<"Present conf file = "<<PrsntConfFile<<endl;
+    //cout<<"New conf file = "<<NewConfFile<<endl;
+
+    if(!strcmp(PrsntConfFile,NewConfFile))
+      throw CmpiStatus(CMPI_RC_ERR_INVALID_PARAMETER,"The absolute path name of the configuration file is same as supplied!");
+    
+   set_bindconf(NewConfFile);
+    
+#ifdef DEBUG
+    cout << "exiting Linux_DnsServiceConfiguration::setInstance" << endl;
+#endif
+}
+  
+//----------------------------------------------------------------------------
   /*
   Linux_DnsServiceConfigurationInstanceName
   Linux_DnsServiceConfigurationResourceAccess::createInstance(
@@ -115,142 +178,6 @@ namespace genProvider {
 	*/
 	
 
-  // Association Interface
-  //----------------------------------------------------------------------------
-
-  void Linux_DnsServiceConfigurationResourceAccess::referencesConfiguration( 
-    const CmpiContext& aContext,  
-    const CmpiBroker& aBroker,
-    const char* aNameSpaceP,
-    const char** aPropertiesPP,
-    const Linux_DnsServiceInstanceName& aSourceInstanceName,
-    Linux_DnsServiceConfigurationManualInstanceEnumeration& aManualInstanceEnumeration) {
-    
-#ifdef DEBUG
-    cout << "entering Linux_DnsServiceConfiguration::referencesConfiguration" << endl;
-#endif
-
-    Linux_DnsConfigurationInstanceName confInstanceName;
-    confInstanceName.setNamespace(aNameSpaceP);
-    confInstanceName.setName(DEFAULT_SERVICE_NAME);
-    
-    Linux_DnsServiceConfigurationManualInstance aManualInstance;
-    Linux_DnsServiceConfigurationInstanceName instanceName;
-    instanceName.setNamespace( aNameSpaceP );
-    instanceName.setElement( aSourceInstanceName );
-    instanceName.setConfiguration( confInstanceName );
-    
-    aManualInstance.setInstanceName(instanceName);
-    
-    aManualInstanceEnumeration.addElement(aManualInstance);
-
-#ifdef DEBUG
-    cout << "exiting Linux_DnsServiceConfiguration::referencesConfiguration" << endl;
-#endif
-  }
-
-  
-  //----------------------------------------------------------------------------
-
-  void Linux_DnsServiceConfigurationResourceAccess::referencesElement( 
-    const CmpiContext& aContext,  
-    const CmpiBroker& aBroker,
-    const char* aNameSpaceP,
-    const char** aPropertiesPP,
-    const Linux_DnsConfigurationInstanceName& aSourceInstanceName,
-    Linux_DnsServiceConfigurationManualInstanceEnumeration& aManualInstanceEnumeration) {
-    
-#ifdef DEBUG
-    cout << "entering Linux_DnsServiceConfiguration::referencesElement" << endl;
-#endif
-
-    Linux_DnsServiceInstanceName serviceInstanceName;
-    
-    serviceInstanceName.setNamespace(aNameSpaceP);
-    serviceInstanceName.setName(DEFAULT_SERVICE_NAME);
-    serviceInstanceName.setSystemCreationClassName(DEFAULT_SYSTEM_CREATION_CLASS_NAME);
-    serviceInstanceName.setSystemName(DEFAULT_SYSTEM_NAME);
-    serviceInstanceName.setCreationClassName(DEFAULT_CREATION_CLASS_NAME);
-    
-    Linux_DnsServiceConfigurationManualInstance aManualInstance;
-    Linux_DnsServiceConfigurationInstanceName instanceName;
-    instanceName.setNamespace( aNameSpaceP );	
-    instanceName.setElement( serviceInstanceName );
-    instanceName.setConfiguration( aSourceInstanceName );
-    
-    aManualInstance.setInstanceName(instanceName);
-    
-    aManualInstanceEnumeration.addElement(aManualInstance);
-
-#ifdef DEBUG
-    cout << "exiting Linux_DnsServiceConfiguration::referencesElement" << endl;
-#endif
-  }
-
-  
-  //----------------------------------------------------------------------------
-
-  void Linux_DnsServiceConfigurationResourceAccess::associatorsConfiguration( 
-    const CmpiContext& aContext,  
-    const CmpiBroker& aBroker,
-    const char* aNameSpaceP,
-    const char** aPropertiesPP,
-    const Linux_DnsServiceInstanceName& aSourceInstanceName,
-    Linux_DnsConfigurationInstanceEnumeration& anInstanceEnumeration) {
-    
-#ifdef DEBUG
-    cout << "entering Linux_DnsServiceConfiguration::associatorsConfiguration" << endl;
-#endif
-
-    Linux_DnsConfigurationInstanceName instanceName;
-    Linux_DnsConfigurationInstance aManualInstance;
-    
-    instanceName.setNamespace(aNameSpaceP);
-    instanceName.setName(DEFAULT_SERVICE_NAME);
-    
-    aManualInstance.setInstanceName(instanceName);
-    aManualInstance.setConfigurationFile(get_bindconf());
-    
-    anInstanceEnumeration.addElement(aManualInstance);
-
-#ifdef DEBUG
-    cout << "exiting Linux_DnsServiceConfiguration::associatorsConfiguration" << endl;
-#endif
-  }
-
-  
-  //----------------------------------------------------------------------------
-
-  void Linux_DnsServiceConfigurationResourceAccess::associatorsElement( 
-    const CmpiContext& aContext,  
-    const CmpiBroker& aBroker,
-    const char* aNameSpaceP,
-    const char** aPropertiesPP,
-    const Linux_DnsConfigurationInstanceName& aSourceInstanceName,
-    Linux_DnsServiceInstanceEnumeration& anInstanceEnumeration) {
-    
-#ifdef DEBUG
-    cout << "entering Linux_DnsServiceConfiguration::associatorsElement" << endl;
-#endif
-
-    Linux_DnsServiceInstance inst;
-    Linux_DnsServiceInstanceName instanceName;
-    
-    instanceName.setNamespace(aNameSpaceP);
-    instanceName.setName(DEFAULT_SERVICE_NAME);
-    instanceName.setSystemCreationClassName(DEFAULT_SYSTEM_CREATION_CLASS_NAME);
-    instanceName.setSystemName(DEFAULT_SYSTEM_NAME);
-    instanceName.setCreationClassName(DEFAULT_CREATION_CLASS_NAME);
-    inst.setInstanceName(instanceName);
-    
-    anInstanceEnumeration.addElement(inst);
-
-#ifdef DEBUG
-    cout << "exiting Linux_DnsServiceConfiguration::associatorsElement" << endl;
-#endif
-  }
-
-   
   
   // extrinsic methods
 

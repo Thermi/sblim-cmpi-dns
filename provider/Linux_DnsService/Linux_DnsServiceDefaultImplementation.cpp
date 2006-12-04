@@ -1,6 +1,6 @@
 // =======================================================================
 // Linux_DnsServiceDefaultImplementation.cpp
-//     created on Fri, 3 Mar 2006 using ECUTE
+//     created on Thu, 23 Nov 2006 using ECUTE 2.2
 // 
 // Copyright (c) 2006, International Business Machines
 //
@@ -14,8 +14,10 @@
 // Author:        generated
 //
 // Contributors:
-//                Murillo Bernardes <bernarde@br.ibm.com>
-//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//                Wolfgang Taphorn   <taphorn at de.ibm.com>
+//                Murillo Bernardes  <bernarde(at)br.ibm.com>
+//                Mukunda Chowdaiah  <cmukunda(at)in.ibm.com>
+//                Ashoka S Rao       <ashoka.rao(at)in.ibm.com>
 //
 // =======================================================================
 //
@@ -41,7 +43,7 @@ namespace genProvider {
 #endif   	
 
    	throw CmpiErrorFormater::getErrorException(
-   	  CmpiErrorFormater::METHOD_NOT_FOUND,
+   	  CmpiErrorFormater::NOT_IMPLEMENTED,
    	  "enumInstanceEnumeration",
    	  "Linux_DnsService");   
 
@@ -131,7 +133,7 @@ namespace genProvider {
     	
 
     throw CmpiErrorFormater::getErrorException(
-   	  CmpiErrorFormater::METHOD_NOT_FOUND,
+   	  CmpiErrorFormater::NOT_IMPLEMENTED,
    	  "getInstance",
    	  "Linux_DnsService");
 
@@ -151,7 +153,7 @@ namespace genProvider {
     	
    
     throw CmpiErrorFormater::getErrorException(
-   	  CmpiErrorFormater::METHOD_NOT_FOUND,
+   	  CmpiErrorFormater::NOT_IMPLEMENTED,
    	  "setInstance",
    	  "Linux_DnsService");
    	 
@@ -169,7 +171,7 @@ namespace genProvider {
 #endif
 
     throw CmpiErrorFormater::getErrorException(
-   	 CmpiErrorFormater::METHOD_NOT_FOUND,
+   	 CmpiErrorFormater::NOT_IMPLEMENTED,
    	 "createInstance",
    	 "Linux_DnsService");
 
@@ -187,7 +189,7 @@ namespace genProvider {
 #endif
 
     throw CmpiErrorFormater::getErrorException(
-      CmpiErrorFormater::METHOD_NOT_FOUND,
+      CmpiErrorFormater::NOT_IMPLEMENTED,
       "deleteInstance",
       "Linux_DnsService");
 

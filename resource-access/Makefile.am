@@ -1,4 +1,3 @@
-# $Id: Makefile.am,v 1.5 2006/05/16 16:57:57 taphorn Exp $
 # ==================================================================
 # (C) Copyright IBM Corp. 2005
 #
@@ -46,6 +45,9 @@ CLEANFILES =
 # Start from an empty extra distribution file list
 EXTRA_DIST =
 
+# Start from an empty list of programs not to install
+noinst_PROGRAMS =
+
 
 ######################################################################################
 # Automake instructions for 'resource-access' dir
@@ -54,54 +56,139 @@ smt_dns_ra_support.conf: smt_dns_ra_support.conf.pre
 	sed -e 's,[@]SCRIPTDIR[@],$(pkgdatadir),g' -e s?$$\{prefix\}?$(prefix)?g -e s?$$\{exec_prefix\}?$(prefix)?g $< > $@
 
 # Adding new generated files to file list for clean up
-CLEANFILES +=   smt_dns_ra_support.conf
+CLEANFILES += \
+	smt_dns_ra_support.conf \
+	conf.parser.tab.c \
+	conf.parser.tab.h \
+	lex.conf.c \
+	zone.parser.tab.c \
+	zone.parser.tab.h \
+	lex.zone.c
 
 # Files for /etc directory
 sysconf_DATA += smt_dns_ra_support.conf
+
+# Parser binaries for testing
+noinst_PROGRAMS += confParseTest zoneParseTest confLexTest zoneLexTest #apiTest
+
+nodist_confParseTest_SOURCES = \
+	parser_support.c \
+	conf.parser.tab.c \
+	lex.conf.c
+
+confParseTest_CPPFLAGS = \
+	-D_GNU_SOURCE \
+	-DDEBUG_YACC
+
+nodist_confLexTest_SOURCES = \
+	parser_support.c \
+	conf.parser.tab.c \
+	lex.conf.c
+
+confLexTest_CPPFLAGS = \
+	-D_GNU_SOURCE \
+	-DDEBUG_LEX
+
+nodist_zoneLexTest_SOURCES = \
+	parser_support.c \
+	zone.parser.tab.c \
+	lex.zone.c
+
+zoneLexTest_CPPFLAGS = \
+	-D_GNU_SOURCE \
+	-DDEBUG_LEX
+
+nodist_zoneParseTest_SOURCES = \
+	parser_support.c \
+	zone.parser.tab.c \
+	lex.zone.c
+
+zoneParseTest_CPPFLAGS = \
+	-D_GNU_SOURCE \
+	-DDEBUG_YACC
+
+#apiTest_SOURCES = \
+#	smt_dns_ra_support.c \
+#	smt_dns_ra_service.c \
+#	smt_dns_ra_rrhandle.c \
+#	tests/smt_dns_ra_test.c \
+#	parser_support.c \
+#	conf.parser.tab.c \
+#	zone.parser.tab.c \
+#	lex.conf.c \
+#	lex.zone.c
+
+#apiTest_CPPFLAGS = \
+#	-fPIC \
+#	-DUSE_CACHE \
+#	-DCONFFILE=\"$(sysconfdir)/smt_dns_ra_support.conf\" \
+#	-D_GNU_SOURCE \
+#	-I /home/tyreld/work/cmpi-dns/resource-access
+
+#apiTest_LDFLAGS = \
+#	-fPIC
 
 #  LibRaTools libraries
 lib_LTLIBRARIES += libRaToolsDns.la 
 
 # LibRaTools sources
 libRaToolsDns_la_SOURCES = \
-		smt_dns_ra_support.h \
-		smt_dns_ra_support.c \
-		smt_dns_ra_perlxsi.c \
-		smt_dns_ra_rrhandle.c \
-		smt_dns_ra_service.c
+    parser_support.c \
+    smt_dns_ra_support.c \
+    smt_dns_ra_rrhandle.c \
+    smt_dns_ra_service.c
 
+nodist_libRaToolsDns_la_SOURCES = \
+    conf.parser.tab.h \
+    zone.parser.tab.h \
+    conf.parser.tab.c \
+    zone.parser.tab.c \
+    lex.conf.c \
+    lex.zone.c
+ 
 libRaToolsDns_la_CPPFLAGS = \
-                -fPIC `perl -MExtUtils::Embed -e ccopts` \
-                -DUSE_CACHE \
-                -DCONFFILE=\"$(sysconfdir)/smt_dns_ra_support.conf\" \
-                -D_GNU_SOURCE
+    -fPIC \
+    -DUSE_CACHE \
+    -DCONFFILE=\"$(sysconfdir)/smt_dns_ra_support.conf\" \
+    -D_GNU_SOURCE
 
 libRaToolsDns_la_LDFLAGS = \
-                -fPIC `perl -MExtUtils::Embed -e ldopts`
+    -fPIC 
 
 # Scripts that are copied to an executable (at least for the libs) directory.
 pkgdata_SCRIPTS += \
-		scripts/smt_dns_ra_delete.sh \
-		scripts/smt_dns_ra_deleterr.sh \
-		scripts/smt_dns_ra_disable.sh \
-		scripts/smt_dns_ra_disablerr.sh \
-		scripts/smt_dns_ra_enable.sh \
-		scripts/smt_dns_ra_enablerr.sh \
-		scripts/smt_dns_ra_status.sh \
-		scripts/smt_dns_ra_acl.pm \
-		scripts/smt_dns_ra_getopts.pl \
-		scripts/smt_dns_ra_getzones.pl \
-		scripts/smt_dns_ra_readacl.pl \
- 		scripts/smt_dns_ra_lines.awk
+    scripts/smt_dns_ra_status.sh \
+    scripts/smt_dns_ra_delete.sh \
+    scripts/smt_dns_ra_disable.sh \
+    scripts/smt_dns_ra_enable.sh \
+    scripts/smt_dns_ra_deleterr.sh \
+    scripts/smt_dns_ra_disablerr.sh \
+    scripts/smt_dns_ra_enablerr.sh \
+    scripts/smt_dns_ra_cleanuprr.sh \
+    scripts/smt_dns_ra_lines.awk
  
 # Installable Header Files
-sbliminc_HEADERS += \
-		smt_dns_ra_scripts.h \
-		smt_dns_ra_service.h \
-		smt_dns_ra_rrhandle.h \
-		smt_dns_ra_perlstr.h \
-		smt_dns_ra_support.h
+noinst_HEADERS += \
+    parser_support.h \
+    smt_dns_ra_cache.h \
+    smt_dns_ra_scripts.h \
+    smt_dns_ra_service.h \
+    smt_dns_ra_rrhandle.h \
+    smt_dns_ra_support.h
+
 
 # We must explicity add the list of scripts to the 
-EXTRA_DIST += $(pkgdata_SCRIPTS)
+EXTRA_DIST += $(pkgdata_SCRIPTS) conf.lexer.l conf.parser.y zone.lexer.l zone.parser.y
+
+lex.conf.c: conf.lexer.l
+	$(LEX) $<
+
+conf.parser.tab.c: conf.parser.y
+	$(YACC) $<
+
+lex.zone.c: zone.lexer.l
+	$(LEX) $<
+
+zone.parser.tab.c: zone.parser.y
+	$(YACC) $<
 

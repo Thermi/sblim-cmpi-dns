@@ -1,6 +1,6 @@
 // =======================================================================
 // Linux_DnsServiceResourceAccess.h
-//     created on Fri, 3 Mar 2006 using ECUTE
+//     created on Thu, 26 Oct 2006 using ECUTE 2.2
 // 
 // Copyright (c) 2006, International Business Machines
 //
@@ -14,8 +14,10 @@
 // Author:        generated
 //
 // Contributors:
-//                Murillo Bernardes <bernarde@br.ibm.com>
-//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//                Wolfgang Taphorn   <taphorn at de.ibm.com>
+//                Murillo Bernardes  <bernarde(at)br.ibm.com>
+//                Mukunda Chowdaiah  <cmukunda(at)in.ibm.com>
+//                Ashoka S Rao       <ashoka.rao(at)in.ibm.com>
 //
 // =======================================================================
 //
@@ -51,35 +53,28 @@ namespace genProvider {
       const CmpiBroker& aBroker,
       const char* aNameSpaceP,
       Linux_DnsServiceInstanceNameEnumeration& anInstanceNameEnumeration);
-
   	
-
     virtual void enumInstances(
       const CmpiContext& aContext,
       const CmpiBroker& aBroker,
       const char* aNameSpaceP,
       const char** aPropertiesPP,
   	  Linux_DnsServiceManualInstanceEnumeration& aManualInstanceEnumeration);
-
   	
-
     virtual Linux_DnsServiceManualInstance getInstance(
       const CmpiContext& aContext,
       const CmpiBroker& aBroker,
       const char** aPropertiesPP,
       const Linux_DnsServiceInstanceName& anInstanceName);
-
-  	
-
-    /*
+ 
+    /* 	
     virtual void setInstance(
       const CmpiContext& aContext,
       const CmpiBroker& aBroker,
       const char** aPropertiesPP,
       const Linux_DnsServiceManualInstance& aManualInstance);
     */
-
-  	
+	
     /*
     virtual Linux_DnsServiceInstanceName createInstance(
       const CmpiContext& aContext,
@@ -106,23 +101,20 @@ namespace genProvider {
       const CMPIUint16& RequestedState,
       int isRequestedStatePresent,
       CIM_ConcreteJobInstanceName& Job,
+      int isJobPresent,
       const CmpiDateTime& TimeoutPeriod,
       int isTimeoutPeriodPresent);
     */
-
 
     virtual CMPIUint32 StartService(
       const CmpiContext& aContext,
       const CmpiBroker& aBroker,
       const Linux_DnsServiceInstanceName& anInstanceName);
 
-
-
     virtual CMPIUint32 StopService(
       const CmpiContext& aContext,
       const CmpiBroker& aBroker,
       const Linux_DnsServiceInstanceName& anInstanceName);
-
 
 	
   };

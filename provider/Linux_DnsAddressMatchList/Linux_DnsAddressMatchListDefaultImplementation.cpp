@@ -1,6 +1,6 @@
 // =======================================================================
 // Linux_DnsAddressMatchListDefaultImplementation.cpp
-//     created on Fri, 3 Mar 2006 using ECUTE
+//     created on Thu, 23 Nov 2006 using ECUTE 2.2
 // 
 // Copyright (c) 2006, International Business Machines
 //
@@ -14,8 +14,10 @@
 // Author:        generated
 //
 // Contributors:
-//                Murillo Bernardes <bernarde@br.ibm.com>
-//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//                Wolfgang Taphorn   <taphorn at de.ibm.com>
+//                Murillo Bernardes  <bernarde(at)br.ibm.com>
+//                Mukunda Chowdaiah  <cmukunda(at)in.ibm.com>
+//                Ashoka S Rao       <ashoka.rao(at)in.ibm.com>
 //
 // =======================================================================
 //
@@ -41,7 +43,7 @@ namespace genProvider {
 #endif   	
 
    	throw CmpiErrorFormater::getErrorException(
-   	  CmpiErrorFormater::METHOD_NOT_FOUND,
+   	  CmpiErrorFormater::NOT_IMPLEMENTED,
    	  "enumInstanceEnumeration",
    	  "Linux_DnsAddressMatchList");   
 
@@ -131,7 +133,7 @@ namespace genProvider {
     	
 
     throw CmpiErrorFormater::getErrorException(
-   	  CmpiErrorFormater::METHOD_NOT_FOUND,
+   	  CmpiErrorFormater::NOT_IMPLEMENTED,
    	  "getInstance",
    	  "Linux_DnsAddressMatchList");
 
@@ -151,7 +153,7 @@ namespace genProvider {
     	
    
     throw CmpiErrorFormater::getErrorException(
-   	  CmpiErrorFormater::METHOD_NOT_FOUND,
+   	  CmpiErrorFormater::NOT_IMPLEMENTED,
    	  "setInstance",
    	  "Linux_DnsAddressMatchList");
    	 
@@ -169,7 +171,7 @@ namespace genProvider {
 #endif
 
     throw CmpiErrorFormater::getErrorException(
-   	 CmpiErrorFormater::METHOD_NOT_FOUND,
+   	 CmpiErrorFormater::NOT_IMPLEMENTED,
    	 "createInstance",
    	 "Linux_DnsAddressMatchList");
 
@@ -187,7 +189,7 @@ namespace genProvider {
 #endif
 
     throw CmpiErrorFormater::getErrorException(
-      CmpiErrorFormater::METHOD_NOT_FOUND,
+      CmpiErrorFormater::NOT_IMPLEMENTED,
       "deleteInstance",
       "Linux_DnsAddressMatchList");
 
@@ -197,221 +199,5 @@ namespace genProvider {
 
   /* extrinsic methods */
   
-  //----------------------------------------------------------------------------  
-  CMPIUint32
-  Linux_DnsAddressMatchListDefaultImplementation::ApplyIncrementalChangeToCollection(
-    const CmpiContext& aContext,
-    const CmpiBroker& aBroker,
-    const Linux_DnsAddressMatchListInstanceName& anInstanceName,
-      const CIM_CollectionOfMSEsInstanceName& Collection,
-      int isCollectionPresent,
-      const CmpiDateTime& TimeToApply,
-      int isTimeToApplyPresent,
-      const CMPIBoolean& ContinueOnError,
-      int isContinueOnErrorPresent,
-      const CmpiDateTime& MustBeCompletedBy,
-      int isMustBeCompletedByPresent,
-      const char** PropertiesToApply,
-      const CMPICount PropertiesToApplySize,
-      int isPropertiesToApplyPresent,
-      char**& CanNotApply,
-      CMPICount& CanNotApplySize) {
-
-#ifdef DEBUG
-    std::cout << "ApplyIncrementalChangeToCollection() not supported in Linux_DnsAddressMatchList" << std::endl;
-#endif    
-    
- 	  throw CmpiErrorFormater::getErrorException(
-      CmpiErrorFormater::METHOD_NOT_FOUND,
-      "ApplyIncrementalChangeToCollection",
-      "Linux_DnsAddressMatchList");
-      
-  }
-
-  //----------------------------------------------------------------------------  
-  CMPIUint32
-  Linux_DnsAddressMatchListDefaultImplementation::ApplyIncrementalChangeToMSE(
-    const CmpiContext& aContext,
-    const CmpiBroker& aBroker,
-    const Linux_DnsAddressMatchListInstanceName& anInstanceName,
-      const CIM_ManagedSystemElementInstanceName& MSE,
-      int isMSEPresent,
-      const CmpiDateTime& TimeToApply,
-      int isTimeToApplyPresent,
-      const CmpiDateTime& MustBeCompletedBy,
-      int isMustBeCompletedByPresent,
-      const char** PropertiesToApply,
-      const CMPICount PropertiesToApplySize,
-      int isPropertiesToApplyPresent) {
-
-#ifdef DEBUG
-    std::cout << "ApplyIncrementalChangeToMSE() not supported in Linux_DnsAddressMatchList" << std::endl;
-#endif    
-    
- 	  throw CmpiErrorFormater::getErrorException(
-      CmpiErrorFormater::METHOD_NOT_FOUND,
-      "ApplyIncrementalChangeToMSE",
-      "Linux_DnsAddressMatchList");
-      
-  }
-
-  //----------------------------------------------------------------------------  
-  CMPIUint32
-  Linux_DnsAddressMatchListDefaultImplementation::ApplyToCollection(
-    const CmpiContext& aContext,
-    const CmpiBroker& aBroker,
-    const Linux_DnsAddressMatchListInstanceName& anInstanceName,
-      const CIM_CollectionOfMSEsInstanceName& Collection,
-      int isCollectionPresent,
-      const CmpiDateTime& TimeToApply,
-      int isTimeToApplyPresent,
-      const CMPIBoolean& ContinueOnError,
-      int isContinueOnErrorPresent,
-      const CmpiDateTime& MustBeCompletedBy,
-      int isMustBeCompletedByPresent,
-      char**& CanNotApply,
-      CMPICount& CanNotApplySize) {
-
-#ifdef DEBUG
-    std::cout << "ApplyToCollection() not supported in Linux_DnsAddressMatchList" << std::endl;
-#endif    
-    
- 	  throw CmpiErrorFormater::getErrorException(
-      CmpiErrorFormater::METHOD_NOT_FOUND,
-      "ApplyToCollection",
-      "Linux_DnsAddressMatchList");
-      
-  }
-
-  //----------------------------------------------------------------------------  
-  CMPIUint32
-  Linux_DnsAddressMatchListDefaultImplementation::ApplyToMSE(
-    const CmpiContext& aContext,
-    const CmpiBroker& aBroker,
-    const Linux_DnsAddressMatchListInstanceName& anInstanceName,
-      const CIM_ManagedSystemElementInstanceName& MSE,
-      int isMSEPresent,
-      const CmpiDateTime& TimeToApply,
-      int isTimeToApplyPresent,
-      const CmpiDateTime& MustBeCompletedBy,
-      int isMustBeCompletedByPresent) {
-
-#ifdef DEBUG
-    std::cout << "ApplyToMSE() not supported in Linux_DnsAddressMatchList" << std::endl;
-#endif    
-    
- 	  throw CmpiErrorFormater::getErrorException(
-      CmpiErrorFormater::METHOD_NOT_FOUND,
-      "ApplyToMSE",
-      "Linux_DnsAddressMatchList");
-      
-  }
-
-  //----------------------------------------------------------------------------  
-  CMPIUint32
-  Linux_DnsAddressMatchListDefaultImplementation::VerifyOKToApplyIncrementalChangeToCollection(
-    const CmpiContext& aContext,
-    const CmpiBroker& aBroker,
-    const Linux_DnsAddressMatchListInstanceName& anInstanceName,
-      const CIM_CollectionOfMSEsInstanceName& Collection,
-      int isCollectionPresent,
-      const CmpiDateTime& TimeToApply,
-      int isTimeToApplyPresent,
-      const CmpiDateTime& MustBeCompletedBy,
-      int isMustBeCompletedByPresent,
-      const char** PropertiesToApply,
-      const CMPICount PropertiesToApplySize,
-      int isPropertiesToApplyPresent,
-      char**& CanNotApply,
-      CMPICount& CanNotApplySize) {
-
-#ifdef DEBUG
-    std::cout << "VerifyOKToApplyIncrementalChangeToCollection() not supported in Linux_DnsAddressMatchList" << std::endl;
-#endif    
-    
- 	  throw CmpiErrorFormater::getErrorException(
-      CmpiErrorFormater::METHOD_NOT_FOUND,
-      "VerifyOKToApplyIncrementalChangeToCollection",
-      "Linux_DnsAddressMatchList");
-      
-  }
-
-  //----------------------------------------------------------------------------  
-  CMPIUint32
-  Linux_DnsAddressMatchListDefaultImplementation::VerifyOKToApplyIncrementalChangeToMSE(
-    const CmpiContext& aContext,
-    const CmpiBroker& aBroker,
-    const Linux_DnsAddressMatchListInstanceName& anInstanceName,
-      const CIM_ManagedSystemElementInstanceName& MSE,
-      int isMSEPresent,
-      const CmpiDateTime& TimeToApply,
-      int isTimeToApplyPresent,
-      const CmpiDateTime& MustBeCompletedBy,
-      int isMustBeCompletedByPresent,
-      const char** PropertiesToApply,
-      const CMPICount PropertiesToApplySize,
-      int isPropertiesToApplyPresent) {
-
-#ifdef DEBUG
-    std::cout << "VerifyOKToApplyIncrementalChangeToMSE() not supported in Linux_DnsAddressMatchList" << std::endl;
-#endif    
-    
- 	  throw CmpiErrorFormater::getErrorException(
-      CmpiErrorFormater::METHOD_NOT_FOUND,
-      "VerifyOKToApplyIncrementalChangeToMSE",
-      "Linux_DnsAddressMatchList");
-      
-  }
-
-  //----------------------------------------------------------------------------  
-  CMPIUint32
-  Linux_DnsAddressMatchListDefaultImplementation::VerifyOKToApplyToCollection(
-    const CmpiContext& aContext,
-    const CmpiBroker& aBroker,
-    const Linux_DnsAddressMatchListInstanceName& anInstanceName,
-      const CIM_CollectionOfMSEsInstanceName& Collection,
-      int isCollectionPresent,
-      const CmpiDateTime& TimeToApply,
-      int isTimeToApplyPresent,
-      const CmpiDateTime& MustBeCompletedBy,
-      int isMustBeCompletedByPresent,
-      char**& CanNotApply,
-      CMPICount& CanNotApplySize) {
-
-#ifdef DEBUG
-    std::cout << "VerifyOKToApplyToCollection() not supported in Linux_DnsAddressMatchList" << std::endl;
-#endif    
-    
- 	  throw CmpiErrorFormater::getErrorException(
-      CmpiErrorFormater::METHOD_NOT_FOUND,
-      "VerifyOKToApplyToCollection",
-      "Linux_DnsAddressMatchList");
-      
-  }
-
-  //----------------------------------------------------------------------------  
-  CMPIUint32
-  Linux_DnsAddressMatchListDefaultImplementation::VerifyOKToApplyToMSE(
-    const CmpiContext& aContext,
-    const CmpiBroker& aBroker,
-    const Linux_DnsAddressMatchListInstanceName& anInstanceName,
-      const CIM_ManagedSystemElementInstanceName& MSE,
-      int isMSEPresent,
-      const CmpiDateTime& TimeToApply,
-      int isTimeToApplyPresent,
-      const CmpiDateTime& MustBeCompletedBy,
-      int isMustBeCompletedByPresent) {
-
-#ifdef DEBUG
-    std::cout << "VerifyOKToApplyToMSE() not supported in Linux_DnsAddressMatchList" << std::endl;
-#endif    
-    
- 	  throw CmpiErrorFormater::getErrorException(
-      CmpiErrorFormater::METHOD_NOT_FOUND,
-      "VerifyOKToApplyToMSE",
-      "Linux_DnsAddressMatchList");
-      
-  }
-
 
 }

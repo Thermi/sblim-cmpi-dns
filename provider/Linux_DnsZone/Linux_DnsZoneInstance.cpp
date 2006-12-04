@@ -1,6 +1,6 @@
 // =======================================================================
 // Linux_DnsZoneInstance.cpp
-//     created on Tue, 7 Mar 2006 using ECUTE
+//     created on Thu, 23 Nov 2006 using ECUTE 2.2
 // 
 // Copyright (c) 2006, International Business Machines
 //
@@ -14,8 +14,10 @@
 // Author:        generated
 //
 // Contributors:
-//                Rodrigo Ceron    <rceron@br.ibm.com>
-//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//                Wolfgang Taphorn   <taphorn at de.ibm.com>
+//                Murillo Bernardes  <bernarde(at)br.ibm.com>
+//                Mukunda Chowdaiah  <cmukunda(at)in.ibm.com>
+//                Ashoka S Rao       <ashoka.rao(at)in.ibm.com>
 //
 // =======================================================================
 //
@@ -77,21 +79,9 @@ namespace genProvider {
       setElementName(ElementName.charPtr());
     }
 
-    cmpiData = aCmpiInstance.getProperty("ResourceRecordFile");
-    if ( ! cmpiData.isNullValue()){
-      CmpiString ResourceRecordFile = cmpiData;
-      setResourceRecordFile(ResourceRecordFile.charPtr());
-    }
-
-    cmpiData = aCmpiInstance.getProperty("SettingID");
-    if ( ! cmpiData.isNullValue()){
-      CmpiString SettingID = cmpiData;
-      setSettingID(SettingID.charPtr());
-    }
-
     cmpiData = aCmpiInstance.getProperty("Type");
     if ( ! cmpiData.isNullValue()){
-      CMPIUint16 Type = cmpiData;
+      CMPIUint8 Type = cmpiData;
       setType(Type);
     }
 
@@ -154,20 +144,6 @@ namespace genProvider {
   	  cmpiInstance.setProperty(
   	    "ElementName",
   	    CmpiData(m_ElementName));
-  	}
-
-  	if (isSet.ResourceRecordFile) {
-  	  
-  	  cmpiInstance.setProperty(
-  	    "ResourceRecordFile",
-  	    CmpiData(m_ResourceRecordFile));
-  	}
-
-  	if (isSet.SettingID) {
-  	  
-  	  cmpiInstance.setProperty(
-  	    "SettingID",
-  	    CmpiData(m_SettingID));
   	}
 
   	if (isSet.Type) {
@@ -354,98 +330,6 @@ namespace genProvider {
   }
        
   //----------------------------------------------------------------------------
-  // ResourceRecordFile related methods
-  //----------------------------------------------------------------------------
-  unsigned int
-  Linux_DnsZoneInstance::isResourceRecordFileSet() const {
-    return isSet.ResourceRecordFile;
-  }
-
-  //----------------------------------------------------------------------------
-  void
-  Linux_DnsZoneInstance::setResourceRecordFile(
-    const char* aValueP,
-    int aCopyFlag) {
-    
-    if (isSet.ResourceRecordFile) {
-      delete [] m_ResourceRecordFile;
-    }
-    
-    if (aCopyFlag && aValueP) {
-      char* valueP = new char[strlen(aValueP) + 1];
-      strcpy(valueP,aValueP);
-      m_ResourceRecordFile = valueP;
-    } else {
-      m_ResourceRecordFile = aValueP;
-    }
-    
-    isSet.ResourceRecordFile = 1;
-
-  }       
-
-  //----------------------------------------------------------------------------
-  const char*
-  Linux_DnsZoneInstance::getResourceRecordFile() const {
-    
-    if ( ! isSet.ResourceRecordFile) {
-   	  throw CmpiErrorFormater::getErrorException(
-   	    CmpiErrorFormater::NOT_SET,
-        "ResourceRecordFile",
-        "Linux_DnsZone");
-   	}
-
-
-    return m_ResourceRecordFile;
-
-  }
-       
-  //----------------------------------------------------------------------------
-  // SettingID related methods
-  //----------------------------------------------------------------------------
-  unsigned int
-  Linux_DnsZoneInstance::isSettingIDSet() const {
-    return isSet.SettingID;
-  }
-
-  //----------------------------------------------------------------------------
-  void
-  Linux_DnsZoneInstance::setSettingID(
-    const char* aValueP,
-    int aCopyFlag) {
-    
-    if (isSet.SettingID) {
-      delete [] m_SettingID;
-    }
-    
-    if (aCopyFlag && aValueP) {
-      char* valueP = new char[strlen(aValueP) + 1];
-      strcpy(valueP,aValueP);
-      m_SettingID = valueP;
-    } else {
-      m_SettingID = aValueP;
-    }
-    
-    isSet.SettingID = 1;
-
-  }       
-
-  //----------------------------------------------------------------------------
-  const char*
-  Linux_DnsZoneInstance::getSettingID() const {
-    
-    if ( ! isSet.SettingID) {
-   	  throw CmpiErrorFormater::getErrorException(
-   	    CmpiErrorFormater::NOT_SET,
-        "SettingID",
-        "Linux_DnsZone");
-   	}
-
-
-    return m_SettingID;
-
-  }
-       
-  //----------------------------------------------------------------------------
   // Type related methods
   //----------------------------------------------------------------------------
   unsigned int
@@ -455,7 +339,7 @@ namespace genProvider {
 
   //----------------------------------------------------------------------------
   void Linux_DnsZoneInstance::setType(
-    const CMPIUint16 aValue) {
+    const CMPIUint8 aValue) {
   
     m_Type = aValue;
     isSet.Type = 1;
@@ -463,7 +347,7 @@ namespace genProvider {
   }       
 
   //----------------------------------------------------------------------------
-  const CMPIUint16
+  const CMPIUint8
   Linux_DnsZoneInstance::getType() const {
     
     if ( ! isSet.Type) {
@@ -488,8 +372,6 @@ namespace genProvider {
     isSet.Caption = 0;
     isSet.Description = 0;
     isSet.ElementName = 0;
-    isSet.ResourceRecordFile = 0;
-    isSet.SettingID = 0;
     isSet.Type = 0;
   	
   }
@@ -522,18 +404,8 @@ namespace genProvider {
       setElementName(ElementNameOriginal,1);
     }
    	
-    if (anOriginal.isResourceRecordFileSet()) {
-      const char* ResourceRecordFileOriginal = anOriginal.getResourceRecordFile();
-      setResourceRecordFile(ResourceRecordFileOriginal,1);
-    }
-   	
-    if (anOriginal.isSettingIDSet()) {
-      const char* SettingIDOriginal = anOriginal.getSettingID();
-      setSettingID(SettingIDOriginal,1);
-    }
-   	
     if (anOriginal.isTypeSet()) {
-      const CMPIUint16 TypeOriginal = anOriginal.getType();
+      const CMPIUint8 TypeOriginal = anOriginal.getType();
       setType(TypeOriginal);
     }
     
@@ -555,14 +427,6 @@ namespace genProvider {
 
   	if (isSet.ElementName) {
   	  delete(m_ElementName);
-  	}
-
-  	if (isSet.ResourceRecordFile) {
-  	  delete(m_ResourceRecordFile);
-  	}
-
-  	if (isSet.SettingID) {
-  	  delete(m_SettingID);
   	}
 
   }

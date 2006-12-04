@@ -1,6 +1,6 @@
 // =======================================================================
 // Linux_DnsServiceConfigurationInstance.h
-//     created on Fri, 3 Mar 2006 using ECUTE
+//     created on Thu, 23 Nov 2006 using ECUTE 2.2
 // 
 // Copyright (c) 2006, International Business Machines
 //
@@ -14,8 +14,10 @@
 // Author:        generated
 //
 // Contributors:
-//                Murillo Bernardes <bernarde@br.ibm.com>
-//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//                Wolfgang Taphorn   <taphorn at de.ibm.com>
+//                Murillo Bernardes  <bernarde(at)br.ibm.com>
+//                Mukunda Chowdaiah  <cmukunda(at)in.ibm.com>
+//                Ashoka S Rao       <ashoka.rao(at)in.ibm.com>
 //
 // =======================================================================
 //
@@ -44,9 +46,17 @@ namespace genProvider {
     void reset();
        
     Linux_DnsServiceConfigurationInstanceName m_instanceName;
+    const char* m_Caption;
+    const char* m_ConfigurationFile;
+    const char* m_Description;
+    const char* m_ElementName;
        
     struct isSetType{
       unsigned int instanceName:1;
+      unsigned int Caption:1;
+      unsigned int ConfigurationFile:1;
+      unsigned int Description:1;
+      unsigned int ElementName:1;
 
     } isSet;
     
@@ -66,6 +76,22 @@ namespace genProvider {
     unsigned int isInstanceNameSet() const;
     void setInstanceName(const Linux_DnsServiceConfigurationInstanceName& anInstanceName);        
     const Linux_DnsServiceConfigurationInstanceName& getInstanceName() const;
+
+    unsigned int isCaptionSet() const;
+    void setCaption(const char* aValue, int aCopyFlag = 1);
+    const char* getCaption() const;
+
+    unsigned int isConfigurationFileSet() const;
+    void setConfigurationFile(const char* aValue, int aCopyFlag = 1);
+    const char* getConfigurationFile() const;
+
+    unsigned int isDescriptionSet() const;
+    void setDescription(const char* aValue, int aCopyFlag = 1);
+    const char* getDescription() const;
+
+    unsigned int isElementNameSet() const;
+    void setElementName(const char* aValue, int aCopyFlag = 1);
+    const char* getElementName() const;
 
 
   };

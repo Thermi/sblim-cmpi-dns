@@ -1,0 +1,10 @@
+$TTL 2D
+@		IN SOA		localhost. root.localhost.   (
+				42		; serial
+				5H		; refresh
+				30M		; retry
+				1W		; expire
+				2D )		; minimum ttl
+
+@		 IN NS		localhost.
+abc		7295  IN NS		localhost.

@@ -1,6 +1,6 @@
 // =======================================================================
 // Linux_DnsResourceRecordManualInstance.cpp
-//     created on Fri, 3 Mar 2006 using ECUTE
+//     created on Fri, 1 Dec 2006 using ECUTE 2.2
 // 
 // Copyright (c) 2006, International Business Machines
 //
@@ -14,8 +14,10 @@
 // Author:        generated
 //
 // Contributors:
-//                Murillo Bernardes <bernarde@br.ibm.com>
-//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//                Wolfgang Taphorn   <taphorn at de.ibm.com>
+//                Murillo Bernardes  <bernarde(at)br.ibm.com>
+//                Mukunda Chowdaiah  <cmukunda(at)in.ibm.com>
+//                Ashoka S Rao       <ashoka.rao(at)in.ibm.com>
 //
 // =======================================================================
 //
@@ -54,31 +56,20 @@ namespace genProvider {
     CmpiData cmpiData;
 
     init(); 
-
-//Fix started  
-// Removed for numeric key property problem.
-//WT    CmpiObjectPath cop = aCmpiInstance.getObjectPath();
-//WT    cop.setNameSpace(anInstanceNamespaceP);
-//WT    setInstanceName(Linux_DnsResourceRecordInstanceName(cop));
-
-    Linux_DnsResourceRecordInstanceName instanceName;
-    instanceName.setNamespace(anInstanceNamespaceP);
-    instanceName.setName( aCmpiInstance.getProperty("Name") );
-    instanceName.setZoneName ( aCmpiInstance.getProperty("ZoneName") );
-    instanceName.setType( aCmpiInstance.getProperty("Type") );
-    instanceName.setValue( aCmpiInstance.getProperty("Value") );
-    setInstanceName( instanceName );
-// FIX end
+    
+    CmpiObjectPath cop = aCmpiInstance.getObjectPath();
+    cop.setNameSpace(anInstanceNamespaceP);
+    setInstanceName(Linux_DnsResourceRecordInstanceName(cop));
 
     cmpiData = aCmpiInstance.getProperty("Family");
     if ( ! cmpiData.isNullValue()){
-      CMPIUint16 Family = cmpiData;
+      CMPIUint8 Family = cmpiData;
       setFamily(Family);
     }
 
     cmpiData = aCmpiInstance.getProperty("TTL");
     if ( ! cmpiData.isNullValue()){
-      CMPIUint32 TTL = cmpiData;
+      CMPISint32 TTL = cmpiData;
       setTTL(TTL);
     }
 
@@ -184,7 +175,7 @@ namespace genProvider {
 
   //----------------------------------------------------------------------------
   void Linux_DnsResourceRecordManualInstance::setFamily(
-    const CMPIUint16 aValue) {
+    const CMPIUint8 aValue) {
   
     m_Family = aValue;
     isSet.Family = 1;
@@ -192,7 +183,7 @@ namespace genProvider {
   }       
 
   //----------------------------------------------------------------------------
-  const CMPIUint16
+  const CMPIUint8
   Linux_DnsResourceRecordManualInstance::getFamily() const {
     
     if ( ! isSet.Family) {
@@ -217,7 +208,7 @@ namespace genProvider {
 
   //----------------------------------------------------------------------------
   void Linux_DnsResourceRecordManualInstance::setTTL(
-    const CMPIUint32 aValue) {
+    const CMPISint32 aValue) {
   
     m_TTL = aValue;
     isSet.TTL = 1;
@@ -225,7 +216,7 @@ namespace genProvider {
   }       
 
   //----------------------------------------------------------------------------
-  const CMPIUint32
+  const CMPISint32
   Linux_DnsResourceRecordManualInstance::getTTL() const {
     
     if ( ! isSet.TTL) {
@@ -266,12 +257,12 @@ namespace genProvider {
     }
        	
     if (anOriginal.isFamilySet()) {
-      const CMPIUint16 FamilyOriginal = anOriginal.getFamily();
+      const CMPIUint8 FamilyOriginal = anOriginal.getFamily();
       setFamily(FamilyOriginal);
     }
    	
     if (anOriginal.isTTLSet()) {
-      const CMPIUint32 TTLOriginal = anOriginal.getTTL();
+      const CMPISint32 TTLOriginal = anOriginal.getTTL();
       setTTL(TTLOriginal);
     }
     

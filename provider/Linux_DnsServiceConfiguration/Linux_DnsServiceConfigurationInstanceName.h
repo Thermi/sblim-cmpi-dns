@@ -1,6 +1,6 @@
 // =======================================================================
 // Linux_DnsServiceConfigurationInstanceName.h
-//     created on Fri, 3 Mar 2006 using ECUTE
+//     created on Thu, 23 Nov 2006 using ECUTE 2.2
 // 
 // Copyright (c) 2006, International Business Machines
 //
@@ -14,8 +14,10 @@
 // Author:        generated
 //
 // Contributors:
-//                Murillo Bernardes <bernarde@br.ibm.com>
-//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//                Wolfgang Taphorn   <taphorn at de.ibm.com>
+//                Murillo Bernardes  <bernarde(at)br.ibm.com>
+//                Mukunda Chowdaiah  <cmukunda(at)in.ibm.com>
+//                Ashoka S Rao       <ashoka.rao(at)in.ibm.com>
 //
 // =======================================================================
 //
@@ -31,8 +33,6 @@
 #include "CmpiDateTime.h"
 #include "ArrayConverter.h"
 #include "CmpiErrorFormater.h"
-#include "Linux_DnsConfigurationInstanceName.h"
-#include "Linux_DnsServiceInstanceName.h"
 
 
 namespace genProvider {
@@ -47,13 +47,11 @@ namespace genProvider {
     const char* m_CIMClassNameP;
     const char* m_nameSpaceP;
     
-    Linux_DnsConfigurationInstanceName m_Configuration;
-    Linux_DnsServiceInstanceName m_Element;
+    const char* m_Name;
        
     struct isSetType{
       unsigned int m_nameSpaceP:1;
-      unsigned int Configuration:1;
-      unsigned int Element:1;
+      unsigned int Name:1;
 
     } isSet;
   
@@ -76,13 +74,9 @@ namespace genProvider {
     void setNamespace(const char* aNameSpaceP, int aCopyFlag = 1);
     const char* getNamespace() const;
     
-    unsigned int isConfigurationSet() const;
-    void setConfiguration(const Linux_DnsConfigurationInstanceName& aValue);
-    const Linux_DnsConfigurationInstanceName& getConfiguration() const;
-
-    unsigned int isElementSet() const;
-    void setElement(const Linux_DnsServiceInstanceName& aValue);
-    const Linux_DnsServiceInstanceName& getElement() const;
+    unsigned int isNameSet() const;
+    void setName(const char* aValue, int aCopyFlag = 1);
+    const char* getName() const;
 
 
   };

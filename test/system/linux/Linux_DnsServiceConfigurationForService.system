@@ -1,0 +1,8 @@
+********************************************************************************
+association : Linux_DnsServiceConfigurationForService
+
+--------------------------------------------------------------------------------
+Linux_DnsService : -target Linux_DnsServiceConfiguration -eq 1
+Linux_DnsServiceConfiguration : -target Linux_DnsService -eq 1
+
+--------------------------------------------------------------------------------

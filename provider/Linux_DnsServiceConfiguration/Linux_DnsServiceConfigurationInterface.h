@@ -1,6 +1,6 @@
 // =======================================================================
 // Linux_DnsServiceConfigurationInterface.h
-//     created on Fri, 3 Mar 2006 using ECUTE
+//     created on Thu, 23 Nov 2006 using ECUTE 2.2
 // 
 // Copyright (c) 2006, International Business Machines
 //
@@ -14,8 +14,10 @@
 // Author:        generated
 //
 // Contributors:
-//                Murillo Bernardes <bernarde@br.ibm.com>
-//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//                Wolfgang Taphorn   <taphorn at de.ibm.com>
+//                Murillo Bernardes  <bernarde(at)br.ibm.com>
+//                Mukunda Chowdaiah  <cmukunda(at)in.ibm.com>
+//                Ashoka S Rao       <ashoka.rao(at)in.ibm.com>
 //
 // =======================================================================
 //
@@ -29,10 +31,6 @@
 #include "CmpiInstance.h"
 #include "CmpiDateTime.h"
 #include "CmpiBroker.h"
-#include "Linux_DnsConfigurationInstance.h"
-#include "Linux_DnsServiceInstance.h"
-#include "Linux_DnsConfigurationExternal.h"
-#include "Linux_DnsServiceExternal.h"
 
 
 namespace genProvider {
@@ -91,49 +89,6 @@ namespace genProvider {
     
 	
     
-    /* Association Interface */
-
-    
-    virtual void referencesConfiguration( 
-      const CmpiContext& aContext,  
-      const CmpiBroker& aBroker,
-      const char* aNameSpaceP,
-      const char** aPropertiesPP,
-      const Linux_DnsServiceInstanceName& aSourceInstanceName,
-      Linux_DnsServiceConfigurationManualInstanceEnumeration& aManualInstanceEnumeration) = 0;
-    
-
-    
-    virtual void referencesElement( 
-      const CmpiContext& aContext,  
-      const CmpiBroker& aBroker,
-      const char* aNameSpaceP,
-      const char** aPropertiesPP,
-      const Linux_DnsConfigurationInstanceName& aSourceInstanceName,
-      Linux_DnsServiceConfigurationManualInstanceEnumeration& aManualInstanceEnumeration) = 0;
-    
-
-    
-    virtual void associatorsConfiguration( 
-      const CmpiContext& aContext,  
-      const CmpiBroker& aBroker,
-      const char* aNameSpaceP,
-      const char** aPropertiesPP,
-      const Linux_DnsServiceInstanceName& aSourceInstanceName,
-      Linux_DnsConfigurationInstanceEnumeration& anInstanceEnumeration) = 0;
-    
-
-    
-    virtual void associatorsElement( 
-      const CmpiContext& aContext,  
-      const CmpiBroker& aBroker,
-      const char* aNameSpaceP,
-      const char** aPropertiesPP,
-      const Linux_DnsConfigurationInstanceName& aSourceInstanceName,
-      Linux_DnsServiceInstanceEnumeration& anInstanceEnumeration) = 0;
-    
-
-   
     
     /* extrinsic methods */
     

@@ -26,9 +26,17 @@ extern "C" {
 int disableRR(const char *name,const char *file);
 int enableRR(const char *name,const char *file);
 int deleteRR(const char *name, const char *file);
+int removeRR(const char *filename);
 
 DNSRECORD* addRecord(DNSZONE*,DNSRECORD*);
-DNSRECORD* findRecord(DNSZONE*,const char*);
+DNSRECORD* findRecord(DNSZONE*,DNSRECORD *);
+int deleteRecord(const char *, DNSRECORD *) ;
+
+int        modifyRecord(const char *, const char *, const char, const char *);
+int        modifyRecordType(const char *, const char *, const char *);
+int        modifyRecordValue(const char *, const char *, const char *);
+int        modifyRecordTTL(const char *, DNSRECORD *, SL64);
+int        modifyRecordClass(const char *, DNSRECORD *, const char *);
 
 #ifdef __cplusplus
 }

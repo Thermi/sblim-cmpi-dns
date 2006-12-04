@@ -1,6 +1,6 @@
 // =======================================================================
 // Linux_DnsMasterZoneInstanceName.h
-//     created on Fri, 3 Mar 2006 using ECUTE
+//     created on Thu, 23 Nov 2006 using ECUTE 2.2
 // 
 // Copyright (c) 2006, International Business Machines
 //
@@ -14,8 +14,10 @@
 // Author:        generated
 //
 // Contributors:
-//                Murillo Bernardes <bernarde@br.ibm.com>
-//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//                Wolfgang Taphorn   <taphorn at de.ibm.com>
+//                Murillo Bernardes  <bernarde(at)br.ibm.com>
+//                Mukunda Chowdaiah  <cmukunda(at)in.ibm.com>
+//                Ashoka S Rao       <ashoka.rao(at)in.ibm.com>
 //
 // =======================================================================
 //
@@ -45,10 +47,12 @@ namespace genProvider {
     const char* m_CIMClassNameP;
     const char* m_nameSpaceP;
     
+    const char* m_InstanceID;
     const char* m_Name;
        
     struct isSetType{
       unsigned int m_nameSpaceP:1;
+      unsigned int InstanceID:1;
       unsigned int Name:1;
 
     } isSet;
@@ -72,6 +76,10 @@ namespace genProvider {
     void setNamespace(const char* aNameSpaceP, int aCopyFlag = 1);
     const char* getNamespace() const;
     
+    unsigned int isInstanceIDSet() const;
+    void setInstanceID(const char* aValue, int aCopyFlag = 1);
+    const char* getInstanceID() const;
+
     unsigned int isNameSet() const;
     void setName(const char* aValue, int aCopyFlag = 1);
     const char* getName() const;

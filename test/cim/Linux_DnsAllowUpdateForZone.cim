@@ -1,0 +1,36 @@
+********************************************************************************
+association : Linux_DnsAllowUpdateForZone
+objectPath : Linux_DnsAllowUpdateForZone.GroupComponent=Linux_DnsZone.Name="elephant.example2.com",PartComponent=Linux_DnsAddressMatchList.InstanceID="named",Name=""someips""
+sourceRole : GroupComponent
+targetRole : PartComponent
+sourceClass : Linux_DnsZone
+targetClass : Linux_DnsAddressMatchList
+
+--------------------------------------------------------------------------------
+Instance                                                       enumInstanceNames
+
+--------------------------------------------------------------------------------
+Instance                                                           enumInstances
+
+--------------------------------------------------------------------------------
+Instance                                                                     get
+
+--------------------------------------------------------------------------------
+Instance                                                                     set
+Expected Exception : NOT_SUPPORTED
+
+--------------------------------------------------------------------------------
+Instance                                                                  delete
+
+--------------------------------------------------------------------------------
+Association                                                          associators
+
+--------------------------------------------------------------------------------
+Association                                                      associatorNames
+
+--------------------------------------------------------------------------------
+Association                                                           references
+
+--------------------------------------------------------------------------------
+Association                                                       referenceNames
+

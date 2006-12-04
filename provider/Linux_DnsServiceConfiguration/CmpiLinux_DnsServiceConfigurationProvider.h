@@ -1,6 +1,6 @@
 // =======================================================================
 // CmpiLinux_DnsServiceConfigurationProvider.h
-//     created on Fri, 3 Mar 2006 using ECUTE
+//     created on Thu, 23 Nov 2006 using ECUTE 2.2
 // 
 // Copyright (c) 2006, International Business Machines
 //
@@ -14,8 +14,10 @@
 // Author:        generated
 //
 // Contributors:
-//                Murillo Bernardes <bernarde@br.ibm.com>
-//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//                Wolfgang Taphorn   <taphorn at de.ibm.com>
+//                Murillo Bernardes  <bernarde(at)br.ibm.com>
+//                Mukunda Chowdaiah  <cmukunda(at)in.ibm.com>
+//                Ashoka S Rao       <ashoka.rao(at)in.ibm.com>
 //
 // =======================================================================
 //
@@ -28,14 +30,13 @@
 #include "CmpiInstanceMI.h"
 #include "CmpiMethodMI.h"
 #include "Linux_DnsServiceConfigurationFactory.h"
-#include "CmpiAssociationMI.h"
 
 
 namespace genProvider{
 
   class CmpiLinux_DnsServiceConfigurationProvider : 
     public CmpiInstanceMI,
-    public CmpiMethodMI, public CmpiAssociationMI {	
+    public CmpiMethodMI {	
 	
 	  private:
 	  Linux_DnsServiceConfigurationInterface* m_interfaceP;
@@ -120,48 +121,7 @@ namespace genProvider{
      const char* aMethodNameP,
      const CmpiArgs& anInputArgSet,
      CmpiArgs& anOutputArgSet);
-
-    CmpiStatus associationLogic(
-      const CmpiContext& aContext, 
-	    CmpiResult& aResult,
-	    const CmpiObjectPath& aCop,
-	    const int instances,
-	    const int references,
-      const char** aPropertiesPP=0);
-	
-	  CmpiStatus associators (
-      const CmpiContext& aContext,
-      CmpiResult& aResult,
-      const CmpiObjectPath& aCop,
-	    const char* anAssocClassNameP, 
-	    const char* aResultClassNameP,
-      const char* aRoleNameP,
-      const char* aResultRoleNameP,
-      const char** aPropertiesPP);
-    
-    CmpiStatus associatorNames (
-      const CmpiContext & aContext,
-      CmpiResult & aResult,
-      const CmpiObjectPath& aCop,
-      const char* anAssocClassNameP,
-      const char* aResultClassNameP,
-      const char* aRoleNameP, 
-      const char* aResultRoleNameP);
-    
-    CmpiStatus references (
-      const CmpiContext& aContext,
-      CmpiResult& aResult,
-      const CmpiObjectPath& aCop,
-      const char* anAssocClassNameP,
-      const char* aRoleNameP,
-      const char** aPropertiesPP);
-    
-    CmpiStatus referenceNames (
-      const CmpiContext& aContext,
-      CmpiResult& aResult,
-      const CmpiObjectPath& aCop,
-      const char* anAssocClassNameP,
-      const char* aRoleNameP); 
+ 
   };
 
 }

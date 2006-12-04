@@ -1,6 +1,6 @@
 // =======================================================================
 // Linux_DnsAddressMatchListInstance.cpp
-//     created on Fri, 3 Mar 2006 using ECUTE
+//     created on Thu, 23 Nov 2006 using ECUTE 2.2
 // 
 // Copyright (c) 2006, International Business Machines
 //
@@ -14,8 +14,10 @@
 // Author:        generated
 //
 // Contributors:
-//                Murillo Bernardes <bernarde@br.ibm.com>
-//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//                Wolfgang Taphorn   <taphorn at de.ibm.com>
+//                Murillo Bernardes  <bernarde(at)br.ibm.com>
+//                Mukunda Chowdaiah  <cmukunda(at)in.ibm.com>
+//                Ashoka S Rao       <ashoka.rao(at)in.ibm.com>
 //
 // =======================================================================
 //
@@ -59,22 +61,28 @@ namespace genProvider {
     cop.setNameSpace(anInstanceNamespaceP);
     setInstanceName(Linux_DnsAddressMatchListInstanceName(cop));
 
-    cmpiData = aCmpiInstance.getProperty("AddressListType");
+    cmpiData = aCmpiInstance.getProperty("AddressMatchListElementType");
     if ( ! cmpiData.isNullValue()){
-      CMPIUint16 AddressListType = cmpiData;
-      setAddressListType(AddressListType);
+      CmpiArray AddressMatchListElementType = cmpiData;
+    unsigned int AddressMatchListElementTypeSize;
+    const CMPIUint8* AddressMatchListElementTypeArray;
+    ArrayConverter::makeArray(
+      AddressMatchListElementType, 
+      (CMPIUint8**)&AddressMatchListElementTypeArray, 
+      AddressMatchListElementTypeSize);
+      setAddressMatchListElementType(AddressMatchListElementTypeArray, AddressMatchListElementTypeSize, 0);
     }
 
-    cmpiData = aCmpiInstance.getProperty("AddressList");
+    cmpiData = aCmpiInstance.getProperty("AddressMatchListElement");
     if ( ! cmpiData.isNullValue()){
-      CmpiArray AddressList = cmpiData;
-    unsigned int AddressListSize;
-    const char** AddressListArray;
+      CmpiArray AddressMatchListElement = cmpiData;
+    unsigned int AddressMatchListElementSize;
+    const char** AddressMatchListElementArray;
     ArrayConverter::makeArray(
-      AddressList, 
-      (char***)&AddressListArray, 
-      AddressListSize);
-      setAddressList(AddressListArray, AddressListSize, 0);
+      AddressMatchListElement, 
+      (char***)&AddressMatchListElementArray, 
+      AddressMatchListElementSize);
+      setAddressMatchListElement(AddressMatchListElementArray, AddressMatchListElementSize, 0);
     }
 
     cmpiData = aCmpiInstance.getProperty("Caption");
@@ -93,12 +101,6 @@ namespace genProvider {
     if ( ! cmpiData.isNullValue()){
       CmpiString ElementName = cmpiData;
       setElementName(ElementName.charPtr());
-    }
-
-    cmpiData = aCmpiInstance.getProperty("SettingID");
-    if ( ! cmpiData.isNullValue()){
-      CmpiString SettingID = cmpiData;
-      setSettingID(SettingID.charPtr());
     }
 
     
@@ -141,26 +143,34 @@ namespace genProvider {
 	    cmpiInstance.setPropertyFilter(aPropertiesPP,0);
     }
 
-  	if (isSet.AddressListType) {
+  	if (isSet.AddressMatchListElementType) {
   	  
-  	  cmpiInstance.setProperty(
-  	    "AddressListType",
-  	    CmpiData(m_AddressListType));
-  	}
-
-  	if (isSet.AddressList) {
-  	  
-      unsigned int AddressListSize;
-      const char** arrayAddressList = getAddressList(AddressListSize);
-      CmpiArray cmpiArrayAddressList = CmpiArray(
-        AddressListSize,
-        CMPI_chars);
-      for (unsigned int x=0; x < AddressListSize; ++x) {
-        cmpiArrayAddressList[x] = CmpiData(arrayAddressList[x]);
+      unsigned int AddressMatchListElementTypeSize;
+      const CMPIUint8* arrayAddressMatchListElementType = getAddressMatchListElementType(AddressMatchListElementTypeSize);
+      CmpiArray cmpiArrayAddressMatchListElementType = CmpiArray(
+        AddressMatchListElementTypeSize,
+        CMPI_uint8);
+      for (unsigned int x=0; x < AddressMatchListElementTypeSize; ++x) {
+        cmpiArrayAddressMatchListElementType[x] = CmpiData(arrayAddressMatchListElementType[x]);
       }
   	  cmpiInstance.setProperty(
-  	    "AddressList",
-  	    CmpiData(cmpiArrayAddressList));
+  	    "AddressMatchListElementType",
+  	    CmpiData(cmpiArrayAddressMatchListElementType));
+  	}
+
+  	if (isSet.AddressMatchListElement) {
+  	  
+      unsigned int AddressMatchListElementSize;
+      const char** arrayAddressMatchListElement = getAddressMatchListElement(AddressMatchListElementSize);
+      CmpiArray cmpiArrayAddressMatchListElement = CmpiArray(
+        AddressMatchListElementSize,
+        CMPI_chars);
+      for (unsigned int x=0; x < AddressMatchListElementSize; ++x) {
+        cmpiArrayAddressMatchListElement[x] = CmpiData(arrayAddressMatchListElement[x]);
+      }
+  	  cmpiInstance.setProperty(
+  	    "AddressMatchListElement",
+  	    CmpiData(cmpiArrayAddressMatchListElement));
   	}
 
   	if (isSet.Caption) {
@@ -182,13 +192,6 @@ namespace genProvider {
   	  cmpiInstance.setProperty(
   	    "ElementName",
   	    CmpiData(m_ElementName));
-  	}
-
-  	if (isSet.SettingID) {
-  	  
-  	  cmpiInstance.setProperty(
-  	    "SettingID",
-  	    CmpiData(m_SettingID));
   	}
 
   	
@@ -230,87 +233,104 @@ namespace genProvider {
   }
        
   //----------------------------------------------------------------------------
-  // AddressListType related methods
+  // AddressMatchListElementType related methods
   //----------------------------------------------------------------------------
   unsigned int
-  Linux_DnsAddressMatchListInstance::isAddressListTypeSet() const {
-    return isSet.AddressListType;
+  Linux_DnsAddressMatchListInstance::isAddressMatchListElementTypeSet() const {
+    return isSet.AddressMatchListElementType;
   }
 
   //----------------------------------------------------------------------------
-  void Linux_DnsAddressMatchListInstance::setAddressListType(
-    const CMPIUint16 aValue) {
-  
-    m_AddressListType = aValue;
-    isSet.AddressListType = 1;
-  
+  void Linux_DnsAddressMatchListInstance::setAddressMatchListElementType(
+    const CMPIUint8* aValueP,
+    const unsigned int aSize,
+    int aCopyFlag) {
+    
+    if (isSet.AddressMatchListElementType) {
+      delete []m_AddressMatchListElementType;
+    }
+    
+    if (aCopyFlag && aValueP) {
+      CMPIUint8* arrayP = new CMPIUint8[aSize];
+      for(unsigned int x=0; x < aSize; ++x) {
+        arrayP[x] = aValueP[x];
+      }
+      m_AddressMatchListElementType = arrayP;
+    } else {
+      m_AddressMatchListElementType = aValueP;
+    }
+    
+    m_AddressMatchListElementTypeSize = aSize;
+
+    isSet.AddressMatchListElementType = 1;
+    
   }       
 
   //----------------------------------------------------------------------------
-  const CMPIUint16
-  Linux_DnsAddressMatchListInstance::getAddressListType() const {
+  const CMPIUint8*
+  Linux_DnsAddressMatchListInstance::getAddressMatchListElementType(unsigned int& aSize) const {
     
-    if ( ! isSet.AddressListType) {
+    if ( ! isSet.AddressMatchListElementType) {
    	  throw CmpiErrorFormater::getErrorException(
    	    CmpiErrorFormater::NOT_SET,
-        "AddressListType",
+        "AddressMatchListElementType",
         "Linux_DnsAddressMatchList");
    	}
 
-
-    return m_AddressListType;
+    aSize = m_AddressMatchListElementTypeSize;
+    return m_AddressMatchListElementType;
 
   }
        
   //----------------------------------------------------------------------------
-  // AddressList related methods
+  // AddressMatchListElement related methods
   //----------------------------------------------------------------------------
   unsigned int
-  Linux_DnsAddressMatchListInstance::isAddressListSet() const {
-    return isSet.AddressList;
+  Linux_DnsAddressMatchListInstance::isAddressMatchListElementSet() const {
+    return isSet.AddressMatchListElement;
   }
 
   //----------------------------------------------------------------------------
   void  
-  Linux_DnsAddressMatchListInstance::setAddressList(
+  Linux_DnsAddressMatchListInstance::setAddressMatchListElement(
     const char** aValuePP, 
     const unsigned int aSize,
     int aCopyFlag) {
     
-    if (isSet.AddressList) {
-      delete m_AddressList;
+    if (isSet.AddressMatchListElement) {
+      delete m_AddressMatchListElement;
     }
     
     if (aCopyFlag && aValuePP) {
-      m_AddressList = new const char*[aSize];
+      m_AddressMatchListElement = new const char*[aSize];
       for (unsigned int x=0; x < aSize; ++x) {
         char* stringP = new char[strlen(aValuePP[x])+1];
         strcpy(stringP,aValuePP[x]);
-        m_AddressList[x] = stringP;
+        m_AddressMatchListElement[x] = stringP;
       }      
     } else {
-      m_AddressList = aValuePP;
+      m_AddressMatchListElement = aValuePP;
     }
     
-    m_AddressListSize = aSize;
+    m_AddressMatchListElementSize = aSize;
     
-    isSet.AddressList = 1;
+    isSet.AddressMatchListElement = 1;
     
   }       
 
   //----------------------------------------------------------------------------
   const char**
-  Linux_DnsAddressMatchListInstance::getAddressList(unsigned int& aSize) const {
+  Linux_DnsAddressMatchListInstance::getAddressMatchListElement(unsigned int& aSize) const {
     
-    if ( ! isSet.AddressList) {
+    if ( ! isSet.AddressMatchListElement) {
    	  throw CmpiErrorFormater::getErrorException(
    	    CmpiErrorFormater::NOT_SET,
-        "AddressList",
+        "AddressMatchListElement",
         "Linux_DnsAddressMatchList");
    	}
 
-    aSize = m_AddressListSize;
-    return m_AddressList;
+    aSize = m_AddressMatchListElementSize;
+    return m_AddressMatchListElement;
 
   }
        
@@ -451,52 +471,6 @@ namespace genProvider {
     return m_ElementName;
 
   }
-       
-  //----------------------------------------------------------------------------
-  // SettingID related methods
-  //----------------------------------------------------------------------------
-  unsigned int
-  Linux_DnsAddressMatchListInstance::isSettingIDSet() const {
-    return isSet.SettingID;
-  }
-
-  //----------------------------------------------------------------------------
-  void
-  Linux_DnsAddressMatchListInstance::setSettingID(
-    const char* aValueP,
-    int aCopyFlag) {
-    
-    if (isSet.SettingID) {
-      delete [] m_SettingID;
-    }
-    
-    if (aCopyFlag && aValueP) {
-      char* valueP = new char[strlen(aValueP) + 1];
-      strcpy(valueP,aValueP);
-      m_SettingID = valueP;
-    } else {
-      m_SettingID = aValueP;
-    }
-    
-    isSet.SettingID = 1;
-
-  }       
-
-  //----------------------------------------------------------------------------
-  const char*
-  Linux_DnsAddressMatchListInstance::getSettingID() const {
-    
-    if ( ! isSet.SettingID) {
-   	  throw CmpiErrorFormater::getErrorException(
-   	    CmpiErrorFormater::NOT_SET,
-        "SettingID",
-        "Linux_DnsAddressMatchList");
-   	}
-
-
-    return m_SettingID;
-
-  }
 
   
   //----------------------------------------------------------------------------
@@ -505,13 +479,13 @@ namespace genProvider {
   void
   Linux_DnsAddressMatchListInstance::init() {
    	isSet.instanceName = 0;
-    isSet.AddressListType = 0;
-    isSet.AddressList = 0;
-    m_AddressListSize = 0;
+    isSet.AddressMatchListElementType = 0;
+    m_AddressMatchListElementTypeSize = 0;
+    isSet.AddressMatchListElement = 0;
+    m_AddressMatchListElementSize = 0;
     isSet.Caption = 0;
     isSet.Description = 0;
     isSet.ElementName = 0;
-    isSet.SettingID = 0;
   	
   }
   
@@ -528,15 +502,16 @@ namespace genProvider {
       setInstanceName(anOriginal.getInstanceName());
     }
        	
-    if (anOriginal.isAddressListTypeSet()) {
-      const CMPIUint16 AddressListTypeOriginal = anOriginal.getAddressListType();
-      setAddressListType(AddressListTypeOriginal);
+    if (anOriginal.isAddressMatchListElementTypeSet()) {
+      unsigned int sizeAddressMatchListElementType;
+      const CMPIUint8* AddressMatchListElementTypeOriginal = anOriginal.getAddressMatchListElementType(sizeAddressMatchListElementType);
+      setAddressMatchListElementType(AddressMatchListElementTypeOriginal, sizeAddressMatchListElementType,1);
     }
    	
-    if (anOriginal.isAddressListSet()) {
-      unsigned int sizeAddressList;
-      const char** AddressListOriginal = anOriginal.getAddressList(sizeAddressList);
-      setAddressList(AddressListOriginal, sizeAddressList,1);
+    if (anOriginal.isAddressMatchListElementSet()) {
+      unsigned int sizeAddressMatchListElement;
+      const char** AddressMatchListElementOriginal = anOriginal.getAddressMatchListElement(sizeAddressMatchListElement);
+      setAddressMatchListElement(AddressMatchListElementOriginal, sizeAddressMatchListElement,1);
     }
    	
     if (anOriginal.isCaptionSet()) {
@@ -553,11 +528,6 @@ namespace genProvider {
       const char* ElementNameOriginal = anOriginal.getElementName();
       setElementName(ElementNameOriginal,1);
     }
-   	
-    if (anOriginal.isSettingIDSet()) {
-      const char* SettingIDOriginal = anOriginal.getSettingID();
-      setSettingID(SettingIDOriginal,1);
-    }
     
   }
   
@@ -567,8 +537,12 @@ namespace genProvider {
   void
   Linux_DnsAddressMatchListInstance::reset() {
    	
-  	if (isSet.AddressList) {
-  	  ArrayConverter::destructArray((char**)m_AddressList,m_AddressListSize);
+  	if (isSet.AddressMatchListElementType) {
+  	  ArrayConverter::destructArray((CMPIUint8*)m_AddressMatchListElementType);
+  	}
+
+  	if (isSet.AddressMatchListElement) {
+  	  ArrayConverter::destructArray((char**)m_AddressMatchListElement,m_AddressMatchListElementSize);
   	}
 
   	if (isSet.Caption) {
@@ -581,10 +555,6 @@ namespace genProvider {
 
   	if (isSet.ElementName) {
   	  delete(m_ElementName);
-  	}
-
-  	if (isSet.SettingID) {
-  	  delete(m_SettingID);
   	}
 
   }

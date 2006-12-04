@@ -1,0 +1,38 @@
+.                        3600000  IN  NS    A.TESTROOT-SERVERS.NET.
+A.TESTROOT-SERVERS.NET.      3600000      A     178.41.0.4
+;
+.                        3600000      NS    B.TESTROOT-SERVERS.NET.
+B.TESTROOT-SERVERS.NET.      3600000      A     171.228.79.201
+;
+.                        3600000      NS    C.TESTROOT-SERVERS.NET.
+C.TESTROOT-SERVERS.NET.      3600000      A     171.33.4.12
+;
+.                        3600000      NS    D.TESTROOT-SERVERS.NET.
+D.TESTROOT-SERVERS.NET.      3600000      A     118.8.10.70
+;
+.                        3600000      NS    E.TESTROOT-SERVERS.NET.
+E.TESTROOT-SERVERS.NET.      3600000      A     171.203.230.10
+;
+.                        3600000      NS    F.TESTROOT-SERVERS.NET.
+F.TESTROOT-SERVERS.NET.      3600000      A     171.5.5.241
+;
+.                        3600000      NS    G.TESTROOT-SERVERS.NET.
+G.TESTROOT-SERVERS.NET.      3600000      A     171.112.36.4
+;
+.                        3600000      NS    H.TESTROOT-SERVERS.NET.
+H.TESTROOT-SERVERS.NET.      3600000      A     118.63.2.53
+;
+.                        3600000      NS    I.TESTROOT-SERVERS.NET.
+I.TESTROOT-SERVERS.NET.      3600000      A     171.36.148.17
+;
+.                        3600000      NS    J.TESTROOT-SERVERS.NET.
+J.TESTROOT-SERVERS.NET.      3600000      A     171.58.128.30
+;
+.                        3600000      NS    K.TESTROOT-SERVERS.NET.
+K.TESTROOT-SERVERS.NET.      3600000      A     173.0.14.119 
+;
+.                        3600000      NS    L.TESTROOT-SERVERS.NET.
+L.TESTROOT-SERVERS.NET.      3600000      A     178.31.64.12
+;
+.                        3600000      NS    M.TESTROOT-SERVERS.NET.
+M.TESTROOT-SERVERS.NET.      3600000      A     102.12.27.33

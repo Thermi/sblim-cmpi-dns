@@ -1,0 +1,33 @@
+********************************************************************************
+association : Linux_DnsForwardersForZone
+objectPath : Linux_DnsForwardersForZone.GroupComponent=Linux_DnsZone.InstanceID="named",Name="cobra.example1.com",PartComponent=Linux_DnsForwarders.InstanceID="named",Name="zone::cobra.example1.com::forwarders"
+sourceRole : GroupComponent
+targetRole : PartComponent
+sourceClass : Linux_DnsZone
+targetClass : Linux_DnsForwarders
+
+--------------------------------------------------------------------------------
+Instance                                                       enumInstanceNames
+
+--------------------------------------------------------------------------------
+Instance                                                           enumInstances
+
+--------------------------------------------------------------------------------
+Instance                                                                     get
+
+--------------------------------------------------------------------------------
+Instance                                                                     set
+Expected Exception : NOT_SUPPORTED
+
+--------------------------------------------------------------------------------
+Association                                                          associators
+
+--------------------------------------------------------------------------------
+Association                                                      associatorNames
+
+--------------------------------------------------------------------------------
+Association                                                           references
+
+--------------------------------------------------------------------------------
+Association                                                       referenceNames
+

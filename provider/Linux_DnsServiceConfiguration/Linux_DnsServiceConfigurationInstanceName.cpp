@@ -1,6 +1,6 @@
 // =======================================================================
 // Linux_DnsServiceConfigurationInstanceName.cpp
-//     created on Fri, 3 Mar 2006 using ECUTE
+//     created on Thu, 23 Nov 2006 using ECUTE 2.2
 // 
 // Copyright (c) 2006, International Business Machines
 //
@@ -14,8 +14,10 @@
 // Author:        generated
 //
 // Contributors:
-//                Murillo Bernardes <bernarde@br.ibm.com>
-//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//                Wolfgang Taphorn   <taphorn at de.ibm.com>
+//                Murillo Bernardes  <bernarde(at)br.ibm.com>
+//                Mukunda Chowdaiah  <cmukunda(at)in.ibm.com>
+//                Ashoka S Rao       <ashoka.rao(at)in.ibm.com>
 //
 // =======================================================================
 //
@@ -59,11 +61,8 @@ namespace genProvider {
     namespaceP = path.getNameSpace();
     setNamespace(namespaceP.charPtr(),1);
         
-    CmpiObjectPath Configuration = path.getKey("Configuration");
-    setConfiguration(Linux_DnsConfigurationInstanceName(Configuration));
-    
-    CmpiObjectPath Element = path.getKey("Element");
-    setElement(Linux_DnsServiceInstanceName(Element));
+    CmpiString Name = path.getKey("Name");
+    setName(Name.charPtr());
 
     
   }
@@ -95,11 +94,8 @@ namespace genProvider {
    	
    	CmpiObjectPath objectPath(m_nameSpaceP, m_CIMClassNameP);
    	  	objectPath.setKey(
-  	  "Configuration",
-  	  CmpiData(m_Configuration.getObjectPath()));
-  	objectPath.setKey(
-  	  "Element",
-  	  CmpiData(m_Element.getObjectPath()));
+  	  "Name",
+  	  CmpiData(m_Name));
 
   	
   	return objectPath;
@@ -112,18 +108,11 @@ namespace genProvider {
   void 
   Linux_DnsServiceConfigurationInstanceName::fillKeys(CmpiInstance& cmpiInstance) const {
   	
-  	if (isSet.Configuration) {
+  	if (isSet.Name) {
   	  
   	  cmpiInstance.setProperty(
-  	    "Configuration",
-  	    CmpiData(m_Configuration.getObjectPath()));
-  	}
-
-  	if (isSet.Element) {
-  	  
-  	  cmpiInstance.setProperty(
-  	    "Element",
-  	    CmpiData(m_Element.getObjectPath()));
+  	    "Name",
+  	    CmpiData(m_Name));
   	}
 
   }
@@ -171,68 +160,48 @@ namespace genProvider {
   }
          
   //----------------------------------------------------------------------------
-  // Configuration related methods
+  // Name related methods
   //----------------------------------------------------------------------------
   unsigned int
-  Linux_DnsServiceConfigurationInstanceName::isConfigurationSet() const {
-    return isSet.Configuration;
+  Linux_DnsServiceConfigurationInstanceName::isNameSet() const {
+    return isSet.Name;
   }
 
   //----------------------------------------------------------------------------
-  void Linux_DnsServiceConfigurationInstanceName::setConfiguration(
-    const Linux_DnsConfigurationInstanceName& aValue) {
-  
-    m_Configuration = aValue;
-    isSet.Configuration = 1;
-  
+  void
+  Linux_DnsServiceConfigurationInstanceName::setName(
+    const char* aValueP,
+    int aCopyFlag) {
+    
+    if (isSet.Name) {
+      delete [] m_Name;
+    }
+    
+    if (aCopyFlag && aValueP) {
+      char* valueP = new char[strlen(aValueP) + 1];
+      strcpy(valueP,aValueP);
+      m_Name = valueP;
+    } else {
+      m_Name = aValueP;
+    }
+    
+    isSet.Name = 1;
+
   }       
 
   //----------------------------------------------------------------------------
-  const Linux_DnsConfigurationInstanceName&
-  Linux_DnsServiceConfigurationInstanceName::getConfiguration() const {
+  const char*
+  Linux_DnsServiceConfigurationInstanceName::getName() const {
     
-    if ( ! isSet.Configuration) {
+    if ( ! isSet.Name) {
    	  throw CmpiErrorFormater::getErrorException(
    	    CmpiErrorFormater::NOT_SET,
-        "Configuration",
+        "Name",
         "Linux_DnsServiceConfiguration");
    	}
 
 
-    return m_Configuration;
-
-  }
-       
-  //----------------------------------------------------------------------------
-  // Element related methods
-  //----------------------------------------------------------------------------
-  unsigned int
-  Linux_DnsServiceConfigurationInstanceName::isElementSet() const {
-    return isSet.Element;
-  }
-
-  //----------------------------------------------------------------------------
-  void Linux_DnsServiceConfigurationInstanceName::setElement(
-    const Linux_DnsServiceInstanceName& aValue) {
-  
-    m_Element = aValue;
-    isSet.Element = 1;
-  
-  }       
-
-  //----------------------------------------------------------------------------
-  const Linux_DnsServiceInstanceName&
-  Linux_DnsServiceConfigurationInstanceName::getElement() const {
-    
-    if ( ! isSet.Element) {
-   	  throw CmpiErrorFormater::getErrorException(
-   	    CmpiErrorFormater::NOT_SET,
-        "Element",
-        "Linux_DnsServiceConfiguration");
-   	}
-
-
-    return m_Element;
+    return m_Name;
 
   }
 
@@ -243,8 +212,7 @@ namespace genProvider {
   	
   	m_CIMClassNameP = "Linux_DnsServiceConfiguration";
   	isSet.m_nameSpaceP = 0; 
-  	    isSet.Configuration = 0;
-    isSet.Element = 0;
+  	    isSet.Name = 0;
 
   	
   }
@@ -263,14 +231,9 @@ namespace genProvider {
       setNamespace(anOriginal.getNamespace(),1);
     }
        	
-    if (anOriginal.isConfigurationSet()) {
-      const Linux_DnsConfigurationInstanceName& ConfigurationOriginal = anOriginal.getConfiguration();
-      setConfiguration(ConfigurationOriginal);
-    }
-   	
-    if (anOriginal.isElementSet()) {
-      const Linux_DnsServiceInstanceName& ElementOriginal = anOriginal.getElement();
-      setElement(ElementOriginal);
+    if (anOriginal.isNameSet()) {
+      const char* NameOriginal = anOriginal.getName();
+      setName(NameOriginal,1);
     }
     
   
@@ -282,7 +245,11 @@ namespace genProvider {
   	if (isSet.m_nameSpaceP) {
   	  delete(m_nameSpaceP);
   	}
-  	  	  
+  	
+  	if (isSet.Name) {
+  	  delete(m_Name);
+  	}
+  	  
   }
   
   //---------------------------------------------------------------------------- 

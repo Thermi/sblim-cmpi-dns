@@ -1,6 +1,6 @@
 // =======================================================================
 // Linux_DnsServiceConfigurationInstance.cpp
-//     created on Fri, 3 Mar 2006 using ECUTE
+//     created on Thu, 23 Nov 2006 using ECUTE 2.2
 // 
 // Copyright (c) 2006, International Business Machines
 //
@@ -14,8 +14,10 @@
 // Author:        generated
 //
 // Contributors:
-//                Murillo Bernardes <bernarde@br.ibm.com>
-//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//                Wolfgang Taphorn   <taphorn at de.ibm.com>
+//                Murillo Bernardes  <bernarde(at)br.ibm.com>
+//                Mukunda Chowdaiah  <cmukunda(at)in.ibm.com>
+//                Ashoka S Rao       <ashoka.rao(at)in.ibm.com>
 //
 // =======================================================================
 //
@@ -59,6 +61,30 @@ namespace genProvider {
     cop.setNameSpace(anInstanceNamespaceP);
     setInstanceName(Linux_DnsServiceConfigurationInstanceName(cop));
 
+    cmpiData = aCmpiInstance.getProperty("Caption");
+    if ( ! cmpiData.isNullValue()){
+      CmpiString Caption = cmpiData;
+      setCaption(Caption.charPtr());
+    }
+
+    cmpiData = aCmpiInstance.getProperty("ConfigurationFile");
+    if ( ! cmpiData.isNullValue()){
+      CmpiString ConfigurationFile = cmpiData;
+      setConfigurationFile(ConfigurationFile.charPtr());
+    }
+
+    cmpiData = aCmpiInstance.getProperty("Description");
+    if ( ! cmpiData.isNullValue()){
+      CmpiString Description = cmpiData;
+      setDescription(Description.charPtr());
+    }
+
+    cmpiData = aCmpiInstance.getProperty("ElementName");
+    if ( ! cmpiData.isNullValue()){
+      CmpiString ElementName = cmpiData;
+      setElementName(ElementName.charPtr());
+    }
+
     
   }
   
@@ -99,6 +125,34 @@ namespace genProvider {
 	    cmpiInstance.setPropertyFilter(aPropertiesPP,0);
     }
 
+  	if (isSet.Caption) {
+  	  
+  	  cmpiInstance.setProperty(
+  	    "Caption",
+  	    CmpiData(m_Caption));
+  	}
+
+  	if (isSet.ConfigurationFile) {
+  	  
+  	  cmpiInstance.setProperty(
+  	    "ConfigurationFile",
+  	    CmpiData(m_ConfigurationFile));
+  	}
+
+  	if (isSet.Description) {
+  	  
+  	  cmpiInstance.setProperty(
+  	    "Description",
+  	    CmpiData(m_Description));
+  	}
+
+  	if (isSet.ElementName) {
+  	  
+  	  cmpiInstance.setProperty(
+  	    "ElementName",
+  	    CmpiData(m_ElementName));
+  	}
+
   	
   	return cmpiInstance;
   	
@@ -136,6 +190,190 @@ namespace genProvider {
     isSet.instanceName = 1;
 
   }
+       
+  //----------------------------------------------------------------------------
+  // Caption related methods
+  //----------------------------------------------------------------------------
+  unsigned int
+  Linux_DnsServiceConfigurationInstance::isCaptionSet() const {
+    return isSet.Caption;
+  }
+
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsServiceConfigurationInstance::setCaption(
+    const char* aValueP,
+    int aCopyFlag) {
+    
+    if (isSet.Caption) {
+      delete [] m_Caption;
+    }
+    
+    if (aCopyFlag && aValueP) {
+      char* valueP = new char[strlen(aValueP) + 1];
+      strcpy(valueP,aValueP);
+      m_Caption = valueP;
+    } else {
+      m_Caption = aValueP;
+    }
+    
+    isSet.Caption = 1;
+
+  }       
+
+  //----------------------------------------------------------------------------
+  const char*
+  Linux_DnsServiceConfigurationInstance::getCaption() const {
+    
+    if ( ! isSet.Caption) {
+   	  throw CmpiErrorFormater::getErrorException(
+   	    CmpiErrorFormater::NOT_SET,
+        "Caption",
+        "Linux_DnsServiceConfiguration");
+   	}
+
+
+    return m_Caption;
+
+  }
+       
+  //----------------------------------------------------------------------------
+  // ConfigurationFile related methods
+  //----------------------------------------------------------------------------
+  unsigned int
+  Linux_DnsServiceConfigurationInstance::isConfigurationFileSet() const {
+    return isSet.ConfigurationFile;
+  }
+
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsServiceConfigurationInstance::setConfigurationFile(
+    const char* aValueP,
+    int aCopyFlag) {
+    
+    if (isSet.ConfigurationFile) {
+      delete [] m_ConfigurationFile;
+    }
+    
+    if (aCopyFlag && aValueP) {
+      char* valueP = new char[strlen(aValueP) + 1];
+      strcpy(valueP,aValueP);
+      m_ConfigurationFile = valueP;
+    } else {
+      m_ConfigurationFile = aValueP;
+    }
+    
+    isSet.ConfigurationFile = 1;
+
+  }       
+
+  //----------------------------------------------------------------------------
+  const char*
+  Linux_DnsServiceConfigurationInstance::getConfigurationFile() const {
+    
+    if ( ! isSet.ConfigurationFile) {
+   	  throw CmpiErrorFormater::getErrorException(
+   	    CmpiErrorFormater::NOT_SET,
+        "ConfigurationFile",
+        "Linux_DnsServiceConfiguration");
+   	}
+
+
+    return m_ConfigurationFile;
+
+  }
+       
+  //----------------------------------------------------------------------------
+  // Description related methods
+  //----------------------------------------------------------------------------
+  unsigned int
+  Linux_DnsServiceConfigurationInstance::isDescriptionSet() const {
+    return isSet.Description;
+  }
+
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsServiceConfigurationInstance::setDescription(
+    const char* aValueP,
+    int aCopyFlag) {
+    
+    if (isSet.Description) {
+      delete [] m_Description;
+    }
+    
+    if (aCopyFlag && aValueP) {
+      char* valueP = new char[strlen(aValueP) + 1];
+      strcpy(valueP,aValueP);
+      m_Description = valueP;
+    } else {
+      m_Description = aValueP;
+    }
+    
+    isSet.Description = 1;
+
+  }       
+
+  //----------------------------------------------------------------------------
+  const char*
+  Linux_DnsServiceConfigurationInstance::getDescription() const {
+    
+    if ( ! isSet.Description) {
+   	  throw CmpiErrorFormater::getErrorException(
+   	    CmpiErrorFormater::NOT_SET,
+        "Description",
+        "Linux_DnsServiceConfiguration");
+   	}
+
+
+    return m_Description;
+
+  }
+       
+  //----------------------------------------------------------------------------
+  // ElementName related methods
+  //----------------------------------------------------------------------------
+  unsigned int
+  Linux_DnsServiceConfigurationInstance::isElementNameSet() const {
+    return isSet.ElementName;
+  }
+
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsServiceConfigurationInstance::setElementName(
+    const char* aValueP,
+    int aCopyFlag) {
+    
+    if (isSet.ElementName) {
+      delete [] m_ElementName;
+    }
+    
+    if (aCopyFlag && aValueP) {
+      char* valueP = new char[strlen(aValueP) + 1];
+      strcpy(valueP,aValueP);
+      m_ElementName = valueP;
+    } else {
+      m_ElementName = aValueP;
+    }
+    
+    isSet.ElementName = 1;
+
+  }       
+
+  //----------------------------------------------------------------------------
+  const char*
+  Linux_DnsServiceConfigurationInstance::getElementName() const {
+    
+    if ( ! isSet.ElementName) {
+   	  throw CmpiErrorFormater::getErrorException(
+   	    CmpiErrorFormater::NOT_SET,
+        "ElementName",
+        "Linux_DnsServiceConfiguration");
+   	}
+
+
+    return m_ElementName;
+
+  }
 
   
   //----------------------------------------------------------------------------
@@ -144,6 +382,10 @@ namespace genProvider {
   void
   Linux_DnsServiceConfigurationInstance::init() {
    	isSet.instanceName = 0;
+    isSet.Caption = 0;
+    isSet.ConfigurationFile = 0;
+    isSet.Description = 0;
+    isSet.ElementName = 0;
   	
   }
   
@@ -159,7 +401,27 @@ namespace genProvider {
     if(anOriginal.isInstanceNameSet()) {
       setInstanceName(anOriginal.getInstanceName());
     }
-        
+       	
+    if (anOriginal.isCaptionSet()) {
+      const char* CaptionOriginal = anOriginal.getCaption();
+      setCaption(CaptionOriginal,1);
+    }
+   	
+    if (anOriginal.isConfigurationFileSet()) {
+      const char* ConfigurationFileOriginal = anOriginal.getConfigurationFile();
+      setConfigurationFile(ConfigurationFileOriginal,1);
+    }
+   	
+    if (anOriginal.isDescriptionSet()) {
+      const char* DescriptionOriginal = anOriginal.getDescription();
+      setDescription(DescriptionOriginal,1);
+    }
+   	
+    if (anOriginal.isElementNameSet()) {
+      const char* ElementNameOriginal = anOriginal.getElementName();
+      setElementName(ElementNameOriginal,1);
+    }
+    
   }
   
   //----------------------------------------------------------------------------
@@ -168,6 +430,22 @@ namespace genProvider {
   void
   Linux_DnsServiceConfigurationInstance::reset() {
    	
+  	if (isSet.Caption) {
+  	  delete(m_Caption);
+  	}
+
+  	if (isSet.ConfigurationFile) {
+  	  delete(m_ConfigurationFile);
+  	}
+
+  	if (isSet.Description) {
+  	  delete(m_Description);
+  	}
+
+  	if (isSet.ElementName) {
+  	  delete(m_ElementName);
+  	}
+
   }
   
   //----------------------------------------------------------------------------

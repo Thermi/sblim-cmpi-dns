@@ -1,6 +1,6 @@
 // =======================================================================
 // Linux_DnsHintZoneManualInstance.cpp
-//     created on Fri, 3 Mar 2006 using ECUTE
+//     created on Thu, 23 Nov 2006 using ECUTE 2.2
 // 
 // Copyright (c) 2006, International Business Machines
 //
@@ -14,8 +14,10 @@
 // Author:        generated
 //
 // Contributors:
-//                Murillo Bernardes <bernarde@br.ibm.com>
-//                Wolfgang Taphorn <taphorn@de.ibm.com>
+//                Wolfgang Taphorn   <taphorn at de.ibm.com>
+//                Murillo Bernardes  <bernarde(at)br.ibm.com>
+//                Mukunda Chowdaiah  <cmukunda(at)in.ibm.com>
+//                Ashoka S Rao       <ashoka.rao(at)in.ibm.com>
 //
 // =======================================================================
 //
@@ -59,16 +61,22 @@ namespace genProvider {
     cop.setNameSpace(anInstanceNamespaceP);
     setInstanceName(Linux_DnsHintZoneInstanceName(cop));
 
-    cmpiData = aCmpiInstance.getProperty("ResourceRecordFile");
+    cmpiData = aCmpiInstance.getProperty("TTL");
     if ( ! cmpiData.isNullValue()){
-      CmpiString ResourceRecordFile = cmpiData;
-      setResourceRecordFile(ResourceRecordFile.charPtr());
+      CMPISint32 TTL = cmpiData;
+      setTTL(TTL);
     }
 
     cmpiData = aCmpiInstance.getProperty("Type");
     if ( ! cmpiData.isNullValue()){
-      CMPIUint16 Type = cmpiData;
+      CMPIUint8 Type = cmpiData;
       setType(Type);
+    }
+
+    cmpiData = aCmpiInstance.getProperty("ZoneFile");
+    if ( ! cmpiData.isNullValue()){
+      CmpiString ZoneFile = cmpiData;
+      setZoneFile(ZoneFile.charPtr());
     }
 
     
@@ -111,11 +119,11 @@ namespace genProvider {
 	    cmpiInstance.setPropertyFilter(aPropertiesPP,0);
     }
 
-  	if (isSet.ResourceRecordFile) {
+  	if (isSet.TTL) {
   	  
   	  cmpiInstance.setProperty(
-  	    "ResourceRecordFile",
-  	    CmpiData(m_ResourceRecordFile));
+  	    "TTL",
+  	    CmpiData(m_TTL));
   	}
 
   	if (isSet.Type) {
@@ -123,6 +131,13 @@ namespace genProvider {
   	  cmpiInstance.setProperty(
   	    "Type",
   	    CmpiData(m_Type));
+  	}
+
+  	if (isSet.ZoneFile) {
+  	  
+  	  cmpiInstance.setProperty(
+  	    "ZoneFile",
+  	    CmpiData(m_ZoneFile));
   	}
 
   	
@@ -164,48 +179,35 @@ namespace genProvider {
   }
        
   //----------------------------------------------------------------------------
-  // ResourceRecordFile related methods
+  // TTL related methods
   //----------------------------------------------------------------------------
   unsigned int
-  Linux_DnsHintZoneManualInstance::isResourceRecordFileSet() const {
-    return isSet.ResourceRecordFile;
+  Linux_DnsHintZoneManualInstance::isTTLSet() const {
+    return isSet.TTL;
   }
 
   //----------------------------------------------------------------------------
-  void
-  Linux_DnsHintZoneManualInstance::setResourceRecordFile(
-    const char* aValueP,
-    int aCopyFlag) {
-    
-    if (isSet.ResourceRecordFile) {
-      delete [] m_ResourceRecordFile;
-    }
-    
-    if (aCopyFlag && aValueP) {
-      char* valueP = new char[strlen(aValueP) + 1];
-      strcpy(valueP,aValueP);
-      m_ResourceRecordFile = valueP;
-    } else {
-      m_ResourceRecordFile = aValueP;
-    }
-    
-    isSet.ResourceRecordFile = 1;
-
+  void Linux_DnsHintZoneManualInstance::setTTL(
+    const CMPISint32 aValue) {
+  
+    m_TTL = aValue;
+    isSet.TTL = 1;
+  
   }       
 
   //----------------------------------------------------------------------------
-  const char*
-  Linux_DnsHintZoneManualInstance::getResourceRecordFile() const {
+  const CMPISint32
+  Linux_DnsHintZoneManualInstance::getTTL() const {
     
-    if ( ! isSet.ResourceRecordFile) {
+    if ( ! isSet.TTL) {
    	  throw CmpiErrorFormater::getErrorException(
    	    CmpiErrorFormater::NOT_SET,
-        "ResourceRecordFile",
+        "TTL",
         "Linux_DnsHintZone");
    	}
 
 
-    return m_ResourceRecordFile;
+    return m_TTL;
 
   }
        
@@ -219,7 +221,7 @@ namespace genProvider {
 
   //----------------------------------------------------------------------------
   void Linux_DnsHintZoneManualInstance::setType(
-    const CMPIUint16 aValue) {
+    const CMPIUint8 aValue) {
   
     m_Type = aValue;
     isSet.Type = 1;
@@ -227,7 +229,7 @@ namespace genProvider {
   }       
 
   //----------------------------------------------------------------------------
-  const CMPIUint16
+  const CMPIUint8
   Linux_DnsHintZoneManualInstance::getType() const {
     
     if ( ! isSet.Type) {
@@ -241,6 +243,52 @@ namespace genProvider {
     return m_Type;
 
   }
+       
+  //----------------------------------------------------------------------------
+  // ZoneFile related methods
+  //----------------------------------------------------------------------------
+  unsigned int
+  Linux_DnsHintZoneManualInstance::isZoneFileSet() const {
+    return isSet.ZoneFile;
+  }
+
+  //----------------------------------------------------------------------------
+  void
+  Linux_DnsHintZoneManualInstance::setZoneFile(
+    const char* aValueP,
+    int aCopyFlag) {
+    
+    if (isSet.ZoneFile) {
+      delete [] m_ZoneFile;
+    }
+    
+    if (aCopyFlag && aValueP) {
+      char* valueP = new char[strlen(aValueP) + 1];
+      strcpy(valueP,aValueP);
+      m_ZoneFile = valueP;
+    } else {
+      m_ZoneFile = aValueP;
+    }
+    
+    isSet.ZoneFile = 1;
+
+  }       
+
+  //----------------------------------------------------------------------------
+  const char*
+  Linux_DnsHintZoneManualInstance::getZoneFile() const {
+    
+    if ( ! isSet.ZoneFile) {
+   	  throw CmpiErrorFormater::getErrorException(
+   	    CmpiErrorFormater::NOT_SET,
+        "ZoneFile",
+        "Linux_DnsHintZone");
+   	}
+
+
+    return m_ZoneFile;
+
+  }
 
   
   //----------------------------------------------------------------------------
@@ -249,8 +297,9 @@ namespace genProvider {
   void
   Linux_DnsHintZoneManualInstance::init() {
    	isSet.instanceName = 0;
-    isSet.ResourceRecordFile = 0;
+    isSet.TTL = 0;
     isSet.Type = 0;
+    isSet.ZoneFile = 0;
   	
   }
   
@@ -267,14 +316,19 @@ namespace genProvider {
       setInstanceName(anOriginal.getInstanceName());
     }
        	
-    if (anOriginal.isResourceRecordFileSet()) {
-      const char* ResourceRecordFileOriginal = anOriginal.getResourceRecordFile();
-      setResourceRecordFile(ResourceRecordFileOriginal,1);
+    if (anOriginal.isTTLSet()) {
+      const CMPISint32 TTLOriginal = anOriginal.getTTL();
+      setTTL(TTLOriginal);
     }
    	
     if (anOriginal.isTypeSet()) {
-      const CMPIUint16 TypeOriginal = anOriginal.getType();
+      const CMPIUint8 TypeOriginal = anOriginal.getType();
       setType(TypeOriginal);
+    }
+   	
+    if (anOriginal.isZoneFileSet()) {
+      const char* ZoneFileOriginal = anOriginal.getZoneFile();
+      setZoneFile(ZoneFileOriginal,1);
     }
     
   }
@@ -285,8 +339,8 @@ namespace genProvider {
   void
   Linux_DnsHintZoneManualInstance::reset() {
    	
-  	if (isSet.ResourceRecordFile) {
-  	  delete(m_ResourceRecordFile);
+  	if (isSet.ZoneFile) {
+  	  delete(m_ZoneFile);
   	}
 
   }

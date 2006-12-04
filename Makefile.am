@@ -1,4 +1,3 @@
-# $Id: Makefile.am,v 1.2 2006/05/16 16:57:51 taphorn Exp $
 # ==================================================================
 # (C) Copyright IBM Corp. 2005
 #
@@ -14,6 +13,8 @@
 #               access layer.
 # ==================================================================
 
+#Include local M4 macros
+ACLOCAL_AMFLAGS = -I m4
 
 # SBLIM Include Directory
 sblimincdir = $(includedir)/sblim
@@ -47,11 +48,14 @@ CLEANFILES =
 EXTRA_DIST =
 
 # Subdirectories to recognize during build process
-SUBDIRS = resource-access provider
+if SBLIM_TESTSUITE
+  TESTCASE_DIR = test
+endif
+SUBDIRS = $(TESTCASE_DIR) resource-access provider
 
 # Automake instructions for documentation
-doc_DATA = README AUTHORS COPYING 
-
+doc_DATA = README AUTHORS COPYING NEWS ChangeLog TroubleShooting
+EXTRA_DIST += $(doc_DATA)
 
 ######################################################################################
 # We must explicity add the RPM spec file to the distribution package
@@ -69,7 +73,7 @@ pkgdata_DATA = $(SCHEMAS) $(REGISTRATIONS)
 
 pkgdata_SCRIPTS += $(srcdir)/provider-register.sh
 
-EXTRA_DIST += model $(pkgdata_SCRIPTS)
+EXTRA_DIST += $(pkgdata_SCRIPTS) $(SCHEMAS) $(REGISTRATIONS)
 
 
 # Register the provider(s) and class definition(s) to the current CIM server/CIMOM
@@ -81,3 +85,4 @@ preuninstall:
 
 dist-hook:
 	test -d "$(distdir)" &&	rm -rf `find $(distdir) -type d -name CVS`
+

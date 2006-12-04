@@ -19,16 +19,15 @@
 #ifndef _SMT_DNS_RA_SCRIPTS_H_
 #define _SMT_DNS_RA_SCRIPTS_H_
 
-#define DELETERR "smt_dns_ra_deleterr.sh"
-#define DELETE "smt_dns_ra_delete.sh"
+#define DELETERR  "smt_dns_ra_deleterr.sh"
+#define DELETE    "smt_dns_ra_delete.sh"
 #define DISABLERR "smt_dns_ra_disablerr.sh"
-#define DISABLE "smt_dns_ra_disable.sh"
-#define ENABLERR "smt_dns_ra_enablerr.sh"
-#define ENABLE "smt_dns_ra_enable.sh"
-#define GETOPTS "smt_dns_ra_getopts.pl"
-#define GETZONES "smt_dns_ra_getzones.pl"
-#define READACL "smt_dns_ra_readacl.pl"
-#define WRITEACL "smt_dns_ra_writeacl.sh"
+#define DISABLE   "smt_dns_ra_disable.sh"
+#define ENABLERR  "smt_dns_ra_enablerr.sh"
+#define ENABLE    "smt_dns_ra_enable.sh"
+#define WRITEACL  "smt_dns_ra_writeacl.sh"
+#define REMOVERR  "smt_dns_ra_cleanuprr.sh"
+#define STATUSSRV "smt_dns_ra_status.sh"
 
 #endif
 

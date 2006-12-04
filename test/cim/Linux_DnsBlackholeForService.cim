@@ -1,0 +1,37 @@
+********************************************************************************
+association : Linux_DnsBlackholeForService
+objectPath : Linux_DnsBlackholeForService.GroupComponent=Linux_DnsService.CreationClassName="Linux_DnsService",Name="named",SystemCreationClassName="Linux_DnsService",SystemName="localhost",PartComponent=Linux_DnsAddressMatchList.InstanceID="named",Name="options::blackhole"
+sourceRole : GroupComponent
+targetRole : PartComponent
+sourceClass : Linux_DnsService
+targetClass : Linux_DnsAddressMatchList
+
+--------------------------------------------------------------------------------
+Instance                                                       enumInstanceNames
+
+--------------------------------------------------------------------------------
+Instance                                                           enumInstances
+
+--------------------------------------------------------------------------------
+Instance                                                                     get
+
+--------------------------------------------------------------------------------
+Instance                                                                     set
+Expected Exception : NOT_SUPPORTED
+
+--------------------------------------------------------------------------------
+Instance                                                                  delete
+Expected Exception : NOT_SUPPORTED
+
+--------------------------------------------------------------------------------
+Association                                                          associators
+
+--------------------------------------------------------------------------------
+Association                                                      associatorNames
+
+--------------------------------------------------------------------------------
+Association                                                           references
+
+--------------------------------------------------------------------------------
+Association                                                       referenceNames
+

@@ -1,9 +1,9 @@
-#!/bin/bash
+#! /bin/sh
 
 #
 # status.sh
 #
-# (C) Copyright IBM Corp. 2005
+# (C) Copyright IBM Corp. 2006
 #
 # THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
 # ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE
@@ -12,22 +12,20 @@
 # You can obtain a current copy of the Common Public License from
 # http://www.opensource.org/licenses/cpl1.0.php
 #
-# Author:  Glauber de Oliveira Costa <gocosta@br.ibm.com>
+# Author:     Mukunda Chowdaiah          <cmukunda@in.ibm.com>
+#             Ashoka S Rao               <ashoka.rao@in.ibm.com>
 #
 # Contributors:
 #
 #
-
-
-namedbin="$1"
-found=0
-for i in $(find /proc/ -iname exe -maxdepth 2);
-	do 
- 		if [ "`readlink $i`" == "$namedbin" ];
-			then exit 1 
-			break
-		fi
-done;
-
-exit 0
-
+named='named'
+prog=$named
+if [ "`pidof -o %PPID $named`" ]; then
+	echo -n $"$named: already running"
+	echo
+	exit 2
+else
+	echo -n $"$named: is not  running"
+	echo
+	exit 0   
+fi
