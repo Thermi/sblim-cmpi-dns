@@ -12,11 +12,11 @@ Instance                                                           enumInstances
 Instance                                                                     get
 
 --------------------------------------------------------------------------------
-Instance                                                                     set
-Expected Exception : NOT_SUPPORTED
+Instance                                                                  create
 
 --------------------------------------------------------------------------------
-Instance                                                                  create
+Instance                                                                     set
+Expected Exception : NOT_SUPPORTED
 
 --------------------------------------------------------------------------------
 Instance                                                                  delete
