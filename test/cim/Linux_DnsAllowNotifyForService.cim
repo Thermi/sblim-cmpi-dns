@@ -1,6 +1,6 @@
 ********************************************************************************
 association : Linux_DnsAllowNotifyForService
-objectPath : Linux_DnsAllowNotifyForService.GroupComponent=Linux_DnsService.CreationClassName="Linux_DnsService",Name="named",SystemCreationClassName="Linux_DnsService",SystemName="localhost",PartComponent=Linux_DnsAddressMatchList.InstanceID="named",Name="options::allow-notify"
+objectPath : Linux_DnsAllowNotifyForService.GroupComponent=Linux_DnsService.CreationClassName="Linux_DnsService",Name="named",SystemCreationClassName="Linux_DnsService",SystemName="localhost",PartComponent=Linux_DnsAddressMatchList.InstanceID="named",Name="options::allow-notify" GroupComponent=Linux_DnsService.CreationClassName="Linux_DnsService",Name="named",SystemCreationClassName="Linux_DnsService",SystemName="localhost",PartComponent=Linux_DnsAddressMatchList.InstanceID="named",Name="options::allow-notify"
 sourceRole : GroupComponent
 targetRole : PartComponent
 sourceClass : Linux_DnsService

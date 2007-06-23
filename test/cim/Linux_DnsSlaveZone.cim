@@ -1,6 +1,6 @@
 ********************************************************************************
 class : Linux_DnsSlaveZone
-objectPath : Linux_DnsSlaveZone.InstanceID="InstanceID",Name="buffalo123.example2.com"
+objectPath : Linux_DnsSlaveZone.InstanceID="named",Name="rhino.testing.com",Type=2,ZoneFile="rhino.testing.com.conf",TTL,Forward
 
 --------------------------------------------------------------------------------
 Instance                                                       enumInstanceNames

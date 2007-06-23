@@ -1,6 +1,6 @@
 ********************************************************************************
 class : Linux_DnsService
-objectPath : Linux_DnsService.CreationClassName="Linux_DnsService",Name="named",SystemCreationClassName="Linux_DnsService",SystemName="localhost"
+objectPath : Linux_DnsService.CreationClassName="Linux_DnsService",Name="named",SystemCreationClassName="Linux_DnsService",SystemName="localhost",EnabledState=5,RequestedState=12,EnabledDefault=2,Started=FALSE,RunAsRoot=FALSE
 
 --------------------------------------------------------------------------------
 Instance                                                       enumInstanceNames

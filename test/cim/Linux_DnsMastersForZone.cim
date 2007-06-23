@@ -1,6 +1,6 @@
 ********************************************************************************
 association : Linux_DnsMastersForZone
-objectPath : Linux_DnsMastersForZone.GroupComponent=Linux_DnsZone.Name="rhino.example1.com",PartComponent=Linux_DnsMasters.ZoneName="rhino.example1.com",MasterElement={"192.168.23.15"},MasterElementType={1}
+objectPath : Linux_DnsMastersForZone.GroupComponent=Linux_DnsZone.InstanceID="named",Name="rhino.testing.com",PartComponent=Linux_DnsMasters.InstanceID="named",Name="zone::rhino.testing.com::masters" GroupComponent=Linux_DnsZone.InstanceID="named",Name="rhino.testing.com",PartComponent=Linux_DnsMasters.InstanceID="named",Name="zone::rhino.testing.com::masters"
 sourceRole : GroupComponent
 targetRole : PartComponent
 sourceClass : Linux_DnsZone

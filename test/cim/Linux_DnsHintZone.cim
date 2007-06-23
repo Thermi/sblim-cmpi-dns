@@ -1,6 +1,6 @@
 ********************************************************************************
 class : Linux_DnsHintZone
-objectPath : Linux_DnsHintZone.InstanceID="InstanceID",Name="newhint.example1.com"
+objectPath : Linux_DnsHintZone.InstanceID="named",Name=".",Type=5,ZoneFile="named.ca",TTL=10
 
 --------------------------------------------------------------------------------
 Instance                                                       enumInstanceNames
@@ -13,6 +13,7 @@ Instance                                                                     get
 
 --------------------------------------------------------------------------------
 Instance                                                                  create
+Expected Exception : ALREADY_EXISTS
 
 --------------------------------------------------------------------------------
 Instance                                                                     set

@@ -1,6 +1,6 @@
 ********************************************************************************
 association : Linux_DnsForwardersForZone
-objectPath : Linux_DnsForwardersForZone.GroupComponent=Linux_DnsZone.InstanceID="named",Name="cobra.example1.com",PartComponent=Linux_DnsForwarders.InstanceID="named",Name="zone::cobra.example1.com::forwarders"
+objectPath : Linux_DnsForwardersForZone.GroupComponent=Linux_DnsZone.InstanceID="named",Name="elephant.testing.com",PartComponent=Linux_DnsForwarders.InstanceID="named",Name="zone::elephant.testing.com::forwarders" GroupComponent=Linux_DnsZone.InstanceID="named",Name="elephant.testing.com",PartComponent=Linux_DnsForwarders.InstanceID="named",Name="zone::elephant.testing.com::forwarders"
 sourceRole : GroupComponent
 targetRole : PartComponent
 sourceClass : Linux_DnsZone

@@ -1,6 +1,6 @@
 ********************************************************************************
 class : Linux_DnsMasters
-objectPath : Linux_DnsMasters.InstanceID="named",Name="global::MyMaster123::masters"
+objectPath : Linux_DnsMasters.InstanceID="named",Name="global::myMasters::masters",MasterElement="127.0.0.2","92.2.2.2",MasterElementType=1,1
 
 --------------------------------------------------------------------------------
 Instance                                                       enumInstanceNames

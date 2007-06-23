@@ -1,6 +1,6 @@
 ********************************************************************************
 association : Linux_DnsAllowNotifyForZone
-objectPath : Linux_DnsAllowNotifyForZone.GroupComponent=Linux_DnsZone.InstanceID="named",Name="rhino.example1.com",PartComponent=Linux_DnsAddressMatchList.InstanceID="named",Name="zone::rhino.example1.com::allow-notify"
+objectPath : Linux_DnsAllowNotifyForZone.GroupComponent=Linux_DnsZone.InstanceID="named",Name="rh.test.com",PartComponent=Linux_DnsAddressMatchList.InstanceID="named",Name="zone::rh.test.com::allow-notify" GroupComponent=Linux_DnsZone.InstanceID="named",Name="rh.test.com",PartComponent=Linux_DnsAddressMatchList.InstanceID="named",Name="zone::rh.test.com::allow-notify"
 sourceRole : GroupComponent
 targetRole : PartComponent
 sourceClass : Linux_DnsZone
