@@ -431,33 +431,33 @@ namespace genProvider {
 
       int isRequestedStatePresent = 0;
       CMPIUint16 RequestedState;
-      try {
-        CmpiData RequestedStateCmpiData = in.getArg("RequestedState");
-        isRequestedStatePresent = ! RequestedStateCmpiData.isNullValue();
-        if (isRequestedStatePresent) {
-           RequestedState = RequestedStateCmpiData;
-
-        }
-      } catch (const CmpiStatus& rc) {
-        // parameter not present
-        
-      }
+//      try {
+//        CmpiData RequestedStateCmpiData = in.getArg("RequestedState");
+//        isRequestedStatePresent = ! RequestedStateCmpiData.isNullValue();
+//        if (isRequestedStatePresent) {
+//           RequestedState = RequestedStateCmpiData;
+//
+//        }
+//      } catch (const CmpiStatus& rc) {
+//        // parameter not present
+//        
+//      }
 
       CIM_ConcreteJobInstanceName Job;
 
       int isTimeoutPeriodPresent = 0;
       CmpiDateTime TimeoutPeriod;
-      try {
-        CmpiData TimeoutPeriodCmpiData = in.getArg("TimeoutPeriod");
-        isTimeoutPeriodPresent = ! TimeoutPeriodCmpiData.isNullValue();
-        if (isTimeoutPeriodPresent) {
-           TimeoutPeriod = TimeoutPeriodCmpiData;
-
-        }
-      } catch (const CmpiStatus& rc) {
-        // parameter not present
-        
-      }
+//      try {
+//        CmpiData TimeoutPeriodCmpiData = in.getArg("TimeoutPeriod");
+//        isTimeoutPeriodPresent = ! TimeoutPeriodCmpiData.isNullValue();
+//        if (isTimeoutPeriodPresent) {
+//           TimeoutPeriod = TimeoutPeriodCmpiData;
+//
+//        }
+//      } catch (const CmpiStatus& rc) {
+//        // parameter not present
+//        
+//      }
         
       aResult.returnData(CmpiData(m_interfaceP->RequestStateChange(
         aContext,
@@ -469,7 +469,7 @@ namespace genProvider {
         TimeoutPeriod,
         isTimeoutPeriodPresent)));
 
-      out.setArg("Job",CmpiData(Job.getObjectPath()));
+//      out.setArg("Job",CmpiData(Job.getObjectPath()));
 
 
 #ifdef DEBUG
