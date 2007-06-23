@@ -1,6 +1,7 @@
 ********************************************************************************
 class : Linux_DnsForwarders
 objectPath : Linux_DnsForwarders.InstanceID="named",Name="options::forwarders",ForwardersElement="10.0.0.1","10.0.0.2",ForwardersElementType=1,1
+modifyInst : Linux_DnsForwarders.InstanceID="named",Name="options::forwarders",ForwardersElement="10.0.0.1","10.0.0.2",ForwardersElementType=1,1
 
 --------------------------------------------------------------------------------
 Instance                                                       enumInstanceNames

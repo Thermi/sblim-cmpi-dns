@@ -1,6 +1,7 @@
 ********************************************************************************
 class : Linux_DnsMasterZone
 objectPath : Linux_DnsMasterZone.InstanceID="named",Name="localdomain2",Type=1,ZoneFile="localdomain2.zone",TTL=10,Forward=1,Server="sample",Contact="hugo",SerialNumber="0",Refresh=0,Retry=0,Expire=0,NegativeCachingTTL=0
+modifyInst : Linux_DnsMasterZone.InstanceID="named",Name="localdomain2",Type=1,ZoneFile="localdomain2.zone",TTL=10,Forward=1,Server="sample",Contact="hugo",SerialNumber="0",Refresh=0,Retry=0,Expire=0,NegativeCachingTTL=0
 
 --------------------------------------------------------------------------------
 Instance                                                       enumInstanceNames
@@ -16,7 +17,6 @@ Instance                                                                  create
 
 --------------------------------------------------------------------------------
 Instance                                                                     set
-Expected Exception : NOT_SUPPORTED
 
 --------------------------------------------------------------------------------
 Instance                                                                  delete

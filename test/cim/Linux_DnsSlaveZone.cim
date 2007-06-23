@@ -1,6 +1,7 @@
 ********************************************************************************
 class : Linux_DnsSlaveZone
 objectPath : Linux_DnsSlaveZone.InstanceID="named",Name="rhino.testing.com",Type=2,ZoneFile="rhino.testing.com.conf",TTL,Forward
+modifyInst : Linux_DnsSlaveZone.InstanceID="named",Name="rhino.testing.com",Type=2,ZoneFile="rhino.testing.com.conf",TTL,Forward
 
 --------------------------------------------------------------------------------
 Instance                                                       enumInstanceNames
@@ -16,7 +17,6 @@ Instance                                                                  create
 
 --------------------------------------------------------------------------------
 Instance                                                                     set
-Expected Exception : NOT_SUPPORTED
 
 --------------------------------------------------------------------------------
 Instance                                                                  delete

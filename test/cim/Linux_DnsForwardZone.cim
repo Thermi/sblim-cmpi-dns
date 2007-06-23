@@ -1,6 +1,7 @@
 ********************************************************************************
 class : Linux_DnsForwardZone
 objectPath : Linux_DnsForwardZone.InstanceID="InstanceID",Name="cobra123.example1.com",Forward=1,Type=4
+modifyInst : Linux_DnsForwardZone.InstanceID="InstanceID",Name="cobra123.example1.com",Forward=1,Type=4
 
 --------------------------------------------------------------------------------
 Instance                                                       enumInstanceNames
@@ -16,7 +17,6 @@ Instance                                                                  create
 
 --------------------------------------------------------------------------------
 Instance                                                                     set
-Expected Exception : NOT_SUPPORTED
 
 --------------------------------------------------------------------------------
 Instance                                                                  delete

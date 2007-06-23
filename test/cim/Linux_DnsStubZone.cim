@@ -1,6 +1,7 @@
 ********************************************************************************
 class : Linux_DnsStubZone
 objectPath : Linux_DnsStubZone.InstanceID="named",Name="cheetah.testing.com",Type=3,ZoneFile="cheetah.testing.com.conf",TTL,Forward
+modifyInst : Linux_DnsStubZone.InstanceID="named",Name="cheetah.testing.com",Type=3,ZoneFile="cheetah.testing.com.conf",TTL,Forward
 
 --------------------------------------------------------------------------------
 Instance                                                       enumInstanceNames
@@ -16,7 +17,6 @@ Instance                                                                  create
 
 --------------------------------------------------------------------------------
 Instance                                                                     set
-Expected Exception : NOT_SUPPORTED
 
 --------------------------------------------------------------------------------
 Instance                                                                  delete

@@ -1,6 +1,7 @@
 ********************************************************************************
 class : Linux_DnsServiceConfiguration
 objectPath : Linux_DnsServiceConfiguration.Name="named",ConfigurationFile="/usr/local/etc/named.conf"
+modifyInst : Linux_DnsServiceConfiguration.Name="named",ConfigurationFile="/usr/local/etc/named.conf"
 
 --------------------------------------------------------------------------------
 Instance                                                       enumInstanceNames
@@ -17,7 +18,6 @@ Expected Exception : NOT_SUPPORTED
 
 --------------------------------------------------------------------------------
 Instance                                                                     set
-Expected Exception : NOT_SUPPORTED
 
 --------------------------------------------------------------------------------
 Instance                                                                  delete
