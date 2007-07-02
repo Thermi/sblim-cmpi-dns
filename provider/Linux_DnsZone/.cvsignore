@@ -1,0 +1,8 @@
+.deps
+.libs
+libcmpiLinux_DnsZone.la
+Linux_DnsZoneInstance.lo
+Linux_DnsZoneExternal.lo
+Linux_DnsZoneInstanceName.lo
+Makefile.in
+Makefile

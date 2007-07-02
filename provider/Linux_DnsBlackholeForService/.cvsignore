@@ -1,0 +1,15 @@
+.deps
+.libs
+CmpiLinux_DnsBlackholeForServiceProvider.lo
+Linux_DnsBlackholeForServiceResourceAccess.lo
+libcmpiLinux_DnsBlackholeForService.la
+Makefile
+Linux_DnsBlackholeForServiceExternal.lo
+Makefile.in
+Linux_DnsBlackholeForServiceInstance.lo
+Linux_DnsBlackholeForServiceRepositoryExternal.lo
+Linux_DnsBlackholeForServiceInstanceName.lo
+Linux_DnsBlackholeForServiceFactory.lo
+Linux_DnsBlackholeForServiceManualInstance.lo
+Linux_DnsBlackholeForServiceRepositoryInstance.lo
+Linux_DnsBlackholeForServiceDefaultImplementation.lo

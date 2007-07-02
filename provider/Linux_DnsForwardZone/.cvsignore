@@ -1,0 +1,15 @@
+.deps
+.libs
+Linux_DnsForwardZoneRepositoryInstance.lo
+Linux_DnsForwardZoneManualInstance.lo
+Linux_DnsForwardZoneRepositoryExternal.lo
+Linux_DnsForwardZoneResourceAccess.lo
+Makefile.in
+libcmpiLinux_DnsForwardZone.la
+Linux_DnsForwardZoneDefaultImplementation.lo
+Linux_DnsForwardZoneFactory.lo
+Linux_DnsForwardZoneExternal.lo
+Linux_DnsForwardZoneInstance.lo
+CmpiLinux_DnsForwardZoneProvider.lo
+Makefile
+Linux_DnsForwardZoneInstanceName.lo

@@ -1,6 +1,7 @@
 ********************************************************************************
 association : Linux_DnsAllowNotifyForZone
 objectPath : Linux_DnsAllowNotifyForZone.GroupComponent=Linux_DnsZone.InstanceID="named",Name="rh.test.com",PartComponent=Linux_DnsAddressMatchList.InstanceID="named",Name="zone::rh.test.com::allow-notify" GroupComponent=Linux_DnsZone.InstanceID="named",Name="rh.test.com",PartComponent=Linux_DnsAddressMatchList.InstanceID="named",Name="zone::rh.test.com::allow-notify"
+modifyInst : Linux_DnsAllowNotifyForZone.GroupComponent=Linux_DnsZone.InstanceID="named",Name="rh.test.com",PartComponent=Linux_DnsAddressMatchList.InstanceID="named",Name="zone::rh.test.com::allow-notify" GroupComponent=Linux_DnsZone.InstanceID="named",Name="rh.test.com",PartComponent=Linux_DnsAddressMatchList.InstanceID="named",Name="zone::rh.test.com::allow-notify"
 sourceRole : GroupComponent
 targetRole : PartComponent
 sourceClass : Linux_DnsZone
@@ -17,7 +18,6 @@ Instance                                                                     get
 
 --------------------------------------------------------------------------------
 Instance                                                                     set
-Expected Exception : NOT_SUPPORTED
 
 --------------------------------------------------------------------------------
 Instance                                                                  delete

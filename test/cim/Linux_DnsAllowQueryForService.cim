@@ -1,6 +1,7 @@
 ********************************************************************************
 association : Linux_DnsAllowQueryForService
-objectPath : Linux_DnsAllowQueryForService.GroupComponent=Linux_DnsService.CreationClassName="Linux_DnsService",Name="named",SystemCreationClassName="Linux_DnsService",SystemName="localhost",PartComponent=Linux_DnsAddressMatchList.InstanceID="named",Name="options::allow-query" GroupComponent=Linux_DnsService.CreationClassName="Linux_DnsService",Name="named",SystemCreationClassName="Linux_DnsService",SystemName="localhost",PartComponent=Linux_DnsAddressMatchList.InstanceID="named",Name="options::allow-query"
+objectPath : Linux_DnsAllowQueryForService.GroupComponent=Linux_DnsService.CreationClassName="Linux_DnsService",Name="named",SystemCreationClassName="Linux_DnsService",SystemName="localhost",PartComponent=Linux_DnsAddressMatchList.InstanceID="named",Name="options::allow-query"
+modifyInst : Linux_DnsAllowQueryForService.GroupComponent=Linux_DnsService.CreationClassName="Linux_DnsService",Name="named",SystemCreationClassName="Linux_DnsService",SystemName="localhost",PartComponent=Linux_DnsAddressMatchList.InstanceID="named",Name="options::allow-query"
 sourceRole : GroupComponent
 targetRole : PartComponent
 sourceClass : Linux_DnsService
@@ -17,7 +18,6 @@ Instance                                                                     get
 
 --------------------------------------------------------------------------------
 Instance                                                                     set
-Expected Exception : NOT_SUPPORTED
 
 --------------------------------------------------------------------------------
 Instance                                                                  delete

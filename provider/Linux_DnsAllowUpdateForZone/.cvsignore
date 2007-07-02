@@ -1,0 +1,15 @@
+.libs
+.deps
+Linux_DnsAllowUpdateForZoneManualInstance.lo
+Linux_DnsAllowUpdateForZoneFactory.lo
+Makefile.in
+Linux_DnsAllowUpdateForZoneInstance.lo
+Linux_DnsAllowUpdateForZoneResourceAccess.lo
+Linux_DnsAllowUpdateForZoneDefaultImplementation.lo
+Linux_DnsAllowUpdateForZoneRepositoryExternal.lo
+Linux_DnsAllowUpdateForZoneInstanceName.lo
+Linux_DnsAllowUpdateForZoneExternal.lo
+CmpiLinux_DnsAllowUpdateForZoneProvider.lo
+libcmpiLinux_DnsAllowUpdateForZone.la
+Makefile
+Linux_DnsAllowUpdateForZoneRepositoryInstance.lo

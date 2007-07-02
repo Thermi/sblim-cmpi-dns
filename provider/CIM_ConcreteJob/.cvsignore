@@ -1,0 +1,8 @@
+.libs
+.deps
+Makefile.in
+Makefile
+CIM_ConcreteJobInstanceName.lo
+CIM_ConcreteJobExternal.lo
+CIM_ConcreteJobInstance.lo
+libcmpiDnsCIM_ConcreteJob.la

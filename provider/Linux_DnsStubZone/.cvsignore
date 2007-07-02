@@ -1,0 +1,15 @@
+.deps
+.libs
+Linux_DnsStubZoneFactory.lo
+libcmpiLinux_DnsStubZone.la
+Linux_DnsStubZoneDefaultImplementation.lo
+Linux_DnsStubZoneExternal.lo
+Linux_DnsStubZoneRepositoryExternal.lo
+Linux_DnsStubZoneRepositoryInstance.lo
+Makefile.in
+Linux_DnsStubZoneInstanceName.lo
+CmpiLinux_DnsStubZoneProvider.lo
+Makefile
+Linux_DnsStubZoneInstance.lo
+Linux_DnsStubZoneManualInstance.lo
+Linux_DnsStubZoneResourceAccess.lo

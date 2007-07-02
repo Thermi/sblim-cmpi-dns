@@ -1,6 +1,7 @@
 ********************************************************************************
 association : Linux_DnsServiceSettingDataForServiceConfiguration
-objectPath : Linux_DnsServiceSettingDataForServiceConfiguration.GroupComponent=Linux_DnsServiceConfiguration.Name="named",PartComponent=Linux_DnsServiceSettingData.InstanceID="named",Name="named" GroupComponent=Linux_DnsServiceConfiguration.Name="named",PartComponent=Linux_DnsServiceSettingData.InstanceID="named",Name="named"
+objectPath : Linux_DnsServiceSettingDataForServiceConfiguration.GroupComponent=Linux_DnsServiceConfiguration.Name="named",PartComponent=Linux_DnsServiceSettingData.InstanceID="named",Name="named"
+modifyInst : Linux_DnsServiceSettingDataForServiceConfiguration.GroupComponent=Linux_DnsServiceConfiguration.Name="named",PartComponent=Linux_DnsServiceSettingData.InstanceID="named",Name="named"
 sourceRole : Context
 targetRole : Setting
 sourceClass : Linux_DnsServiceConfiguration

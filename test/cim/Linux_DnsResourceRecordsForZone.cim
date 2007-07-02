@@ -1,6 +1,7 @@
 ********************************************************************************
 association : Linux_DnsResourceRecordsForZone
-objectPath : Linux_DnsResourceRecordsForZone.GroupComponent=Linux_DnsZone.InstanceID="InstanceID",Name="elephant.example2.com",PartComponent=Linux_DnsResourceRecord.InstanceID="InstanceID",Name="one",Type="NS",Value="192.168.40.1",ZoneName="elephant.example2.com"
+objectPath : Linux_DnsResourceRecordsForZone.GroupComponent=Linux_DnsZone.InstanceID="named",Name="255.in-addr.arpa",PartComponent=Linux_DnsResourceRecord.InstanceID="named",Name="abc",Type="NS",Value="localhost.",ZoneName="255.in-addr.arpa"
+modifyInst : Linux_DnsResourceRecordsForZone.GroupComponent=Linux_DnsZone.InstanceID="named",Name="255.in-addr.arpa",PartComponent=Linux_DnsResourceRecord.InstanceID="named",Name="abc",Type="NS",Value="localhost.",ZoneName="255.in-addr.arpa"
 sourceRole : PartComponent
 targetRole : GroupComponent
 sourceClass : Linux_DnsResourceRecord
@@ -17,7 +18,6 @@ Instance                                                                     get
 
 --------------------------------------------------------------------------------
 Instance                                                                     set
-Expected Exception : NOT_SUPPORTED
 
 --------------------------------------------------------------------------------
 Instance                                                                  delete

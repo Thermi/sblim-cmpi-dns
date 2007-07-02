@@ -1,0 +1,15 @@
+.libs
+.deps
+Linux_DnsForwardersExternal.lo
+Linux_DnsForwardersRepositoryExternal.lo
+Linux_DnsForwardersRepositoryInstance.lo
+Makefile
+Linux_DnsForwardersManualInstance.lo
+CmpiLinux_DnsForwardersProvider.lo
+Linux_DnsForwardersInstanceName.lo
+Linux_DnsForwardersFactory.lo
+Makefile.in
+libcmpiLinux_DnsForwarders.la
+Linux_DnsForwardersDefaultImplementation.lo
+Linux_DnsForwardersInstance.lo
+Linux_DnsForwardersResourceAccess.lo

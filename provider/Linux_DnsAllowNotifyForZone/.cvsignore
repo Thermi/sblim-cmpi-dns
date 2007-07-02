@@ -1,0 +1,15 @@
+.deps
+.libs
+Linux_DnsAllowNotifyForZoneInstance.lo
+Linux_DnsAllowNotifyForZoneResourceAccess.lo
+Linux_DnsAllowNotifyForZoneRepositoryExternal.lo
+libcmpiLinux_DnsAllowNotifyForZone.la
+Linux_DnsAllowNotifyForZoneFactory.lo
+Makefile.in
+Linux_DnsAllowNotifyForZoneManualInstance.lo
+CmpiLinux_DnsAllowNotifyForZoneProvider.lo
+Linux_DnsAllowNotifyForZoneDefaultImplementation.lo
+Linux_DnsAllowNotifyForZoneInstanceName.lo
+Linux_DnsAllowNotifyForZoneExternal.lo
+Linux_DnsAllowNotifyForZoneRepositoryInstance.lo
+Makefile

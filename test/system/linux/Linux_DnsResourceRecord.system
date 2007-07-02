@@ -2,7 +2,7 @@
 class : Linux_DnsResourceRecord
 
 --------------------------------------------------------------------------------
-Linux_DnsResourceRecord : -eq 32
+Linux_DnsResourceRecord : -eq 33
 
 --------------------------------------------------------------------------------
 Name : -eq Global

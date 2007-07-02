@@ -1,0 +1,15 @@
+.deps
+.libs
+Linux_DnsMasterZoneInstanceName.lo
+Linux_DnsMasterZoneInstance.lo
+Makefile
+Linux_DnsMasterZoneRepositoryInstance.lo
+Linux_DnsMasterZoneExternal.lo
+Linux_DnsMasterZoneResourceAccess.lo
+Makefile.in
+libcmpiLinux_DnsMasterZone.la
+Linux_DnsMasterZoneManualInstance.lo
+Linux_DnsMasterZoneFactory.lo
+Linux_DnsMasterZoneRepositoryExternal.lo
+CmpiLinux_DnsMasterZoneProvider.lo
+Linux_DnsMasterZoneDefaultImplementation.lo

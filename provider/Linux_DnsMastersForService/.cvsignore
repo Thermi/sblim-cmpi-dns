@@ -1,0 +1,15 @@
+.deps
+.libs
+Linux_DnsMastersForServiceInstanceName.lo
+Makefile
+Linux_DnsMastersForServiceRepositoryExternal.lo
+Makefile.in
+CmpiLinux_DnsMastersForServiceProvider.lo
+Linux_DnsMastersForServiceExternal.lo
+Linux_DnsMastersForServiceDefaultImplementation.lo
+Linux_DnsMastersForServiceInstance.lo
+Linux_DnsMastersForServiceManualInstance.lo
+Linux_DnsMastersForServiceResourceAccess.lo
+Linux_DnsMastersForServiceRepositoryInstance.lo
+libcmpiLinux_DnsMastersForService.la
+Linux_DnsMastersForServiceFactory.lo

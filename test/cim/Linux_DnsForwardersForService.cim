@@ -1,6 +1,7 @@
 ********************************************************************************
 association : Linux_DnsForwardersForService
 objectPath : Linux_DnsForwardersForService.GroupComponent=Linux_DnsService.CreationClassName="Linux_DnsService",Name="named",SystemCreationClassName="Linux_DnsService",SystemName="localhost",PartComponent=Linux_DnsForwarders.InstanceID="named",Name="options::forwarders" GroupComponent=Linux_DnsService.CreationClassName="Linux_DnsService",Name="named",SystemCreationClassName="Linux_DnsService",SystemName="localhost",PartComponent=Linux_DnsForwarders.InstanceID="named",Name="options::forwarders"
+modifyInst : Linux_DnsForwardersForService.GroupComponent=Linux_DnsService.CreationClassName="Linux_DnsService",Name="named",SystemCreationClassName="Linux_DnsService",SystemName="localhost",PartComponent=Linux_DnsForwarders.InstanceID="named",Name="options::forwarders" GroupComponent=Linux_DnsService.CreationClassName="Linux_DnsService",Name="named",SystemCreationClassName="Linux_DnsService",SystemName="localhost",PartComponent=Linux_DnsForwarders.InstanceID="named",Name="options::forwarders"
 sourceRole : GroupComponent
 targetRole : PartComponent
 sourceClass : Linux_DnsService
@@ -17,7 +18,6 @@ Instance                                                                     get
 
 --------------------------------------------------------------------------------
 Instance                                                                     set
-Expected Exception : NOT_SUPPORTED
 
 --------------------------------------------------------------------------------
 Association                                                          associators

@@ -1,0 +1,15 @@
+.deps
+.libs
+Linux_DnsHintZoneInstanceName.lo
+libcmpiLinux_DnsHintZone.la
+Linux_DnsHintZoneInstance.lo
+Linux_DnsHintZoneRepositoryExternal.lo
+Linux_DnsHintZoneRepositoryInstance.lo
+Linux_DnsHintZoneFactory.lo
+Makefile
+Linux_DnsHintZoneResourceAccess.lo
+Makefile.in
+Linux_DnsHintZoneExternal.lo
+Linux_DnsHintZoneManualInstance.lo
+CmpiLinux_DnsHintZoneProvider.lo
+Linux_DnsHintZoneDefaultImplementation.lo
