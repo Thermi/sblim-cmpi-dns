@@ -15,8 +15,9 @@ URL: http://www.sblim.org
 License: CPL
 Requires: sblim-tools-libra
 Requires: bind 
+BuildRequires: sblim-tools-libra-devel
 
-Provides: cmpi-dns
+Provides: sblim-cmpi-dns
 
 Source0: http://prdownloads.sourceforge.net/sblim/%{name}-%{version}.tar.bz2
 
@@ -56,8 +57,7 @@ export PATCH_GET=0
 ###############################################################################
 %build
 
-%configure \
-   TESTSUITEDIR=%{_datadir}/sblim-testsuite
+%configure TESTSUITEDIR=%{_datadir}/sblim-testsuite
 make
 
 
@@ -76,12 +76,7 @@ make DESTDIR=$RPM_BUILD_ROOT install
 
 # remove unused libtool files
 rm -f $RPM_BUILD_ROOT/%{_libdir}/*a
-
-%if %{?tog_pegasus:0}%{!?tog_pegasus:1}
-   rm -f $RPM_BUILD_ROOT/%{_libdir}/cmpi/*a
-%else
-   rm -f $RPM_BUILD_ROOT/opt/tog-pegasus/providers/lib/*a
-%endif
+rm -f $RPM_BUILD_ROOT/%{_libdir}/cmpi/*a
 
 
 ###############################################################################
@@ -133,12 +128,8 @@ fi
 %doc %{_datadir}/doc/%{name}-%{version}
 %{_datadir}/%{name}
 %{_libdir}/*.so.*
-%{_sysconfdir}/*.conf
-%if %{?tog_pegasus:0}%{!?tog_pegasus:1}
 %{_libdir}/cmpi/*.so
-%else
-/opt/tog-pegasus/providers/lib/*.so
-%endif
+%config(noreplace) %{_sysconfdir}/*.conf
 
 %files devel
 %defattr(-,root,root) 
@@ -151,6 +142,15 @@ fi
 
 ###############################################################################
 %changelog
+* Fri Jul 6 2007 Wolfgang Taphorn <taphorn@de.ibm.com> 0.5.0-1
+  - Inclusion of fixes for the following issues:
+    o 1747731  cmpi-dns: Model upgrade for ECUTE 2.3.6 usage
+    o 1746642  cmpi-dns: Cleanup for test cases
+    o 1741423  cmpi-dns: modifyInst attribute is required for new TestSuite
+    o 1741419  cmpi-dns: objectPath in test cases is incomplete
+    o 1741418  cmpi-dns: reordered the test cases
+    o 1739179  cmpi-dns: Unresolved symbols in service class
+
 * Mon Dec 4 2006 Wolfgang Taphorn <taphorn@de.ibm.com> 0.2.3-1
   - Inclusion of fixes for the following bug entries:
     o 1608730  cmpi-dns: Build does not pass 'make distcheck'

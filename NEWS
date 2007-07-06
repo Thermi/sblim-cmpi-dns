@@ -1,3 +1,13 @@
+Changes in 0.5.0-1
+==============================================================================
+- 1747731  cmpi-dns: Model upgrade for ECUTE 2.3.6 usage
+- 1746642  cmpi-dns: Cleanup for test cases
+- 1741423  cmpi-dns: modifyInst attribute is required for new TestSuite
+- 1741419  cmpi-dns: objectPath in test cases is incomplete
+- 1741418  cmpi-dns: reordered the test cases
+- 1739179  cmpi-dns: Unresolved symbols in service class
+
+
 Changes in 0.2.3-1
 ==============================================================================
 - 1608730  cmpi-dns: Build does not pass 'make distcheck'

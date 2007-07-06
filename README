@@ -30,10 +30,10 @@ via CIMOM technology/infrastructure.
 Package Contents
 ----------------
 
-./README		    This file
-./model/*           Contains Linux_Dns-Model.mof and corresponding Rational model .emx file
-./provider/*		The instrumented classes/associations    
-./resource-access/*	cmpi-dns specific resource access layer code 
+./README                This file
+./model/*               Contains Linux_Dns-Model.mof and corresponding Rational model .emx file
+./provider/*            The instrumented classes/associations    
+./resource-access/*     cmpi-dns specific resource access layer code 
 
 If checked out from CVS:
 ./autoconfiscate.sh Contains support to setup the autoconf/automake build environment 
@@ -51,8 +51,7 @@ Run-time Prerequisites
 - CMPI enabled CIMOM installed 
   Pegasus 2.5 requires Patch for Pegasus Bug 4220 
 - CIM Schema Version 2.9 loaded into the CIMOM's repository
-- CIMOM running as root
-- yast2-dns-server-2.9.29 or higher 
+- CIMOM running as user root
 - Perl interpreter
 - bind 9.2.3 or higher 
 - correctly configured properties in smt_dns_ra_support.conf
@@ -107,3 +106,4 @@ is done during the "make postinstall".
 Start the cimbrowser (/usr/sniacimom/bin). Load the schema file Linux_Dns.mof with 
 "File" -> "Reload Mof" into the namespace root/cimv2. Before at least IBMQualifiers, 
 CIM Core and CIM System schemata have to be loaded into the repository.
+

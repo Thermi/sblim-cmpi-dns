@@ -1,4 +1,127 @@
 // =========================================================================
+// new in version 0.5.0-1 :
+
+2007-07-04 12:52  taphorn
+
+	* .settings/org.eclipse.cdt.core.prefs, model/Linux_Dns.emx,
+	  model/Linux_Dns-Model.emx: Fix for Issue [ 1747731 ] cmpi-dns:
+	  Model upgrade for ECUTE 2.3.6 usage
+
+2007-07-02 18:05  taphorn
+
+	* provider/.cvsignore,
+	  provider/Linux_DnsAllowTransferForZone/.cvsignore,
+	  provider/Linux_DnsBlackholeForService/.cvsignore,
+	  provider/Linux_DnsService/.cvsignore,
+	  test/cim/Linux_DnsAddressMatchListsForService.cim,
+	  test/cim/Linux_DnsAllowNotifyForService.cim,
+	  test/cim/Linux_DnsAllowTransferForZone.cim,
+	  test/cim/Linux_DnsAllowUpdateForZone.cim,
+	  test/cim/Linux_DnsBlackholeForService.cim,
+	  test/cim/Linux_DnsForwardersForZone.cim,
+	  test/cim/Linux_DnsResourceRecordsForZone.cim,
+	  test/cim/Linux_DnsServiceSettingDataForServiceConfiguration.cim,
+	  test/system/linux/Linux_DnsForwarders.system,
+	  test/system/linux/Linux_DnsResourceRecord.system,
+	  provider/Linux_DnsAddressMatchListsForService/.cvsignore,
+	  provider/Linux_DnsAllowNotifyForZone/.cvsignore,
+	  provider/Linux_DnsAllowTransferForService/.cvsignore,
+	  provider/Linux_DnsForwarders/.cvsignore,
+	  provider/Linux_DnsRegisteredProfile/.cvsignore,
+	  provider/Linux_DnsResourceRecordsForZone/.cvsignore,
+	  provider/Linux_DnsSlaveZone/.cvsignore,
+	  provider/Linux_DnsZone/.cvsignore,
+	  test/cim/Linux_DnsAllowNotifyForZone.cim,
+	  test/cim/Linux_DnsAllowQueryForService.cim,
+	  test/cim/Linux_DnsAllowQueryForZone.cim,
+	  test/cim/Linux_DnsAllowRecursionForService.cim,
+	  test/cim/Linux_DnsAllowTransferForService.cim,
+	  test/cim/Linux_DnsForwardersForService.cim,
+	  test/cim/Linux_DnsMastersForService.cim,
+	  test/cim/Linux_DnsMastersForZone.cim,
+	  test/cim/Linux_DnsServiceConfigurationForService.cim,
+	  provider/CIM_ConcreteJob/.cvsignore,
+	  provider/Linux_DnsAllowQueryForService/.cvsignore,
+	  provider/Linux_DnsAllowUpdateForZone/.cvsignore,
+	  provider/Linux_DnsMasterZone/.cvsignore,
+	  provider/Linux_DnsMastersForZone/.cvsignore,
+	  provider/Linux_DnsServiceConfiguration/.cvsignore,
+	  provider/Linux_DnsServiceSettingData/.cvsignore,
+	  provider/Linux_DnsStubZone/.cvsignore, .cvsignore,
+	  provider/Linux_DnsAllowNotifyForService/.cvsignore,
+	  provider/Linux_DnsAllowQueryForZone/.cvsignore,
+	  provider/Linux_DnsAllowRecursionForService/.cvsignore,
+	  provider/Linux_DnsHintZone/.cvsignore,
+	  provider/Linux_DnsMasters/.cvsignore,
+	  provider/Linux_DnsResourceRecord/.cvsignore,
+	  provider/Linux_DnsServiceConfigurationForService/.cvsignore,
+	  test/.cvsignore, provider/Linux_DnsForwardZone/.cvsignore,
+	  provider/Linux_DnsServiceSettingDataForServiceConfiguration/.cvsignore,
+	  resource-access/.cvsignore,
+	  provider/Linux_DnsAddressMatchList/.cvsignore,
+	  provider/Linux_DnsForwardersForService/.cvsignore,
+	  provider/Linux_DnsForwardersForZone/.cvsignore,
+	  provider/Linux_DnsMastersForService/.cvsignore: Fix for issue
+	  [1746642] cmpi-dns: Cleanup for test cases
+
+2007-07-02 06:34  riyashh1
+
+	* .settings/org.eclipse.cdt.core.prefs: [no log message]
+
+2007-06-24 00:51  taphorn
+
+	* test/cim/: Linux_DnsAddressMatchList.cim,
+	  Linux_DnsForwardZone.cim, Linux_DnsForwarders.cim,
+	  Linux_DnsHintZone.cim, Linux_DnsMasterZone.cim,
+	  Linux_DnsMasters.cim, Linux_DnsResourceRecord.cim,
+	  Linux_DnsService.cim, Linux_DnsServiceConfiguration.cim,
+	  Linux_DnsServiceSettingData.cim, Linux_DnsSlaveZone.cim,
+	  Linux_DnsStubZone.cim: Added fix for the modifyInst (at least for
+	  the base classes) of issue [ 1741423 ] cmpi-dns: modifyInst
+	  attribute is required for new TestSuite
+
+2007-06-23 23:57  taphorn
+
+	* test/cim/: Linux_DnsAddressMatchList.cim,
+	  Linux_DnsAddressMatchListsForService.cim,
+	  Linux_DnsAllowNotifyForService.cim,
+	  Linux_DnsAllowNotifyForZone.cim,
+	  Linux_DnsAllowQueryForService.cim,
+	  Linux_DnsAllowQueryForZone.cim,
+	  Linux_DnsAllowTransferForService.cim,
+	  Linux_DnsAllowTransferForZone.cim,
+	  Linux_DnsAllowUpdateForZone.cim,
+	  Linux_DnsBlackholeForService.cim, Linux_DnsForwardZone.cim,
+	  Linux_DnsForwarders.cim, Linux_DnsForwardersForService.cim,
+	  Linux_DnsForwardersForZone.cim, Linux_DnsHintZone.cim,
+	  Linux_DnsMasterZone.cim, Linux_DnsMasters.cim,
+	  Linux_DnsMastersForService.cim, Linux_DnsMastersForZone.cim,
+	  Linux_DnsResourceRecord.cim, Linux_DnsService.cim,
+	  Linux_DnsServiceConfiguration.cim,
+	  Linux_DnsServiceConfigurationForService.cim,
+	  Linux_DnsServiceSettingData.cim,
+	  Linux_DnsServiceSettingDataForServiceConfiguration.cim,
+	  Linux_DnsSlaveZone.cim, Linux_DnsStubZone.cim: Fix for issue [
+	  1741419 ] cmpi-dns: objectPath in test cases is incomplete
+
+2007-06-23 21:22  taphorn
+
+	* test/cim/: Linux_DnsAddressMatchList.cim,
+	  Linux_DnsForwardZone.cim, Linux_DnsForwarders.cim,
+	  Linux_DnsHintZone.cim, Linux_DnsMasterZone.cim,
+	  Linux_DnsMasters.cim, Linux_DnsResourceRecord.cim,
+	  Linux_DnsService.cim, Linux_DnsServiceConfiguration.cim,
+	  Linux_DnsServiceSettingData.cim, Linux_DnsSlaveZone.cim,
+	  Linux_DnsStubZone.cim: Fix for problem [ 1741418 ] cmpi-dns:
+	  reordered the test cases
+
+2007-06-23 20:48  taphorn
+
+	* provider/Linux_DnsService/CmpiLinux_DnsServiceProvider.cpp: Fix
+	  for problem [ 1739179 ] cmpi-dns: Unresolved symbols in service
+	  class
+
+// =========================================================================
 // new in version 0.2.3-1 :
 
 2006-12-04 22:18  taphorn
