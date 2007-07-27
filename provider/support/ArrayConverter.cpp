@@ -206,7 +206,8 @@ void ArrayConverter::makeArray(const CmpiArray &cmpiarr, char*** arr, CMPICount&
   num = cmpiarr.size();
   *arr = new char*[num];
   for (CMPICount i=0; i < num; i++) {
-    const char *str = cmpiarr[i];
+    CmpiString dummy = cmpiarr[i];
+    const char *str = dummy.charPtr();
     if (str) {
       (*arr)[i]=new char[strlen(str)+1];
       strcpy((*arr)[i],str);
