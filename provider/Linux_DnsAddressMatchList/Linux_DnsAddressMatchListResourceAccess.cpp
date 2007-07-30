@@ -42,16 +42,18 @@ namespace genProvider {
     aManualInstance.setInstanceName(anInstanceName);
 
     DnsArray da = DnsArray( aclValue );
-    aManualInstance.setAddressMatchListElement( da.toArray(), da.size() );
+    if (da.size() > 0) {
+      aManualInstance.setAddressMatchListElement( da.toArray(), da.size() );
 
-    CMPIUint8* aclType = new CMPIUint8[da.size()];
-    DnsArrayConstIterator iter;
-    int i = 0;
+      CMPIUint8* aclType = new CMPIUint8[da.size()];
+      DnsArrayConstIterator iter;
+      int i = 0;
 
-    for ( iter = da.begin(); iter != da.end(); ++iter) {
-       aclType[i++] = getACLType((*iter).c_str());
+      for ( iter = da.begin(); iter != da.end(); ++iter) {
+         aclType[i++] = getACLType((*iter).c_str());
+      }
+      aManualInstance.setAddressMatchListElementType (aclType, da.size() );
     }
-    aManualInstance.setAddressMatchListElementType (aclType, da.size() );
   }
 
   //----------------------------------------------------------------------------

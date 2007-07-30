@@ -42,16 +42,18 @@ namespace genProvider {
     aManualInstance.setInstanceName(anInstanceName);
 
     DnsArray da = DnsArray( aclValue );
-    aManualInstance.setMasterElement( da.toArray(), da.size() );
+    if (da.size() > 0) {
+      aManualInstance.setMasterElement( da.toArray(), da.size() );
 
-    CMPIUint8* mastersType = new CMPIUint8[da.size()];
-    DnsArrayConstIterator iter;
-    int i = 0;
+      CMPIUint8* mastersType = new CMPIUint8[da.size()];
+      DnsArrayConstIterator iter;
+      int i = 0;
 
-    for ( iter = da.begin(); iter != da.end(); ++iter) {
-       mastersType[i++] = getMastersType((*iter).c_str());
+      for ( iter = da.begin(); iter != da.end(); ++iter) {
+         mastersType[i++] = getMastersType((*iter).c_str());
+      }
+      aManualInstance.setMasterElementType (mastersType, da.size() );
     }
-    aManualInstance.setMasterElementType (mastersType, da.size() );
   }
 
   //----------------------------------------------------------------------------
