@@ -144,6 +144,8 @@ fi
 %changelog
 * Fri Jul 6 2007 Wolfgang Taphorn <taphorn@de.ibm.com> 0.5.0-1
   - Inclusion of fixes for the following issues:
+    o 1763586  cmpi-dns: Empty String arrays are not processed correct
+    o 1762058  cmpi-dns: Type conversion issue for string arrays
     o 1747731  cmpi-dns: Model upgrade for ECUTE 2.3.6 usage
     o 1746642  cmpi-dns: Cleanup for test cases
     o 1741423  cmpi-dns: modifyInst attribute is required for new TestSuite

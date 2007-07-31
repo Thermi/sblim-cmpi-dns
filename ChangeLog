@@ -1,6 +1,25 @@
 // =========================================================================
 // new in version 0.5.0-1 :
 
+2007-07-30 15:34  taphorn
+
+	* provider/:
+	  Linux_DnsAddressMatchList/Linux_DnsAddressMatchListResourceAccess.cpp,
+	  Linux_DnsForwarders/Linux_DnsForwardersResourceAccess.cpp,
+	  Linux_DnsMasters/Linux_DnsMastersResourceAccess.cpp: Fix for
+	  issue [ 1763586 ] cmpi-dns: Empty String arrays are not processed
+	  correct
+
+2007-07-27 17:21  taphorn
+
+	* provider/support/ArrayConverter.cpp: Fix for issue [ 1762058 ]
+	  cmpi-dns: Type conversion issue for string arrays
+
+2007-07-07 00:02  taphorn
+
+	* ChangeLog, NEWS, README, configure.ac, provider-register.sh,
+	  sblim-cmpi-dns.spec.in: Latest changes for 0.5.0 release
+
 2007-07-04 12:52  taphorn
 
 	* .settings/org.eclipse.cdt.core.prefs, model/Linux_Dns.emx,

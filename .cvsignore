@@ -18,3 +18,4 @@ Makefile.in
 config.status
 Makefile
 config.sub
+config.log

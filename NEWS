@@ -1,5 +1,7 @@
 Changes in 0.5.0-1
 ==============================================================================
+- 1763586  cmpi-dns: Empty String arrays are not processed correct
+- 1762058  cmpi-dns: Type conversion issue for string arrays
 - 1747731  cmpi-dns: Model upgrade for ECUTE 2.3.6 usage
 - 1746642  cmpi-dns: Cleanup for test cases
 - 1741423  cmpi-dns: modifyInst attribute is required for new TestSuite
