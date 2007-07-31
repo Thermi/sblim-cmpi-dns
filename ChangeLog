@@ -1,6 +1,21 @@
 // =========================================================================
 // new in version 0.5.0-1 :
 
+2007-08-01 00:48  taphorn
+
+	* NEWS, sblim-cmpi-dns.spec.in,
+	  provider/Linux_DnsRegisteredProfile/CmpiLinux_DnsRegisteredProfileProvider.c:
+	  Fix for issue [ 1764890 ] cmpi-dns: More specific on package
+	  content
+
+	  Additionally solved includes in RegisteredProfile provider due to
+	  changes in the CPMI Header files
+
+2007-07-31 16:47  taphorn
+
+	* .cvsignore, ChangeLog, NEWS, sblim-cmpi-dns.spec.in: Added latest
+	  bug fixes to the ChangeLog, NEWS and spec files
+
 2007-07-30 15:34  taphorn
 
 	* provider/:
