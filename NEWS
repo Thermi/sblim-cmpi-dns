@@ -1,5 +1,6 @@
 Changes in 0.5.0-1
 ==============================================================================
+- 1764890  cmpi-dns: More specific on package content
 - 1763586  cmpi-dns: Empty String arrays are not processed correct
 - 1762058  cmpi-dns: Type conversion issue for string arrays
 - 1747731  cmpi-dns: Model upgrade for ECUTE 2.3.6 usage

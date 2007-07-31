@@ -57,7 +57,10 @@ export PATCH_GET=0
 ###############################################################################
 %build
 
-%configure TESTSUITEDIR=%{_datadir}/sblim-testsuite
+%configure \
+   TESTSUITEDIR=%{_datadir}/sblim-testsuite \
+   CIMSERVER=pegasus \
+   PROVIDERDIR=%{_libdir}/cmpi/ \
 make
 
 
@@ -124,26 +127,50 @@ fi
 
 ###############################################################################
 %files
-%defattr(-,root,root) 
+%defattr(-,root,root,0644) 
 %doc %{_datadir}/doc/%{name}-%{version}
+%config(noreplace) %{_sysconfdir}/smt_dns*.conf
+%defattr(-,root,root,0755)
 %{_datadir}/%{name}
-%{_libdir}/*.so.*
-%{_libdir}/cmpi/*.so
-%config(noreplace) %{_sysconfdir}/*.conf
+%{_libdir}/libIBM_DnsProviderTooling.so.*
+%{_libdir}/libLinux_DnsGeneralProviderBasic.so.*
+%{_libdir}/libRaToolsDns.so.*
+%{_libdir}/cmpi/libcmpiDnsCIM_ConcreteJob.so
+%{_libdir}/cmpi/libcmpiLinux_Dns*.so
 
 %files devel
 %defattr(-,root,root) 
-%{_includedir}/sblim
-%{_libdir}/*.so
+%dir %{_includedir}/sblim
+%{_includedir}/sblim/smt_dns*.h
+%{_libdir}/libIBM_DnsProviderTooling.so
+%{_libdir}/libLinux_DnsGeneralProviderBasic.so
+%{_libdir}/libRaToolsDns.so
 
 %files test
-%defattr(-,root,root)
-%{_datadir}/sblim-testsuite
+%defattr(-,root,root,0755)
+%{_datadir}/sblim-testsuite/test-cmpi-dns.sh
+%defattr(-,root,root,0644)
+%{_datadir}/sblim-testsuite/buffalo.example2.com.conf
+%{_datadir}/sblim-testsuite/cobra.example1.com.conf
+%{_datadir}/sblim-testsuite/elephant.example2.com.conf
+%{_datadir}/sblim-testsuite/named.conf
+%{_datadir}/sblim-testsuite/rhino.example1.com.conf
+%{_datadir}/sblim-testsuite/testlocaldomain.zone
+%{_datadir}/sblim-testsuite/testlocalhost.zone
+%{_datadir}/sblim-testsuite/testnamed.broadcast
+%{_datadir}/sblim-testsuite/testnamed.ca
+%{_datadir}/sblim-testsuite/testnamed.ip6.local
+%{_datadir}/sblim-testsuite/testnamed.local
+%{_datadir}/sblim-testsuite/testnamed.zero
+%{_datadir}/sblim-testsuite/cim/Linux_Dns*
+%{_datadir}/sblim-testsuite/system/linux/Linux_Dns*
+
 
 ###############################################################################
 %changelog
 * Fri Jul 6 2007 Wolfgang Taphorn <taphorn@de.ibm.com> 0.5.0-1
   - Inclusion of fixes for the following issues:
+    o 1764890  cmpi-dns: More specific on package content
     o 1763586  cmpi-dns: Empty String arrays are not processed correct
     o 1762058  cmpi-dns: Type conversion issue for string arrays
     o 1747731  cmpi-dns: Model upgrade for ECUTE 2.3.6 usage
