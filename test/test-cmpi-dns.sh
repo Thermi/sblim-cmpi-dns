@@ -7,7 +7,7 @@ SCRIPT_PATH=`dirname ${BASH_SOURCE}`
 #*****************************************************************************#
 
 export SBLIM_TESTSUITE_RUN=1;
-export DNSCONFDIR=/usr/local/etc
+export DNSCONFDIR=/var/lib/named
 export TESTCONFFILE=named.conf
 export DNSCONFFILE=$DNSCONFDIR/$TESTCONFFILE
 export DNSZONEDIR=/var/lib/named

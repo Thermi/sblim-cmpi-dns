@@ -473,7 +473,7 @@ namespace genProvider {
 
       if (!returnedZones) {
         freeZones(newZone);
-        throw CmpiStatus(CMPI_RC_ERROR,"addZone() failed");
+        throw CmpiStatus(CMPI_RC_ERR_FAILED,"addZone() failed");
       }
 
       freeZones( returnedZones );

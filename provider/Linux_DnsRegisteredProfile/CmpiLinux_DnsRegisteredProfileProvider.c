@@ -109,7 +109,7 @@ CMPIStatus Linux_DnsRegisteredProfile_EnumInstanceNames(
    /* Return the CMPIObjectPath for this instance. */
    CMPIObjectPath * objectpath = CMGetObjectPath(instance, &status);
    if ((status.rc != CMPI_RC_OK) || CMIsNullObject(objectpath)) {
-      CMSetStatusWithChars(_BROKER, &status, CMPI_RC_ERROR, "Cannot get CMPIObjectPath for instance");
+      CMSetStatusWithChars(_BROKER, &status, CMPI_RC_ERR_FAILED, "Cannot get CMPIObjectPath for instance");
       goto exit;
    }
    CMSetNameSpace(objectpath, lnamespace); /* Note - CMGetObjectPath() does not preserve the namespace! */

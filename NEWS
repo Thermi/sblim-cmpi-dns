@@ -1,3 +1,8 @@
+Changes in NEXT RELEASE
+==============================================================================
+- 1777802  cmpi-dns: returning undefined error codes
+
+
 Changes in 0.5.0-1
 ==============================================================================
 - 1764890  cmpi-dns: More specific on package content
