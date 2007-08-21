@@ -1,5 +1,6 @@
 Changes in NEXT RELEASE
 ==============================================================================
+- 1778739  cmpi-dns: port for masters is not set properly
 - 1777802  cmpi-dns: returning undefined error codes
 
 

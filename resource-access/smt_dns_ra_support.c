@@ -1979,8 +1979,10 @@ int addMasters(MASTERS *masters)
   oldMasters = realloc(oldMasters,(i+2)*sizeof(MASTERS));
   oldMasters[i].key = strdup(masters->key);
   oldMasters[i].value = strdup(masters->value);
+  oldMasters[i].port = masters->port;
   oldMasters[i+1].key = NULL;
   oldMasters[i+1].value = NULL;
+  oldMasters[i+1].port = 0;
   
   ret = WriteMasters(oldMasters);
   freeMasters(oldMasters);

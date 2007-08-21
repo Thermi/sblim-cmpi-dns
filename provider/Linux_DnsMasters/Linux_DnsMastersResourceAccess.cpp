@@ -396,6 +396,7 @@ namespace genProvider {
       MASTERS *newMasters = (MASTERS *) malloc(sizeof(MASTERS));
       newMasters->key = strdup(mastersName.c_str());
       newMasters->value = strdup(mastersValues.toString().c_str());
+      newMasters->port = 0; // not supported yet
       addMasters(newMasters);
       if (list_mastersStart) freeMasters( list_mastersStart );
       created = 1;

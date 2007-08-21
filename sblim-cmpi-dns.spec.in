@@ -169,6 +169,7 @@ fi
 ###############################################################################
 %changelog
 * Mon Aug 20 2007 Wolfgang Taphorn <taphorn@de.ibm.com> - NEXT RELEASE
+    o 1778739  cmpi-dns: port for masters is not set properly
     o 1777802  cmpi-dns: returning undefined error codes
 
 * Fri Jul 6 2007 Wolfgang Taphorn <taphorn@de.ibm.com> 0.5.0-1

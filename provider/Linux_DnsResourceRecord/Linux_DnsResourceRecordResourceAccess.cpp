@@ -58,6 +58,7 @@ namespace genProvider {
       newRecord->recordZoneName = strdup(anInstanceName.getZoneName());
       newRecord->recordType = strdup(anInstanceName.getType());
       newRecord->recordValue = strdup(anInstanceName.getValue());
+      newRecord->recordClass = NULL;
       return newRecord;
     }
     return NULL;
