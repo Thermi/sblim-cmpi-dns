@@ -942,7 +942,9 @@ static int WriteConf()
       if (!access(filename, F_OK))
 	rename(filename, newfilename);
 	
+      mode_t prev_umask = umask(S_IWOTH|S_IWGRP);
       file = fopen(filename, "w");
+	  umask(prev_umask);
 
       // Write Out "named.conf"
 
@@ -1247,7 +1249,9 @@ static int WriteRRecords()
 
     if (access(filename, F_OK) || !access(filename, W_OK)) {
       FILE *file;
+      mode_t prev_umask = umask(S_IWOTH|S_IWGRP);
       file = fopen(filename, "w");
+      umask(prev_umask);
 
       if (file) {
 
