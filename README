@@ -27,6 +27,15 @@ The cmpi-dns package provides access to the dns configuration data
 via CIMOM technology/infrastructure.
 
 
+Management Application
+----------------------
+This package includes only the instrumentation and does not offer a management
+application. The management application is available for download on 
+https://sourceforge.net/project/showfiles.php?group_id=128809&package_id=214076
+Please refer to the README of the sblim-wbemsmt-* packages on how to setup the
+system to get the application running.
+
+
 Package Contents
 ----------------
 

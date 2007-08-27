@@ -1,4 +1,4 @@
-Changes in NEXT RELEASE
+Changes in 0.5.1-1
 ==============================================================================
 - 1778811  cmpi-dns: wrong file permisssions to config files
 - 1778739  cmpi-dns: port for masters is not set properly

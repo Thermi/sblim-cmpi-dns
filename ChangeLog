@@ -1,4 +1,36 @@
 // =========================================================================
+// new in version 0.5.1-1 :
+
+2007-08-21 19:22  taphorn
+
+	* NEWS, sblim-cmpi-dns.spec.in,
+	  resource-access/smt_dns_ra_support.c: Fix for issue [ 1778811 ]
+	  cmpi-dns: wrong file permisssions to config files
+
+2007-08-21 18:30  taphorn
+
+	* NEWS, sblim-cmpi-dns.spec.in,
+	  provider/Linux_DnsResourceRecord/Linux_DnsResourceRecordResourceAccess.cpp,
+	  provider/Linux_DnsMasters/Linux_DnsMastersResourceAccess.cpp,
+	  resource-access/smt_dns_ra_support.c: Fix for issue [ 1778739 ]
+	  cmpi-dns: port for masters is not set properly
+
+2007-08-20 20:30  taphorn
+
+	* NEWS, sblim-cmpi-dns.spec.in,
+	  provider/Linux_DnsForwardZone/Linux_DnsForwardZoneResourceAccess.cpp,
+	  provider/Linux_DnsHintZone/Linux_DnsHintZoneResourceAccess.cpp,
+	  provider/Linux_DnsRegisteredProfile/CmpiLinux_DnsRegisteredProfileProvider.c,
+	  provider/Linux_DnsSlaveZone/Linux_DnsSlaveZoneResourceAccess.cpp,
+	  provider/Linux_DnsMasterZone/Linux_DnsMasterZoneResourceAccess.cpp,
+	  provider/Linux_DnsStubZone/Linux_DnsStubZoneResourceAccess.cpp,
+	  test/test-cmpi-dns.sh: Fix to solve issue [ 1777802 ] cmpi-dns:
+	  returning undefined error codes
+
+	  Apart of that, a fix to get in synch within the test case
+	  environment is added.
+
+// =========================================================================
 // new in version 0.5.0-1 :
 
 2007-08-01 00:48  taphorn
