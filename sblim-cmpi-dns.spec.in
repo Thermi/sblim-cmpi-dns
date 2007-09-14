@@ -171,7 +171,7 @@ fi
 
 ###############################################################################
 %changelog
-* Wed Sep 12 2007 Wolfgang Taphorn <taphorn@de.ibm.com> - 0.5.2-1
+* Fri Sep 14 2007 Wolfgang Taphorn <taphorn@de.ibm.com> 0.5.2-1
     o 1794680  cmpi-dns: base tests on current delivered testsuite
     o 1794655  cmpi-dns: Include information on WBEM-SMT client app
 
