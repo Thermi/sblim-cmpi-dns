@@ -27,6 +27,18 @@ The cmpi-dns package provides access to the dns configuration data
 via CIMOM technology/infrastructure.
 
 
+Client Interface
+----------------
+Since the usage of the CIM Client API is not userfriendly enough to manage the 
+complexity of the task, a Web Based front end has been developed and published 
+on the SBLIM project page on SourceForge.
+The Client Interface allows to configure the service properly and offers 
+guidance in the form of wizards to create new entities or make other complex
+configuration.
+It can be retrieved from the following URL:
+https://sourceforge.net/project/showfiles.php?group_id=128809&package_id=214076
+
+
 Management Application
 ----------------------
 This package includes only the instrumentation and does not offer a management

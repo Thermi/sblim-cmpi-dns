@@ -26,6 +26,9 @@ The cmpi-dns package provides access to the dns configuration data
 via CIMOM technology/infrastructure. 
 It contains the Dns CIM Model, CMPI Provider with the Samba task specific 
 Resource Access.
+A web based client application is available on SourceForge. Please refer to
+https://sourceforge.net/project/showfiles.php?group_id=128809&package_id=214076
+to get the WBEM-SMT Client Application.
 
 ###############################################################################
 %Package devel
@@ -168,6 +171,9 @@ fi
 
 ###############################################################################
 %changelog
+* Wed Sep 12 2007 Wolfgang Taphorn <taphorn@de.ibm.com> - next release
+    o 1794655  cmpi-dns: Include information on WBEM-SMT client app
+
 * Tue Aug 21 2007 Wolfgang Taphorn <taphorn@de.ibm.com> - 0.5.1-1
     o 1778811  cmpi-dns: wrong file permisssions to config files
     o 1778739  cmpi-dns: port for masters is not set properly
