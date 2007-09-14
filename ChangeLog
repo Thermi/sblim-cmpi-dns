@@ -1,4 +1,54 @@
 // =========================================================================
+// new in version 0.5.2-1 :
+
+2007-09-14 14:30  taphorn
+
+	* sblim-cmpi-dns.spec.in: Added correct time stamp in change
+	  history
+
+2007-09-14 14:26  taphorn
+
+	* NEWS, configure.ac, sblim-cmpi-dns.spec.in: Preparation for next
+	  release
+
+2007-09-14 14:22  taphorn
+
+	* test/cim/Linux_DnsAddressMatchListsForService.cim,
+	  test/cim/Linux_DnsAllowNotifyForService.cim,
+	  test/cim/Linux_DnsAllowQueryForService.cim,
+	  test/cim/Linux_DnsAllowQueryForZone.cim,
+	  test/cim/Linux_DnsAllowRecursionForService.cim,
+	  test/cim/Linux_DnsAllowTransferForZone.cim,
+	  test/cim/Linux_DnsBlackholeForService.cim,
+	  test/cim/Linux_DnsForwardZone.cim,
+	  test/cim/Linux_DnsForwardersForService.cim,
+	  test/cim/Linux_DnsForwardersForZone.cim,
+	  test/cim/Linux_DnsHintZone.cim, test/cim/Linux_DnsMasterZone.cim,
+	  test/cim/Linux_DnsMasters.cim,
+	  test/cim/Linux_DnsResourceRecord.cim,
+	  test/cim/Linux_DnsResourceRecordsForZone.cim,
+	  test/cim/Linux_DnsServiceConfigurationForService.cim,
+	  test/cim/Linux_DnsServiceSettingDataForServiceConfiguration.cim,
+	  test/cim/Linux_DnsSlaveZone.cim, test/cim/Linux_DnsStubZone.cim,
+	  NEWS, sblim-cmpi-dns.spec.in,
+	  test/cim/Linux_DnsAddressMatchList.cim,
+	  test/cim/Linux_DnsAllowNotifyForZone.cim,
+	  test/cim/Linux_DnsAllowTransferForService.cim,
+	  test/cim/Linux_DnsAllowUpdateForZone.cim,
+	  test/cim/Linux_DnsForwarders.cim,
+	  test/cim/Linux_DnsMastersForService.cim,
+	  test/cim/Linux_DnsMastersForZone.cim,
+	  test/cim/Linux_DnsService.cim,
+	  test/cim/Linux_DnsServiceConfiguration.cim,
+	  test/cim/Linux_DnsServiceSettingData.cim: Fix for issue [1794680]
+	  cmpi-dns: base tests on current delivered testsuite
+
+2007-09-14 14:01  taphorn
+
+	* NEWS, README, sblim-cmpi-dns.spec.in: Fix for issue [ 1794655 ]
+	  cmpi-dns: Include information on WBEM-SMT client app
+
+// =========================================================================
 // new in version 0.5.1-1 :
 
 2007-08-21 19:22  taphorn
