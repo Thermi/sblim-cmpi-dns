@@ -1,7 +1,6 @@
 ********************************************************************************
 association : Linux_DnsAllowTransferForZone
 objectPath : Linux_DnsAllowTransferForZone.GroupComponent=Linux_DnsZone.InstanceID="named",Name="elephant.testing.com",PartComponent=Linux_DnsAddressMatchList.InstanceID="named",Name="zone::elephant.testing.com::allow-transfer" GroupComponent=Linux_DnsZone.InstanceID="named",Name="elephant.testing.com",PartComponent=Linux_DnsAddressMatchList.InstanceID="named",Name="zone::elephant.testing.com::allow-transfer"
-modifyInst : Linux_DnsAllowTransferForZone.GroupComponent=Linux_DnsZone.InstanceID="named",Name="elephant.testing.com",PartComponent=Linux_DnsAddressMatchList.InstanceID="named",Name="zone::elephant.testing.com::allow-transfer" GroupComponent=Linux_DnsZone.InstanceID="named",Name="elephant.testing.com",PartComponent=Linux_DnsAddressMatchList.InstanceID="named",Name="zone::elephant.testing.com::allow-transfer"
 sourceRole : GroupComponent
 targetRole : PartComponent
 sourceClass : Linux_DnsZone

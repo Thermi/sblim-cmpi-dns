@@ -1,7 +1,6 @@
 ********************************************************************************
 association : Linux_DnsAllowUpdateForZone
 objectPath : Linux_DnsAllowUpdateForZone.GroupComponent=Linux_DnsZone.InstanceID="named",Name="localdomain",PartComponent=Linux_DnsAddressMatchList.InstanceID="named",Name="zone::localdomain::allow-update" GroupComponent=Linux_DnsZone.InstanceID="named",Name="localdomain",PartComponent=Linux_DnsAddressMatchList.InstanceID="named",Name="zone::localdomain::allow-update"
-modifyInst : Linux_DnsAllowUpdateForZone.GroupComponent=Linux_DnsZone.InstanceID="named",Name="localdomain",PartComponent=Linux_DnsAddressMatchList.InstanceID="named",Name="zone::localdomain::allow-update" GroupComponent=Linux_DnsZone.InstanceID="named",Name="localdomain",PartComponent=Linux_DnsAddressMatchList.InstanceID="named",Name="zone::localdomain::allow-update"
 sourceRole : GroupComponent
 targetRole : PartComponent
 sourceClass : Linux_DnsZone

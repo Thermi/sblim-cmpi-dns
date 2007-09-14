@@ -1,7 +1,6 @@
 ********************************************************************************
 association : Linux_DnsAllowQueryForService
 objectPath : Linux_DnsAllowQueryForService.GroupComponent=Linux_DnsService.CreationClassName="Linux_DnsService",Name="named",SystemCreationClassName="Linux_DnsService",SystemName="localhost",PartComponent=Linux_DnsAddressMatchList.InstanceID="named",Name="options::allow-query"
-modifyInst : Linux_DnsAllowQueryForService.GroupComponent=Linux_DnsService.CreationClassName="Linux_DnsService",Name="named",SystemCreationClassName="Linux_DnsService",SystemName="localhost",PartComponent=Linux_DnsAddressMatchList.InstanceID="named",Name="options::allow-query"
 sourceRole : GroupComponent
 targetRole : PartComponent
 sourceClass : Linux_DnsService

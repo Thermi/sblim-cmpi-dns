@@ -1,7 +1,6 @@
 ********************************************************************************
 association : Linux_DnsAllowRecursionForService
 objectPath : Linux_DnsAllowRecursionForService.GroupComponent=Linux_DnsService.CreationClassName="Linux_DnsService",Name="named",SystemCreationClassName="Linux_DnsService",SystemName="localhost",PartComponent=Linux_DnsAddressMatchList.InstanceID="named",Name="options::allow-recursion"
-modifyInst : Linux_DnsAllowRecursionForService.GroupComponent=Linux_DnsService.CreationClassName="Linux_DnsService",Name="named",SystemCreationClassName="Linux_DnsService",SystemName="localhost",PartComponent=Linux_DnsAddressMatchList.InstanceID="named",Name="options::allow-recursion"
 sourceRole : GroupComponent
 targetRole : PartComponent
 sourceClass : Linux_DnsService

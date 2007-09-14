@@ -1,7 +1,6 @@
 ********************************************************************************
 class : Linux_DnsResourceRecord
 objectPath : Linux_DnsResourceRecord.InstanceID="InstanceID",Name="newRR",Type="MX",Value="masterelephant.elephant.example2.com.",ZoneName="elephant.example2.com",Family=1,TTL=7295
-modifyInst : Linux_DnsResourceRecord.InstanceID="InstanceID",Name="newRR",Type="MX",Value="masterelephant.elephant.example2.com.",ZoneName="elephant.example2.com",Family=1,TTL=7295
 
 --------------------------------------------------------------------------------
 Instance                                                       enumInstanceNames

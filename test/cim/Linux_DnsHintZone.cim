@@ -1,7 +1,6 @@
 ********************************************************************************
 class : Linux_DnsHintZone
 objectPath : Linux_DnsHintZone.InstanceID="named",Name=".",Type=5,ZoneFile="named.ca",TTL=10
-modifyInst : Linux_DnsHintZone.InstanceID="named",Name=".",Type=5,ZoneFile="named.ca",TTL=10
 
 --------------------------------------------------------------------------------
 Instance                                                       enumInstanceNames

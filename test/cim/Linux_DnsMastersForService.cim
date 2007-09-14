@@ -1,7 +1,6 @@
 ********************************************************************************
 association : Linux_DnsMastersForService
 objectPath : Linux_DnsMastersForService.GroupComponent=Linux_DnsService.CreationClassName="Linux_DnsService",Name="named",SystemCreationClassName="Linux_DnsService",SystemName="localhost",PartComponent=Linux_DnsMasters.InstanceID="named",Name="global::myMasters::masters" GroupComponent=Linux_DnsService.CreationClassName="Linux_DnsService",Name="named",SystemCreationClassName="Linux_DnsService",SystemName="localhost",PartComponent=Linux_DnsMasters.InstanceID="named",Name="global::myMasters::masters"
-modifyInst : Linux_DnsMastersForService.GroupComponent=Linux_DnsService.CreationClassName="Linux_DnsService",Name="named",SystemCreationClassName="Linux_DnsService",SystemName="localhost",PartComponent=Linux_DnsMasters.InstanceID="named",Name="global::myMasters::masters" GroupComponent=Linux_DnsService.CreationClassName="Linux_DnsService",Name="named",SystemCreationClassName="Linux_DnsService",SystemName="localhost",PartComponent=Linux_DnsMasters.InstanceID="named",Name="global::myMasters::masters"
 sourceRole : GroupComponent
 targetRole : PartComponent
 sourceClass : Linux_DnsService

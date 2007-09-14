@@ -1,6 +1,7 @@
 Changes in next release
 ==============================================================================
 - 1794655  cmpi-dns: Include information on WBEM-SMT client app
+- 1794680  cmpi-dns: base tests on current delivered testsuite
 
 Changes in 0.5.1-1
 ==============================================================================

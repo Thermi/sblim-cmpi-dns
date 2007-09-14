@@ -1,7 +1,6 @@
 ********************************************************************************
 class : Linux_DnsAddressMatchList
 objectPath : Linux_DnsAddressMatchList.InstanceID="named",Name="global::someips::acl",AddressMatchListElement="10.0.0.1","192.168.23.1","192.168.23.15",AddressMatchListElementType=2,2,2
-modifyInst : Linux_DnsAddressMatchList.InstanceID="named",Name="global::someips::acl",AddressMatchListElement="10.0.0.1","192.168.23.1","192.168.23.15",AddressMatchListElementType=2,2,2
 
 --------------------------------------------------------------------------------
 Instance                                                       enumInstanceNames

@@ -1,7 +1,6 @@
 ********************************************************************************
 class : Linux_DnsServiceSettingData
 objectPath : Linux_DnsServiceSettingData.InstanceID="named",Name="named",ConfigurationDirectory="/var/named/chroot/etc/",Forward=1,XferFormat=2
-modifyInst : Linux_DnsServiceSettingData.InstanceID="named",Name="named",ConfigurationDirectory="/var/named/chroot/etc/",Forward=1,XferFormat=2
 
 --------------------------------------------------------------------------------
 Instance                                                       enumInstanceNames

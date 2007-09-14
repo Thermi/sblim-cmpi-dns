@@ -1,7 +1,6 @@
 ********************************************************************************
 association : Linux_DnsMastersForZone
 objectPath : Linux_DnsMastersForZone.GroupComponent=Linux_DnsZone.InstanceID="named",Name="rhino.testing.com",PartComponent=Linux_DnsMasters.InstanceID="named",Name="zone::rhino.testing.com::masters" GroupComponent=Linux_DnsZone.InstanceID="named",Name="rhino.testing.com",PartComponent=Linux_DnsMasters.InstanceID="named",Name="zone::rhino.testing.com::masters"
-modifyInst : Linux_DnsMastersForZone.GroupComponent=Linux_DnsZone.InstanceID="named",Name="rhino.testing.com",PartComponent=Linux_DnsMasters.InstanceID="named",Name="zone::rhino.testing.com::masters" GroupComponent=Linux_DnsZone.InstanceID="named",Name="rhino.testing.com",PartComponent=Linux_DnsMasters.InstanceID="named",Name="zone::rhino.testing.com::masters"
 sourceRole : GroupComponent
 targetRole : PartComponent
 sourceClass : Linux_DnsZone

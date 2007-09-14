@@ -1,7 +1,6 @@
 ********************************************************************************
 association : Linux_DnsServiceConfigurationForService
 objectPath : Linux_DnsServiceConfigurationForService.Configuration=Linux_DnsServiceConfiguration.Name="named",Element=Linux_DnsService.CreationClassName="Linux_DnsService",Name="named",SystemCreationClassName="Linux_DnsService",SystemName="localhost"
-modifyInst : Linux_DnsServiceConfigurationForService.Configuration=Linux_DnsServiceConfiguration.Name="named",Element=Linux_DnsService.CreationClassName="Linux_DnsService",Name="named",SystemCreationClassName="Linux_DnsService",SystemName="localhost"
 sourceRole : Element
 targetRole : Configuration
 sourceClass : Linux_DnsService
