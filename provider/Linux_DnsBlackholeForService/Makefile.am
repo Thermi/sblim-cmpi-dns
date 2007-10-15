@@ -48,13 +48,6 @@ AM_CPPFLAGS = \
     -I${srcdir}/../Linux_DnsAddressMatchList \
     -I${srcdir}/../Linux_DnsService 
 
-AM_LDFLAGS = \
-    -L./../ \
-    -L./../../resource-access \
-    -L./../CIM_ConcreteJob \
-    -L./../Linux_DnsAddressMatchList \
-    -L./../Linux_DnsService 
-
 ################################################################################
 provider_LTLIBRARIES = libcmpiLinux_DnsBlackholeForService.la
 
@@ -72,21 +65,13 @@ libcmpiLinux_DnsBlackholeForService_la_SOURCES = \
     Linux_DnsBlackholeForServiceResourceAccess.cpp \
     CmpiLinux_DnsBlackholeForServiceProvider.cpp
 
-#libcmpiLinux_DnsBlackholeForService_la_DEPENDENCIES = \
-#    libIBM_DnsProviderTooling.la \
-#    libLinux_DnsGeneralProviderBasic.la \
-#    libcmpiDnsCIM_ConcreteJob.la \
-#    libcmpiLinux_DnsService.la \
-#    libcmpiLinux_DnsAddressMatchList.la
-
 libcmpiLinux_DnsBlackholeForService_la_LIBADD = \
-    -L../../resource-access\
-    -lRaToolsDns \
-    -lIBM_DnsProviderTooling \
-    -lLinux_DnsGeneralProviderBasic \
-    -lcmpiDnsCIM_ConcreteJob \
-    -lcmpiLinux_DnsService \
-    -lcmpiLinux_DnsAddressMatchList
+    $(top_builddir)/resource-access/libRaToolsDns.la \
+    $(top_builddir)/provider/libIBM_DnsProviderTooling.la \
+    $(top_builddir)/provider/libLinux_DnsGeneralProviderBasic.la \
+    $(top_builddir)/provider/CIM_ConcreteJob/libcmpiDnsCIM_ConcreteJob.la \
+    $(top_builddir)/provider/Linux_DnsService/libcmpiLinux_DnsService.la \
+    $(top_builddir)/provider/Linux_DnsAddressMatchList/libcmpiLinux_DnsAddressMatchList.la
 
 libcmpiLinux_DnsBlackholeForService_la_LDFLAGS  = -avoid-version
 
@@ -102,4 +87,3 @@ noinst_HEADERS+= \
     Linux_DnsBlackholeForServiceFactory.h \
     Linux_DnsBlackholeForServiceResourceAccess.h \
     CmpiLinux_DnsBlackholeForServiceProvider.h
-

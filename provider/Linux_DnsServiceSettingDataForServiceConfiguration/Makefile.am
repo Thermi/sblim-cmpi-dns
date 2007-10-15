@@ -48,13 +48,6 @@ AM_CPPFLAGS = \
     -I${srcdir}/../Linux_DnsServiceConfiguration \
     -I${srcdir}/../Linux_DnsServiceSettingData
 
-AM_LDFLAGS = \
-    -L./../ \
-    -L./../../resource-access \
-    -L./../CIM_ConcreteJob \
-    -L./../Linux_DnsServiceConfiguration \
-    -L./../Linux_DnsServiceSettingData
-
 ################################################################################
 provider_LTLIBRARIES = libcmpiLinux_DnsServiceSettingDataForServiceConfiguration.la
 
@@ -72,21 +65,13 @@ libcmpiLinux_DnsServiceSettingDataForServiceConfiguration_la_SOURCES = \
     Linux_DnsServiceSettingDataForServiceConfigurationResourceAccess.cpp \
     CmpiLinux_DnsServiceSettingDataForServiceConfigurationProvider.cpp
 
-#libcmpiLinux_DnsServiceSettingDataForServiceConfiguration_la_DEPENDENCIES = \
-#    libIBM_DnsProviderTooling.la \
-#    libLinux_DnsGeneralProviderBasic.la \
-#    libcmpiDnsCIM_ConcreteJob.la \
-#    libcmpiLinux_DnsServiceSettingData.la \
-#    libcmpiLinux_DnsServiceConfiguration.la
-
 libcmpiLinux_DnsServiceSettingDataForServiceConfiguration_la_LIBADD = \
-    -L../../resource-access\
-    -lRaToolsDns \
-    -lIBM_DnsProviderTooling \
-    -lLinux_DnsGeneralProviderBasic \
-    -lcmpiDnsCIM_ConcreteJob \
-    -lcmpiLinux_DnsServiceSettingData \
-    -lcmpiLinux_DnsServiceConfiguration
+    $(top_builddir)/resource-access/libRaToolsDns.la \
+    $(top_builddir)/provider/libIBM_DnsProviderTooling.la \
+    $(top_builddir)/provider/libLinux_DnsGeneralProviderBasic.la \
+    $(top_builddir)/provider/CIM_ConcreteJob/libcmpiDnsCIM_ConcreteJob.la \
+    $(top_builddir)/provider/Linux_DnsServiceSettingData/libcmpiLinux_DnsServiceSettingData.la \
+    $(top_builddir)/provider/Linux_DnsServiceConfiguration/libcmpiLinux_DnsServiceConfiguration.la
 
 libcmpiLinux_DnsServiceSettingDataForServiceConfiguration_la_LDFLAGS  = -avoid-version
 

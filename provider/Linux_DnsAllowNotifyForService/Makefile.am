@@ -48,13 +48,6 @@ AM_CPPFLAGS = \
     -I${srcdir}/../Linux_DnsAddressMatchList \
     -I${srcdir}/../Linux_DnsService 
 
-AM_LDFLAGS = \
-    -L./../ \
-    -L./../../resource-access \
-    -L./../CIM_ConcreteJob \
-    -L./../Linux_DnsAddressMatchList \
-    -L./../Linux_DnsService 
-
 ################################################################################
 provider_LTLIBRARIES = libcmpiLinux_DnsAllowNotifyForService.la
 
@@ -72,21 +65,13 @@ libcmpiLinux_DnsAllowNotifyForService_la_SOURCES = \
     Linux_DnsAllowNotifyForServiceResourceAccess.cpp \
     CmpiLinux_DnsAllowNotifyForServiceProvider.cpp
 
-#libcmpiLinux_DnsAllowNotifyForService_la_DEPENDENCIES = \
-#    libIBM_DnsProviderTooling.la \
-#    libLinux_DnsGeneralProviderBasic.la \
-#    libcmpiDnsCIM_ConcreteJob.la \
-#    libcmpiLinux_DnsService.la \
-#    libcmpiLinux_DnsAddressMatchList.la
-
 libcmpiLinux_DnsAllowNotifyForService_la_LIBADD = \
-    -L../../resource-access\
-    -lRaToolsDns \
-    -lIBM_DnsProviderTooling \
-    -lLinux_DnsGeneralProviderBasic \
-    -lcmpiDnsCIM_ConcreteJob \
-    -lcmpiLinux_DnsService \
-    -lcmpiLinux_DnsAddressMatchList
+    $(top_builddir)/resource-access/libRaToolsDns.la \
+    $(top_builddir)/provider/libIBM_DnsProviderTooling.la \
+    $(top_builddir)/provider/libLinux_DnsGeneralProviderBasic.la \
+    $(top_builddir)/provider/CIM_ConcreteJob/libcmpiDnsCIM_ConcreteJob.la \
+    $(top_builddir)/provider/Linux_DnsService/libcmpiLinux_DnsService.la \
+    $(top_builddir)/provider/Linux_DnsAddressMatchList/libcmpiLinux_DnsAddressMatchList.la
 
 libcmpiLinux_DnsAllowNotifyForService_la_LDFLAGS  = -avoid-version
 
@@ -102,4 +87,3 @@ noinst_HEADERS+= \
     Linux_DnsAllowNotifyForServiceFactory.h \
     Linux_DnsAllowNotifyForServiceResourceAccess.h \
     CmpiLinux_DnsAllowNotifyForServiceProvider.h
-

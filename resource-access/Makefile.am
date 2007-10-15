@@ -107,27 +107,6 @@ zoneParseTest_CPPFLAGS = \
 	-D_GNU_SOURCE \
 	-DDEBUG_YACC
 
-#apiTest_SOURCES = \
-#	smt_dns_ra_support.c \
-#	smt_dns_ra_service.c \
-#	smt_dns_ra_rrhandle.c \
-#	tests/smt_dns_ra_test.c \
-#	parser_support.c \
-#	conf.parser.tab.c \
-#	zone.parser.tab.c \
-#	lex.conf.c \
-#	lex.zone.c
-
-#apiTest_CPPFLAGS = \
-#	-fPIC \
-#	-DUSE_CACHE \
-#	-DCONFFILE=\"$(sysconfdir)/smt_dns_ra_support.conf\" \
-#	-D_GNU_SOURCE \
-#	-I /home/tyreld/work/cmpi-dns/resource-access
-
-#apiTest_LDFLAGS = \
-#	-fPIC
-
 #  LibRaTools libraries
 lib_LTLIBRARIES += libRaToolsDns.la 
 

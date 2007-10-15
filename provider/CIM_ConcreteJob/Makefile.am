@@ -46,11 +46,6 @@ AM_CPPFLAGS = \
     -I${srcdir}/../../resource-access \
     -I${srcdir}/../CIM_ConcreteJob
 
-AM_LDFLAGS = \
-    -L./../ \
-    -L./../../resource-access \
-    -L./../CIM_ConcreteJob 
-
 
 ################################################################################
 provider_LTLIBRARIES = libcmpiDnsCIM_ConcreteJob.la
@@ -68,10 +63,10 @@ noinst_HEADERS+= \
     CIM_ConcreteJobInstance.h \
     CIM_ConcreteJobInstanceName.h
 
+
 libcmpiDnsCIM_ConcreteJob_la_LIBADD = \
-    -lRaToolsDns \
-    -lIBM_DnsProviderTooling \
-    -lLinux_DnsGeneralProviderBasic
+    $(top_builddir)/resource-access/libRaToolsDns.la \
+    $(top_builddir)/provider/libIBM_DnsProviderTooling.la \
+    $(top_builddir)/provider/libLinux_DnsGeneralProviderBasic.la
 
 libcmpiDnsCIM_ConcreteJob_la_LDFLAGS = -avoid-version
-

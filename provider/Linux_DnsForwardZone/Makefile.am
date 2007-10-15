@@ -47,12 +47,6 @@ AM_CPPFLAGS = \
     -I${srcdir}/../CIM_ConcreteJob \
     -I${srcdir}/../Linux_DnsForwardZone 
 
-AM_LDFLAGS = \
-    -L./../ \
-    -L./../../resource-access \
-    -L./../CIM_ConcreteJob \
-    -L./../Linux_DnsForwardZone 
-
 ################################################################################
 provider_LTLIBRARIES = libcmpiLinux_DnsForwardZone.la
 
@@ -70,17 +64,11 @@ libcmpiLinux_DnsForwardZone_la_SOURCES = \
     Linux_DnsForwardZoneResourceAccess.cpp \
     CmpiLinux_DnsForwardZoneProvider.cpp
 
-#libcmpiLinux_DnsForwardZone_la_DEPENDENCIES = \
-#    libIBM_DnsProviderTooling.la \
-#    libLinux_DnsGeneralProviderBasic.la \
-#    libcmpiDnsCIM_ConcreteJob.la 
-
 libcmpiLinux_DnsForwardZone_la_LIBADD = \
-    -L../../resource-access\
-    -lRaToolsDns \
-    -lIBM_DnsProviderTooling \
-    -lLinux_DnsGeneralProviderBasic \
-    -lcmpiDnsCIM_ConcreteJob 
+    $(top_builddir)/resource-access/libRaToolsDns.la \
+    $(top_builddir)/provider/libIBM_DnsProviderTooling.la \
+    $(top_builddir)/provider/libLinux_DnsGeneralProviderBasic.la \
+    $(top_builddir)/provider/CIM_ConcreteJob/libcmpiDnsCIM_ConcreteJob.la 
 
 libcmpiLinux_DnsForwardZone_la_LDFLAGS  = -avoid-version
 
@@ -96,4 +84,3 @@ noinst_HEADERS+= \
     Linux_DnsForwardZoneFactory.h \
     Linux_DnsForwardZoneResourceAccess.h \
     CmpiLinux_DnsForwardZoneProvider.h
-

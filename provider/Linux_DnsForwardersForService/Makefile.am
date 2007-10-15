@@ -48,13 +48,6 @@ AM_CPPFLAGS = \
     -I${srcdir}/../Linux_DnsService \
     -I${srcdir}/../Linux_DnsForwarders
 
-AM_LDFLAGS = \
-    -L./../ \
-    -L./../../resource-access \
-    -L./../CIM_ConcreteJob \
-    -L./../Linux_DnsService \
-    -L./../Linux_DnsForwarders
-
 ################################################################################
 provider_LTLIBRARIES = libcmpiLinux_DnsForwardersForService.la
 
@@ -72,21 +65,13 @@ libcmpiLinux_DnsForwardersForService_la_SOURCES = \
     Linux_DnsForwardersForServiceResourceAccess.cpp \
     CmpiLinux_DnsForwardersForServiceProvider.cpp
 
-#libcmpiLinux_DnsForwardersForService_la_DEPENDENCIES = \
-#    libIBM_DnsProviderTooling.la \
-#    libLinux_DnsGeneralProviderBasic.la \
-#    libcmpiDnsCIM_ConcreteJob.la \
-#    libcmpiLinux_DnsService.la \
-#    libcmpiLinux_DnsForwarders.la
-
 libcmpiLinux_DnsForwardersForService_la_LIBADD = \
-    -L../../resource-access\
-    -lRaToolsDns \
-    -lIBM_DnsProviderTooling \
-    -lLinux_DnsGeneralProviderBasic \
-    -lcmpiDnsCIM_ConcreteJob \
-    -lcmpiLinux_DnsService \
-    -lcmpiLinux_DnsForwarders
+    $(top_builddir)/resource-access/libRaToolsDns.la \
+    $(top_builddir)/provider/libIBM_DnsProviderTooling.la \
+    $(top_builddir)/provider/libLinux_DnsGeneralProviderBasic.la \
+    $(top_builddir)/provider/CIM_ConcreteJob/libcmpiDnsCIM_ConcreteJob.la \
+    $(top_builddir)/provider/Linux_DnsService/libcmpiLinux_DnsService.la \
+    $(top_builddir)/provider/Linux_DnsForwarders/libcmpiLinux_DnsForwarders.la
 
 libcmpiLinux_DnsForwardersForService_la_LDFLAGS  = -avoid-version
 
@@ -102,4 +87,3 @@ noinst_HEADERS+= \
     Linux_DnsForwardersForServiceFactory.h \
     Linux_DnsForwardersForServiceResourceAccess.h \
     CmpiLinux_DnsForwardersForServiceProvider.h
-
