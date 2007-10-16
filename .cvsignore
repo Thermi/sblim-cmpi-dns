@@ -1,14 +1,12 @@
 autom4te.cache
 INSTALL
 depcomp
-sblim-cmpi-dns-*.tar.bz2
 stamp-h1
 install-sh
 compile
 ltmain.sh
 libtool
 config.guess
-sblim-cmpi-dns.spec
 configure
 aclocal.m4
 config.h.in
@@ -19,3 +17,4 @@ config.status
 Makefile
 config.sub
 config.log
+sblim-cmpi-dns*

@@ -9,7 +9,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}
 Summary: SBLIM WBEM-SMT Dns 
 Name: @PACKAGE_TARNAME@
 Version: @PACKAGE_VERSION@
-Release: 1
+Release: CVS
 Group: Systems Management/Base
 URL: http://www.sblim.org
 License: CPL
@@ -171,6 +171,9 @@ fi
 
 ###############################################################################
 %changelog
+* Tue Oct 16 2007 Wolfgang Taphorn <taphorn@de.ibm.com> 0.5.2-CVS
+    o 1814089  cmpi-dns: Enhancements to build process
+
 * Fri Sep 14 2007 Wolfgang Taphorn <taphorn@de.ibm.com> 0.5.2-1
     o 1794680  cmpi-dns: base tests on current delivered testsuite
     o 1794655  cmpi-dns: Include information on WBEM-SMT client app
