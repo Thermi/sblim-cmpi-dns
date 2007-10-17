@@ -1,4 +1,24 @@
-scriptdir  = "@SCRIPTDIR@/"
+##############################################################################
+# Configuration file for the resource access layer of the
+# sblim cmpi-dns instrumentation
+#
+
+##############################################################################
+# The 'bindconf' attribute is used to define the location and the name of the 
+# DNS configuration file.
 bindconf   = "@sysconfdir@/named.conf"
+
+###############################################################################
+# The 'scriptdir' attribute is used to define the directory where several
+# scripts are located. These are used by the resource access layer.
+scriptdir  = "@SCRIPTDIR@/"
+
+##############################################################################
+# The 'initscript' attribute is used to define the directory and name of the
+# init script used to start/stop/restart the DNS service.
 initscript = "@sysconfdir@/init.d/named"
+
+##############################################################################
+# The 'named_path' attribute is used to define the name of the DNS server
+# executable.
 named_path = "/usr/sbin/named"

@@ -78,6 +78,7 @@ AC_CHECK_FUNCS([memmove select strchr strdup memset mkdir strcasecmp strndup str
 
 AC_CONFIG_FILES(Makefile sblim-cmpi-dns.spec)
 AC_CONFIG_FILES(resource-access/Makefile resource-access/smt_dns_ra_support.conf.pre)
+AC_CONFIG_FILES(man/Makefile man/smt_dns_ra_support.conf.5.pre)
 AC_CONFIG_FILES(provider/Makefile)
 AC_CONFIG_FILES(provider/CIM_ConcreteJob/Makefile)
 AC_CONFIG_FILES(provider/Linux_DnsAddressMatchList/Makefile)

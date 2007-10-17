@@ -1,0 +1,77 @@
+.TH "smt_dns_ra_support.conf" 5 "October 2007" "1.0" 
+.SH "NAME"
+smt_dns_ra_support.conf \- The configuration file for the DNS Management
+using WBEM technologies.
+
+.SH "SYNOPSIS"
+The 
+.B "smt_dns_ra_support.conf" 
+file is used to configure the WBEM-SMT instrumentation components. It defines 
+several configuration parameters that are required to run the CMPI provider 
+correctly.
+
+.SH "DESCRIPTION"
+This configuration file is used to define some variables used for the WBEM-SMT 
+DNS Instrumentation. The providers will pick up the values from this file
+and process according to these settings.
+
+.SH "FILE FORMAT"
+The file is used in the ini-style format. Which means to set a configuration 
+parameter you have to specify a name value pair like
+.sp 2
+.br
+.IR <name> 
+=
+.IR <value>
+.sp 2
+.br
+where 
+.B name 
+is a known configuration parameter and 
+.B value 
+a valid value for the configuration parameter.
+.sp 2
+.br
+Is a line starting with 
+.B #
+then the line is used as a comment. Empty lines are totally ignored from any processing.
+
+.SH "ERROR HANDLING"
+If an attribute name is not known, it will be ignored from any further processing.
+.br
+Misspelled values or values which are exceeding the values ranges will 
+automatically be replaced by the attributes default value.
+
+.SH CONFIGURATION PARAMETERS
+.IP "bindconf"
+The bindconf attribute defines the location of the bind configuration. Since
+it is possible to locate the named.conf file on various places and to name it
+in a freeformated way, this needs to be configurable.
+.br
+The default is
+.IR '@sysconfdir@/named.conf'
+.br
+.IP "scriptdir"
+The scriptdir attribute defines the location of helper scripts which are used 
+by the resource access layer to read from the configuration files or to write 
+the data to the configuration files.
+.br
+The default is
+.IR '@SCRIPTDIR@'
+.br
+.IP "initscript"
+The initscript attribute defines the location and the name of the init
+script which is used to start/stop/restart the DNS server.
+.br
+The default is
+.IR '@sysconfdir@/init.d/named'
+.IP "named_path"
+The named_path attribute defines the name of the named executable.
+.br
+The default is
+.IR '@sysconfdir@/init.d/named'
+.SH "AUTHOR"
+The initial man page has been written by Wolfgang Taphorn <taphorn@de.ibm.com>
+.sp 2
+To report weird behavior and bugs or suggestions and help contact the sblim project
+by sending email to the sblim-devel mailing list at sblim-devel@lists.sourceforge.net.

@@ -51,14 +51,14 @@ EXTRA_DIST =
 if SBLIM_TESTSUITE
   TESTCASE_DIR = test
 endif
-SUBDIRS = $(TESTCASE_DIR) resource-access provider
+SUBDIRS = $(TESTCASE_DIR) man resource-access provider
 
 # Automake instructions for documentation
 doc_DATA = README AUTHORS COPYING NEWS ChangeLog TroubleShooting
 EXTRA_DIST += $(doc_DATA)
 
 ######################################################################################
-# We must explicity add the RPM spec file to the distribution package
+# We must explicitly add the RPM spec file to the distribution package
 EXTRA_DIST += $(PACKAGE).spec
 
 
@@ -68,7 +68,7 @@ SCHEMAS = $(srcdir)/model/Linux_Dns.mof
 
 REGISTRATIONS = $(srcdir)/model/Linux_Dns.registration
 
-# We must explicity add all the schema files to the distribution package
+# We must explicitly add all the schema files to the distribution package
 pkgdata_DATA = $(SCHEMAS) $(REGISTRATIONS)
 
 pkgdata_SCRIPTS += $(srcdir)/provider-register.sh

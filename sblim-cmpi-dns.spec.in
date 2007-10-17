@@ -4,6 +4,8 @@
 # Package spec for cmpi-dns
 #
 
+%define cmpi_provider_dir %{_libdir}/cmpi
+
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}
 
 Summary: SBLIM WBEM-SMT Dns 
@@ -132,14 +134,16 @@ fi
 %files
 %defattr(-,root,root,0644) 
 %doc %{_datadir}/doc/%{name}-%{version}
+%doc %{_mandir}/man5/smt_dns_ra_support.conf.5.gz
 %config(noreplace) %{_sysconfdir}/smt_dns*.conf
 %defattr(-,root,root,0755)
 %{_datadir}/%{name}
 %{_libdir}/libIBM_DnsProviderTooling.so.*
 %{_libdir}/libLinux_DnsGeneralProviderBasic.so.*
 %{_libdir}/libRaToolsDns.so.*
-%{_libdir}/cmpi/libcmpiDnsCIM_ConcreteJob.so
-%{_libdir}/cmpi/libcmpiLinux_Dns*.so
+%{cmpi_provider_dir}/libcmpiDnsCIM_ConcreteJob.so
+%{cmpi_provider_dir}/libcmpiLinux_Dns*.so
+
 
 %files devel
 %defattr(-,root,root) 
@@ -172,6 +176,7 @@ fi
 ###############################################################################
 %changelog
 * Tue Oct 16 2007 Wolfgang Taphorn <taphorn@de.ibm.com> 0.5.2-CVS
+    o 1815304  cmpi-dns: Man page for the dns specific config file
     o 1814089  cmpi-dns: Enhancements to build process
 
 * Fri Sep 14 2007 Wolfgang Taphorn <taphorn@de.ibm.com> 0.5.2-1
