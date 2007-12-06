@@ -12,7 +12,7 @@ Summary: SBLIM WBEM-SMT Dns
 Name: @PACKAGE_TARNAME@
 Version: @PACKAGE_VERSION@
 Release: CVS
-Group: Systems Management/Base
+Group: Systems Management/Instrumentation
 URL: http://www.sblim.org
 License: CPL
 Requires: sblim-tools-libra
@@ -35,7 +35,7 @@ to get the WBEM-SMT Client Application.
 ###############################################################################
 %Package devel
 Summary: SBLIM WBEM-SMT Dns - Header Development Files
-Group: Systems Management/Base
+Group: Systems Management/Instrumentation
 Requires: %{name} = %{version}-%{release}
 
 %Description devel
@@ -45,7 +45,7 @@ link libraries for dependent provider packages
 ###############################################################################
 %Package test
 Summary: SBLIM WBEM-SMT Dns - Testcase Files
-Group: Systems Management/Base
+Group: Systems Management/Instrumentation/Test
 Requires: %{name} = %{version}-%{release}
 
 %Description test
@@ -176,6 +176,7 @@ fi
 ###############################################################################
 %changelog
 * Tue Oct 16 2007 Wolfgang Taphorn <taphorn@de.ibm.com> 0.5.2-CVS
+    o 1845494  cmpi-dns: Include proper group definition for RPM build
     o 1815304  cmpi-dns: Man page for the dns specific config file
     o 1814089  cmpi-dns: Enhancements to build process
 

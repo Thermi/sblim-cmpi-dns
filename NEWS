@@ -1,5 +1,6 @@
 Changes on top of 0.5.2-1
 ==============================================================================
+- 1845494  cmpi-dns: Include proper group definition for RPM build
 - 1815304  cmpi-dns: Man page for the dns specific config file
 - 1814089  cmpi-dns: Enhancements to build process
 
