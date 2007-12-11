@@ -11,7 +11,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}
 Summary: SBLIM WBEM-SMT Dns 
 Name: @PACKAGE_TARNAME@
 Version: @PACKAGE_VERSION@
-Release: CVS
+Release: 1
 Group: Systems Management/Instrumentation
 URL: http://www.sblim.org
 License: CPL
@@ -175,7 +175,7 @@ fi
 
 ###############################################################################
 %changelog
-* Tue Oct 16 2007 Wolfgang Taphorn <taphorn@de.ibm.com> 0.5.2-CVS
+* Tue Dec 11 2007 Sam Kannan <skanan@us.ibm.com> 0.5.3-1
     o 1845494  cmpi-dns: Include proper group definition for RPM build
     o 1815304  cmpi-dns: Man page for the dns specific config file
     o 1814089  cmpi-dns: Enhancements to build process
