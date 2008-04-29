@@ -112,6 +112,7 @@ AC_CONFIG_FILES(provider/Linux_DnsServiceSettingDataForServiceConfiguration/Make
 AC_CONFIG_FILES(provider/Linux_DnsSlaveZone/Makefile)
 AC_CONFIG_FILES(provider/Linux_DnsStubZone/Makefile)
 AC_CONFIG_FILES(provider/Linux_DnsZone/Makefile)
+AC_CONFIG_FILES(provider/Linux_DnsElementConformsToProfile/Makefile)
 AC_CONFIG_FILES(test/Makefile)
 
 echo

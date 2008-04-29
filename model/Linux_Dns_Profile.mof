@@ -1,0 +1,43 @@
+
+// ===================================================================
+// DNS Service
+// ===================================================================
+[ Description("Class representing the DNS service/server.") ]
+class Linux_DnsService : CIM_Service
+{
+  [Key, 
+   Override("Name"), 
+   Description("Service process identifier.") ]
+  string Name;
+
+  [Description (
+          "Started is a boolean indicating whether the Service has "
+          "been started (TRUE), or stopped (FALSE).") ]
+   boolean Started;
+
+  [Description("Run privilege.")]
+  boolean RunAsRoot;
+};
+
+// ===================================================================
+// Dns Registered Profile
+// ===================================================================
+[Description ("A class which is used during SLP discovery to identify"
+              "that the Dns task is available")]
+class Linux_DnsRegisteredProfile : CIM_RegisteredProfile {
+
+};
+
+
+// ===================================================================
+// Dns Element Conforms To Profile
+// ===================================================================
+[Description("Association between the Dns Registered Profile and the Dns Service"), Association]
+class Linux_DnsElementConformsToProfile : CIM_ElementConformsToProfile {
+    
+  	[Override ("ConformantStandard")]  	
+  	Linux_DnsRegisteredProfile REF ConformantStandard;
+
+    [Override("ManagedElement")]
+ 	Linux_DnsService REF ManagedElement;
+};

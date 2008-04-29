@@ -11,7 +11,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}
 Summary: SBLIM WBEM-SMT Dns 
 Name: @PACKAGE_TARNAME@
 Version: @PACKAGE_VERSION@
-Release: 1
+Release: 2
 Group: Systems Management/Instrumentation
 URL: http://www.sblim.org
 License: CPL
@@ -90,23 +90,42 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/cmpi/*a
 ###############################################################################
 %pre
 # Conditional definition of schema and registration files
-%define SCHEMA %{_datadir}/%{name}/Linux_Dns.mof
+%define SCHEMA %{_datadir}/%{name}/Linux_Dns_Profile.mof %{_datadir}/%{name}/Linux_Dns.mof
 %define REGISTRATION %{_datadir}/%{name}/Linux_Dns.registration
+
+%define INTEROP_SCHEMAS %{_datadir}/%{name}/Linux_Dns_Profile.mof
+%define INTEROP_REGISTRATIONS %{_datadir}/%{name}/Linux_Dns_Profile.registration
 
 # If upgrading, deregister old version
 if [ $1 -gt 1 ]
 then
   %{_datadir}/%{name}/provider-register.sh -d %{?tog_pegasus:-t pegasus} \
 	-r %{REGISTRATION} -m %{SCHEMA} > /dev/null
+	
+  %{_datadir}/%{name}/provider-register.sh -d %{?tog_pegasus:-t pegasus} \
+	-n root/PG_InterOp -r %{INTEROP_REGISTRATIONS} -m %{INTEROP_SCHEMAS} > /dev/null		
 fi
 
 
 ###############################################################################
 %post
-# Register Schema and Provider - this is higly provider specific
+# Register Schema and Provider - this is highly provider specific
+
+# Check if pegasus repository has the CIM_RegisteredProfile classes else register the interop mof file   
+#if [ ! -e "/var/lib/Pegasus/repository/root#PG_InterOp/classes/CIM_RegisteredProfile.CIM_ManagedElement" ]
+#then
+#	if [ -e "/usr/share/Pegasus/mof/CIM29/CIM_Interop.mof" ]
+#	then		
+#		cimmofl -w -uc -aEV -R/var/lib/Pegasus -n root/PG_InterOp /usr/share/Pegasus/mof/CIM29/CIM_Interop.mof > /dev/null		
+#		/etc/init.d/tog-pegasus restart	> /dev/null
+#	fi
+#fi	
 
 %{_datadir}/%{name}/provider-register.sh %{?tog_pegasus:-t pegasus} \
-	-r %{REGISTRATION} -m %{SCHEMA} > /dev/null
+	-v -r %{REGISTRATION} -m %{SCHEMA} > /dev/null
+
+%{_datadir}/%{name}/provider-register.sh %{?tog_pegasus:-t pegasus} \
+	-v -n root/PG_InterOp -r %{INTEROP_REGISTRATIONS} -m %{INTEROP_SCHEMAS} > /dev/null	
 
 /sbin/ldconfig
 
@@ -118,6 +137,9 @@ if [ $1 -eq 0 ]
 then
   %{_datadir}/%{name}/provider-register.sh -d %{?tog_pegasus:-t pegasus} \
 	-r %{REGISTRATION} -m %{SCHEMA} > /dev/null
+	
+  %{_datadir}/%{name}/provider-register.sh -d %{?tog_pegasus:-t pegasus} \
+	-n root/PG_InterOp -r %{INTEROP_REGISTRATIONS} -m %{INTEROP_SCHEMAS} > /dev/null		
 fi
 
 

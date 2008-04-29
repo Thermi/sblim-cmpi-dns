@@ -1,0 +1,29 @@
+********************************************************************************
+association : Linux_DnsElementConformsToProfile
+objectPath : Linux_DnsElementConformsToProfile.ConformantStandard="root/PG_InterOp:Linux_DnsRegisteredProfile.InstanceID=\"IBM:Dns Server Profile-0.1.1\"",ManagedElement="root/cimv2:Linux_DnsService.CreationClassName=\"Linux_DnsService\",Name=\"named\",SystemCreationClassName=\"Linux_DnsService\",SystemName=\"localhost\""
+sourceRole : ConformantStandard
+targetRole : ManagedElement
+sourceClass : Linux_DnsRegisteredProfile
+targetClass : Linux_DnsService
+
+--------------------------------------------------------------------------------
+Instance                                                       enumInstanceNames
+
+--------------------------------------------------------------------------------
+Instance                                                           enumInstances
+
+--------------------------------------------------------------------------------
+Instance                                                                     get
+
+--------------------------------------------------------------------------------
+Association                                                          associators
+
+--------------------------------------------------------------------------------
+Association                                                      associatorNames
+
+--------------------------------------------------------------------------------
+Association                                                           references
+
+--------------------------------------------------------------------------------
+Association                                                       referenceNames
+

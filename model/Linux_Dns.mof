@@ -8,35 +8,6 @@
 // Contributor: Tony Gargya <gargya@de.ibm.com>
 // ===================================================================
 
-// ===================================================================
-// DNS Registered Profile
-// ===================================================================
-//[ Description("Class to provide a registered profile for DNS.") ]
-//class Linux_DnsRegisteredProfile : CIM_RegisteredProfile
-//{
-//};
-
-
-// ===================================================================
-// DNS Service
-// ===================================================================
-[ Description("Class representing the DNS service/server.") ]
-class Linux_DnsService : CIM_Service
-{
-  [Key, 
-   Override("Name"), 
-   Description("Service process identifier.") ]
-  string Name;
-
-  [Description (
-          "Started is a boolean indicating whether the Service has "
-          "been started (TRUE), or stopped (FALSE).") ]
-   boolean Started;
-
-  [Description("Run privilege.")]
-  boolean RunAsRoot;
-};
-
 
 // ===================================================================
 // DNS Zone - Base class

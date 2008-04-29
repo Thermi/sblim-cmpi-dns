@@ -131,5 +131,6 @@ SUBDIRS = . \
           Linux_DnsMastersForZone \
           Linux_DnsResourceRecordsForZone \
           Linux_DnsServiceConfigurationForService \
+          Linux_DnsElementConformsToProfile \
           Linux_DnsServiceSettingDataForServiceConfiguration
 
