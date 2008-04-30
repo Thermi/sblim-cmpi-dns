@@ -1,3 +1,7 @@
+Changes in 0.5.4-1
+==============================================================================
+- 1939841  cmpi-dns: Registered Profile support
+
 Changes in 0.5.3-1
 ==============================================================================
 - 1845494  cmpi-dns: Include proper group definition for RPM build
