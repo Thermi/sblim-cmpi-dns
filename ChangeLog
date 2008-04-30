@@ -1,5 +1,25 @@
-// =========================================================================
-// new in version 0.5.3-1 :
+2008-04-30 15:25  skanan
+
+	* NEWS: Maintenance release 0.5.4-1
+
+2008-04-30 15:06  skanan
+
+	* configure.ac, sblim-cmpi-dns.spec.in: Updated Version info
+
+2008-04-29 19:41  skanan
+
+	* model/Linux_Dns.mof, model/Linux_Dns.registration,
+	  model/Linux_Dns_Profile.registration, Makefile.am, configure.ac,
+	  sblim-cmpi-dns.spec.in, .settings/org.eclipse.cdt.core.prefs,
+	  model/Linux_Dns_Profile.mof, provider/Makefile.am,
+	  provider/Linux_DnsElementConformsToProfile/.cvsignore,
+	  provider/Linux_DnsElementConformsToProfile/Linux_DnsElementConformsToProfile.c,
+	  provider/Linux_DnsElementConformsToProfile/Linux_ElementConformsToProfile_Resource.c,
+	  provider/Linux_DnsElementConformsToProfile/Linux_ElementConformsToProfile_Resource.h,
+	  provider/Linux_DnsElementConformsToProfile/Makefile.am,
+	  test/cim/Linux_DnsElementConformsToProfile.cim,
+	  test/cim/Linux_DnsRegisteredProfile.cim: Fix for issue [1939841] Registered
+	  Profile implementation
 
 2007-12-11 10:37  skanan
 
