@@ -11,7 +11,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}
 Summary: SBLIM WBEM-SMT Dns 
 Name: @PACKAGE_TARNAME@
 Version: @PACKAGE_VERSION@
-Release: 2
+Release: 1
 Group: Systems Management/Instrumentation
 URL: http://www.sblim.org
 License: CPL
