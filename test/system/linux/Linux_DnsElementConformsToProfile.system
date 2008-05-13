@@ -1,0 +1,8 @@
+********************************************************************************
+association : Linux_DnsElementConformsToProfile
+
+--------------------------------------------------------------------------------
+Linux_DnsRegisteredProfile : -target Linux_DnsService -lt 2
+Linux_DnsService : -target Linux_DnsRegisteredProfile -eq 1
+
+--------------------------------------------------------------------------------

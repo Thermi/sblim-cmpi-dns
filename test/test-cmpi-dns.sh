@@ -166,7 +166,6 @@ CLASSNAMES=(
 [2]=Linux_DnsHintZone
 [3]=Linux_DnsSlaveZone
 [4]=Linux_DnsStubZone
-#[5]=Linux_DnsRegisteredProfile
 [5]=Linux_DnsResourceRecord
 [6]=Linux_DnsService
 [7]=Linux_DnsServiceConfiguration
@@ -207,6 +206,8 @@ do
   i=$i+1;
 done
 
+. ${SCRIPT_PATH}/run.sh Linux_DHCPRegisteredProfile -n /root/PG_InterOp  || exit 1;
+. ${SCRIPT_PATH}/run.sh Linux_DHCPElementConformsToProfile -n /root/PG_InterOp || exit 1;
 cleanup
 
 #*****************************************************************************#

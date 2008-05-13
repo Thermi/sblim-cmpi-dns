@@ -1,7 +1,7 @@
 ********************************************************************************
 class : Linux_DnsRegisteredProfile
-objectPath : Linux_DnsRegisteredProfile.InstanceID="IBM:Dns Server Profile-0.1.1"
-modifyInst : InstanceID="IBM-1:Dns Server Profile-0.1.1"
+objectPath : Linux_DnsRegisteredProfile.InstanceID="IBM:DNS Profile-0.2.3"
+modifyInst : InstanceID="IBM-1:DNS Profile-0.2.3"
 createInst : InstanceID=""
 classKey : InstanceID
 

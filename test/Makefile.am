@@ -30,6 +30,8 @@ testsuiteconfdir=@TESTSUITEDIR@/
 
 testsuite_SCRIPTS=test-cmpi-dns.sh named.conf
 testsuitecim_DATA= \
+	cim/Linux_DnsElementConformsToProfile.cim \
+	cim/Linux_DnsRegisteredProfile.cim \
     cim/Linux_DnsAddressMatchList.cim \
     cim/Linux_DnsAddressMatchListsForService.cim \
     cim/Linux_DnsAllowNotifyForZone.cim \
@@ -61,6 +63,7 @@ testsuitecim_DATA= \
     cim/Linux_DnsStubZone.cim 
 
 testsuitesystem_DATA= \
+	system/linux/Linux_DnsElementConformsToProfile.system \
     system/linux/Linux_DnsAddressMatchList.system \
     system/linux/Linux_DnsForwarders.system \
     system/linux/Linux_DnsForwardZone.system \

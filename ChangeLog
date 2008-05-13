@@ -1,3 +1,10 @@
+2008-05-12  skannan  <skannan@skannanlaptop.ibm.com>
+
+	* test/Makefile.am, test/test-cmpi-dns.sh, configure.ac, NEWS, 
+	  sblim-cmpi-dns.spec.in, test/cim/Linux_DnsRegisteredProfile.cim,
+	  test/system/linux/Linux_DnsElementConformsToProfile.system: 
+	  Fixes for testsuite and maintenance release 0.5.5-1 
+	 
 2008-04-30 15:25  skanan
 	* NEWS: Maintenance release 0.5.4-1
 

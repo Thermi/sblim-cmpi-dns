@@ -197,6 +197,17 @@ fi
 
 ###############################################################################
 %changelog
+* Mon May 12 2008 Saravanan Kannan <skanan(at)us.ibm.com> 0.5.5-1
+    o Fixes for testsuite issues
+    
+* Wed Apr 30 2008 Saravanan Kannan <skanan(at)us.ibm.com>  0.5.4-1
+    o 1939841  cmpi-dns: Registered Profile support 
+    
+* Tue Dec 11 2007 Sam Kannan <skanan@us.ibm.com> 0.5.4-1
+    o 1845494  cmpi-dns: Include proper group definition for RPM build
+    o 1815304  cmpi-dns: Man page for the dns specific config file
+    o 1814089  cmpi-dns: Enhancements to build process
+
 * Tue Dec 11 2007 Sam Kannan <skanan@us.ibm.com> 0.5.3-1
     o 1845494  cmpi-dns: Include proper group definition for RPM build
     o 1815304  cmpi-dns: Man page for the dns specific config file
