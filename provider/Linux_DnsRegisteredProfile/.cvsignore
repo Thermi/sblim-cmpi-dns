@@ -1,6 +1,0 @@
-.libs
-.deps
-libcmpiLinux_DnsRegisteredProfile.la
-CmpiLinux_DnsRegisteredProfileProvider.lo
-Makefile
-Makefile.in

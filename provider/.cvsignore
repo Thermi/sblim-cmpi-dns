@@ -1,9 +1,0 @@
-.libs
-.deps
-Makefile
-libIBM_DnsProviderTooling.la
-smt_dns_array.lo
-libLinux_DnsGeneralProviderBasic.la
-CmpiErrorFormater.lo
-ArrayConverter.lo
-Makefile.in

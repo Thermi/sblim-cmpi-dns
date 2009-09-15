@@ -2,13 +2,13 @@
 // CIM_ConcreteJobInstance.cpp
 //     created on Thu, 23 Nov 2006 using ECUTE 2.2
 // 
-// Copyright (c) 2006, International Business Machines
+// Copyright (c) 2006, 2009, International Business Machines
 //
-// THIS FILE IS PROVIDED UNDER THE TERMS OF THE COMMON PUBLIC LICENSE
+// THIS FILE IS PROVIDED UNDER THE TERMS OF THE ECLIPSE PUBLIC LICENSE
 // ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE 
 // CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
 //
-// You can obtain a current copy of the Common Public License from
+// You can obtain a current copy of the Eclipse Public License from
 // http://www.opensource.org/licenses/cpl1.0.txt
 //
 // Author:        generated
@@ -18,7 +18,7 @@
 //                Murillo Bernardes  <bernarde(at)br.ibm.com>
 //                Mukunda Chowdaiah  <cmukunda(at)in.ibm.com>
 //                Ashoka S Rao       <ashoka.rao(at)in.ibm.com>
-//
+//				  Amir Sanjar        <v1sanjar(at)us.ibm.com>
 // =======================================================================
 //
 // 

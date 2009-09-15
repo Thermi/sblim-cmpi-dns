@@ -14,7 +14,7 @@ Version: @PACKAGE_VERSION@
 Release: 1
 Group: Systems Management/Instrumentation
 URL: http://www.sblim.org
-License: CPL
+License: EPL
 Requires: sblim-tools-libra
 Requires: bind 
 BuildRequires: sblim-tools-libra-devel
