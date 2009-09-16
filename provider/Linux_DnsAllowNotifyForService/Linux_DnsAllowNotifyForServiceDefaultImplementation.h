@@ -9,7 +9,7 @@
 // CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
 //
 // You can obtain a current copy of the Eclipse Public License from
-// http://www.opensource.org/licenses/cpl1.0.txt
+// http://www.opensource.org/licenses/eclipse-1.0.php
 //
 // Author:        generated
 //

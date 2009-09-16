@@ -1,12 +1,14 @@
 // ============================================================================
 // Copyright © 2007, International Business Machines
 //
+// Copyright (c) 2006, 2009, International Business Machines
+//
 // THIS FILE IS PROVIDED UNDER THE TERMS OF THE ECLIPSE PUBLIC LICENSE
-// ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE
+// ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE 
 // CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
 //
 // You can obtain a current copy of the Eclipse Public License from
-// http://oss.software.ibm.com/developerworks/opensource/license-cpl.html
+// http://www.opensource.org/licenses/eclipse-1.0.php
 //
 // Authors:             Sam Kannan <samkannan (at) us.ibm.com>
 // ============================================================================

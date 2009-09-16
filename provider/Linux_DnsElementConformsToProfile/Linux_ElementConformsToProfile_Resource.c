@@ -6,7 +6,7 @@
 /// CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
 ///
 /// You can obtain a current copy of the Eclipse Public License from
-/// http://oss.software.ibm.com/developerworks/opensource/license-cpl.html
+/// http://www.opensource.org/licenses/eclipse-1.0.php
 ///
 /// Authors:	Sam Kannan <samkannan (at) us.ibm.com
 ///
